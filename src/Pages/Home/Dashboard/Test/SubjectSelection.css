@@ -1,0 +1,105 @@
+.spa {
+  background-color: #0659a6;
+  margin: 20px 0;
+  width: 100vw;
+  height: 50px;
+}
+.sel {
+  margin: 50px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+}
+.sel label {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 16px;
+}
+.talk {
+  margin: 50px;
+}
+.head {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 2px;
+  justify-content: center;
+}
+.talk p {
+  text-align: justify;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 2;
+}
+.talk .ma {
+  margin: 12px auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.talk ul {
+  margin: 12px 0;
+}
+.talk li {
+  list-style: disc;
+  margin-left: 20px;
+}
+.head .inst {
+  background-color: #052747;
+  margin: 30px 0;
+  width: 3vw;
+  height: 5px;
+}
+
+.talk h3 {
+  text-align: center;
+  margin: 20px;
+}
+.but {
+  margin: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.but .bot {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #0659a6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.but .bot a {
+  color: white;
+}
+.but button:hover {
+  transform: scale(1.05);
+}
+
+.sel input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  appearance: none;
+  border-radius: 4px;
+  position: relative;
+}
+.sel input[type="checkbox"]:checked{
+  background-color: #0659a6;
+}
+.sel input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 12px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(40deg);
+}

@@ -1,0 +1,68 @@
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .date-time-box{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .date-time-box .calend {
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: 500;
+    
+  }
+  
+  .download-btn {
+    padding: 12px 25px;
+    background-color: #0659a6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 50px;
+  }
+  
+  .download-btn:hover {
+    background-color: #05488d;
+  }
+  
+  .middle-section {
+    flex-grow: 1;
+    padding: 30px 20px;
+  }
+  
+  .right-section {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .stats-box{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  .stats-box div{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  
+  

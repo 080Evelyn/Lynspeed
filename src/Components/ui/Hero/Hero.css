@@ -1,0 +1,122 @@
+.hero {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 50px;
+  gap: 30px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 50px;
+}
+
+.write-up {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  gap: 20px;
+}
+
+.write1 {
+  color: #0659a6;
+  font-size: 75px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.write2 {
+  width: 40vw;
+  font-weight: 400;
+}
+
+.write1 span {
+  color: #fcd156;
+}
+
+.reg {
+  padding: 12px 30px;
+  border-radius: 5px;
+  background: #0659a6;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.5s;
+  margin: 30px;
+}
+
+.reg a {
+  color: white;
+}
+
+.reg:hover {
+  transform: scale(1.1);
+}
+
+.pic {
+  margin: 10px;
+  height: 100vh;
+  width: 50%;
+  background-image: url(/src/assets/homebackpic.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  transition: transform 0.5s ease-in-out;
+}
+
+.pic img {
+  width: 100%;
+  height: auto;
+}
+
+/* Animations */
+.animate-text {
+  animation: scaleIn 1.5s ease forwards;
+}
+.animate-image {
+  animation: slideInRight 1.2s ease forwards;
+}
+
+.animate-subtext {
+  animation: fadeInWithDelay 2s ease-in 0.8s forwards;
+}
+
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInWithDelay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

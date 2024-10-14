@@ -1,0 +1,36 @@
+.performance-analysis {
+    width: auto;
+    margin: 20px;
+  }
+  
+  .performance-analysis h2 {
+    text-align: center;
+    color: #0659a6;
+    margin: 50px;
+    font-size: 28px;
+  }
+  
+  .performance-analysis h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .chart-container {
+    margin: 30px;
+    background-color: #f9f9f9;
+    padding: 30px 30px 80px;
+    border-radius: 10px;
+    max-height: 600px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+    .chart-container canvas {
+      height: 300px;
+    }
+  }
+  

@@ -1,0 +1,25 @@
+.privacy{
+    margin: 50px 70px;
+   
+}
+.privacy .head{ 
+    align-items: center;
+    margin: 20px;
+    text-align: center;
+    color: #0659a6;
+}
+.privacy .first{
+    margin: 30px 0;
+}
+.privacy .set{
+    margin: 20px 0;
+    
+}
+.set h2{
+    font-size: 20px;
+    font-weight: 700;
+}
+.set h3{
+    font-size: 17px;
+   
+}

@@ -1,0 +1,116 @@
+/* AboutUs.css */
+
+.about-us-container {
+  margin: 10px 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.about-us-container h3 {
+  color: #0659a6;
+  font-size: 40px;
+  margin: 30px;
+}
+
+.fir {
+  margin-top: 20px;
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 70px;
+}
+.fir p{
+  line-height: 1.5;
+}
+
+.highlighted-text {
+  color: #0056b3;
+  font-weight: 700;
+}
+
+img {
+  border-radius: 8px;
+}
+
+.features-section {
+  margin-bottom: 40px;
+}
+
+.features-section h3 {
+  text-align: center;
+  font-size: 28px;
+  color: #181313e3;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  gap: 30px;
+  margin: 0px auto;
+  width: 95%;
+}
+
+.feature-block {
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+  border-radius: 8px;
+  padding: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.5s;
+}
+.feature-block:hover{
+  transform:scale(1.05) ;
+}
+
+.feature-block h3 {
+  color: #0056b3;
+  font-size: 22px;
+  text-align: center;
+  margin: 20px 10px;
+}
+
+.feature-block p {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.why-choose-us {
+  margin: 35px;
+}
+
+.chose{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 20px;
+  max-width: 95vw;
+  margin: 0 auto;
+}
+.why-choose-us h3 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #181313e3;
+}
+
+.why-list {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.why-list li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.why-list strong {
+  color: #0056b3;
+}
+
