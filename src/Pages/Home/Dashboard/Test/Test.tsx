@@ -44,11 +44,21 @@ const Test: React.FC = () => {
         question: "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
       },
+      {
+        id: 2,
+        question: "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+      },
       // Add more questions
     ],
     "Chemistry": [
       {
         id: 1,
+        question: "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+      },
+      {
+        id: 2,
         question: "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
       },
