@@ -129,8 +129,7 @@ const About = () => {
             <div className="image-section">
               <img
                 src={choose}
-                alt=""
-                style={{ width: "100%", height: "50%" }}
+                alt="why choose us"
               />
             </div>
           </div>
