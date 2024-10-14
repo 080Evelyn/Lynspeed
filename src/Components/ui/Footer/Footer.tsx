@@ -3,6 +3,7 @@ import logo from "../../../assets/logosalone.png";
 import insta from '../../../assets/IG.png'
 import twit from '../../../assets/twitter.jpeg'
 import face from '../../../assets/Facebok.jpeg'
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -24,20 +25,12 @@ const Footer = () => {
               <strong>Product</strong>
             </p>
             <li>
-              <a href="/home">Home</a>
+              <Link to="/home">Home</Link>
             </li>
-            <li>
-              <a href="/about">About Us</a>
-            </li>
-            <li>
-              <a href="/pricing">Pricing</a>
-            </li>
-            <li>
-              <a href="/contact">Contact Us</a>
-            </li>
-            <li>
-              <a href="/blog">Blog</a>
-            </li>
+            <li><Link to="/about">About</Link></li>
+        <li><Link to="/pricing">Pricing</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/blog">Blog</Link></li>
           </ul>
         </div>
 
@@ -47,13 +40,13 @@ const Footer = () => {
               <strong>Useful Link</strong>
             </p>
             <li>
-              <a href="/faq">FAQ</a>
+              <Link to="/faq">FAQ</Link>
             </li>
             <li>
-              <a href="/privacy">Privacy Policy</a>
+              <Link to="/privacy">Privacy Policy</Link>
             </li>
             <li>
-              <a href="/terms">Terms & Conditions</a>
+              <Link to="/terms">Terms & Conditions</Link>
             </li>
           </ul>
         </div>
