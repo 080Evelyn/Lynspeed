@@ -5,7 +5,6 @@ import blogpic1 from "../../assets/blogpic1.png";
 import blogpic2 from "../../assets/logpic2.png";
 import blogpic3 from "../../assets/blogpic3.png";
 import blogpic4 from "../../assets/logpic4.png";
-import blogpic5 from "../../assets/innocent.jpeg";
 
 const Blog = () => {
   return (
