@@ -1,9 +1,5 @@
 .gather {
-    margin: 50px 40px;
     display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 250px;
 }
 
 .gather .left {
