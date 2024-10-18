@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+//import { Provider } from "react-redux"; // Import Provider from react-redux // Import your Redux store
 import "./index.css";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
@@ -20,6 +21,7 @@ import Terms from "./Components/ui/Terms/Terms";
 import Notification from "./Pages/Home/Dashboard/Notification/Notification";
 import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
+//import { store } from "./State/Store";
 
 const router = createBrowserRouter([
   {
@@ -100,8 +102,13 @@ const router = createBrowserRouter([
     element: <Performance />,
   },
 ]);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+   {/* <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider> */}
+<RouterProvider router={router} />
+
   </React.StrictMode>
 );
