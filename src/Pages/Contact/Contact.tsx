@@ -27,12 +27,15 @@ const Contact = () => {
     console.log(formData);
   };
   return (
-    <>
+    <div>
       <Navbar />
-      <div className="contact-container">
+      <div className="contact-container container mx-auto grid place-content-center text-center py-10 space-y-10">
         <h3>Contact Support</h3>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-group">
+        <form
+          className="max-w-md space-y-4 px-5 md:px-0"
+          onSubmit={handleSubmit}
+        >
+          <div>
             <label htmlFor="name">Your Name*</label>
             <input
               type="text"
@@ -42,11 +45,10 @@ const Contact = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
-              className="contact-input"
             />
           </div>
 
-          <div className="form-group">
+          <div>
             <label htmlFor="email">Email Address*</label>
             <input
               type="email"
@@ -55,11 +57,10 @@ const Contact = () => {
               placeholder="Eg. xxxxxxx@gmail.com"
               value={formData.email}
               onChange={handleInputChange}
-              className="contact-input"
             />
           </div>
 
-          <div className="form-group">
+          <div>
             <label htmlFor="phone">Phone Number</label>
             <input
               type="tel"
@@ -68,31 +69,28 @@ const Contact = () => {
               placeholder="Eg. 08140003000"
               value={formData.phone}
               onChange={handleInputChange}
-              className="contact-input"
             />
           </div>
 
-          <div className="form-group">
+          <div>
             <label htmlFor="message">Message*</label>
             <textarea
               rows={7}
-              cols={57}
               id="message"
               name="message"
               placeholder="Please enter your comments......"
               value={formData.message}
               onChange={handleInputChange}
-              className="contact-textarea"
-            ></textarea>
+              className="border p-4 w-full rounded-md"
+            />
           </div>
           <button type="submit" className="contact-submit">
             Submit
           </button>
         </form>
-       
       </div>
-      <Footer/>
-    </>
+      <Footer />
+    </div>
   );
 };
 

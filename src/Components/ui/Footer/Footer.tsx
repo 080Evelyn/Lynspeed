@@ -1,14 +1,14 @@
 import "./Footer.css";
 import logo from "../../../assets/logosalone.png";
-import insta from '../../../assets/IG.png'
-import twit from '../../../assets/twitter.jpeg'
-import face from '../../../assets/Facebok.jpeg'
+import insta from "../../../assets/IG.png";
+import twit from "../../../assets/twitter.jpeg";
+import face from "../../../assets/Facebok.jpeg";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer>
-      <div className="footer-container">
+      <div className="footer-container flex-col md:flex-row">
         <div className="footer-logo">
           <img src={logo} alt="Website Logo" />
           <p>
@@ -27,10 +27,18 @@ const Footer = () => {
             <li>
               <Link to="/home">Home</Link>
             </li>
-            <li><Link to="/about">About</Link></li>
-        <li><Link to="/pricing">Pricing</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
-        <li><Link to="/blog">Blog</Link></li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/pricing">Pricing</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li>
+              <Link to="/blog">Blog</Link>
+            </li>
           </ul>
         </div>
 
@@ -63,7 +71,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={face} alt="Facebook"/>
+              <img src={face} alt="Facebook" />
             </a>
             <a
               href="https://www.twitter.com/lynspeed"
@@ -77,7 +85,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={insta} alt="Instagram" style={{width: '95%'}}/>
+              <img src={insta} alt="Instagram" style={{ width: "95%" }} />
             </a>
           </div>
         </div>
@@ -87,7 +95,19 @@ const Footer = () => {
         <div className="space"></div>
         <p>&copy; 2024 Lynspeed. All Rights Reserved.</p>
         <p>
+<<<<<<< HEAD
           Designed by  <strong>LYNOG TECH NIG</strong>.
+=======
+          Designed by{" "}
+          <a
+            href="https://www.lynogtech.com.ng"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <strong>LYNOG TECH NIG</strong>
+          </a>
+          .
+>>>>>>> d3bb6cc8adb5cd6e23e2af2664f9fcbff8858448
         </p>
       </div>
     </footer>

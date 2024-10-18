@@ -1,65 +1,32 @@
-.gather {
-  margin: 50px 40px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 280px;
-}
-.gather .left {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 30px;
-}
-.rightsign {
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-}
 h3 {
   color: #0659a6;
   font-size: 25px;
   font-weight: 600;
 }
-.fillup {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 40px;
-}
-input {
-  width: 550px;
-  height: 55px;
-  padding: 15px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #d1d1d1;
-  background-color: #f0f0f0;
-}
+
 input::placeholder {
   color: #b1b1b1;
 }
+
 .down {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 8px;
 }
+
 .textlog {
   color: rgb(247, 247, 51);
   font-weight: 500;
   font-size: 18px;
 }
-.down1{
-    margin-left: 350px;}
 
 .log a {
   color: #e7e737;
   font-size: 18px;
   font-weight: 500;
 }
+
 .signup-button {
   padding: 10px 20px;
   font-size: 18px;
@@ -70,6 +37,7 @@ input::placeholder {
   cursor: pointer;
   transition: 0.5s;
 }
+
 .signup-button:hover {
   transform: scale(1.05);
 }

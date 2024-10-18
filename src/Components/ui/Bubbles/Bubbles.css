@@ -4,16 +4,19 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  z-index: -1; /* Ensure the bubbles are behind content */
+  z-index: -1;
+  /* Ensure the bubbles are behind content */
 }
 
 .bubble {
   position: absolute;
-  bottom: -100px; /* Start position is below the viewport */
-  background-color: rgba(5, 109, 219, 0.3); /* Light blue bubble color */
+  bottom: -100px;
+  /* Start position is below the viewport */
+  background-color: rgba(5, 109, 219, 0.3);
+  /* Light blue bubble color */
   border-radius: 50%;
   animation: rise 8s infinite;
 
@@ -23,20 +26,26 @@
 /* Keyframes for the rising bubble animation */
 @keyframes rise {
   0% {
-    transform: translateY(100vh) scale(0.5); /* Start below and smaller */
+    transform: translateY(100vh) scale(0.5);
+    /* Start below and smaller */
     opacity: 0.5;
   }
+
   30% {
     opacity: 0.3;
   }
+
   50% {
     opacity: 0.8;
   }
+
   70% {
     opacity: 0.7;
   }
+
   100% {
-    transform: translateY(-100vh) scale(1.2); /* End above and larger */
+    transform: translateY(-100vh) scale(1.2);
+    /* End above and larger */
     opacity: 0;
   }
 }

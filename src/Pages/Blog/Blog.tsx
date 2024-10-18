@@ -14,7 +14,7 @@ const Blog = () => {
         <div className="header">
           <h2>Blog</h2>
         </div>
-        <div className="section">
+        <div className="section flex-col md:flex-row">
           <img src={blogpic1} alt="passing JAMB" />
           <div className="top">
             <h2>How to pass JAMB with flying colours</h2>
@@ -32,7 +32,7 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="section">
+        <div className="section flex-col md:flex-row">
           <div className="top">
             <h2>Is it important to study Jamb past questions</h2>
             <p>
@@ -43,7 +43,7 @@ const Blog = () => {
           </div>
           <img src={blogpic2} alt="importance of past question" />
         </div>
-        <div className="section">
+        <div className="section flex-col md:flex-row">
           <img src={blogpic3} alt="common mistakes in JAMB" />
           <div className="top">
             <h2>Common mistakes students make in JAMB</h2>
@@ -55,7 +55,7 @@ const Blog = () => {
             </p>
           </div>
         </div>
-        <div className="section">
+        <div className="section flex-col md:flex-row">
           <div className="top">
             <h2>How to manage time during exam</h2>
             <p>
@@ -68,7 +68,6 @@ const Blog = () => {
           </div>
           <img src={blogpic4} alt="time management" />
         </div>
-  
       </div>
       <Footer />
     </>

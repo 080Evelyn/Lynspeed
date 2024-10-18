@@ -6,6 +6,7 @@
   align-items: center;
   flex-direction: column;
 }
+
 .about-us-container h3 {
   color: #0659a6;
   font-size: 40px;
@@ -17,10 +18,10 @@
   position: relative;
   align-items: center;
   display: flex;
-  flex-direction: row;
   gap: 70px;
 }
-.fir p{
+
+.fir p {
   line-height: 1.5;
 }
 
@@ -45,7 +46,6 @@ img {
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   gap: 30px;
   margin: 0px auto;
   width: 95%;
@@ -56,14 +56,15 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
- 
+
   border-radius: 8px;
-  padding: 20px; 
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: 0.5s;
 }
-.feature-block:hover{
-  transform:scale(1.05) ;
+
+.feature-block:hover {
+  transform: scale(1.05);
 }
 
 .feature-block h3 {
@@ -80,19 +81,15 @@ img {
   line-height: 1.5;
 }
 
-.why-choose-us {
-  margin: 35px;
-}
 
-.chose{
+.chose {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 30px;
-  flex-direction: row;
-  padding: 10px;
   margin: 0 auto;
 }
+
 .why-choose-us h3 {
   text-align: center;
   font-size: 28px;
@@ -114,6 +111,6 @@ img {
   color: #0056b3;
 }
 
-.image-section img{
+.image-section img {
   max-width: 75%;
 }

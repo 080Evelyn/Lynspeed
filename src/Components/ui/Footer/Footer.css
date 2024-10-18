@@ -2,19 +2,18 @@ footer {
   display: flex;
   align-items: center;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 12px;
   margin-top: 20px;
-  width: 100vw;
   background-color: #f9f9f9;
 }
 
 .footer-container {
   display: flex;
-  flex-direction: row;
   gap: 30px;
   width: 100%;
-  max-width: 1200px; /* Limit max width to make it neat on larger screens */
+  /* Limit max width to make it neat on larger screens */
   padding-top: 20px;
   margin: 20px;
 }
@@ -24,7 +23,8 @@ footer {
   align-items: start;
   flex-direction: column;
   gap: 15px;
-  flex: 1; /* Allow it to expand naturally */
+  flex: 1;
+  /* Allow it to expand naturally */
 }
 
 .footer-logo p {
@@ -32,7 +32,8 @@ footer {
   font-weight: 400;
   color: #333;
   text-align: justify;
-  line-height: 1.6; /* Improves readability */
+  line-height: 1.6;
+  /* Improves readability */
 }
 
 .footer-links,
@@ -40,7 +41,6 @@ footer {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
 }
 
@@ -70,7 +70,8 @@ li a {
 }
 
 li a:hover {
-  color: #000; /* Color change on hover for better UX */
+  color: #000;
+  /* Color change on hover for better UX */
 }
 
 .connect {
@@ -98,7 +99,8 @@ li a:hover {
 }
 
 .footer-social a:hover img {
-  transform: scale(1.1); /* Adds a hover effect for better interaction */
+  transform: scale(1.1);
+  /* Adds a hover effect for better interaction */
 }
 
 .footer-copyright {
@@ -120,6 +122,11 @@ li a:hover {
   font-size: 14px;
   font-weight: 500;
 }
+<<<<<<< HEAD
 .footer-copyright p strong{
+=======
+
+.footer-copyright a {
+>>>>>>> d3bb6cc8adb5cd6e23e2af2664f9fcbff8858448
   color: #0659a6;
 }
