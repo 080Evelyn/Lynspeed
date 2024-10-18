@@ -58,7 +58,7 @@ const Login = () => {
     <div>
       <Navbar />
       <Bubbles />
-      <div className="flex container mx-auto px-5 py-10 items-center gap-10 justify-between flex-col md:flex-row">
+      <div className="flex container mx-auto px-5 py-10 items-center gap-10 justify-center md:gap-[250px] flex-col-reverse md:flex-row">
         <div className="">
           <img src={note3} alt="signup" width={200} className="mx-auto" />
         </div>
