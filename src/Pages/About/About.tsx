@@ -10,7 +10,7 @@ const About = () => {
       <Navbar />
       <div className="about-us-container">
         <h3>About Us</h3>
-        <div className="fir">
+        <div className="fir flex-col md:flex-row">
           <p>
             <span className="highlighted-text">Lynspeed</span> is a
             comprehensive platform designed to help students excel in the Joint
@@ -22,7 +22,7 @@ const About = () => {
 
         <section className="features-section">
           <h3>Our key features</h3>
-          <div className="features-grid">
+          <div className="features-grid grid-cols-1 md:grid-cols-3">
             <div className="feature-block">
               <h3>Extensive Question Bank</h3>
               <p>
@@ -101,7 +101,7 @@ const About = () => {
 
         <section className="why-choose-us">
           <h3>Why choose us</h3>
-          <div className="chose">
+          <div className="chose flex-col md:flex-row">
             <ul className="why-list">
               <li>
                 <strong>Exam Familiarity</strong>: By simulating the actual JAMB
@@ -127,10 +127,7 @@ const About = () => {
             </ul>
 
             <div className="image-section">
-              <img
-                src={choose}
-                alt="why choose us"
-              />
+              <img src={choose} alt="why choose us" />
             </div>
           </div>
         </section>

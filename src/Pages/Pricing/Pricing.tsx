@@ -1,13 +1,13 @@
- import Footer from "../../Components/ui/Footer/Footer";
+import Footer from "../../Components/ui/Footer/Footer";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import "./Pricing.css";
 
 const Pricing = () => {
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <h1 className="pricing-title">Pricing List</h1>
-      <div className="pricing-cards">
+      <div className="pricing-cards grid-cols-1 md:grid-cols-3 container mx-auto px-5">
         <div className="card">
           <div className="card-header">
             <div className="corner-icon"></div>
@@ -26,7 +26,6 @@ const Pricing = () => {
           </div>
         </div>
 
-        
         <div className="card">
           <div className="card-header">
             <div className="corner-icon"></div>
@@ -36,7 +35,7 @@ const Pricing = () => {
             <h2>WEEKLY</h2>
             <h3>₦600</h3>
             <ul>
-              <li></li> 
+              <li></li>
               <li></li>
               <li></li>
               <li></li>
@@ -45,7 +44,6 @@ const Pricing = () => {
           </div>
         </div>
 
-        
         <div className="card">
           <div className="card-header">
             <div className="corner-icon"></div>
@@ -69,4 +67,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;                                  
+export default Pricing;
