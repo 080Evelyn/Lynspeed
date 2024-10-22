@@ -72,13 +72,17 @@ const Register: React.FC = () => {
         navigate('/login');
       } else {
         // Handle backend errors
-        setError(response.data.message || 'Registration failed. Please try again.');
-        dispatch({ type: REGISTER_FAILURE, payload: response.data.message });
+        const errorMessage = response.data.message || 'Registration failed. Please try again.';
+        setError(errorMessage);
+        dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
     } catch (err: any) {
       // Catch and handle any other errors
-      setError('An error occurred. Please try again.');
-      dispatch({ type: REGISTER_FAILURE, payload: err.message });
+      const errorMessage = axios.isAxiosError(err) && err.response 
+        ? err.response.data.message || 'An error occurred. Please try again.'
+        : 'An unexpected error occurred. Please try again.';
+      setError(errorMessage);
+      dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
     }
   };
 
