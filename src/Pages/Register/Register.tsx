@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux'; // Ensure correct import from react-redux
-import axios from 'axios'; // Ensure axios is imported
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note1 from '../../assets/image 17.png';
 import note2 from '../../assets/image 18.png';
@@ -9,21 +9,21 @@ import './Register.css';
 import Footer from "../../Components/ui/Footer/Footer";
 import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../../State/Auth/ActionType';
 
-const Register = () => {
-  const navigate = useNavigate(); // To navigate after successful registration
-  const dispatch = useDispatch(); // Redux dispatch hook
+const Register: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [fullName, setFullName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
 
   // Password validation
-  const isValidPassword = (password: string) => {
+  const isValidPassword = (password: string): boolean => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    return passwordRegex.test(password);
+    return passwordRegex.test(password.trim());
   };
 
   // Handle registration submission
@@ -33,12 +33,13 @@ const Register = () => {
     setSuccessMessage('');
 
     // Password validation logic
-    if (password !== confirmPassword) {
+    const trimmedPassword = password.trim();
+    if (trimmedPassword !== confirmPassword.trim()) {
       setError('Passwords do not match.');
       return;
     }
 
-    if (!isValidPassword(password)) {
+    if (!isValidPassword(trimmedPassword)) {
       setError('Password must be at least 8 characters long and contain at least one uppercase letter and a number.');
       return;
     }
@@ -51,7 +52,7 @@ const Register = () => {
       const response = await axios.post('https://lynspeed.pythonanywhere.com/register/', {
         full_name: fullName,
         email: email,
-        password: password,
+        password: trimmedPassword,
       });
 
       // Handle successful response
@@ -74,10 +75,10 @@ const Register = () => {
         setError(response.data.message || 'Registration failed. Please try again.');
         dispatch({ type: REGISTER_FAILURE, payload: response.data.message });
       }
-    } catch (err) {
+    } catch (err: any) {
       // Catch and handle any other errors
       setError('An error occurred. Please try again.');
-      dispatch({ type: REGISTER_FAILURE, payload: error });
+      dispatch({ type: REGISTER_FAILURE, payload: err.message });
     }
   };
 
