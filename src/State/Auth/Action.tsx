@@ -19,7 +19,7 @@ interface UserData {
 export const register = (userData: UserData) => async (dispatch: Dispatch) => {
     dispatch({ type: REGISTER_REQUEST });
 
-    const baseUrl = "https://lynspeed.pythonanywhere.com";
+    const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
 
     try {
         const response = await axios.post(`${baseUrl}/register/`, userData);
@@ -36,7 +36,7 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
 export const login = (userData: UserData) => async (dispatch: Dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
-    const baseUrl = "https://lynspeed.pythonanywhere.com";
+    const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
 
     try {
         const response = await axios.post(`${baseUrl}/login/`, userData);
