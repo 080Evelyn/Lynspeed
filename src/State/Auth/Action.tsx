@@ -1,48 +1,51 @@
 import axios from "axios";
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType";
+import { 
+    LOGIN_FAILURE, 
+    LOGIN_REQUEST, 
+    LOGIN_SUCCESS, 
+    REGISTER_FAILURE, 
+    REGISTER_REQUEST, 
+    REGISTER_SUCCESS 
+} from "./ActionType";
+import { Dispatch } from "redux"; // Import Dispatch type if using TypeScript
 
-export const register = (userData: any) => async (dispatch) => {
-    dispatch({type:REGISTER_REQUEST})
+interface UserData {
+    // Define properties according to your user data structure
+    email: string;
+    password: string;
+    // Add more fields as needed
+}
 
-  const baseUrl = "https://lynspeed.pythonanywhere.com";
+export const register = (userData: UserData) => async (dispatch: Dispatch) => {
+    dispatch({ type: REGISTER_REQUEST });
 
+    const baseUrl = "https://lynspeed.pythonanywhere.com";
 
+    try {
+        const response = await axios.post(`${baseUrl}/register/`, userData);
+        const user = response.data;
+        console.log(user);
 
-  try {
-    const response = await axios.post(
-      `${baseUrl}/register/`,userData);
-    const user = response.data;
-    console.log(user);
-
-    dispatch({type:REGISTER_SUCCESS,payload:user.jwt})
-  }
-  
-  catch (error) {
-    dispatch({type:REGISTER_FAILURE,payload:error.message})
-    console.log(error);
-  }
+        dispatch({ type: REGISTER_SUCCESS, payload: user.jwt });
+    } catch (error) {
+        dispatch({ type: REGISTER_FAILURE, payload:error });
+        console.log(error);
+    }
 };
 
+export const login = (userData: UserData) => async (dispatch: Dispatch) => {
+    dispatch({ type: LOGIN_REQUEST });
 
+    const baseUrl = "https://lynspeed.pythonanywhere.com";
 
-export const login = (userData: any) => async (dispatch) => {
-    dispatch({type:LOGIN_REQUEST})
+    try {
+        const response = await axios.post(`${baseUrl}/login/`, userData);
+        const user = response.data;
+        console.log(user);
 
-  const baseUrl = "https://lynspeed.pythonanywhere.com";
-
-
-
-  try {
-    const response = await axios.post(
-      `${baseUrl}/login/`,userData);
-    const user = response.data;
-    console.log(user);
-
-    dispatch({type:LOGIN_SUCCESS,payload:user.jwt})
-  }
-  
-  catch (error) {
-    dispatch({type:LOGIN_FAILURE,payload:error})
-    console.log(error);
-  }
+        dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
+    } catch (error) {
+        dispatch({ type: LOGIN_FAILURE, payload: error }); // Using error.message for consistency
+        console.log(error);
+    }
 };

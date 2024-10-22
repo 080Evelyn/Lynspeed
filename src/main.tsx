@@ -21,6 +21,8 @@ import Terms from "./Components/ui/Terms/Terms";
 import Notification from "./Pages/Home/Dashboard/Notification/Notification";
 import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
+import { Provider } from "react-redux";
+import { store } from "./State/Store";
 //import { store } from "./State/Store";
 
 const router = createBrowserRouter([
@@ -105,10 +107,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-   {/* <Provider store={store}>
+   <Provider store={store}>
       <RouterProvider router={router} />
-    </Provider> */}
-<RouterProvider router={router} />
+    </Provider>
+
 
   </React.StrictMode>
 );
