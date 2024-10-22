@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType";
 
-export const register = (userData: any) => async (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
+export const register = (userData: any) => async (dispatch) => {
     dispatch({type:REGISTER_REQUEST})
 
   const baseUrl = "https://lynspeed.pythonanywhere.com";
@@ -18,14 +18,14 @@ export const register = (userData: any) => async (dispatch: (arg0: { type: strin
   }
   
   catch (error) {
-    dispatch({type:REGISTER_FAILURE,payload:error})
+    dispatch({type:REGISTER_FAILURE,payload:error.message})
     console.log(error);
   }
 };
 
 
 
-export const login = (userData: any) => async (dispatch: (arg0: { type: string; payload?: any; }) => void) => {
+export const login = (userData: any) => async (dispatch) => {
     dispatch({type:LOGIN_REQUEST})
 
   const baseUrl = "https://lynspeed.pythonanywhere.com";

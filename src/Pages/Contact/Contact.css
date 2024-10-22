@@ -4,12 +4,12 @@
   flex-direction: column;
   gap: 30px;
   margin: 70px 50px;
-  background-image: url(../../assets/homebackpic.png);
+  background-image: url(../../assets//homebackpic.png);
   background-repeat: no-repeat;
 }
 h3 {
   color: #0659a6;
-  font: 40px;
+  font-size: 40px;
 }
 .contact-form {
   display: flex;
