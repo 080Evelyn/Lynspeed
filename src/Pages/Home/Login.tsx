@@ -25,7 +25,7 @@ const Login = () => {
 
     try {
       // Send the login request to the Django backend using Axios
-      const response = await axios.post('https://lynspeed.pythonanywhere.com/api/login/', {
+      const response = await axios.post('https://lynspeed.pythonanywhere.com/api/v1/login/', {
         email: email,
         password: password,
       });

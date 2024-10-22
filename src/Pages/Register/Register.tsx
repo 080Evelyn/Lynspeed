@@ -49,7 +49,7 @@ const Register: React.FC = () => {
       dispatch({ type: REGISTER_REQUEST });
 
       // Make the POST request with axios
-      const response = await axios.post('https://lynspeed.pythonanywhere.com/register/', {
+      const response = await axios.post('https://lynspeed.pythonanywhere.com/api/v1/register', {
         full_name: fullName,
         email: email,
         password: trimmedPassword,
