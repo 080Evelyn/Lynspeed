@@ -10,42 +10,59 @@ import {
 import { Dispatch } from "redux"; // Import Dispatch type if using TypeScript
 
 interface UserData {
-    // Define properties according to your user data structure
+    fullName: string;
     email: string;
     password: string;
-    // Add more fields as needed
+    confirmPassword: string; // Added confirmPassword field
 }
 
 export const register = (userData: UserData) => async (dispatch: Dispatch) => {
     dispatch({ type: REGISTER_REQUEST });
 
+    // Check if password and confirmPassword match before proceeding
+    if (userData.password !== userData.confirmPassword) {
+        const errorMessage = "Passwords do not match.";
+        console.log(errorMessage);
+        dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
+        return;
+    }
+
     const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
 
     try {
-        const response = await axios.post(`${baseUrl}/register/`, userData);
+        const response = await axios.post(`${baseUrl}/register/`, {
+            fullName: userData.fullName,
+            email: userData.email,
+            password: userData.password
+        });
+
         const user = response.data;
         console.log(user);
 
         dispatch({ type: REGISTER_SUCCESS, payload: user.jwt });
     } catch (error) {
-        dispatch({ type: REGISTER_FAILURE, payload:error });
+        dispatch({ type: REGISTER_FAILURE, payload: error });
         console.log(error);
     }
 };
 
-export const login = (userData: UserData) => async (dispatch: Dispatch) => {
+export const login = (userData: Omit<UserData, "confirmPassword">) => async (dispatch: Dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
     const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
 
     try {
-        const response = await axios.post(`${baseUrl}/login/`, userData);
+        const response = await axios.post(`${baseUrl}/login/`, {
+            email: userData.email,
+            password: userData.password
+        });
+
         const user = response.data;
         console.log(user);
 
         dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
     } catch (error) {
-        dispatch({ type: LOGIN_FAILURE, payload: error }); // Using error.message for consistency
+        dispatch({ type: LOGIN_FAILURE, payload: error });
         console.log(error);
     }
 };
