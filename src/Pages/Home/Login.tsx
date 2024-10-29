@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import axios from 'axios'; // Import axios
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from '../../assets/image 16.png';
@@ -80,7 +80,7 @@ const Login = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="down1">
               <div className="log">
-                <a href="#">Forgot password?</a>
+              <Link to="/forgotPassword">Forgot password?</Link>
               </div>
             </div>
             

@@ -23,7 +23,8 @@ import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
 import { Provider } from "react-redux";
 import { store } from "./State/Store";
-//import { store } from "./State/Store";
+import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
+import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,14 @@ const router = createBrowserRouter([
   {
     path: "test",
     element: <Test />,
+  },
+  {
+    path: "forgotPassword",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "resetPassword",
+    element: <ResetPassword />,
   },
   {
     path: "achievement",

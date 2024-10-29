@@ -1,26 +1,26 @@
 import axios from "axios";
-import { 
+import {
     LOGIN_REQUEST,
-    LOGIN_SUCCESS, 
-    LOGIN_FAILURE,  
-    REGISTER_FAILURE, 
-    REGISTER_REQUEST, 
-    REGISTER_SUCCESS 
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    REGISTER_FAILURE,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS
 } from "./ActionType";
 import { Dispatch } from "redux"; // Import Dispatch type if using TypeScript
 
 interface UserData {
-    fullName: string;
+    full_name: string;
     email: string;
     password: string;
-    confirmPassword: string; // Added confirmPassword field
+    confirm_password: string; // Added confirm_password field
 }
 
 export const register = (userData: UserData) => async (dispatch: Dispatch) => {
     dispatch({ type: REGISTER_REQUEST });
 
-    // Check if password and confirmPassword match before proceeding
-    if (userData.password !== userData.confirmPassword) {
+    // Check if password and confirm_password match before proceeding
+    if (userData.password !== userData.confirm_password) {
         const errorMessage = "Passwords do not match.";
         console.log(errorMessage);
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
@@ -31,7 +31,7 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
 
     try {
         const response = await axios.post(`${baseUrl}/register/`, {
-            fullName: userData.fullName,
+            full_name: userData.full_name,
             email: userData.email,
             password: userData.password
         });
@@ -40,13 +40,14 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
         console.log(user);
 
         dispatch({ type: REGISTER_SUCCESS, payload: user.jwt });
+        
     } catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error });
         console.log(error);
     }
 };
 
-export const login = (userData: Omit<UserData, "confirmPassword">) => async (dispatch: Dispatch) => {
+export const login = (userData: Omit<UserData, "confirm_password">) => async (dispatch: Dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
     const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
@@ -61,7 +62,7 @@ export const login = (userData: Omit<UserData, "confirmPassword">) => async (dis
         console.log(user);
 
         dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
-    } catch (error) {
+            } catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error });
         console.log(error);
     }

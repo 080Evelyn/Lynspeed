@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Navbar from "../../Components/ui/Navbar/Navbar";
@@ -7,89 +7,100 @@ import note1 from '../../assets/image 17.png';
 import note2 from '../../assets/image 18.png';
 import './Register.css';
 import Footer from "../../Components/ui/Footer/Footer";
-import ClipLoader from 'react-spinners/ClipLoader';  // Importing the ClipLoader for the spinner
+import ClipLoader from 'react-spinners/ClipLoader';
 import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../../State/Auth/ActionType';
 
+interface RegisterResponse {
+  message: string;
+  jwt: string;
+  confirmed: boolean;
+}
+
 const Register: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [fullName, setFullName] = useState<string>('');
+  const [full_name, setFull_name] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [confirm_password, setConfirm_password] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);  // New state for loader
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // Password validation
+  // Function to validate password with a regex pattern
   const isValidPassword = (password: string): boolean => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return passwordRegex.test(password.trim());
   };
 
-  // Handle registration submission
-  const handleRegister = async (event: React.FormEvent) => {
+  // Function to handle registration submission
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setError('');
     setSuccessMessage('');
-    setLoading(true); // Show loader when registration starts
+    setLoading(true);
 
-    // Password validation logic
-    const trimmedPassword = password.trim();
-    if (trimmedPassword !== confirmPassword.trim()) {
+    if (password.trim() !== confirm_password.trim()) {
       setError('Passwords do not match.');
-      setLoading(false); // Hide loader if there's an error
+      setLoading(false);
       return;
     }
 
-    if (!isValidPassword(trimmedPassword)) {
+    if (!isValidPassword(password.trim())) {
       setError('Password must be at least 8 characters long and contain at least one uppercase letter and a number.');
-      setLoading(false); // Hide loader if there's an error
+      setLoading(false);
       return;
     }
 
     try {
-      // Dispatch REGISTER_REQUEST action
       dispatch({ type: REGISTER_REQUEST });
 
-      // Make the POST request with axios
-      const response = await axios.post('https://lynspeed.pythonanywhere.com/api/v1/register/', {
-        full_name: fullName,
-        email: email,
-        password: trimmedPassword,
+      const response = await axios.post<RegisterResponse>('https://lynspeed.pythonanywhere.com/api/v1/register/', {
+        full_name,
+        email,
+        password: password.trim(),
+        confirm_password: confirm_password.trim(),
       });
 
-      // Handle successful response
-      if (response.status === 201) {
-        setSuccessMessage('Registration successful! Please check your email to confirm your account.');
-
-        // Dispatch REGISTER_SUCCESS action with JWT or user data from the backend
+      if (response.status === 200) {
+        if (response.data.confirmed) {
+          setSuccessMessage('Registration successful! Your account is confirmed. Please log in.');
+        } else {
+          setSuccessMessage('Registration successful! Please check your email to confirm your account.');
+        }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
 
-        // Clear the form fields
-        setFullName('');
+        // Clear input fields
+        setFull_name('');
         setEmail('');
         setPassword('');
-        setConfirmPassword('');
-
-        // Navigate to login page after successful email confirmation
-        navigate('/login');
+        setConfirm_password('');
       } else {
-        // Handle backend errors
         const errorMessage = response.data.message || 'Registration failed. Please try again.';
         setError(errorMessage);
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
     } catch (err: any) {
-      // Catch and handle any other errors
-      const errorMessage = axios.isAxiosError(err) && err.response
-        ? err.response.data.message || 'An error occurred. Please try again.'
-        : 'An unexpected error occurred. Please try again.';
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+
+      if (axios.isAxiosError(err) && err.response?.data) {
+        const errorData = err.response.data;
+
+        if (errorData.details) {
+          if (errorData.details.email) {
+            errorMessage = 'This email is already registered.';
+          } else if (errorData.details.full_name) {
+            errorMessage = 'Full name is required.';
+          }
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      }
+
       setError(errorMessage);
       dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
     } finally {
-      setLoading(false); // Hide loader when registration finishes
+      setLoading(false);
     }
   };
 
@@ -104,19 +115,18 @@ const Register: React.FC = () => {
         <div className="right">
           <h3>Sign Up</h3>
 
-          {/* Show loader if the loading state is true */}
           {loading ? (
             <div className="loader-container">
-              <ClipLoader color="#36D7B7" loading={loading} size={50} />
+              <ClipLoader color="#36D7B7" loading={loading} size={100} />
             </div>
           ) : (
             <form onSubmit={handleRegister} className="fillup">
               <input
                 type="text"
                 placeholder="Full Name"
-                name="fullname"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                name="full_name"
+                value={full_name}
+                onChange={(e) => setFull_name(e.target.value)}
                 required
               />
               <input
@@ -139,13 +149,15 @@ const Register: React.FC = () => {
                 type="password"
                 placeholder="Confirm Password"
                 name="confirm_password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirm_password}
+                onChange={(e) => setConfirm_password(e.target.value)}
                 required
               />
               {error && <p style={{ color: 'red' }}>{error}</p>}
               {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-              <button type="submit" className="signup-button">Sign Up</button>
+              <button type="submit" className="signup-button" disabled={loading}>
+                {loading ? 'Processing...' : 'Sign Up'}
+              </button>
             </form>
           )}
           <div className="down">

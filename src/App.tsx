@@ -17,6 +17,8 @@ import Terms from "./Components/ui/Terms/Terms";
 import Notification from "./Pages/Home/Dashboard/Notification/Notification";
 import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
+import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
+import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 
 const App = () => {
   return (
@@ -34,6 +36,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/subjectselection" element={<SubjectSelection />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/testresult" element={<TestResult />} />
