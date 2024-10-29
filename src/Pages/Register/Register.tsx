@@ -18,7 +18,6 @@ interface RegisterResponse {
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
-
   const [full_name, setFull_name] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -26,14 +25,13 @@ const Register: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [formVisible, setFormVisible] = useState<boolean>(true); // New state for form visibility
 
-  // Function to validate password with a regex pattern
   const isValidPassword = (password: string): boolean => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return passwordRegex.test(password.trim());
   };
 
-  // Function to handle registration submission
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setError('');
@@ -69,6 +67,8 @@ const Register: React.FC = () => {
           setSuccessMessage('Registration successful! Please check your email to confirm your account.');
         }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
+        
+        setFormVisible(false); // Hide the form on success
 
         // Clear input fields
         setFull_name('');
@@ -120,45 +120,50 @@ const Register: React.FC = () => {
               <ClipLoader color="#36D7B7" loading={loading} size={100} />
             </div>
           ) : (
-            <form onSubmit={handleRegister} className="fillup">
-              <input
-                type="text"
-                placeholder="Full Name"
-                name="full_name"
-                value={full_name}
-                onChange={(e) => setFull_name(e.target.value)}
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Create Password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                name="confirm_password"
-                value={confirm_password}
-                onChange={(e) => setConfirm_password(e.target.value)}
-                required
-              />
-              {error && <p style={{ color: 'red' }}>{error}</p>}
-              {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-              <button type="submit" className="signup-button" disabled={loading}>
-                {loading ? 'Processing...' : 'Sign Up'}
-              </button>
-            </form>
+            formVisible ? (
+              <form onSubmit={handleRegister} className="fillup">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  name="full_name"
+                  value={full_name}
+                  onChange={(e) => setFull_name(e.target.value)}
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Create Password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  name="confirm_password"
+                  value={confirm_password}
+                  onChange={(e) => setConfirm_password(e.target.value)}
+                  required
+                />
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <button type="submit" className="signup-button" disabled={loading}>
+                  {loading ? 'Processing...' : 'Sign Up'}
+                </button>
+              </form>
+            ) : (
+              <div className="success-message">
+                <p style={{ color: 'green' }}>{successMessage}</p>
+              </div>
+            )
           )}
           <div className="down">
             <p>Already have an account?</p>
