@@ -87,7 +87,7 @@ const Footer = () => {
         <div className="space"></div>
         <p>&copy; 2024 Lynspeed. All Rights Reserved.</p>
         <p>
-          Designed by  <strong>LYNOG TECH NIG</strong>.
+          Powered by  <strong>LYNOG TECH NIG</strong>.
         </p>
       </div>
     </footer>

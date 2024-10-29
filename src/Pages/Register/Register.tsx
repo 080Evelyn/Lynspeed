@@ -1,71 +1,106 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note1 from '../../assets/image 17.png';
 import note2 from '../../assets/image 18.png';
 import './Register.css';
 import Footer from "../../Components/ui/Footer/Footer";
+import ClipLoader from 'react-spinners/ClipLoader';
+import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../../State/Auth/ActionType';
 
-const Register = () => {
-  // State to capture form input values
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+interface RegisterResponse {
+  message: string;
+  jwt: string;
+  confirmed: boolean;
+}
 
-  // Password validation function
-  const isValidPassword = (password: string) => {
-    // Regular expression: at least 8 characters, one uppercase letter and a number
+const Register: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const [full_name, setFull_name] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirm_password, setConfirm_password] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Function to validate password with a regex pattern
+  const isValidPassword = (password: string): boolean => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    return passwordRegex.test(password);
+    return passwordRegex.test(password.trim());
   };
 
-  // Handle form submission
-  const handleRegister = async (event: React.FormEvent) => {
+  // Function to handle registration submission
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-
-    // Reset previous error
     setError('');
+    setSuccessMessage('');
+    setLoading(true);
 
-    // Check if passwords match
-    if (password !== confirmPassword) {
+    if (password.trim() !== confirm_password.trim()) {
       setError('Passwords do not match.');
+      setLoading(false);
       return;
     }
 
-    // Check if password meets criteria
-    if (!isValidPassword(password)) {
-      setError('Password must be at least 8 characters long and contain at least one uppercase letter and a number');
+    if (!isValidPassword(password.trim())) {
+      setError('Password must be at least 8 characters long and contain at least one uppercase letter and a number.');
+      setLoading(false);
       return;
     }
 
     try {
-      // Send registration data to the backend
-      const response = await fetch('/api/register/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          full_name: fullName,
-          email: email,
-          password: password,
-        }),
+      dispatch({ type: REGISTER_REQUEST });
+
+      const response = await axios.post<RegisterResponse>('https://lynspeed.pythonanywhere.com/api/v1/register/', {
+        full_name,
+        email,
+        password: password.trim(),
+        confirm_password: confirm_password.trim(),
       });
 
-      const data = await response.json();
+      if (response.status === 200) {
+        if (response.data.confirmed) {
+          setSuccessMessage('Registration successful! Your account is confirmed. Please log in.');
+        } else {
+          setSuccessMessage('Registration successful! Please check your email to confirm your account.');
+        }
+        dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
 
-      if (response.ok) {
-        console.log('Registration successful', data);
-        // Redirect or handle successful registration (e.g., redirect to login)
+        // Clear input fields
+        setFull_name('');
+        setEmail('');
+        setPassword('');
+        setConfirm_password('');
       } else {
-        // Handle errors returned by the backend
-        setError(data.message || 'Registration failed. Please try again.');
+        const errorMessage = response.data.message || 'Registration failed. Please try again.';
+        setError(errorMessage);
+        dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
-    } catch (err) {
-      console.error('Error during registration:', err);
-      setError('An error occurred. Please try again.');
+    } catch (err: any) {
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+
+      if (axios.isAxiosError(err) && err.response?.data) {
+        const errorData = err.response.data;
+
+        if (errorData.details) {
+          if (errorData.details.email) {
+            errorMessage = 'This email is already registered.';
+          } else if (errorData.details.full_name) {
+            errorMessage = 'Full name is required.';
+          }
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      }
+
+      setError(errorMessage);
+      dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,42 +114,52 @@ const Register = () => {
         </div>
         <div className="right">
           <h3>Sign Up</h3>
-          <form onSubmit={handleRegister} className="fillup">
-            <input
-              type="text"
-              placeholder="Full Name"
-              name="fullname"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Create Password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="confirm_password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <button type="submit" className="signup-button">Sign Up</button>
-          </form>
+
+          {loading ? (
+            <div className="loader-container">
+              <ClipLoader color="#36D7B7" loading={loading} size={100} />
+            </div>
+          ) : (
+            <form onSubmit={handleRegister} className="fillup">
+              <input
+                type="text"
+                placeholder="Full Name"
+                name="full_name"
+                value={full_name}
+                onChange={(e) => setFull_name(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Create Password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                name="confirm_password"
+                value={confirm_password}
+                onChange={(e) => setConfirm_password(e.target.value)}
+                required
+              />
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+              <button type="submit" className="signup-button" disabled={loading}>
+                {loading ? 'Processing...' : 'Sign Up'}
+              </button>
+            </form>
+          )}
           <div className="down">
             <p>Already have an account?</p>
             <div className="log">

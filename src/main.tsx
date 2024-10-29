@@ -21,7 +21,10 @@ import Terms from "./Components/ui/Terms/Terms";
 import Notification from "./Pages/Home/Dashboard/Notification/Notification";
 import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
-//import { store } from "./State/Store";
+import { Provider } from "react-redux";
+import { store } from "./State/Store";
+import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
+import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +88,14 @@ const router = createBrowserRouter([
     element: <Test />,
   },
   {
+    path: "forgotPassword",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "resetPassword",
+    element: <ResetPassword />,
+  },
+  {
     path: "achievement",
     element: <Achievement />,
   },
@@ -105,10 +116,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-   {/* <Provider store={store}>
+   <Provider store={store}>
       <RouterProvider router={router} />
-    </Provider> */}
-<RouterProvider router={router} />
+    </Provider>
+
 
   </React.StrictMode>
 );

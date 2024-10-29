@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import axios from 'axios'; // Import axios
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from '../../assets/image 16.png';
 import './Login.css';
@@ -10,6 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Track loading state
 
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -19,38 +21,32 @@ const Login = () => {
 
     // Clear any previous error
     setError('');
+    setLoading(true); // Start loading
 
     try {
-      // Send the login request to the Django backend
-      const response = await fetch('/api/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+      // Send the login request to the Django backend using Axios
+      const response = await axios.post('https://lynspeed.pythonanywhere.com/api/v1/login/', {
+        email: email,
+        password: password,
       });
 
-      const data = await response.json();
+      // If login is successful, navigate to the dashboard
+      console.log('Login successful', response.data);
 
-      if (response.ok) {
-        // If login is successful, navigate to the dashboard
-        console.log('Login successful', data);
-        
-        // Assuming the token is returned, save it in localStorage or sessionStorage
-        localStorage.setItem('token', data.token);
+      // Assuming the token is returned, save it in localStorage or sessionStorage
+      localStorage.setItem('token', response.data.token);
 
-        // Redirect to dashboard page
-        navigate('/dashboard'); 
+      // Redirect to dashboard page
+      navigate('/dashboard');
+    } catch (error: any) {
+      // If login fails, display an error message
+      if (error.response && error.response.data) {
+        setError(error.response.data.message || 'Invalid email or password');
       } else {
-        // If login fails, display an error message
-        setError(data.message || 'Invalid email or password');
+        setError('An error occurred. Please try again.');
       }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -60,7 +56,7 @@ const Login = () => {
       <Bubbles />
       <div className="gather">
         <div className="left">
-          <img src={note3} alt="signup" />
+          <img src={note3} alt="login" />
         </div>
         <div className="rightsign">
           <h3>Login</h3>
@@ -84,12 +80,12 @@ const Login = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="down1">
               <div className="log">
-                <a href="#">Forget password?</a>
+              <Link to="/forgotPassword">Forgot password?</Link>
               </div>
             </div>
             
-            <button type="submit" className="signup-button">
-              Login
+            <button type="submit" className="signup-button" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
         </div>
