@@ -1,14 +1,15 @@
 /* AboutUs.css */
 
 .about-us-container {
-  margin: 10px 50px;
+  margin: 10px 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding: 0 20px;
 }
 .about-us-container h3 {
   color: #0659a6;
-  font-size: 40px;
+  font-size: 2em;
   margin: 30px;
 }
 
@@ -18,9 +19,9 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: 70px;
+  gap: 40px;
 }
-.fir p{
+.fir p {
   line-height: 1.5;
 }
 
@@ -31,6 +32,7 @@
 
 img {
   border-radius: 8px;
+  max-width: 100%;
 }
 
 .features-section {
@@ -39,15 +41,15 @@ img {
 
 .features-section h3 {
   text-align: center;
-  font-size: 28px;
+  font-size: 1.8em;
   color: #181313e3;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-  gap: 30px;
-  margin: 0px auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 0 auto;
   width: 95%;
 }
 
@@ -56,35 +58,34 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
- 
   border-radius: 8px;
-  padding: 20px; 
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: 0.5s;
 }
-.feature-block:hover{
-  transform:scale(1.05) ;
+.feature-block:hover {
+  transform: scale(1.05);
 }
 
 .feature-block h3 {
   color: #0056b3;
-  font-size: 22px;
+  font-size: 1.4em;
   text-align: center;
   margin: 20px 10px;
 }
 
 .feature-block p {
-  font-size: 16px;
+  font-size: 1em;
   color: #333;
   text-align: center;
   line-height: 1.5;
 }
 
 .why-choose-us {
-  margin: 35px;
+  margin: 35px 20px;
 }
 
-.chose{
+.chose {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -95,7 +96,7 @@ img {
 }
 .why-choose-us h3 {
   text-align: center;
-  font-size: 28px;
+  font-size: 1.8em;
   margin-bottom: 20px;
   color: #181313e3;
 }
@@ -106,7 +107,7 @@ img {
 }
 
 .why-list li {
-  font-size: 16px;
+  font-size: 1em;
   margin-bottom: 10px;
 }
 
@@ -114,6 +115,61 @@ img {
   color: #0056b3;
 }
 
-.image-section img{
-  max-width: 75%;
+.image-section img {
+  max-width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .fir {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .chose {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .features-section h3, .why-choose-us h3 {
+    font-size: 1.5em;
+  }
+
+  .feature-block h3 {
+    font-size: 1.2em;
+  }
+
+  .feature-block p, .why-list li {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-container h3 {
+    font-size: 1.5em;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-block h3 {
+    font-size: 1em;
+  }
+
+  .feature-block p {
+    font-size: 0.9em;
+  }
+
+  .why-choose-us h3 {
+    font-size: 1.4em;
+  }
+
+  .chose {
+    gap: 15px;
+  }
+
+  .image-section img {
+    width: 90%;
+  }
 }

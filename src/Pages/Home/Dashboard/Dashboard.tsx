@@ -57,7 +57,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar2 />
+      <Navbar2/>
       <div className="dashboard-container">
         <aside className="dashboard-sidebar">
           <h3>Dashboard</h3>
