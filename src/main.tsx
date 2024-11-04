@@ -25,6 +25,7 @@ import { Provider } from "react-redux";
 import { store } from "./State/Store";
 import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
 import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "home",
     element: <Home />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
   {
     path: "about",

@@ -19,12 +19,14 @@ import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
 import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
 import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

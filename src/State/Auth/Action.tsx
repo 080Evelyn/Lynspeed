@@ -5,10 +5,14 @@ import {
     LOGIN_FAILURE,
     REGISTER_FAILURE,
     REGISTER_REQUEST,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
+    GET_USER_FAILURE
 } from "./ActionType";
-import { Dispatch } from "redux"; // Import Dispatch type if using TypeScript
+import { Dispatch } from "redux"; // Import Dispatch type for TypeScript
 
+// Define UserData interface for type-checking
 interface UserData {
     full_name: string;
     email: string;
@@ -16,6 +20,7 @@ interface UserData {
     confirm_password: string; // Added confirm_password field
 }
 
+// Action to register a new user
 export const register = (userData: UserData) => async (dispatch: Dispatch) => {
     dispatch({ type: REGISTER_REQUEST });
 
@@ -40,13 +45,15 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
         console.log(user);
 
         dispatch({ type: REGISTER_SUCCESS, payload: user.jwt });
+        localStorage.setItem("jwt", user.jwt);
         
     } catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error });
-        console.log(error);
+        console.error(error);
     }
 };
 
+// Action to log in an existing user
 export const login = (userData: Omit<UserData, "confirm_password">) => async (dispatch: Dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
@@ -62,8 +69,34 @@ export const login = (userData: Omit<UserData, "confirm_password">) => async (di
         console.log(user);
 
         dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
-            } catch (error) {
+        localStorage.setItem("jwt", user.jwt);
+        
+    } catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error });
-        console.log(error);
+        console.error(error);
+    }
+};
+
+// Action to get user profile
+export const getUser = (jwt: string) => async (dispatch: Dispatch) => {
+    dispatch({ type: GET_USER_REQUEST });
+
+    const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
+
+    try {
+        const response = await axios.get(`${baseUrl}/profile/`, {
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            }
+        });
+
+        const user = response.data;
+        console.log(user);
+
+        dispatch({ type: GET_USER_SUCCESS, payload: user });
+        
+    } catch (error) {
+        dispatch({ type: GET_USER_FAILURE, payload: error });
+        console.error(error);
     }
 };

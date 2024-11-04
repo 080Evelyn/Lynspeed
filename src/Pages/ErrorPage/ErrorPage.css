@@ -1,8 +1,50 @@
-div{
+/* ErrorPage.css */
+.error-page {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
-    margin: 50px;
+    justify-content: center;
     align-items: center;
-}
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    text-align: center;
+  }
+  
+  .error-container {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error-code {
+    font-size: 96px;
+    font-weight: bold;
+    color: #fcd156;
+  }
+  
+  .error-message {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333333;
+  }
+  
+  .error-description {
+    font-size: 16px;
+    margin: 10px 0 20px;
+    color: #777777;
+  }
+  
+  .error-home-link {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #0056b3;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .error-home-link:hover {
+    background-color: #0056b3;
+  }
+  

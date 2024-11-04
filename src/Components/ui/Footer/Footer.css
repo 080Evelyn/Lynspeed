@@ -1,3 +1,4 @@
+/* Footer Container */
 footer {
   display: flex;
   align-items: center;
@@ -14,9 +15,10 @@ footer {
   flex-direction: row;
   gap: 30px;
   width: 100%;
-  max-width: 1200px; /* Limit max width to make it neat on larger screens */
+  max-width: 1200px;
   padding-top: 20px;
   margin: 20px;
+  flex-wrap: wrap; /* Enable wrapping for responsive layouts */
 }
 
 .footer-logo {
@@ -24,7 +26,7 @@ footer {
   align-items: start;
   flex-direction: column;
   gap: 15px;
-  flex: 1; /* Allow it to expand naturally */
+  flex: 1;
 }
 
 .footer-logo p {
@@ -32,7 +34,7 @@ footer {
   font-weight: 400;
   color: #333;
   text-align: justify;
-  line-height: 1.6; /* Improves readability */
+  line-height: 1.6;
 }
 
 .footer-links,
@@ -70,7 +72,7 @@ li a {
 }
 
 li a:hover {
-  color: #000; /* Color change on hover for better UX */
+  color: #000;
 }
 
 .connect {
@@ -78,7 +80,9 @@ li a:hover {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  text-align: left;
+  text-align: center;
+  align-items: center;
+  
   margin-top: 50px;
 }
 
@@ -98,7 +102,7 @@ li a:hover {
 }
 
 .footer-social a:hover img {
-  transform: scale(1.1); /* Adds a hover effect for better interaction */
+  transform: scale(1.1);
 }
 
 .footer-copyright {
@@ -108,18 +112,64 @@ li a:hover {
   flex-direction: column;
   align-items: center;
   gap: 5px;
- 
 }
-.footer-copyright .space{
+
+.footer-copyright .space {
   height: 2px;
   width: 30vw;
   background-color: #639dd3;
-  
 }
+
 .footer-copyright p {
   font-size: 15px;
   font-weight: 400;
 }
-.footer-copyright p strong{
+
+.footer-copyright p strong {
   color: #0659a6;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo,
+  .footer-links,
+  .usefullink,
+  .connect {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  footer {
+    padding: 10px;
+  }
+
+  .footer-logo p {
+    font-size: 13px;
+  }
+
+  li a {
+    font-size: 13px;
+  }
+
+  .footer-contact {
+    font-size: 13px;
+    align-items: center;
+  }
+
+  .footer-social a img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .footer-copyright .space {
+    width: 60%;
+  }
 }

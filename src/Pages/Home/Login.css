@@ -1,36 +1,45 @@
 .gather {
-  margin: 50px 40px;
+  margin: 50px 20px; /* Adjust margin for better spacing on smaller screens */
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 280px;
+  flex-direction: column; /* Change to column for smaller screens */
+  align-items: center; /* Center items */
+  gap: 40px; /* Reduce gap for responsiveness */
 }
+
 .gather .left {
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 30px;
+  justify-content: center; /* Center image */
+  margin-top: 20px; /* Adjusted margin */
 }
+
 .rightsign {
-  margin-top: 30px;
+  margin-top: 20px; /* Adjusted margin */
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  width: 100%; /* Allow full width for the form */
+  max-width: 500px; /* Set a max width for larger screens */
 }
+
 h3 {
   color: #0659a6;
   font-size: 25px;
   font-weight: 600;
+  text-align: center; /* Center heading */
 }
+
 .fillup {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 40px;
+  align-items: center; /* Center align items */
+  gap: 30px; /* Reduce gap */
+  width: 100%; /* Allow full width */
 }
+
 input {
-  width: 550px;
+  width: 100%; /* Full width of parent */
+  max-width: 550px; /* Max width for larger screens */
   height: 55px;
   padding: 15px;
   font-size: 1rem;
@@ -38,28 +47,23 @@ input {
   border: 1px solid #d1d1d1;
   background-color: #f0f0f0;
 }
+
 input::placeholder {
   color: #b1b1b1;
 }
-.down {
+
+.down1 {
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 8px;
+  justify-content: flex-end; /* Align to the right */
+  width: 100%; /* Full width for responsive layout */
 }
-.textlog {
-  color: rgb(247, 247, 51);
-  font-weight: 500;
-  font-size: 18px;
-}
-.down1{
-    margin-left: 350px;}
 
 .log a {
   color: #e7e737;
   font-size: 18px;
   font-weight: 500;
 }
+
 .signup-button {
   padding: 10px 20px;
   font-size: 18px;
@@ -69,7 +73,53 @@ input::placeholder {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.5s;
+  width: 100%; /* Full width for button */
+  max-width: 200px; /* Max width for button */
 }
+
 .signup-button:hover {
   transform: scale(1.05);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .gather {
+    flex-direction: column; /* Stack elements vertically */
+    gap: 20px; /* Reduce gap */
+  }
+  
+  .gather .left, .rightsign {
+    width: 90%; /* Allow for responsive scaling */
+    max-width: 400px; /* Limit max width */
+  }
+
+  h3 {
+    font-size: 22px; /* Smaller font size */
+  }
+
+  input {
+    height: 50px; /* Smaller height for input */
+  }
+
+  .signup-button {
+    font-size: 16px; /* Smaller button font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .gather {
+    margin: 20px 10px; /* Reduce margin */
+  }
+
+  h3 {
+    font-size: 20px; /* Further reduce font size */
+  }
+
+  input {
+    height: 45px; /* Smaller input height */
+  }
+
+  .signup-button {
+    font-size: 14px; /* Smaller button font size */
+  }
 }
