@@ -73,6 +73,9 @@
   width: 100%;
   height: auto;
 }
+.foot{
+  display: none;
+}
 
 /* Animations */
 .animate-text {
@@ -128,14 +131,18 @@
     height: auto;
     gap: 20px;
   }
+  .foot{
+    display: block;
+  }
 
   .write1 {
     font-size: 50px;
   }
 
   .write2 {
-    width: 100%;
+    width: 88%;
     font-size: 16px;
+    line-height: 1.5;
   }
 
   .reg {
@@ -170,5 +177,8 @@
   .reg {
     font-size: 14px;
     padding: 8px 15px;
+  }
+  .foot{
+    display: block;
   }
 }

@@ -11,7 +11,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../../State/Auth/ActionType';
 
 interface RegisterResponse {
-  message: string;
+  message: string; 
   jwt: string;
   confirmed: boolean;
 }
@@ -113,7 +113,7 @@ const Register: React.FC = () => {
           <img src={note2} alt="signup" />
         </div>
         <div className="right">
-          <h3>Sign Up</h3>
+          <h3>Create an account</h3>
 
           {loading ? (
             <div className="loader-container">

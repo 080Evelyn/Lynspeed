@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
 const Privacy: React.FC = () => {
-  return (
+  return ( 
     <>
       <Navbar />
       <div className="privacy">

@@ -1,5 +1,5 @@
 import "./Footer.css";
-import logo from "../../../assets/logosalone.png";
+import logo from "../../../assets/logofooter.png";
 import insta from '../../../assets/IG.png'
 import twit from '../../../assets/twitter.jpeg'
 import face from '../../../assets/Facebok.jpeg'
@@ -10,7 +10,7 @@ const Footer = () => {
     <footer>
       <div className="footer-container">
         <div className="footer-logo">
-          <img src={logo} alt="Website Logo" />
+          <img src={logo} alt="Website Logo" style={{maxWidth:"70px"}}/>
           <p>
             Lynspeed aims to provide a robust and effective solution for
             students preparing for the JAMB exam, equipping them with the tools
