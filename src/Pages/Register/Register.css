@@ -64,7 +64,7 @@
     padding: 10px 20px;
     font-size: 18px;
     color: white;
-    background-color: #0659A6;
+    background-color: #0659a6;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -117,10 +117,10 @@
       font-size: 22px;
     }
   
-    input {
+    input { 
       width: 100%;
       max-width: 550px;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   
     .signup-button {
@@ -159,4 +159,29 @@
       font-size: 15px;
     }
   }
-  
+  .password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Adjust padding for icon space */
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Position the icon inside the input field */
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .password-container input {
+    padding-right: 30px; /* Adjust for smaller screens */
+  }
+  .toggle-password {
+    right: 8px; /* Adjust for smaller screens */
+  }
+}

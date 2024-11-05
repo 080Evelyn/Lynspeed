@@ -2,6 +2,7 @@ import Bubbles from '../Bubbles/Bubbles';
 import './Hero.css';
 import mage from '../../../assets/homeImage.png';
 import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 const Hero = () => {
   return (
@@ -9,7 +10,7 @@ const Hero = () => {
       <Bubbles />
       <div className='hero'>
         <div className="left">
-          <div className="write-up">
+          <div className="write-up"> 
             <p className='write1 animate-text'> 
               <b>JAMB</b> made <br></br> 
               <span>easy </span>for <b>you</b>
@@ -26,6 +27,10 @@ const Hero = () => {
           <img src={mage} alt="homepic" />
         </div>
       </div>
+      <div className='foot'>
+      <Footer/>
+      </div>
+     
     </>
   )
 }
