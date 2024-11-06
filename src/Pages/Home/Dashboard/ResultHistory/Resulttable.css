@@ -1,5 +1,5 @@
 .results-table {
-  width: 100%;
+  width: 30vw;
   border-collapse: collapse;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   
@@ -8,7 +8,7 @@
 .results-table th,
 .results-table td {
   text-align: left;
-  padding: 10px 20px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -18,5 +18,5 @@
   color: white;
   font-size: 16px;
   font-weight: 500;
-  padding: 10px 20px;
+  padding: 10px;
 }

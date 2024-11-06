@@ -76,7 +76,7 @@ const SubjectSelection = () => {
 
   return (
     <>
-      <Navbar2/>
+      <Navbar2 />
       <div>
         <div className="spa"></div>
         <div className="sel">
@@ -104,9 +104,9 @@ const SubjectSelection = () => {
               Please select a combination of 4 subjects that align with your
               desired course of study by checking the boxes above. One of the
               subjects, <em>Use of English</em>, is already selected for you.
-              After selecting your subjects, click "Start Test" to begin. Each
-              subject has a specific time limit, which will be displayed on the
-              right side of your screen. To maximize your performance:
+              After selecting your subjects, click "Start Test" to begin. The
+              test session has a specific time limit of two hours, which will be displayed on
+              the right side of your screen. To maximize your performance:
             </p>
             <ul>
               <li>Begin with questions you are most confident about.</li>

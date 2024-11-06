@@ -9,7 +9,7 @@ import blogpic4 from "../../assets/logpic4.png";
 const Blog = () => {
   return (
     <>
-      <Navbar />
+      <Navbar />   
       <div className="blog-content">
         <div className="header">
           <h2>Blog</h2>
@@ -20,7 +20,7 @@ const Blog = () => {
             <h2>How to pass JAMB with flying colours</h2>
             <p>
               Passing JAMB in flying colours requires planning and consistent
-              execution. These entail understanding the JAMB syllabus,
+              execution. These entails understanding the JAMB syllabus,
               scheduling study time, familiarizing oneself with JAMB past
               questions, ensuring all topics are covered and focusing more on
               weak subjects. As time management is also the key to success in
