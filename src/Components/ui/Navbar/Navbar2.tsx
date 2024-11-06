@@ -45,9 +45,9 @@ const Navbar2 = () => {
           <Link to="/blog">Blog</Link>
         </li>
       </ul>
-      <div className="nav-signout">
+      <div className="nav-login">
         <button onClick={handleSignOut}>
-          Sign Out
+          Sign Out  
         </button>
       </div>
     </div>
