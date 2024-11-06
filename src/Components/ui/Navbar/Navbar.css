@@ -57,6 +57,7 @@
   font-size: 18px;
   cursor: pointer;
   transition: transform 0.5s;
+  padding: 10px;
 }
 .navbar button:hover{
   transform: scale(1.05);

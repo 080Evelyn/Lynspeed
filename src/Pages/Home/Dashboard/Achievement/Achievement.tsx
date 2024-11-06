@@ -15,25 +15,25 @@ const Achievement = () => {
   const achievements: AchievementItem[] = [
     {
       title: "GRAND ACHIEVER",
-      scoreRange: "Score: 301 - 400",
+      scoreRange: "Score: 360 - 400",
       icon: "🏆",
       highlight: false,
     },
     {
       title: "PLATINUM",
-      scoreRange: "Score: 191 - 200",
+      scoreRange: "Score: 240 - 359",
       icon: "🎖️",
       highlight: false,
     },
     {
       title: "GOLD",
-      scoreRange: "Score: 201 - 300",
+      scoreRange: "Score: 180 - 239",
       icon: "🥇",
       highlight: true,
     },
     {
       title: "MEDIOCRE",
-      scoreRange: "Score: 0 - 90",
+      scoreRange: "Score: 0 - 179",
       icon: "🔵",
       highlight: false,
     },

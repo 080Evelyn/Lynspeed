@@ -103,3 +103,14 @@
   border-width: 0 2px 2px 0;
   transform: rotate(40deg);
 }
+@media (max-width:768px){
+  .ma p, i{
+    font-size: 16px;
+    text-align: justify;
+  }
+  .but .bot {
+    padding: 10px;
+    
+  }
+  
+} 

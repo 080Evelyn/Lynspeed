@@ -13,8 +13,8 @@ const ResultsTable: React.FC<ResultsTableProps> = ({ subjects, totalTime, totalS
       <thead>
         <tr>
           <th>Subjects</th>
-          <th>Duration</th>
-          <th>Scores</th>
+          <th>Duration</th> 
+          <th>Scores</th> 
         </tr>
       </thead>
       <tbody>

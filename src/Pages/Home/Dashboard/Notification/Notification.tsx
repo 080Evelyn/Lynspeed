@@ -10,7 +10,7 @@ interface NotificationItem {
   date: string;
 }
 
-
+   
 const Notification = () => {
   
   const notifications: NotificationItem[] = [
