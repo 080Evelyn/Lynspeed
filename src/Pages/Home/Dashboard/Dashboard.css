@@ -198,30 +198,31 @@
 }
 @media (max-width:768px){
   .dashboard-container{
-    flex-direction: column;
-    gap: 2px;
+    flex-direction: row;
+    
   }
   .dashboard-sidebar {
-    width: 100%;
+    width: 50%;
     padding: 15px;
   }
   .right {
     padding: 12px;
     width: 100%;
-    position: relative;
+    height: 100%;
   }
   .welcome-banner img{
     height: 30vh;
     max-width: 100%;
   }
 
-  .welcome-text {
-    font-size: 18px;
-    line-height: 1.2;
+  .welcome-banner .welcome-text {
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.5;
   }
 
   .right-pics img {
-    height: 35vh;
+    height: 50vh;
     max-width: 100%;
   }
 }

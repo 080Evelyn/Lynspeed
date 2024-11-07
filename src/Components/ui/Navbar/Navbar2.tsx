@@ -19,7 +19,7 @@ const Navbar2 = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
+  }; 
 
 
   return (
@@ -28,22 +28,12 @@ const Navbar2 = () => {
       <button className="menu-toggle" onClick={toggleMenu}>
         {isMenuOpen ? '✖' : '☰'}
       </button>
-      <ul className="nav-menu">
-        <li>
-          <Link to="/home">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/pricing">Pricing</Link>
-        </li>
-        <li>
-          <Link to="/contact">Contact</Link>
-        </li>
-        <li>
-          <Link to="/blog">Blog</Link>
-        </li>
+      <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+        <li><Link to="/home">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+        <li><Link to="/pricing">Pricing</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/blog">Blog</Link></li>
       </ul>
       <div className="nav-signout">
         <button onClick={handleSignOut}>

@@ -51,7 +51,7 @@ const ResultItem: React.FC<ResultItemProps> = ({
         pdf.save("result.pdf");
       });
     }
-  };
+  }; 
 
   return (
     <>
