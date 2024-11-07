@@ -104,6 +104,7 @@ const Terms = () => {
           </div>
           <div className="start">
             <li>Performance and Results</li>
+            <p>
             The platform offers simulated exams that aim to reflect real-life
             JAMB scenarios. While we make every effort to provide accurate
             simulations, we do not guarantee that the results you achieve on the
@@ -113,6 +114,7 @@ const Terms = () => {
             actual JAMB exam. The simulation is a tool to help you practice and
             prepare, but it should not be relied upon as the sole means of exam
             preparation.
+            </p>
           </div>
           <div className="start">
             <li>Limitation of liability</li>

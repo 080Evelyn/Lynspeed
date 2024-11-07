@@ -62,7 +62,7 @@
 .navbar button:hover{
   transform: scale(1.05);
   color: #fff;
-  background-color: #0659a6;
+  
 }
 
 .nav-login a {
@@ -80,7 +80,7 @@
 /* Responsive Styling */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     padding: 20px 20px;
     gap: 12px;
@@ -95,10 +95,16 @@
 
   .nav-menu.active {
     display: flex;
+    flex-direction: column;
   }
 
   .nav-login {
-    align-self: stretch;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 24%;
+  }
+  .nav-sign-out {
     margin-top: 10px;
     margin-bottom: 20px;
     text-align: center;

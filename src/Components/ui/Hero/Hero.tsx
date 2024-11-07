@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer';
 const Hero = () => {
   return (
     <>
-      <Bubbles />
+      <Bubbles /> 
       <div className='hero'>
         <div className="left">
           <div className="write-up"> 
