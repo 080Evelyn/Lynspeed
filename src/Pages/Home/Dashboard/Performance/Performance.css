@@ -1,36 +1,79 @@
 .performance-analysis {
-    width: auto;
+  width: auto;
+  margin: 20px;
+}
+
+.performance-analysis h2 {
+  text-align: center;
+  color: #0659a6;
+  margin: 50px;
+  font-size: 28px;
+}
+
+.performance-analysis h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.chart-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.chart-container {
+  flex: 1 1 45%;
+  margin: 20px 30px;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 10px;
+  max-height: 600px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container canvas {
+  height: 300px !important;
+}
+
+@media (max-width: 1024px) {
+  .chart-container {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .performance-analysis h2 {
+    font-size: 24px;
     margin: 20px;
   }
-  
-  .performance-analysis h2 {
-    text-align: center;
-    color: #0659a6;
-    margin: 50px;
-    font-size: 28px;
-  }
-  
+
   .performance-analysis h3 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 20px;
   }
-  
+
   .chart-container {
-    margin: 30px;
-    background-color: #f9f9f9;
-    padding: 30px 30px 80px;
-    border-radius: 10px;
-    max-height: 600px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 10px;
   }
-  
-  
-  
-  @media (max-width: 768px) {
-    .chart-container canvas {
-      height: 300px;
-    }
+
+  .chart-container canvas {
+    height: 250px !important;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .performance-analysis h2 {
+    font-size: 20px;
+  }
+
+  .performance-analysis h3 {
+    font-size: 18px;
+  }
+
+  .chart-container canvas {
+    height: 200px !important;
+  }
+}

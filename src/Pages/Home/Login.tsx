@@ -1,52 +1,45 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import axios from 'axios'; // Import axios
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from '../../assets/image 16.png';
 import './Login.css';
 import Bubbles from "../../Components/ui/Bubbles/Bubbles";
 import Footer from "../../Components/ui/Footer/Footer";
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); // Track loading state
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    // Clear any previous error
     setError('');
-    setLoading(true); // Start loading
+    setLoading(true);
 
     try {
-      // Send the login request to the Django backend using Axios
       const response = await axios.post('https://lynspeed.pythonanywhere.com/api/v1/login/', {
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
-      // If login is successful, navigate to the dashboard
-      console.log('Login successful', response.data);
+      const { token, user } = response.data;
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('user', JSON.stringify(user));
 
-      // Assuming the token is returned, save it in localStorage or sessionStorage
-      localStorage.setItem('token', response.data.token);
-
-      // Redirect to dashboard page
       navigate('/dashboard');
     } catch (error: any) {
-      // If login fails, display an error message
       if (error.response && error.response.data) {
         setError(error.response.data.message || 'Invalid email or password');
       } else {
         setError('An error occurred. Please try again.');
       }
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -64,7 +57,6 @@ const Login = () => {
             <input
               type="email"
               placeholder="Email Address"
-              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -72,7 +64,6 @@ const Login = () => {
             <input
               type="password"
               placeholder="Password"
-              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -80,19 +71,18 @@ const Login = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="down1">
               <div className="log">
-              <Link to="/forgotPassword">Forgot password?</Link>
+                <Link to="/forgotPassword">Forgot password?</Link>
               </div>
             </div>
-            
             <button type="submit" className="signup-button" disabled={loading}>
               {loading ? 'Logging in...' : 'Login'}
             </button>
             <div className="down">
-            <p>Yet to sign up?</p>
-            <div className="log">
-              <Link to="/register">Register</Link>
+              <p>Yet to sign up?</p>
+              <div className="log">
+                <Link to="/register">Register</Link>
+              </div>
             </div>
-          </div>
           </form>
         </div>
       </div>

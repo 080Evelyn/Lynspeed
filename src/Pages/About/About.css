@@ -109,6 +109,7 @@ img {
 .why-list li {
   font-size: 1em;
   margin-bottom: 10px;
+  text-align: justify;
 }
 
 .why-list strong {
@@ -117,6 +118,7 @@ img {
 
 .image-section img {
   max-width: 100%;
+  
 }
 
 /* Responsive Design */
