@@ -12,10 +12,10 @@ import {
 
 // Define the shape of your state
 interface AuthState {
-  user: any; // You can define a more specific type if you have user data structure
+  user: string | null; // UserProfile defined above
   loading: boolean;
-  error: string | null; // Assuming error is a string
-  jwt: string | null; // Assuming jwt is a string
+  error: string |  null; // Store the error message or ApiError type
+  jwt: string | null; // JWT is stored as a string
 }
 
 // Initial state
@@ -29,7 +29,7 @@ const initialState: AuthState = {
 // Define the action type
 interface Action {
   type: string;
-  payload?: any; // Use a more specific type if you know the structure of payload
+  payload?: any;
 }
 
 // Reducer function
@@ -45,7 +45,7 @@ const authReducer = (state = initialState, action: Action): AuthState => {
       return { ...state, loading: false, error: null, jwt: action.payload };
 
     case GET_USER_SUCCESS:
-      return { ...state, user:action.payload, loading:false, error:null};
+      return { ...state, user: action.payload, loading: false, error: null };
 
     case REGISTER_FAILURE:
     case LOGIN_FAILURE:

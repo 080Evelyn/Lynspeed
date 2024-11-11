@@ -18,7 +18,7 @@ const Privacy: React.FC = () => {
           </p>
         </div>
 
-        <div className="set">
+        <div className="set"> 
           <h2>1. Information We Collect</h2>
           <p>
             We collect various types of information to provide and improve our
