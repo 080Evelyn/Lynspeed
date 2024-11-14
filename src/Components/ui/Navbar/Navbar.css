@@ -67,11 +67,13 @@
 
 .nav-login a {
   color: white;
-  text-decoration: none;
+  text-decoration: none; 
 }
 
 .nav-login:hover {
   transform: scale(1.05);
+}
+.nav-login a:hover {
   color: #fff;
 }
 .menu-toggle{

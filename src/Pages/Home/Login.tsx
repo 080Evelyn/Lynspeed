@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from '../../assets/image 16.png';
 import './Login.css';
 import Bubbles from "../../Components/ui/Bubbles/Bubbles";
 import Footer from "../../Components/ui/Footer/Footer";
+import { loginSuccess } from '../../State/Auth/Action'; // Import the loginSuccess action
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +16,7 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Handle form submission
   const handleLogin = async (event: React.FormEvent) => {
@@ -28,9 +31,15 @@ const Login: React.FC = () => {
       });
 
       const { token, user } = response.data;
+      
+      // Save token and user data to local storage
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(user));
 
+      // Dispatch loginSuccess action to save user data in Redux
+      dispatch(loginSuccess({ jwt: token, user }));
+
+      // Redirect to the dashboard
       navigate('/dashboard');
     } catch (error: any) {
       if (error.response && error.response.data) {

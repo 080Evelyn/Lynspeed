@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../State/Store"; // Ensure the path is correct
 import sub from "../../../assets/subselect.svg";
 import res from "../../../assets/history.svg";
 import notify from "../../../assets/notify.svg";
@@ -20,7 +22,10 @@ const Dashboard = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
-  const [user] = useState({ name: "Rawlins", email: "rawlins@example.com" });
+
+  // Access user data from Redux
+  const user = useSelector((state: RootState) => state.auth?.user ?? null); // Ensure 'auth' and 'user' exist in RootState
+  const navigate = useNavigate();
 
   useEffect(() => {
     const subjects = localStorage.getItem("selectedSubjects");
@@ -31,10 +36,9 @@ const Dashboard = () => {
   const toggleSettingsDropdown = () => setIsSettingsDropdownOpen((prev) => !prev);
   const toggleChangePasswordDropdown = () => setIsChangePasswordOpen((prev) => !prev);
 
-  const navigate = useNavigate();
-
   const handleSignOut = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
@@ -50,10 +54,10 @@ const Dashboard = () => {
               <div className="menu-item" onClick={toggleDropdown}>Profile</div>
               {isDropdownOpen && (
                 <div className="profile-dropdown">
-                  <p><strong>{user.name}</strong></p>
-                  <p>{user.email}</p>
+                  <p><strong>{user?.full_name || "User"}</strong></p>
+                  <p>{user?.email || "user@example.com"}</p>
                   <Link to="/edit-profile">Edit Profile</Link>
-                  <Link onClick={handleSignOut} to="">Log out</Link>
+                  <Link to="#" onClick={handleSignOut}>Log out</Link>
                   <Link to="/pricing">Subscription</Link>
                 </div>
               )}
@@ -100,7 +104,7 @@ const Dashboard = () => {
           <section className="welcome-section">
             <div className="welcome-banner">
               <img src={dash1} alt="Banner" />
-              <h1 className="welcome-text">WELCOME {user.name.toUpperCase()}! 👋</h1>
+              <h1 className="welcome-text">WELCOME {user?.full_name?.toUpperCase() || "USER"}! 👋</h1>
             </div>
           </section>
           <section className="right-pics">

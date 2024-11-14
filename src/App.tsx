@@ -1,9 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "../src/Pages/About/About";
-import About from "../src/Pages/Blog/Blog";
-import Blog from "../src/Pages/Blog/Blog";
-import Pricing from "../src/Pages/Pricing/Pricing";
-import Contact from "../src/Pages/Contact/Contact";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { initializeAuth } from "./State/Auth/Action";
+import { AppDispatch } from './State/Store';
+import Home from "./Pages/About/About";
+import About from "./Pages/Blog/Blog";
+import Blog from "./Pages/Blog/Blog";
+import Pricing from "./Pages/Pricing/Pricing";
+import Contact from "./Pages/Contact/Contact";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Home/Login";
 import SubjectSelection from "./Pages/Home/Dashboard/Test/SubjectSelection";
@@ -20,8 +24,16 @@ import Privacy from "./Components/ui/Privacy/Privacy";
 import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
 import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import PrivateRoute from "./Components/PrivateRoute"; // Import the PrivateRoute component
 
 const App = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    // Initialize auth state from localStorage on app load
+    dispatch(initializeAuth());
+  }, [dispatch]);
+
   return (
     <Router>
       <Routes>
@@ -35,17 +47,19 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signout" element={<SignOut />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/subjectselection" element={<SubjectSelection />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/resetPassword" element={<ResetPassword />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/notification" element={<Notification />} />
-        <Route path="/testresult" element={<TestResult />} />
-        <Route path="/resulthistory" element={<ResultHistory />} />
-        <Route path="/performance" element={<Performance />} />
-        <Route path="/achievements" element={<Achievement />} />
+
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
+        <Route path="/subjectselection" element={<PrivateRoute element={<SubjectSelection />} />} />
+        <Route path="/test" element={<PrivateRoute element={<Test />} />} />
+        <Route path="/forgotPassword" element={<PrivateRoute element={<ForgotPassword />} />} />
+        <Route path="/resetPassword" element={<PrivateRoute element={<ResetPassword />} />} />
+        <Route path="/privacy" element={<PrivateRoute element={<Privacy />} />} />
+        <Route path="/notification" element={<PrivateRoute element={<Notification />} />} />
+        <Route path="/testresult" element={<PrivateRoute element={<TestResult />} />} />
+        <Route path="/resulthistory" element={<PrivateRoute element={<ResultHistory />} />} />
+        <Route path="/performance" element={<PrivateRoute element={<Performance />} />} />
+        <Route path="/achievements" element={<PrivateRoute element={<Achievement />} />} />
       </Routes>
     </Router>
   );
