@@ -10,6 +10,7 @@ import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
+  LOGOUT,
 } from "./ActionType";
 
 // Define types for API response data
@@ -17,7 +18,7 @@ interface UserData {
   full_name: string;
   email: string;
   password: string;
-  confirm_password: string;
+  confirm_password?: string;
 }
 
 interface ApiError {
@@ -36,10 +37,8 @@ interface UserProfile {
 export const register = (userData: UserData) => async (dispatch: Dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
 
-  // Check if password and confirm_password match before proceeding
   if (userData.password !== userData.confirm_password) {
     const errorMessage = "Passwords do not match.";
-    console.log(errorMessage);
     dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
     return;
   }
@@ -53,11 +52,10 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
       password: userData.password,
     });
 
-    const user = response.data; 
-    console.log(user);
-
-    dispatch({ type: REGISTER_SUCCESS, payload: user.jwt });
-    localStorage.setItem("jwt", user.jwt);
+    const { jwt, user } = response.data; // Assuming `jwt` and `user` are in the response
+    dispatch({ type: REGISTER_SUCCESS, payload: { jwt, user } });
+    localStorage.setItem("jwt", jwt);
+    localStorage.setItem("user", JSON.stringify(user)); // Store user data for persistence
 
   } catch (error: any) {
     const errorMessage: ApiError = {
@@ -69,7 +67,7 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
   }
 };
 
-// Action to log in an existing user
+// Action to log in an existing user and fetch profile data
 export const login = (userData: Omit<UserData, "confirm_password">) => async (dispatch: Dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
@@ -81,11 +79,21 @@ export const login = (userData: Omit<UserData, "confirm_password">) => async (di
       password: userData.password,
     });
 
-    const user = response.data; 
-    console.log(user);
+    const { jwt } = response.data;
+    localStorage.setItem("jwt", jwt);
 
-    dispatch({ type: LOGIN_SUCCESS, payload: user.jwt });
-    localStorage.setItem("jwt", user.jwt);
+    // Fetch user profile information after login
+    const profileResponse = await axios.get(`${baseUrl}/profile/`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const user: UserProfile = profileResponse.data;
+
+    // Dispatch loginSuccess to save JWT and user profile in Redux
+    dispatch(loginSuccess({ jwt, user }));
+    localStorage.setItem("user", JSON.stringify(user)); // Persist user data in localStorage
 
   } catch (error: any) {
     const errorMessage: ApiError = {
@@ -97,7 +105,13 @@ export const login = (userData: Omit<UserData, "confirm_password">) => async (di
   }
 };
 
-// Action to get user profile
+// Action creator for loginSuccess
+export const loginSuccess = (payload: { jwt: string; user: UserProfile }) => ({
+  type: LOGIN_SUCCESS,
+  payload,
+});
+
+// Action to get user profile (if needed separately)
 export const getUser = (jwt: string) => async (dispatch: Dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
 
@@ -111,8 +125,6 @@ export const getUser = (jwt: string) => async (dispatch: Dispatch) => {
     });
 
     const user: UserProfile = response.data;
-    console.log(user);
-
     dispatch({ type: GET_USER_SUCCESS, payload: user });
 
   } catch (error: any) {
@@ -122,5 +134,26 @@ export const getUser = (jwt: string) => async (dispatch: Dispatch) => {
     };
     dispatch({ type: GET_USER_FAILURE, payload: errorMessage });
     console.error(error);
+  }
+};
+
+// Action to log out the user
+export const logout = () => (dispatch: Dispatch) => {
+  // Clear JWT and user data from localStorage
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("user");
+
+  // Dispatch LOGOUT action to reset user state in Redux
+  dispatch({ type: LOGOUT });
+};
+
+// Initializer function to check localStorage and populate Redux store
+export const initializeAuth = () => (dispatch: Dispatch) => {
+  const jwt = localStorage.getItem("jwt");
+  const user = localStorage.getItem("user");
+
+  if (jwt && user) {
+    const parsedUser: UserProfile = JSON.parse(user);
+    dispatch(loginSuccess({ jwt, user: parsedUser }));
   }
 };

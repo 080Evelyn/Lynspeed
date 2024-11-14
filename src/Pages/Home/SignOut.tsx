@@ -1,25 +1,30 @@
+// SignOut.tsx
 
-import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router for navigation
-import "./SignOut.css"
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../State/Auth/Action';
+import { AppDispatch } from '../../State/Store'; // Path to where store is defined
+import "./SignOut.css";
 
-const SignOut = () => {
-  const navigate = useNavigate(); // For redirecting the user
+const SignOut: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch for typed dispatch
 
   const handleSignOut = () => {
-    // Perform any necessary sign-out actions, like clearing tokens or local storage
-    localStorage.removeItem('authToken'); // Clear authentication token (if stored in localStorage)
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userInfo');
 
-    // You can also clear other stored data like user information
-    // localStorage.removeItem('userInfo');
+    // Dispatch the logout action
+    dispatch(logout());
 
-    // Redirect the user to the login page
-    navigate('/login'); // Assuming the login page is at '/login'
+    navigate('/login');
   };
 
   return (
     <button onClick={handleSignOut} className="sign-out-btn">
       Sign Out
-    </button> 
+    </button>
   );
 };
 
