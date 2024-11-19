@@ -1,4 +1,3 @@
-// src/store/userSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -16,8 +15,12 @@ const initialState: UserState = {
 
 // Asynchronous thunk to fetch user data
 export const fetchUserData = createAsyncThunk('user/fetchUserData', async () => {
-  const response = await axios.get('/api/user'); // Replace with your API endpoint
-  return response.data;
+  try {
+    const response = await axios.get('https://lynspeed.pythonanywhere.com/api/v1/profile/');
+    return response.data;
+  } catch (error) {
+    return null;  
+  }
 });
 
 const userSlice = createSlice({
