@@ -1,19 +1,25 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../State/Store';  // Import RootState from the store file
+import { useSelector } from "react-redux";
+import { RootState } from "../State/Store";  // Import RootState
+import { Navigate } from "react-router-dom";
 
-interface PrivateRouteProps {
-  element: JSX.Element;
-}
+const PrivateRoute = ({ element }: { element: JSX.Element }) => {
+  // Derive isAuthenticated from auth state
+  const jwt = useSelector((state: RootState) => state.auth.jwt);
+  const user = useSelector((state: RootState) => state.auth.user);
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
-  // Access the state from the Redux store
-  const { user, jwt } = useSelector((state: RootState) => state.auth);
+  const isAuthenticated = !!jwt && !!user;
 
-  // If authenticated (i.e., user exists and jwt is present), render the element
+  // Log user and JWT for debugging
+  console.log("User from Redux state:", user);
+  console.log("JWT from Redux state:", jwt);
+
   // If not authenticated, redirect to login
-  return user && jwt ? element : <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  // If authenticated, render the protected route
+  return element;
 };
 
 export default PrivateRoute;

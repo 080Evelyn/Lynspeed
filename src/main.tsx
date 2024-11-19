@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-//import { Provider } from "react-redux"; // Import Provider from react-redux // Import your Redux store
+import { Provider } from "react-redux"; // Import Provider from react-redux
+import { store } from "./State/Store"; // Import the Redux store
 import "./index.css";
+
+// Import Pages
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Pricing from "./Pages/Pricing/Pricing";
@@ -21,12 +24,12 @@ import Terms from "./Components/ui/Terms/Terms";
 import Notification from "./Pages/Home/Dashboard/Notification/Notification";
 import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
 import Privacy from "./Components/ui/Privacy/Privacy";
-import { Provider } from "react-redux";
-import { store } from "./State/Store";
 import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
 import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import FAQ from "./Components/ui/FAQ/FAQ";
 
+// Set up the router
 const router = createBrowserRouter([
   {
     path: "/",
@@ -55,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: "blog",
     element: <Blog />,
+  },
+  {
+    path: "FAQ",
+    element: <FAQ />,
   },
   {
     path: "privacy",
@@ -112,19 +119,17 @@ const router = createBrowserRouter([
     path: "resulthistory",
     element: <ResultHistory />,
   },
-
   {
     path: "performance",
     element: <Performance />,
   },
 ]);
 
+// Render the app with Redux Provider and RouterProvider
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-   <Provider store={store}>
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-
-
   </React.StrictMode>
 );
