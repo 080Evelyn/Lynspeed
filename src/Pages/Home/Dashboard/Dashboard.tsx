@@ -14,8 +14,8 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
-import Footer from "../../../Components/ui/Footer/Footer";
 import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
+import Footer from "../../../Components/ui/Footer/Footer";
 
 const Dashboard = () => {
   const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(null);
@@ -61,7 +61,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar2 />
+      <Navbar2/>
       <div className="dashboard-container">
         <aside className="dashboard-sidebar">
           <h3>Dashboard</h3>
@@ -165,7 +165,7 @@ const Dashboard = () => {
           </section>
         </main>
       </div>
-      <Footer />
+      <Footer/>
     </>
   );
 };

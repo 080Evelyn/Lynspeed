@@ -1,7 +1,7 @@
-import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 import "./Achievement.css";
 import pic1 from "../../../../assets/ach1.png";
 import pic2 from "../../../../assets/ach2.png";
+import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 import Footer from "../../../../Components/ui/Footer/Footer";
 
 interface AchievementItem {
@@ -41,7 +41,7 @@ const Achievement = () => {
 
   return (
     <>
-      <Navbar2 />
+    <Navbar2/>
       <div className="leaderboard-page">
         <div className="leaderboard-header">
           <h2>Leaderboard</h2>
@@ -71,7 +71,7 @@ const Achievement = () => {
           </div>
           <img src={pic2} alt="" />
         </div>
-        <Footer />
+        <Footer/>
       </div>
     </>
   );
