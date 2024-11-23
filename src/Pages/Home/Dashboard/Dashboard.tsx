@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../State/Store"; // Ensure the path is correct
+import { RootState } from "../../../State/Store";
 import sub from "../../../assets/subselect.svg";
 import res from "../../../assets/history.svg";
 import notify from "../../../assets/notify.svg";
@@ -14,22 +14,38 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
-import Footer from "../../../Components/ui/Footer/Footer";
 import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
+import Footer from "../../../Components/ui/Footer/Footer";
 
 const Dashboard = () => {
   const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [subjectSelectionMessage, setSubjectSelectionMessage] = useState(""); // For subject selection confirmation
 
   // Access user data from Redux
-  const user = useSelector((state: RootState) => state.auth?.user ?? null); // Ensure 'auth' and 'user' exist in RootState
+  const user = useSelector((state: RootState) => state.auth?.user ?? null);
+  
   const navigate = useNavigate();
 
+  // Load selected subjects from local storage with error handling
   useEffect(() => {
     const subjects = localStorage.getItem("selectedSubjects");
-    if (subjects) setSelectedSubjects(JSON.parse(subjects));
+    try {
+      if (subjects) {
+        const parsedSubjects = JSON.parse(subjects);
+        setSelectedSubjects(parsedSubjects);
+        if (parsedSubjects.length === 4) {
+          setSubjectSelectionMessage("Subjects saved successfully!");
+        }
+      } else {
+        setSelectedSubjects([]); // Default value if no subjects are stored
+      }
+    } catch (error) {
+      console.error("Error parsing selectedSubjects from localStorage:", error);
+      setSelectedSubjects([]); // Handle parsing error gracefully
+    }
   }, []);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
@@ -39,16 +55,18 @@ const Dashboard = () => {
   const handleSignOut = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
+    localStorage.removeItem("selectedSubjects");
     navigate("/login");
   };
 
   return (
     <>
-      <Navbar2 />
+      <Navbar2/>
       <div className="dashboard-container">
         <aside className="dashboard-sidebar">
           <h3>Dashboard</h3>
           <ul className="sidebar-menu">
+            {/* Profile Section */}
             <li className="profile-item">
               <img src={pro} alt="Profile" />
               <div className="menu-item" onClick={toggleDropdown}>Profile</div>
@@ -62,16 +80,45 @@ const Dashboard = () => {
                 </div>
               )}
             </li>
+
+            {/* Subjects */}
             <li>
               <img src={sub} alt="Subjects" />
               <Link className="menu-item" to="/subjectselection">
                 {selectedSubjects && selectedSubjects.length > 0 ? "View Selected Subjects" : "Select Subjects"}
               </Link>
             </li>
-            <li><img src={res} alt="Results" /><Link className="menu-item" to="/resulthistory">Result History</Link></li>
-            <li><img src={anal} style={{maxWidth:"25px", maxHeight:"25px"}} alt="Analysis" className="icon-small" /><Link className="menu-item" to="/performance">Performance Analysis</Link></li>
-            <li><img src={achieve} alt="Achievement" /><Link className="menu-item" to="/achievement">Achievement</Link></li>
-            <li><img src={notify} alt="Notification" /><Link className="menu-item" to="/notification">Notification</Link></li>
+
+            {/* Result History */}
+            <li>
+              <img src={res} alt="Results" />
+              <Link className="menu-item" to="/resulthistory">Result History</Link>
+            </li>
+
+            {/* Performance Analysis */}
+            <li>
+              <img
+                src={anal}
+                style={{ maxWidth: "25px", maxHeight: "25px" }}
+                alt="Analysis"
+                className="icon-small"
+              />
+              <Link className="menu-item" to="/performance">Performance Analysis</Link>
+            </li>
+
+            {/* Achievement */}
+            <li>
+              <img src={achieve} alt="Achievement" />
+              <Link className="menu-item" to="/achievement">Achievement</Link>
+            </li>
+
+            {/* Notification */}
+            <li>
+              <img src={notify} alt="Notification" />
+              <Link className="menu-item" to="/notification">Notification</Link>
+            </li>
+
+            {/* Settings */}
             <li className="profile-item">
               <img src={set} alt="Setting" />
               <div className="menu-item" onClick={toggleSettingsDropdown}>Settings</div>
@@ -100,11 +147,16 @@ const Dashboard = () => {
             <img src={dash2} alt="Dashpic2" />
           </div>
         </aside>
+
+        {/* Right Section */}
         <main className="right">
           <section className="welcome-section">
             <div className="welcome-banner">
               <img src={dash1} alt="Banner" />
               <h1 className="welcome-text">WELCOME {user?.full_name?.toUpperCase() || "USER"}! 👋</h1>
+              {subjectSelectionMessage && (
+                <p className="subject-selection-message">{subjectSelectionMessage}</p>
+              )}
             </div>
           </section>
           <section className="right-pics">
@@ -113,7 +165,7 @@ const Dashboard = () => {
           </section>
         </main>
       </div>
-      <Footer />
+      <Footer/>
     </>
   );
 };

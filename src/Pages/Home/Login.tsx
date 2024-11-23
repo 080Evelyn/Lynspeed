@@ -31,7 +31,7 @@ const Login: React.FC = () => {
       });
 
       const { token, user } = response.data;
-      
+
       // Save token and user data to local storage
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(user));
@@ -68,6 +68,7 @@ const Login: React.FC = () => {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email" // Added autoComplete attribute
               required
             />
             <input
@@ -75,6 +76,7 @@ const Login: React.FC = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password" // Added autoComplete attribute
               required
             />
             {error && <p style={{ color: 'red' }}>{error}</p>}
