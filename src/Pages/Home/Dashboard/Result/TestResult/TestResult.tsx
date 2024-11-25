@@ -1,14 +1,14 @@
 import "./TestResult.css"; // Import CSS for styles
 import profilePic from "../../../../../assets/profile.svg"; // Example profile /
 import studentPic from "../../../../../assets/studentImage.png"; // Example student pic
-import Navbar2 from "../../../../../Components/ui/Navbar/Navbar2";
+// import Navbar2 from "../../../../../Components/ui/Navbar/Navbar2";
 import { Link } from "react-router-dom";
-import Footer from "../../../../../Components/ui/Footer/Footer";
+// import Footer from "../../../../../Components/ui/Footer/Footer";
 
 const TestResult = () => {
   return (
     <div className="result-page">
-      <Navbar2 />
+      {/* <Navbar2 /> */}
 
       <div className="content">
         <div className="left-section">
@@ -79,9 +79,8 @@ const TestResult = () => {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
-    
   );
 };
 

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUserData } from "./Components/userSlice";  
-import { AppDispatch } from './State/Store';
+import { fetchUserData } from "./Components/userSlice";
+import { AppDispatch } from "./State/Store";
 
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
@@ -33,10 +33,13 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        
+
         {/* Protected Routes */}
-        <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
-        
+        <Route
+          path="/dashboard"
+          element={<PrivateRoute element={<Dashboard />} />}
+        />
+
         {/* Catch-all route for 404 errors */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>

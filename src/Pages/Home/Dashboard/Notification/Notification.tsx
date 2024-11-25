@@ -1,7 +1,6 @@
-import Footer from '../../../../Components/ui/Footer/Footer';
-import Navbar2 from '../../../../Components/ui/Navbar/Navbar2';
-import './Notification.css'; 
-
+// import Footer from '../../../../Components/ui/Footer/Footer';
+// import Navbar2 from '../../../../Components/ui/Navbar/Navbar2';
+import "./Notification.css";
 
 interface NotificationItem {
   time: string;
@@ -10,45 +9,48 @@ interface NotificationItem {
   date: string;
 }
 
-   
 const Notification = () => {
-  
   const notifications: NotificationItem[] = [
     {
-      time: '09:00am',
-      title: 'Tortor et vel',
-      description: 'Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.',
-      date: '23 - 04 - 2024',
+      time: "09:00am",
+      title: "Tortor et vel",
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
+      date: "23 - 04 - 2024",
     },
     {
-      time: '03:40pm',
-      title: 'Tortor et vel',
-      description: 'Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.',
-      date: '23 - 04 - 2024',
+      time: "03:40pm",
+      title: "Tortor et vel",
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
+      date: "23 - 04 - 2024",
     },
     {
-      time: '07:00am',
-      title: 'Tortor et vel',
-      description: 'Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.',
-      date: '24 - 04 - 2024',
+      time: "07:00am",
+      title: "Tortor et vel",
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
+      date: "24 - 04 - 2024",
     },
     {
-      time: '02:20pm',
-      title: 'Tortor et vel',
-      description: 'Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.',
-      date: '24 - 04 - 2024',
+      time: "02:20pm",
+      title: "Tortor et vel",
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
+      date: "24 - 04 - 2024",
     },
     {
-      time: '04:40pm',
-      title: 'Tortor et vel',
-      description: 'Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.',
-      date: '24 - 04 - 2024',
+      time: "04:40pm",
+      title: "Tortor et vel",
+      description:
+        "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
+      date: "24 - 04 - 2024",
     },
   ];
 
   return (
     <div className="notification-page">
-    <Navbar2/>
+      {/* <Navbar2/> */}
 
       <div className="notification-header">
         <h2>Notification</h2>
@@ -71,7 +73,7 @@ const Notification = () => {
           </div>
         ))}
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 };

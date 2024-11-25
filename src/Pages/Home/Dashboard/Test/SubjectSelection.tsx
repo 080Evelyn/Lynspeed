@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./SubjectSelection.css";
-import Footer from "../../../../Components/ui/Footer/Footer";
+// import Footer from "../../../../Components/ui/Footer/Footer";
 import { Link } from "react-router-dom";
 import SubjectAlert from "./SubjectAlert";
-import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
+// import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 const subjects = [
   "Use of English",
@@ -76,7 +76,7 @@ const SubjectSelection = () => {
 
   return (
     <>
-      <Navbar2 />
+      {/* <Navbar2 /> */}
       <div>
         <div className="spa"></div>
         <div className="sel">
@@ -105,8 +105,9 @@ const SubjectSelection = () => {
               desired course of study by checking the boxes above. One of the
               subjects, <em>Use of English</em>, is already selected for you.
               After selecting your subjects, click "Start Test" to begin. The
-              test session has a specific time limit of two hours, which will be displayed on
-              the right side of your screen. To maximize your performance:
+              test session has a specific time limit of two hours, which will be
+              displayed on the right side of your screen. To maximize your
+              performance:
             </p>
             <ul>
               <li>Begin with questions you are most confident about.</li>
@@ -164,7 +165,7 @@ const SubjectSelection = () => {
           />
         )}
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );
