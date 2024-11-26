@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../State/Store";  // Import RootState
+import { RootState } from "../State/Store"; // Import RootState
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ element }: { element: JSX.Element }) => {
