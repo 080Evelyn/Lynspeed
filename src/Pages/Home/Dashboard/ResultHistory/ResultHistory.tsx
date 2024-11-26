@@ -27,7 +27,7 @@ const ResultHistory: React.FC = () => {
 
   return (
     <>
-      <Navbar2 />
+      {/* <Navbar2 /> */}
       <div className="app">
         <main className="result-history">
           {resultsData.map((result, index) => (
