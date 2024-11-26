@@ -2,7 +2,7 @@ import React from "react";
 
 import ResultItem from "./ResultItem";
 import "./ResultHistory.css"; // General app styles
-import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
+// import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 const ResultHistory: React.FC = () => {
   const resultsData = [
