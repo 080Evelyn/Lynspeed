@@ -6,8 +6,10 @@ import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from "../../assets/image 16.png";
 import "./Login.css";
 import Bubbles from "../../Components/ui/Bubbles/Bubbles";
-import Footer from "../../Components/ui/Footer/Footer";
-import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
+// import Footer from "../../Components/ui/Footer/Footer";
+// import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { loginSuccessful } from "../../Components/authSlice";
 
 interface UserProfile {
   id: string;
@@ -21,10 +23,14 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   // Handle form submission
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -54,7 +60,7 @@ const Login: React.FC = () => {
       localStorage.setItem("user", JSON.stringify(user));
 
       // Dispatch loginSuccess action to save user data in Redux
-      dispatch(loginSuccess({ jwt: token, user }));
+      dispatch(loginSuccessful({ jwt: token, user }));
 
       // Redirect to the dashboard
       navigate("/dashboard");
@@ -88,14 +94,21 @@ const Login: React.FC = () => {
               autoComplete="email" // Added autoComplete attribute
               required
             />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password" // Added autoComplete attribute
-              required
-            />
+            <div className="password">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password" // Added autoComplete attribute
+                required
+              />
+              {showPassword ? (
+                <BsEye onClick={handleShowPassword} className="eye" />
+              ) : (
+                <BsEyeSlash onClick={handleShowPassword} className="eye" />
+              )}
+            </div>
             {error && <p style={{ color: "red" }}>{error}</p>}
             <div className="down1">
               <div className="log">
@@ -114,7 +127,7 @@ const Login: React.FC = () => {
           </form>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -14,6 +14,10 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "../../../State/Store";
+// import { expiredLogout } from "../../../Components/authSlice";
+// import { fetchSubjectList } from "../../../State/SubjectListSlice";
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
 // import Footer from "../../../Components/ui/Footer/Footer";
 
@@ -23,16 +27,14 @@ interface UserProfile {
   email: string;
 }
 const Dashboard = () => {
+  // const dispatch = useDispatch<AppDispatch>();
   const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(
     null
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
-  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  // const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const [subjectSelectionMessage, setSubjectSelectionMessage] = useState(""); // For subject selection confirmation
-
-  // Access user data from Redux
-  // const user = useSelector((state: RootState) => state.auth?.user ?? null);
 
   //Access user from local storage
   const storedUser = localStorage.getItem("user");
@@ -42,6 +44,7 @@ const Dashboard = () => {
 
   // Load selected subjects from local storage with error handling
   useEffect(() => {
+    // dispatch(fetchSubjectList());
     const subjects = localStorage.getItem("selectedSubjects");
     try {
       if (subjects) {
@@ -62,8 +65,8 @@ const Dashboard = () => {
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const toggleSettingsDropdown = () =>
     setIsSettingsDropdownOpen((prev) => !prev);
-  const toggleChangePasswordDropdown = () =>
-    setIsChangePasswordOpen((prev) => !prev);
+  // const toggleChangePasswordDropdown = () =>
+  //   setIsChangePasswordOpen((prev) => !prev);
 
   const handleSignOut = () => {
     localStorage.removeItem("authToken");
@@ -72,9 +75,14 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  // useEffect(() => {
+  //   // Whenever the user is logged out, show a toast
+  //   // toast.error('Session expired. Please log in again.');
+  //   dispatch(expiredLogout());
+  // }, [dispatch]);
   return (
     <>
-      {/* <Navbar2/> */}
+      {/* <Navbar2 /> */}
       <div className="dashboard-container">
         <aside className="dashboard-sidebar">
           <h3>Dashboard</h3>
@@ -92,7 +100,7 @@ const Dashboard = () => {
                   </p>
                   <p>{user?.email || "user@example.com"}</p>
                   <Link to="/edit-profile">Edit Profile</Link>
-                  <Link to="#" onClick={handleSignOut}>
+                  <Link to="/login" onClick={handleSignOut}>
                     Log out
                   </Link>
                   <Link to="/pricing">Subscription</Link>
@@ -155,16 +163,17 @@ const Dashboard = () => {
               </div>
               {isSettingsDropdownOpen && (
                 <div className="settings-dropdown">
-                  <div
+                  <Link
                     className="dropdown-item"
-                    onClick={toggleChangePasswordDropdown}>
-                    Change Password
-                  </div>
+                    // onClick={toggleChangePasswordDropdown}
+                    to="/resetpassword">
+                    <p>Change Password</p>
+                  </Link>
                   <div className="dropdown-item">
-                    Notification{" "}
+                    Notification
                     <input type="checkbox" className="notification-toggle" />
                   </div>
-                  {isChangePasswordOpen && (
+                  {/* {isChangePasswordOpen && (
                     <div className="change-password-form">
                       <label htmlFor="old-password">Old Password</label>
                       <input
@@ -186,7 +195,7 @@ const Dashboard = () => {
                       />
                       <button className="submit-btn">Submit</button>
                     </div>
-                  )}
+                  )} */}
                 </div>
               )}
             </li>
