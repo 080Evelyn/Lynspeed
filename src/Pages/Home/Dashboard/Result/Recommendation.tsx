@@ -5,4 +5,4 @@ const Recommendation = () => {
   )
 }
 
-export default Recommendation
+export default Recommendation  
