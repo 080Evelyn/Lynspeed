@@ -99,16 +99,11 @@ const Dashboard = () => {
                     <strong>{user?.full_name || "User"}</strong>
                   </p>
                   <p>{user?.email || "user@example.com"}</p>
-                  <Link to="/edit-profile">Edit Profile</Link>
-<<<<<<< HEAD
-                  <Link to="#" onClick={handleSignOut}>Log out</Link>
+                  
                   <Link to="/subscription">Subscription</Link>
-=======
                   <Link to="/login" onClick={handleSignOut}>
                     Log out
                   </Link>
-                  <Link to="/pricing">Subscription</Link>
->>>>>>> master
                 </div>
               )}
             </li>
