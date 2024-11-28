@@ -53,7 +53,6 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
     dispatch({ type: REGISTER_SUCCESS, payload: { jwt, user } });
     localStorage.setItem("jwt", jwt);
     localStorage.setItem("user", JSON.stringify(user));
-
   } catch (error: any) {
     const errorMessage: ApiError = {
       message: error.response?.data?.message || "Registration failed",
@@ -65,37 +64,38 @@ export const register = (userData: UserData) => async (dispatch: Dispatch) => {
 };
 
 // Action to log in an existing user and fetch profile data
-export const login = (userData: Omit<UserData, "confirm_password">) => async (dispatch: Dispatch) => {
-  dispatch({ type: LOGIN_REQUEST });
+export const login =
+  (userData: Omit<UserData, "confirm_password">) =>
+  async (dispatch: Dispatch) => {
+    dispatch({ type: LOGIN_REQUEST });
 
-  try {
-    const response = await axios.post(`${baseUrl}/login/`, {
-      email: userData.email,
-      password: userData.password,
-    });
+    try {
+      const response = await axios.post(`${baseUrl}/login/`, {
+        email: userData.email,
+        password: userData.password,
+      });
 
-    const { jwt } = response.data;
-    localStorage.setItem("jwt", jwt);
+      const { access: jwt } = response.data;
+      localStorage.setItem("jwt", jwt);
 
-    const profileResponse = await axios.get(`${baseUrl}/profile/`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+      const profileResponse = await axios.get(`${baseUrl}/profile/`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
 
-    const user: UserProfile = profileResponse.data;
-    dispatch(loginSuccess({ jwt, user }));
-    localStorage.setItem("user", JSON.stringify(user));
-
-  } catch (error: any) {
-    const errorMessage: ApiError = {
-      message: error.response?.data?.message || "Login failed",
-      status: error.response?.status || 500,
-    };
-    dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
-    console.error(error);
-  }
-};
+      const user: UserProfile = profileResponse.data;
+      dispatch(loginSuccess({ jwt, user }));
+      localStorage.setItem("user", JSON.stringify(user));
+    } catch (error: any) {
+      const errorMessage: ApiError = {
+        message: error.response?.data?.message || "Login failed",
+        status: error.response?.status || 500,
+      };
+      dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
+      console.error(error);
+    }
+  };
 
 // Action creator for login success
 export const loginSuccess = (payload: { jwt: string; user: UserProfile }) => ({

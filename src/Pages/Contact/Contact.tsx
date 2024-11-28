@@ -1,15 +1,24 @@
 import { useState } from "react";
+import axios from "axios";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import "./Contact.css";
 import Footer from "../../Components/ui/Footer/Footer";
 
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+  const [statusMessage, setStatusMessage] = useState<string>("");
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,11 +30,22 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    try {
+      // Send a POST request to your backend endpoint
+      await axios.post('https://lynspeed.pythonanywhere.com/api/v1/contact/', formData);
+      setStatusMessage("Message sent successfully!");
+    } catch (error: unknown) {
+      // Type guard for AxiosError
+      if (axios.isAxiosError(error)) {
+        setStatusMessage("There was an error sending your message. Please try again later.");
+      } else {
+        setStatusMessage("An unexpected error occurred.");
+      }
+    }
   };
+
   return (
     <>
       <Navbar />
@@ -89,9 +109,9 @@ const Contact = () => {
             Submit
           </button>
         </form>
-       
+        {statusMessage && <p className="status-message">{statusMessage}</p>}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../State/Store";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../../State/Store";
 import sub from "../../../assets/subselect.svg";
 import res from "../../../assets/history.svg";
 import notify from "../../../assets/notify.svg";
@@ -14,23 +14,37 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
-import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
-import Footer from "../../../Components/ui/Footer/Footer";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "../../../State/Store";
+// import { expiredLogout } from "../../../Components/authSlice";
+// import { fetchSubjectList } from "../../../State/SubjectListSlice";
+// import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
+// import Footer from "../../../Components/ui/Footer/Footer";
 
+interface UserProfile {
+  id: string;
+  full_name: string;
+  email: string;
+}
 const Dashboard = () => {
-  const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(null);
+  // const dispatch = useDispatch<AppDispatch>();
+  const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(
+    null
+  );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
-  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  // const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const [subjectSelectionMessage, setSubjectSelectionMessage] = useState(""); // For subject selection confirmation
 
-  // Access user data from Redux
-  const user = useSelector((state: RootState) => state.auth?.user ?? null);
-  
+  //Access user from local storage
+  const storedUser = localStorage.getItem("user");
+  const user: UserProfile = storedUser !== null ? JSON.parse(storedUser) : null;
+
   const navigate = useNavigate();
 
   // Load selected subjects from local storage with error handling
   useEffect(() => {
+    // dispatch(fetchSubjectList());
     const subjects = localStorage.getItem("selectedSubjects");
     try {
       if (subjects) {
@@ -49,8 +63,10 @@ const Dashboard = () => {
   }, []);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-  const toggleSettingsDropdown = () => setIsSettingsDropdownOpen((prev) => !prev);
-  const toggleChangePasswordDropdown = () => setIsChangePasswordOpen((prev) => !prev);
+  const toggleSettingsDropdown = () =>
+    setIsSettingsDropdownOpen((prev) => !prev);
+  // const toggleChangePasswordDropdown = () =>
+  //   setIsChangePasswordOpen((prev) => !prev);
 
   const handleSignOut = () => {
     localStorage.removeItem("authToken");
@@ -59,9 +75,14 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  // useEffect(() => {
+  //   // Whenever the user is logged out, show a toast
+  //   // toast.error('Session expired. Please log in again.');
+  //   dispatch(expiredLogout());
+  // }, [dispatch]);
   return (
     <>
-      <Navbar2/>
+      {/* <Navbar2 /> */}
       <div className="dashboard-container">
         <aside className="dashboard-sidebar">
           <h3>Dashboard</h3>
@@ -69,14 +90,25 @@ const Dashboard = () => {
             {/* Profile Section */}
             <li className="profile-item">
               <img src={pro} alt="Profile" />
-              <div className="menu-item" onClick={toggleDropdown}>Profile</div>
+              <div className="menu-item" onClick={toggleDropdown}>
+                Profile
+              </div>
               {isDropdownOpen && (
                 <div className="profile-dropdown">
-                  <p><strong>{user?.full_name || "User"}</strong></p>
+                  <p>
+                    <strong>{user?.full_name || "User"}</strong>
+                  </p>
                   <p>{user?.email || "user@example.com"}</p>
                   <Link to="/edit-profile">Edit Profile</Link>
+<<<<<<< HEAD
                   <Link to="#" onClick={handleSignOut}>Log out</Link>
                   <Link to="/subscription">Subscription</Link>
+=======
+                  <Link to="/login" onClick={handleSignOut}>
+                    Log out
+                  </Link>
+                  <Link to="/pricing">Subscription</Link>
+>>>>>>> master
                 </div>
               )}
             </li>
@@ -85,14 +117,18 @@ const Dashboard = () => {
             <li>
               <img src={sub} alt="Subjects" />
               <Link className="menu-item" to="/subjectselection">
-                {selectedSubjects && selectedSubjects.length > 0 ? "View Selected Subjects" : "Select Subjects"}
+                {selectedSubjects && selectedSubjects.length > 0
+                  ? "View Selected Subjects"
+                  : "Select Subjects"}
               </Link>
             </li>
 
             {/* Result History */}
             <li>
               <img src={res} alt="Results" />
-              <Link className="menu-item" to="/resulthistory">Result History</Link>
+              <Link className="menu-item" to="/resulthistory">
+                Result History
+              </Link>
             </li>
 
             {/* Performance Analysis */}
@@ -103,42 +139,68 @@ const Dashboard = () => {
                 alt="Analysis"
                 className="icon-small"
               />
-              <Link className="menu-item" to="/performance">Performance Analysis</Link>
+              <Link className="menu-item" to="/performance">
+                Performance Analysis
+              </Link>
             </li>
 
             {/* Achievement */}
             <li>
               <img src={achieve} alt="Achievement" />
-              <Link className="menu-item" to="/achievement">Achievement</Link>
+              <Link className="menu-item" to="/achievement">
+                Achievement
+              </Link>
             </li>
 
             {/* Notification */}
             <li>
               <img src={notify} alt="Notification" />
-              <Link className="menu-item" to="/notification">Notification</Link>
+              <Link className="menu-item" to="/notification">
+                Notification
+              </Link>
             </li>
 
             {/* Settings */}
             <li className="profile-item">
               <img src={set} alt="Setting" />
-              <div className="menu-item" onClick={toggleSettingsDropdown}>Settings</div>
+              <div className="menu-item" onClick={toggleSettingsDropdown}>
+                Settings
+              </div>
               {isSettingsDropdownOpen && (
                 <div className="settings-dropdown">
-                  <div className="dropdown-item" onClick={toggleChangePasswordDropdown}>Change Password</div>
+                  <Link
+                    className="dropdown-item"
+                    // onClick={toggleChangePasswordDropdown}
+                    to="/resetpassword">
+                    <p>Change Password</p>
+                  </Link>
                   <div className="dropdown-item">
-                    Notification <input type="checkbox" className="notification-toggle" />
+                    Notification
+                    <input type="checkbox" className="notification-toggle" />
                   </div>
-                  {isChangePasswordOpen && (
+                  {/* {isChangePasswordOpen && (
                     <div className="change-password-form">
                       <label htmlFor="old-password">Old Password</label>
-                      <input type="password" id="old-password" placeholder="Old Password" />
+                      <input
+                        type="password"
+                        id="old-password"
+                        placeholder="Old Password"
+                      />
                       <label htmlFor="new-password">New Password</label>
-                      <input type="password" id="new-password" placeholder="New Password" />
+                      <input
+                        type="password"
+                        id="new-password"
+                        placeholder="New Password"
+                      />
                       <label htmlFor="confirm-password">Confirm Password</label>
-                      <input type="password" id="confirm-password" placeholder="Confirm Password" />
+                      <input
+                        type="password"
+                        id="confirm-password"
+                        placeholder="Confirm Password"
+                      />
                       <button className="submit-btn">Submit</button>
                     </div>
-                  )}
+                  )} */}
                 </div>
               )}
             </li>
@@ -153,9 +215,13 @@ const Dashboard = () => {
           <section className="welcome-section">
             <div className="welcome-banner">
               <img src={dash1} alt="Banner" />
-              <h1 className="welcome-text">WELCOME {user?.full_name?.toUpperCase() || "USER"}! 👋</h1>
+              <h1 className="welcome-text">
+                WELCOME {user?.full_name?.toUpperCase() || "USER"}! 👋
+              </h1>
               {subjectSelectionMessage && (
-                <p className="subject-selection-message">{subjectSelectionMessage}</p>
+                <p className="subject-selection-message">
+                  {subjectSelectionMessage}
+                </p>
               )}
             </div>
           </section>
@@ -165,7 +231,7 @@ const Dashboard = () => {
           </section>
         </main>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 };

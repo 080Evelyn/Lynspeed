@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux"; // Import Provider from react-redux
-import { store } from "./State/Store"; // Import the Redux store
+import store, { persistor } from "./State/Store"; // Import the Redux store
+import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
-
 // Import Pages
+<<<<<<< HEAD
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Pricing from "./Pages/Pricing/Pricing";
@@ -129,12 +129,17 @@ const router = createBrowserRouter([
     element: <Subscription />,
   },
 ]);
+=======
+import App from "./App";
+>>>>>>> master
 
 // Render the app with Redux Provider and RouterProvider
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
