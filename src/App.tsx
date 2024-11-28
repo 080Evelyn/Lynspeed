@@ -1,9 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUserData } from "./Components/userSlice";  
-import { AppDispatch } from './State/Store';
-
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Blog from "./Pages/Blog/Blog";
@@ -11,18 +6,20 @@ import Pricing from "./Pages/Pricing/Pricing";
 import Contact from "./Pages/Contact/Contact";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Home/Login";
-import Dashboard from "./Pages/Home/Dashboard/Dashboard";
-import PrivateRoute from "./Components/PrivateRoute";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import Dashboard from "./Pages/Home/Dashboard/Dashboard";
+import SubjectSelection from "./Pages/Home/Dashboard/Test/SubjectSelection";
+import ResultHistory from "./Pages/Home/Dashboard/ResultHistory/ResultHistory";
+import Performance from "./Pages/Home/Dashboard/Performance/Performance";
+import Achievement from "./Pages/Home/Dashboard/Achievement/Achievement";
+import Notification from "./Pages/Home/Dashboard/Notification/Notification";
+import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
+import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
+import TestResult from "./Pages/Home/Dashboard/Result/TestResult/TestResult";
+import Test from "./Pages/Home/Dashboard/Test/Test";
 
 const App = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    // Dispatch the action to fetch user data when the app loads
-    dispatch(fetchUserData());
-  }, [dispatch]);
-
   return (
     <Router>
       <Routes>
@@ -32,13 +29,24 @@ const App = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        
-        {/* Protected Routes */}
-        <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
-        
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+
         {/* Catch-all route for 404 errors */}
         <Route path="*" element={<ErrorPage />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/subjectselection" element={<SubjectSelection />} />
+          <Route path="/resulthistory" element={<ResultHistory />} />
+          <Route path="/performance" element={<Performance />} />
+          <Route path="/achievement" element={<Achievement />} />
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+          <Route path="/testresult" element={<TestResult />} />
+          <Route path="/test" element={<Test />} />
+        </Route>
       </Routes>
     </Router>
   );

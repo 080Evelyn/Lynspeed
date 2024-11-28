@@ -2,7 +2,7 @@ import React from "react";
 
 import ResultItem from "./ResultItem";
 import "./ResultHistory.css"; // General app styles
-import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
+// import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 const ResultHistory: React.FC = () => {
   const resultsData = [
@@ -27,7 +27,7 @@ const ResultHistory: React.FC = () => {
 
   return (
     <>
-      <Navbar2 />
+      {/* <Navbar2 /> */}
       <div className="app">
         <main className="result-history">
           {resultsData.map((result, index) => (

@@ -1,7 +1,9 @@
+
+
 .gather {
   margin: 50px 20px; /* Adjust margin for better spacing on smaller screens */
   display: flex;
-  flex-direction: column; /* Change to column for smaller screens */
+  flex-direction: row; /* Change to column for smaller screens */
   align-items: center; /* Center items */
   gap: 40px; /* Reduce gap for responsiveness */
 }
