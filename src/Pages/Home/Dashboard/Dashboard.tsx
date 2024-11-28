@@ -74,8 +74,9 @@ const Dashboard = () => {
                 <div className="profile-dropdown">
                   <p><strong>{user?.full_name || "User"}</strong></p>
                   <p>{user?.email || "user@example.com"}</p>
-                  <Link to="#" onClick={handleSignOut}>Log out</Link>
                   <Link to="/pricing">Subscription</Link>
+                  <Link to="#" onClick={handleSignOut}>Log out</Link>
+                  
                 </div>
               )}
             </li>
