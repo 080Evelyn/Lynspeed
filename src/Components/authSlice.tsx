@@ -1,23 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchUserData } from './userSlice'; // Import the fetchUserData action
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchUserData } from "./userSlice"; // Import the fetchUserData action
 
 interface AuthState {
   isAuthenticated: boolean;
+  token: string | null;
+  error: string | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
+  token: null,
+  error: null,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    login(state) {
+    loginSuccessful(state, action) {
       state.isAuthenticated = true;
+      state.token = action.payload;
+      state.error = null;
     },
-    logout(state) {
+    expiredLogout(state) {
       state.isAuthenticated = false;
+      state.token = null;
+      state.error = "Session expired. Please log in again.";
+      console.log("token expired");
+    },
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -35,5 +47,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { loginSuccessful, expiredLogout, setError } = authSlice.actions;
 export default authSlice.reducer;

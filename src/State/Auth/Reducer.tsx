@@ -23,6 +23,7 @@ interface AuthState {
   loading: boolean;
   error: string | null;
   jwt: string | null;
+  isAuthenticated: boolean;
 }
 
 // Initial state
@@ -31,6 +32,7 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   jwt: null,
+  isAuthenticated: false,
 };
 
 // Define the action type
@@ -66,6 +68,7 @@ const authReducer = (state = initialState, action: Action): AuthState => {
         error: null,
         jwt: action.payload.jwt, // Save JWT from login
         user: action.payload.user || null, // Save user info if provided
+        isAuthenticated: true,
       };
 
     case GET_USER_SUCCESS:
