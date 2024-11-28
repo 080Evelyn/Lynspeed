@@ -22,12 +22,12 @@ const authSlice = createSlice({
       state.token = action.payload;
       state.error = null;
     },
-    expiredLogout(state) {
-      state.isAuthenticated = false;
-      state.token = null;
-      state.error = "Session expired. Please log in again.";
-      console.log("token expired");
-    },
+    // expiredLogout(state) {
+    //   state.isAuthenticated = false;
+    //   state.token = null;
+    //   state.error = "Session expired. Please log in again.";
+    //   console.log("token expired");
+    // },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
@@ -47,5 +47,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccessful, expiredLogout, setError } = authSlice.actions;
+export const { loginSuccessful, setError } = authSlice.actions;
 export default authSlice.reducer;

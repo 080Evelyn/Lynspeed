@@ -24,7 +24,7 @@ import { combineReducers } from "redux";
 import authReducer from "../Components/authSlice"; // Import auth reducer
 import userReducer from "../Components/userSlice"; // Import user reducer
 import subjectListReducer from "./SubjectListSlice";
-import authMiddleware from "./Auth/Authmiddleware";
+// import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
 const persistConfig = {
@@ -45,8 +45,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Create the store
 const store: any = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(authMiddleware),
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({ serializableCheck: false }).concat(authMiddleware),
 });
 
 // Create persistor (used for initializing persistence)
