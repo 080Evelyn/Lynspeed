@@ -98,7 +98,7 @@ const SubjectSelection = () => {
       <div>
         <div className="spa"></div>
         {loading ? (
-          <h2 className="loading">Loading....</h2>
+          <h2 className="loading">Loading.....</h2>
         ) : !loading && error ? (
           <h2 className="loading">
             Something went wrong, check internet connection.
