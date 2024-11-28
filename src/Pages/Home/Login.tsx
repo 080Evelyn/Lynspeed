@@ -7,7 +7,7 @@ import note3 from "../../assets/image 16.png";
 import "./Login.css";
 import Bubbles from "../../Components/ui/Bubbles/Bubbles";
 // import Footer from "../../Components/ui/Footer/Footer";
-import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
+// import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { loginSuccessful } from "../../Components/authSlice";
 
