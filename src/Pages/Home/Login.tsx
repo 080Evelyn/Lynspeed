@@ -80,7 +80,7 @@ const Login: React.FC = () => {
       <Navbar />
       <Bubbles />
       <div className="gather">
-      <div className="left">
+        <div className="left">
           <img src={note3} alt="login" />
         </div>
         <div className="rightsign">
