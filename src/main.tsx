@@ -28,6 +28,7 @@ import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
 import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import FAQ from "./Components/ui/FAQ/FAQ";
+import Subscription from "./Pages/Home/Dashboard/Profile/Subscription";
 
 // Set up the router
 const router = createBrowserRouter([
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
   {
     path: "performance",
     element: <Performance />,
+  },
+  {
+    path: "subscription",
+    element: <Subscription />,
   },
 ]);
 

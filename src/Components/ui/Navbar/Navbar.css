@@ -97,7 +97,7 @@
 
   .nav-menu.active {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .nav-login {
