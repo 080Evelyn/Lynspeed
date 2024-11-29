@@ -1,22 +1,109 @@
 .gather {
-    margin: 50px 40px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 250px;
-  }
-  
-  .gather .left {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 30px;
-  }
-  
-  .right {
-    display: flex;
-    align-items: center;
-    width: 40%;
+  margin: 50px 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 250px;
+}
+
+.gather .left {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h3 {
+  color: #0659a6;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.fillup {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input {
+  width: 550px;
+  height: 55px;
+  padding: 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #d1d1d1;
+  background-color: #f0f0f0;
+}
+
+input::placeholder {
+  color: #b1b1b1;
+}
+
+.password {
+  width: 100%;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+.password input {
+  background-color: #f0f0f0;
+}
+.eye {
+  position: absolute;
+  top: 18px;
+  right: 5%;
+  z-index: 20;
+}
+
+.down {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.log a {
+  color: #e7e737;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.signup-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
+  background-color: #0659a6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-top: 10px;
+}
+
+.signup-button:hover {
+  transform: scale(1.05);
+}
+
+.loader-container,
+.success-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1024px) {
+  .gather {
     flex-direction: column;
     gap: 50px;
     margin: 20px;
@@ -34,6 +121,8 @@
     width: 100%;
     max-width: 550px;
   }
+
+}
 
 
 @media (max-width: 768px) {
