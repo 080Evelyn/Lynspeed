@@ -16,7 +16,7 @@
   .right {
     display: flex;
     align-items: center;
-    width: 60%;
+    width: 40%;
     flex-direction: column;
     gap: 20px;
   }
