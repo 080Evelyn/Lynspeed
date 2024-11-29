@@ -19,18 +19,25 @@ import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 import TestResult from "./Pages/Home/Dashboard/Result/TestResult/TestResult";
 import Test from "./Pages/Home/Dashboard/Test/Test";
 import Subscription from "./Pages/Home/Dashboard/Profile/Subscription";
+import FAQ from "./Components/ui/FAQ/FAQ";
+import Privacy from "./Components/ui/Privacy/Privacy";
+import Terms from "./Components/ui/Terms/Terms";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home/>}/>
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/faq" element={<FAQ/>}/>
+        <Route path="/privacy" element={<Privacy/>}/>
+        <Route path="/terms" element={<Terms/>}/>
 
         {/* Catch-all route for 404 errors */}
         <Route path="*" element={<ErrorPage />} />
