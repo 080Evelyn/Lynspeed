@@ -19,7 +19,7 @@ export const fetchSubjectList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "https://lynspeed.pythonanywhere.com/api/v1/subjects",
+        "https://lynspeed.pythonanywhere.com/api/v1/subjects/",
         {
           headers: {
             "Content-Type": "application/json",
