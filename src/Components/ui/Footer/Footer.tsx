@@ -67,7 +67,7 @@ const Footer = () => {
 
           <div className="footer-social">
             <a
-              href="https://www.tiktok.com/lynspeed"
+              href="https://www.tiktok.com/@lynogtech"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -75,7 +75,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.facebook.com/lynspeed"
+              href="https://www.facebook.com/lynogtech/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -83,7 +83,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.instagram.com/lynspeed"
+              href="https://www.instagram.com/lynogtech/"
               target="_blank"
               rel="noopener noreferrer"
             >

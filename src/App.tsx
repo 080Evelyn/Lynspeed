@@ -18,6 +18,7 @@ import ForgotPassword from "./Pages/Home/Dashboard/ForgotPassword";
 import ResetPassword from "./Pages/Home/Dashboard/ResetPassword";
 import TestResult from "./Pages/Home/Dashboard/Result/TestResult/TestResult";
 import Test from "./Pages/Home/Dashboard/Test/Test";
+import Subscription from "./Pages/Home/Dashboard/Profile/Subscription";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/testresult" element={<TestResult />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/subscription" element={<Subscription />} />
         </Route>
       </Routes>
     </Router>

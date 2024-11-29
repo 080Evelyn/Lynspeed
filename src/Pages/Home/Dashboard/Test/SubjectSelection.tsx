@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from "../../../../State/Store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchSubjectList } from "../../../../State/SubjectListSlice";
-import { useApiRequest } from "../../../../utils/Fetchendpoint";
+// import { useApiRequest } from "../../../../utils/Fetchendpoint";
 
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
@@ -93,10 +93,10 @@ const SubjectSelection = () => {
     // fetching subjectList onMount
     dispatch(fetchSubjectList());
   }, []);
-  const { data, error: err } = useApiRequest(
-    "https://lynspeed.pythonanywhere.com/api/v1/subjects"
-  );
-  console.log(data, err);
+  // const { data, error: err } = useApiRequest(
+  //   "https://lynspeed.pythonanywhere.com/api/v1/subjects"
+  // );
+  // console.log(data, err);
   return (
     <>
       {/* <Navbar2 /> */}
