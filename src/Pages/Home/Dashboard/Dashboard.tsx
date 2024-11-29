@@ -99,11 +99,11 @@ const Dashboard = () => {
                     <strong>{user?.full_name || "User"}</strong>
                   </p>
                   <p>{user?.email || "user@example.com"}</p>
-                  <Link to="/edit-profile">Edit Profile</Link>
+                  {/* <Link to="/edit-profile">Edit Profile</Link> */}
+                  <Link to="/pricing">Subscription</Link>
                   <Link to="/login" onClick={handleSignOut}>
                     Log out
                   </Link>
-                  <Link to="/pricing">Subscription</Link>
                 </div>
               )}
             </li>

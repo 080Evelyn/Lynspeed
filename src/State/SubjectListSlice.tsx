@@ -4,7 +4,7 @@ import axios from "axios";
 interface SubjectList {
   data: [];
   loading: boolean;
-  error: any;
+  error: boolean;
 }
 
 const initialState: SubjectList = {
@@ -13,25 +13,23 @@ const initialState: SubjectList = {
   error: false,
 };
 
-const token = window.localStorage.getItem("authToken");
-
 // Asynchronous thunk to fetch subject list data
 export const fetchSubjectList = createAsyncThunk(
   "subjectList/fetchSubjectList",
-  async (_, { rejectWithValue }: any) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
         "https://lynspeed.pythonanywhere.com/api/v1/subjects",
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
       return response.data;
     } catch (error: any) {
-      console.log(error);
-      return rejectWithValue(error);
+      // console.log(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -54,9 +52,9 @@ const subjectListSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchSubjectList.rejected, (state, action) => {
+      .addCase(fetchSubjectList.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = true;
         state.data = [];
       });
   },
