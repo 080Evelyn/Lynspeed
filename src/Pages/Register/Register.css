@@ -1,4 +1,5 @@
 .gather {
+<<<<<<< HEAD
   margin: 50px 40px;
   display: flex;
   align-items: center;
@@ -104,6 +105,26 @@ input::placeholder {
 
 @media (max-width: 1024px) {
   .gather {
+=======
+    margin: 50px 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 250px;
+  }
+  
+  .gather .left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 30px;
+  }
+  
+  .right {
+    display: flex;
+    align-items: center;
+    width: 40%;
+>>>>>>> eve2
     flex-direction: column;
     gap: 50px;
     margin: 20px;
