@@ -3,22 +3,26 @@ import axios from "axios";
 import Footer from "../../Components/ui/Footer/Footer";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import "./Pricing.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 
 type PlanType = "FREE" | "WEEKLY" | "MONTHLY";
 
 const Pricing: React.FC = () => {
-
   const handleSubscribe = async (plan: PlanType) => {
     if (plan === "FREE") {
-      alert("You have selected the Free plan. No payment is required.");
+      toast("You have selected the Free plan. No payment is required.");
       // Add any additional logic needed for the Free plan here
       return;
     }
 
     try {
-      const response = await axios.post("https://lynspeed.pythonanywhere.com/api/v1/subscription/", {
-        plan: plan,
-      });
+      const response = await axios.post(
+        "https://lynspeed.pythonanywhere.com/api/v1/subscription/",
+        {
+          plan: plan,
+        }
+      );
 
       const { paystackUrl } = response.data;
 
@@ -26,7 +30,7 @@ const Pricing: React.FC = () => {
       window.location.href = paystackUrl;
     } catch (error) {
       console.error("Error subscribing:", error);
-      alert("There was an issue. Please try again.");
+      toast.error("There was an issue. Please try again.");
     }
   };
 
@@ -35,7 +39,6 @@ const Pricing: React.FC = () => {
       <Navbar />
       <h1 className="pricing-title">Pricing List</h1>
       <div className="pricing-cards">
-
         {/* Free Plan Card */}
         <div className="card">
           <div className="card-header">
@@ -66,13 +69,15 @@ const Pricing: React.FC = () => {
             <h3>₦600</h3>
             <ul>
               <li>7 days validity</li>
-              <li>Unlimited access to questions</li> 
+              <li>Unlimited access to questions</li>
               <li>Full test simulations</li>
               <li>Performance analysis</li>
               <li>Result History</li>
               <li>Email support</li>
             </ul>
-            <button onClick={() => handleSubscribe("WEEKLY")}>Get Started</button>
+            <button onClick={() => handleSubscribe("WEEKLY")}>
+              Get Started
+            </button>
           </div>
         </div>
 
@@ -93,11 +98,13 @@ const Pricing: React.FC = () => {
               <li>Priority customer support</li>
               <li>Test result & History</li>
             </ul>
-            <button onClick={() => handleSubscribe("MONTHLY")}>Get Started</button>
+            <button onClick={() => handleSubscribe("MONTHLY")}>
+              Get Started
+            </button>
           </div>
         </div>
-
       </div>
+      <ToastContainer />
       <Footer />
     </>
   );
