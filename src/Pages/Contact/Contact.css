@@ -44,6 +44,7 @@ h3 {
 
 .contact-textarea {
   resize: vertical;
+  width: 92%;
 }
 
 .contact-submit {
@@ -81,6 +82,7 @@ h3 {
   .contact-textarea {
     font-size: 0.9rem;
     padding: 12px;
+    width: 100%;
   }
 
   .contact-submit {

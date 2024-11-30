@@ -28,7 +28,7 @@ const Contact = () => {
       ...formData,
       [name]: value,
     });
-  };
+  };    
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,7 +96,7 @@ const Contact = () => {
             <label htmlFor="message">Message*</label>
             <textarea
               rows={7}
-              cols={57}
+              
               id="message"
               name="message"
               placeholder="Please enter your comments......"
