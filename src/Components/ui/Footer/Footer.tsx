@@ -1,6 +1,5 @@
 import "./Footer.css";
 import logo from "../../../assets/logofooter.png";
-import facebook from "../../../assets/Facebok.jpeg";
 import tiktok from "../../../assets/tiktok.png";
 import insta from "../../../assets/IG.png"
 import { Link } from "react-router-dom";
