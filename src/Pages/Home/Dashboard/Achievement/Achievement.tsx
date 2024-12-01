@@ -14,19 +14,19 @@ interface AchievementItem {
 const Achievement = () => {
   const achievements: AchievementItem[] = [
     {
-      title: "GRAND ACHIEVER",
+      title: "DIAMOND",
       scoreRange: "Score: 360 - 400",
       icon: "🏆",
       highlight: false,
     },
     {
-      title: "PLATINUM",
+      title: "GOLD",
       scoreRange: "Score: 240 - 359",
       icon: "🎖️",
       highlight: false,
     },
     {
-      title: "GOLD",
+      title: "SILVER",
       scoreRange: "Score: 180 - 239",
       icon: "🥇",
       highlight: true,
@@ -44,6 +44,9 @@ const Achievement = () => {
       {/* <Navbar2/> */}
       <div className="leaderboard-page">
         <div className="leaderboard-header">
+        <span className="back-arrow" onClick={() => window.history.back()}>
+        ←
+      </span>
           <h2>Leaderboard</h2>
         </div>
         <div className="ach-grp">

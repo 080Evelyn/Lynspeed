@@ -53,6 +53,9 @@ const Notification = () => {
       {/* <Navbar2/> */}
 
       <div className="notification-header">
+      <span className="back-arrow" onClick={() => window.history.back()}>
+        ←
+      </span>
         <h2>Notification</h2>
       </div>
 

@@ -74,13 +74,13 @@ const Footer = () => {
               <img src={tiktok} alt="tiktok" />
             </a>
 
-            <a
+            {/* <a
               href="https://www.facebook.com/lynogtech/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img src={facebook} alt="facebook" style={{ width: "95%" }} />
-            </a>
+            </a> */}
 
             <a
               href="https://www.instagram.com/lynogtech/"
