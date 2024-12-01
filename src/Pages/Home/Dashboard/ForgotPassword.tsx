@@ -56,6 +56,13 @@ const ForgotPassword: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            style={{
+              padding: "10px",
+              width: "100%",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              boxSizing: "border-box",
+            }}
           />
         </label>
         <button

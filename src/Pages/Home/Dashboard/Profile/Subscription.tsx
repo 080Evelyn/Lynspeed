@@ -12,13 +12,6 @@ interface SubscriptionStatus {
 
 const Subscription: React.FC = () => {
   const plans = [
-    // {
-    //   name: "FREE",
-    //   description:
-    //     "Two trials Access to basic, questions Limited test simulations 24 hours validity",
-    //   price: "₦0",
-    // },
-
     {
       name: "WEEKLY",
       description:
@@ -39,13 +32,11 @@ const Subscription: React.FC = () => {
   const [subLoader, setSubLoader] = useState(false);
   const [error, setError] = useState("");
   const token = localStorage.getItem("authToken");
-  // Fetch subscription plans and current subscription status
+
   useEffect(() => {
     const fetchPlansAndStatus = async () => {
       try {
         setLoading(true);
-
-        // Fetch current subscription status
         const statusResponse = await axios.get(
           "https://lynspeed.pythonanywhere.com/api/v1/subscription-status/",
           {
@@ -65,7 +56,6 @@ const Subscription: React.FC = () => {
     fetchPlansAndStatus();
   }, []);
 
-  // Activate or upgrade a subscription
   const handleActivateSubscription = async (planName: string) => {
     try {
       setSubLoader(true);
@@ -77,7 +67,6 @@ const Subscription: React.FC = () => {
       );
 
       const { paystackUrl } = response.data;
-      // Redirect to Paystack payment page
       window.location.href = paystackUrl;
     } catch (error) {
       console.error("Error activating subscription:", error);
@@ -92,15 +81,19 @@ const Subscription: React.FC = () => {
 
   return (
     <div className="subscription-container">
+      {/* Backward Arrow */}
+      <div className="header-container">
+      <span className="back-arrow" onClick={() => window.history.back()}>
+        ←
+      </span>
       <h1 className="subscription-title">My Subscription</h1>
-
+    </div>
       {loading ? (
         <p>Loading subscription details...</p>
       ) : error ? (
         <p className="error-message">{error}</p>
       ) : (
         <>
-          {/* Current Subscription Details */}
           {subscription && subscription.is_active ? (
             <div className="subscription-details">
               <h2>Current Plan: {subscription.plan}</h2>
@@ -113,7 +106,6 @@ const Subscription: React.FC = () => {
             <p>You do not have an active subscription.</p>
           )}
 
-          {/* Available Plans */}
           <div className="plans-container">
             {plans.map((plan) => (
               <div key={plan.name} className="plan-card">
