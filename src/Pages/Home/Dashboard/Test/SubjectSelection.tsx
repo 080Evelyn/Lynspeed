@@ -87,8 +87,7 @@ const SubjectSelection = () => {
     handleUserSubject();
   }, [savedSubjects]);
 
-  const handleStartTest = async (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleStartTest = async (_e: React.MouseEvent) => {
     if (savedSubjectList.length === 0) {
       toast("You have not selected your subjects yet");
       return;
