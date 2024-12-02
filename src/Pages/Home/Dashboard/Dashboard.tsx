@@ -120,7 +120,7 @@ const Dashboard = () => {
 
             {/* Result History */}
             <li>
-              <img src={res} alt="Results" />
+              <img loading="lazy" src={res} alt="Results" />
               <Link className="menu-item" to="/resulthistory">
                 Result History
               </Link>
@@ -209,7 +209,7 @@ const Dashboard = () => {
         <main className="right">
           <section className="welcome-section">
             <div className="welcome-banner">
-              <img src={dash1} alt="Banner" />
+              <img loading="lazy" src={dash1} alt="Banner" />
               <h1 className="welcome-text">
                 WELCOME {user?.full_name?.toUpperCase() || "USER"}! 👋
               </h1>
@@ -221,8 +221,8 @@ const Dashboard = () => {
             </div>
           </section>
           <section className="right-pics">
-            <img src={r1} alt="Right pic 1" />
-            <img src={r2} alt="Right pic 2" />
+            <img loading="lazy" src={r1} alt="Right pic 1" />
+            <img loading="lazy" src={r2} alt="Right pic 2" />
           </section>
         </main>
       </div>

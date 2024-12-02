@@ -10,6 +10,8 @@ import Bubbles from "../../Components/ui/Bubbles/Bubbles";
 // import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { loginSuccessful } from "../../Components/authSlice";
+import { fetchSubjectList } from "../../State/SubjectListSlice";
+import { AppDispatch } from "../../State/Store";
 
 interface UserProfile {
   id: string;
@@ -26,7 +28,7 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -46,17 +48,20 @@ const Login: React.FC = () => {
         }
       );
 
-      const { access: token } = response.data;
+      const { access: token, refresh } = response.data;
       const profileResponse = await axios.get(`${baseUrl}/profile/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      //fetching the subject list
+      dispatch(fetchSubjectList());
 
       const user: UserProfile = profileResponse.data;
 
       // Save token and user data to local storage
       localStorage.setItem("authToken", token);
+      localStorage.setItem("refreshToken", refresh);
       localStorage.setItem("user", JSON.stringify(user));
 
       // Dispatch loginSuccess action to save user data in Redux
