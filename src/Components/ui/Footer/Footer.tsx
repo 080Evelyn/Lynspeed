@@ -1,6 +1,5 @@
 import "./Footer.css";
 import logo from "../../../assets/logofooter.png";
-import facebook from "../../../assets/Facebok.jpeg";
 import tiktok from "../../../assets/tiktok.png";
 import insta from "../../../assets/IG.png"
 import { Link } from "react-router-dom";
@@ -74,13 +73,13 @@ const Footer = () => {
               <img src={tiktok} alt="tiktok" />
             </a>
 
-            <a
+            {/* <a
               href="https://www.facebook.com/lynogtech/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img src={facebook} alt="facebook" style={{ width: "95%" }} />
-            </a>
+            </a> */}
 
             <a
               href="https://www.instagram.com/lynogtech/"

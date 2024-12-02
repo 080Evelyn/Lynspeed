@@ -104,8 +104,12 @@ const Performance: React.FC = () => {
     <>
       {/* <Navbar2 /> */}
       <div className="performance-analysis">
-        <h2>Performance Analysis</h2>
-
+        <div className="perform">
+          <span className="back-arrow" onClick={() => window.history.back()}>
+            ←
+          </span>
+          <h2>Performance Analysis</h2>
+        </div>
         {/* Bar Chart for Performance Over Time */}
         <div className="chart-container">
           <h3>Performance Over Time (Bar Chart)</h3>

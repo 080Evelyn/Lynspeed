@@ -4,86 +4,93 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../State/Store";
 
 // Define the structure of each question
-interface Question {
-  id: number;
-  question: string;
-  options: string[];
-}
+// interface Question {
+//   id: number;
+//   question: string;
+//   options: string[];
+// }
 
 // Define the structure for questionsPerSubject
-interface QuestionsPerSubject {
-  [key: string]: Question[];
-}
+// interface QuestionsPerSubject {
+//   [key: string]: Question[];
+// }
 
 const Test: React.FC = () => {
+  // const subjects = ["Use of English", "Mathematics", "Physics", "Chemistry"];
+
+  // const questionsPerSubject: QuestionsPerSubject = {
+  //   "Use of English": [
+  //     {
+  //       id: 1,
+  //       question:
+  //         "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     {
+  //       id: 2,
+  //       question:
+  //         "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     // Add more questions
+  //   ],
+  //   Mathematics: [
+  //     {
+  //       id: 1,
+  //       question:
+  //         "Maths Lorem ipsum dolor sit amet consectetur. Mathematics question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     // Add more questions
+  //   ],
+  //   Physics: [
+  //     {
+  //       id: 1,
+  //       question:
+  //         "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     {
+  //       id: 2,
+  //       question:
+  //         "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     // Add more questions
+  //   ],
+  //   Chemistry: [
+  //     {
+  //       id: 1,
+  //       question:
+  //         "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     {
+  //       id: 2,
+  //       question:
+  //         "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
+  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+  //     },
+  //     // Add more questions
+  //   ],
+  // };
+
+  //getting the questions from redux store
+  const question = useSelector((state: RootState) => state.testQuestions.data);
   // getting the subjectList states from redux store
-  // const subjects = useSelector(
-  //   (state: RootState) => state.savedSubjectList.data
-  // );
+  const savedSubjects = useSelector(
+    (state: RootState) => state.savedSubjectList.data
+  );
+  const subjects = savedSubjects.map((sub: any) => {
+    return sub.name;
+  });
 
-  const subjects = ["Use of English", "Mathematics", "Physics", "Chemistry"];
-
-  const questionsPerSubject: QuestionsPerSubject = {
-    "Use of English": [
-      {
-        id: 1,
-        question:
-          "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      {
-        id: 2,
-        question:
-          "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      // Add more questions
-    ],
-    Mathematics: [
-      {
-        id: 1,
-        question:
-          "Maths Lorem ipsum dolor sit amet consectetur. Mathematics question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      // Add more questions
-    ],
-    Physics: [
-      {
-        id: 1,
-        question:
-          "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      {
-        id: 2,
-        question:
-          "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      // Add more questions
-    ],
-    Chemistry: [
-      {
-        id: 1,
-        question:
-          "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      {
-        id: 2,
-        question:
-          "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
-        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-      },
-      // Add more questions
-    ],
-  };
-
-  const [currentSubject, setCurrentSubject] =
-    useState<string>("Use of English");
+  const [currentSubject, setCurrentSubject] = useState<number>(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<{
+  const [
+    selectedAnswers,
+    // setSelectedAnswers
+  ] = useState<{
     [key: string]: { [key: number]: number };
   }>({});
   const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 180 minutes in seconds
@@ -102,8 +109,8 @@ const Test: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubjectChange = (subject: string) => {
-    setCurrentSubject(subject);
+  const handleSubjectChange = (i: any) => {
+    setCurrentSubject(i);
     setCurrentQuestion(0);
   };
 
@@ -112,7 +119,13 @@ const Test: React.FC = () => {
   };
 
   const handleNext = () => {
-    if (currentQuestion < questionsPerSubject[currentSubject].length - 1) {
+    // if (currentQuestion < questionsPerSubject[currentSubject].length - 1) {
+    //   setCurrentQuestion(currentQuestion + 1);
+    // }
+    if (
+      currentQuestion <
+      question[currentSubject]?.worksheets[0].questions.length - 1
+    ) {
       setCurrentQuestion(currentQuestion + 1);
     }
   };
@@ -123,15 +136,15 @@ const Test: React.FC = () => {
     }
   };
 
-  const handleOptionSelect = (optionIndex: number) => {
-    setSelectedAnswers({
-      ...selectedAnswers,
-      [currentSubject]: {
-        ...(selectedAnswers[currentSubject] || {}),
-        [currentQuestion]: optionIndex,
-      },
-    });
-  };
+  // const handleOptionSelect = (optionIndex: number) => {
+  //   setSelectedAnswers({
+  //     ...selectedAnswers,
+  //     [currentSubject]: {
+  //       ...(selectedAnswers[currentSubject] || {}),
+  //       [currentQuestion]: optionIndex,
+  //     },
+  //   });
+  // };
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -142,18 +155,15 @@ const Test: React.FC = () => {
       .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  // const questions = useSelector((state: RootState) => state.testQuestions.data);
-  // console.log(questions);
-
   return (
     <div className="test-container">
       <div className="subject-tabs">
-        {subjects.map((name) => (
+        {subjects.map((subjects: any, i: any) => (
           <button
-            key={name}
-            className={currentSubject === name ? "active" : ""}
-            onClick={() => handleSubjectChange(name)}>
-            {name}
+            key={subjects}
+            className={currentSubject === i ? "active" : ""}
+            onClick={() => handleSubjectChange(i)}>
+            {subjects}
           </button>
         ))}
       </div>
@@ -162,27 +172,107 @@ const Test: React.FC = () => {
 
       <div className="question-section">
         <div className="question-counter">
-          {currentQuestion + 1} / {questionsPerSubject[currentSubject].length}
+          {/* {currentQuestion + 1} / {questionsPerSubject[currentSubject].length} */}
         </div>
         <div className="question-text">
-          {questionsPerSubject[currentSubject][currentQuestion].question}
+          {/* {questionsPerSubject[currentSubject][currentQuestion].question} */}
+          {
+            question[currentSubject].worksheets[0]?.questions[currentQuestion]
+              .text
+          }
         </div>
 
+        {/* <div className="options">
+          {question[currentSubject].worksheets[0]?.questions[
+            currentQuestion
+          ].map((option: any, idx: any) => (
+            <label key={idx}>
+              <input
+                type="radio"
+                name={`question-${currentQuestion}`}
+                checked={
+                  selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                }
+                onChange={() => handleOptionSelect(idx)}
+              />
+              {String.fromCharCode(65 + idx)}. {option}
+            </label>
+          ))}
+        </div> */}
         <div className="options">
-          {questionsPerSubject[currentSubject][currentQuestion].options.map(
-            (option, idx) => (
-              <label key={idx}>
+          {question[currentSubject].worksheets[0]?.questions[
+            currentQuestion
+          ] && (
+            <>
+              <label>
                 <input
                   type="radio"
-                  name={`question-${currentQuestion}`}
-                  checked={
-                    selectedAnswers[currentSubject]?.[currentQuestion] === idx
-                  }
-                  onChange={() => handleOptionSelect(idx)}
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_a}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
                 />
-                {String.fromCharCode(65 + idx)}. {option}
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_a
+                }
               </label>
-            )
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_b}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_b
+                }
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_c}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_c
+                }
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_d}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_d
+                }
+              </label>
+            </>
           )}
         </div>
 
@@ -192,8 +282,12 @@ const Test: React.FC = () => {
           </button>
           <button
             onClick={handleNext}
+            // disabled={currentQuestion === question[currentSubject].length - 1}
             disabled={
-              currentQuestion === questionsPerSubject[currentSubject].length - 1
+              currentQuestion ===
+              question[currentSubject].worksheets[currentQuestion]?.questions
+                .length -
+                1
             }>
             Next
           </button>
@@ -201,18 +295,20 @@ const Test: React.FC = () => {
       </div>
 
       <div className="question-grid">
-        {questionsPerSubject[currentSubject].map((_, i) => (
-          <button
-            key={i}
-            className={`${currentQuestion === i ? "active" : ""} ${
-              selectedAnswers[currentSubject]?.[i] !== undefined
-                ? "answered"
-                : ""
-            }`}
-            onClick={() => handleQuestionChange(i)}>
-            {i + 1}
-          </button>
-        ))}
+        {question[currentSubject].worksheets[0]?.questions.map(
+          (_: any, i: any) => (
+            <button
+              key={i}
+              className={`${currentQuestion === i ? "active" : ""} ${
+                selectedAnswers[currentSubject]?.[i] !== undefined
+                  ? "answered"
+                  : ""
+              }`}
+              onClick={() => handleQuestionChange(i)}>
+              {i + 1}
+            </button>
+          )
+        )}
       </div>
 
       <div className="submit-section">
