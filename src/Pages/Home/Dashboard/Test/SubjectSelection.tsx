@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./SubjectSelection.css";
 // import Footer from "../../../../Components/ui/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SubjectAlert from "./SubjectAlert";
 import { AppDispatch, RootState } from "../../../../State/Store";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { fetchSavedSubjectList } from "../../../../State/SavedSubjectListSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
+import { saveSubject, unSaveSubject } from "../../../../State/SubjectListSlice";
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 const MAX_EXTRA_SUBJECTS = 3; // Since Use of English is already selected
@@ -22,13 +23,30 @@ interface Subs {
 
 const SubjectSelection = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([
     "English",
   ]); // Default selected
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showSelectionAlert, setShowSelectionAlert] = useState<boolean>(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false); // Success message state
-  const [savedSubjects, setSavedSubjects] = useState<boolean>(false);
+  // const [subjectSaved, setSubjectSaved] = useState<boolean>(false);
+  // getting the subjectList states from redux store
+  const subjectList = useSelector((state: RootState) => state.subjectList.data);
+  const subjectSaved = useSelector(
+    (state: RootState) => state.subjectList.saved
+  );
+
+  // getting the SavedsubjectList states from redux store
+  const savedSubjectList = useSelector(
+    (state: RootState) => state.savedSubjectList.data
+  );
+  const loading = useSelector(
+    (state: RootState) => state.savedSubjectList.loading
+  );
+  const error = useSelector((state: RootState) => state.savedSubjectList.error);
+  //this error shows user has not selected subjects yet
+  const userSubject = error === "Request failed with status code 404";
 
   // Handle subject change
   const handleSubjectChange = (subject: string) => {
@@ -45,10 +63,9 @@ const SubjectSelection = () => {
       setSelectedSubjects((prev) => [...prev, subject]);
 
       if (selectedSubjects.length === REQUIRED_TOTAL_SUBJECTS - 1) {
-        setSavedSubjects(true);
-        // Automatically save subjects and remove success message after 5 seconds
+        dispatch(saveSubject());
       } else {
-        setSavedSubjects(false);
+        dispatch(unSaveSubject());
       }
     } else {
       setShowAlert(true);
@@ -58,7 +75,7 @@ const SubjectSelection = () => {
   const token = localStorage.getItem("authToken");
   useEffect(() => {
     const handleUserSubject = async () => {
-      if (savedSubjects)
+      if (subjectSaved) {
         try {
           await axios.post(
             "https://lynspeed.pythonanywhere.com/api/v1/user/subjects/",
@@ -83,30 +100,17 @@ const SubjectSelection = () => {
           console.error("Error subscribing:", error);
           toast.error("Something went wrong, check internet connection.");
         }
+      } else {
+        return;
+      }
+      handleUserSubject();
     };
-    handleUserSubject();
-  }, [savedSubjects]);
+  }, [subjectSaved]);
 
   const handleStartTest = async (_e: React.MouseEvent) => {
-    if (savedSubjectList.length === 0) {
-      toast("You have not selected your subjects yet");
-      return;
-    }
-
     dispatch(fetchTestQuestions());
+    navigate("/test");
   };
-
-  // getting the subjectList states from redux store
-  const subjectList = useSelector((state: RootState) => state.subjectList.data);
-
-  // getting the SavedsubjectList states from redux store
-  const savedSubjectList = useSelector(
-    (state: RootState) => state.savedSubjectList.data
-  );
-  const loading = useSelector(
-    (state: RootState) => state.savedSubjectList.loading
-  );
-  const error = useSelector((state: RootState) => state.savedSubjectList.error);
 
   useEffect(() => {
     //calling the saved  subject list endpoint onMount for users that might log out after picking subjects
@@ -119,13 +123,15 @@ const SubjectSelection = () => {
         <div className="spa"></div>
         {loading ? (
           <h2 className="loading">Loading....</h2>
-        ) : !loading && error ? (
+        ) : !loading &&
+          error &&
+          error !== "Request failed with status code 404" ? (
           <h2 className="loading">
             Something went wrong, check internet connection.
           </h2>
         ) : (
           <>
-            {savedSubjectList.length === 0 && (
+            {userSubject && (
               <>
                 <div className="sel upper-case">
                   {subjectList?.map(({ id, name }: Subs) => (
@@ -183,17 +189,12 @@ const SubjectSelection = () => {
                     <div className="bot">
                       <Link to="/dashboard">Go Back</Link>
                     </div>
-                    <div className="bot">
-                      <Link to="/test" onClick={handleStartTest}>
-                        Start Test
-                      </Link>
-                    </div>
                   </div>
                 </div>
               </>
             )}
 
-            {savedSubjectList.length > 0 && (
+            {!userSubject && (
               <>
                 <div className="sel upper-case">
                   {savedSubjectList?.map(({ id, name }: Subs) => (

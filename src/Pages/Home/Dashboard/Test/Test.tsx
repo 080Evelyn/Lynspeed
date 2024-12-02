@@ -177,7 +177,7 @@ const Test: React.FC = () => {
         <div className="question-text">
           {/* {questionsPerSubject[currentSubject][currentQuestion].question} */}
           {
-            question[currentSubject].worksheets[0]?.questions[currentQuestion]
+            question[currentSubject]?.worksheets[0]?.questions[currentQuestion]
               .text
           }
         </div>

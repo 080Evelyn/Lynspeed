@@ -4,7 +4,7 @@ import axios from "axios";
 interface SavedSubjectList {
   data: [];
   loading: boolean;
-  error: boolean;
+  error: any;
 }
 
 const initialState: SavedSubjectList = {
@@ -49,9 +49,9 @@ const savedSubjectListSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchSavedSubjectList.rejected, (state) => {
+      .addCase(fetchSavedSubjectList.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.payload;
         state.data = [];
       });
   },
