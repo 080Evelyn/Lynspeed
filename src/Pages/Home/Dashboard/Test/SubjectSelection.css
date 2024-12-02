@@ -24,6 +24,9 @@
 .talk {
   margin: 50px;
 }
+.upper-case {
+  text-transform: uppercase;
+}
 .head {
   display: flex;
   align-items: center;
