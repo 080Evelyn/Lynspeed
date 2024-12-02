@@ -5,12 +5,14 @@ interface SubjectList {
   data: [];
   loading: boolean;
   error: boolean;
+  saved: boolean;
 }
 
 const initialState: SubjectList = {
   data: [],
   loading: false,
   error: false,
+  saved: false,
 };
 
 // Asynchronous thunk to fetch subject list data
@@ -38,8 +40,11 @@ const subjectListSlice = createSlice({
   name: "SubjectList",
   initialState,
   reducers: {
-    clearSubjectListData: (state) => {
-      state.data = [];
+    saveSubject: (state) => {
+      state.saved = true;
+    },
+    unSaveSubject: (state) => {
+      state.saved = false;
     },
   },
   extraReducers: (builder) => {
@@ -60,5 +65,5 @@ const subjectListSlice = createSlice({
   },
 });
 
-export const { clearSubjectListData } = subjectListSlice.actions;
+export const { saveSubject, unSaveSubject } = subjectListSlice.actions;
 export default subjectListSlice.reducer;

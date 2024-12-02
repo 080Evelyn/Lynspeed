@@ -14,7 +14,7 @@ import testQuestionsReducer from "./TestQuestionSlice";
 const persistConfig = {
   key: "root", // Key for the persisted state
   storage, // Which storage to use (localStorage, sessionStorage, etc.)
-  whitelist: ["auth", "subjectList", "savedSubjectList", "testQuestions"], // List the reducers you want to persist
+  whitelist: ["auth", "subjectList", "testQuestions"], // List the reducers you want to persist
 };
 
 const rootReducer = combineReducers({
