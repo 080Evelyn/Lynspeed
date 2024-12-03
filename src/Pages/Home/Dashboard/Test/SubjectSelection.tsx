@@ -114,7 +114,11 @@ const SubjectSelection = () => {
     <>
       {/* <Navbar2 /> */}
       <div>
-        <div className="spa"></div>
+        <div className="spa">
+        <span className="back-arrow" onClick={() => window.history.back()} style={{color :"white", margin: "20px"}}>
+            ←
+          </span>
+        </div>
         {loading ? (
           <h2 className="loading">Loading....</h2>
         ) : !loading &&
@@ -242,14 +246,14 @@ const SubjectSelection = () => {
 
                   <div className="but">
                     <div className="bot">
-                      <Link to="/dashboard">Go Back</Link>
+                      <Link to="/dashboard">Go Back</Link> 
                     </div>
                     <div className="bot">
                       <Link to="/test" onClick={handleStartTest}>
                         Start Test
                       </Link>
                     </div>
-                  </div>
+                  </div> 
                 </div>
               </>
             )}

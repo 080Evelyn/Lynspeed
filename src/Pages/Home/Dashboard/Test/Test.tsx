@@ -16,64 +16,7 @@ import { RootState } from "../../../../State/Store";
 // }
 
 const Test: React.FC = () => {
-  // const subjects = ["Use of English", "Mathematics", "Physics", "Chemistry"];
-
-  // const questionsPerSubject: QuestionsPerSubject = {
-  //   "Use of English": [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     {
-  //       id: 2,
-  //       question:
-  //         "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  //   Mathematics: [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "Maths Lorem ipsum dolor sit amet consectetur. Mathematics question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  //   Physics: [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     {
-  //       id: 2,
-  //       question:
-  //         "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  //   Chemistry: [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     {
-  //       id: 2,
-  //       question:
-  //         "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  // };
+ 
 
   //getting the questions from redux store
   const question = useSelector((state: RootState) => state.testQuestions.data);
