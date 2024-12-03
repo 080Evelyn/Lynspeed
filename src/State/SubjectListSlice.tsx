@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface SubjectList {
-  data: [];
+  data: any[]; // Changed from [] to any[] for flexibility
   loading: boolean;
   error: boolean;
   saved: boolean;
@@ -30,14 +30,13 @@ export const fetchSubjectList = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-      // console.log(error);
       return rejectWithValue(error.message);
     }
   }
 );
 
 const subjectListSlice = createSlice({
-  name: "SubjectList",
+  name: "subjectList",
   initialState,
   reducers: {
     saveSubject: (state) => {
@@ -45,6 +44,9 @@ const subjectListSlice = createSlice({
     },
     unSaveSubject: (state) => {
       state.saved = false;
+    },
+    setSubjectList: (state, action) => {
+      state.data = action.payload; // Allows direct setting of subject list from another component
     },
   },
   extraReducers: (builder) => {
@@ -65,5 +67,5 @@ const subjectListSlice = createSlice({
   },
 });
 
-export const { saveSubject, unSaveSubject } = subjectListSlice.actions;
+export const { saveSubject, unSaveSubject, setSubjectList } = subjectListSlice.actions;
 export default subjectListSlice.reducer;

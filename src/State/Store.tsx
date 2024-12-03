@@ -1,4 +1,3 @@
-// src/redux/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Default is localStorage
@@ -13,9 +12,10 @@ import testQuestionsReducer from "./TestQuestionSlice";
 // Create persist config
 const persistConfig = {
   key: "root", // Key for the persisted state
-  storage, // Which storage to use (localStorage, sessionStorage, etc.)
-  whitelist: ["auth", "subjectList", "testQuestions"], // List the reducers you want to persist
+  storage, // Which storage to use (localStorage)
+  whitelist: ["auth", "subjectList", "savedSubjectList", "testQuestions"], // Add savedSubjectList
 };
+
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -28,11 +28,17 @@ const rootReducer = combineReducers({
 // Wrap rootReducer with persistReducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Create the store
+// Create the store with middleware configuration to ignore non-serializable checks
 const store: any = configureStore({
   reducer: persistedReducer,
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({ serializableCheck: false }).concat(authMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore specific paths where non-serializable values are found
+        ignoredActions: ["persist/PERSIST"],
+        ignoredPaths: ["register", "rehydrate"],
+      },
+    }),
 });
 
 // Create persistor (used for initializing persistence)
@@ -40,6 +46,7 @@ export const persistor = persistStore(store);
 
 // Export the store
 export default store;
+
 // Type for the entire state
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
