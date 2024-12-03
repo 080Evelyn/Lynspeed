@@ -11,7 +11,6 @@ import { fetchSavedSubjectList } from "../../../../State/SavedSubjectListSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
-import { saveSubject, unSaveSubject } from "../../../../State/SubjectListSlice";
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 const MAX_EXTRA_SUBJECTS = 3; // Since Use of English is already selected
@@ -30,12 +29,9 @@ const SubjectSelection = () => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showSelectionAlert, setShowSelectionAlert] = useState<boolean>(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false); // Success message state
-  // const [subjectSaved, setSubjectSaved] = useState<boolean>(false);
+  const [subjectSaved, setSubjectSaved] = useState<boolean>(false);
   // getting the subjectList states from redux store
   const subjectList = useSelector((state: RootState) => state.subjectList.data);
-  const subjectSaved = useSelector(
-    (state: RootState) => state.subjectList.saved
-  );
 
   // getting the SavedsubjectList states from redux store
   const savedSubjectList = useSelector(
@@ -63,9 +59,9 @@ const SubjectSelection = () => {
       setSelectedSubjects((prev) => [...prev, subject]);
 
       if (selectedSubjects.length === REQUIRED_TOTAL_SUBJECTS - 1) {
-        dispatch(saveSubject());
+        setSubjectSaved(true);
       } else {
-        dispatch(unSaveSubject());
+        setSubjectSaved(false);
       }
     } else {
       setShowAlert(true);
@@ -75,7 +71,7 @@ const SubjectSelection = () => {
   const token = localStorage.getItem("authToken");
   useEffect(() => {
     const handleUserSubject = async () => {
-      if (subjectSaved) {
+      if (subjectSaved === true) {
         try {
           await axios.post(
             "https://lynspeed.pythonanywhere.com/api/v1/user/subjects/",
@@ -100,11 +96,9 @@ const SubjectSelection = () => {
           console.error("Error subscribing:", error);
           toast.error("Something went wrong, check internet connection.");
         }
-      } else {
-        return;
       }
-      handleUserSubject();
     };
+    handleUserSubject();
   }, [subjectSaved]);
 
   const handleStartTest = async (_e: React.MouseEvent) => {
