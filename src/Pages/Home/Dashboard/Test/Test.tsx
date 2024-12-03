@@ -3,44 +3,71 @@ import "./Test.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../State/Store";
 
+// Define the structure of each question
+// interface Question {
+//   id: number;
+//   question: string;
+//   options: string[];
+// }
+
+// Define the structure for questionsPerSubject
+// interface QuestionsPerSubject {
+//   [key: string]: Question[];
+// }
+
 const Test: React.FC = () => {
-  // Getting questions and subjects from Redux store
-  const questions = useSelector((state: RootState) => state.testQuestions.data);
+ 
+
+  //getting the questions from redux store
+  const question = useSelector((state: RootState) => state.testQuestions.data);
+  // getting the subjectList states from redux store
   const savedSubjects = useSelector(
     (state: RootState) => state.savedSubjectList.data
   );
+  const subjects = savedSubjects.map((sub: any) => {
+    return sub.name;
+  });
 
-  const subjects = savedSubjects.map((sub: any) => sub.name);
   const [currentSubject, setCurrentSubject] = useState<number>(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<{
-    [subjectIndex: number]: { [questionIndex: number]: string };
+  const [
+    selectedAnswers,
+    // setSelectedAnswers
+  ] = useState<{
+    [key: string]: { [key: number]: number };
   }>({});
-  const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 2 hours
+  const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 180 minutes in seconds
 
-  // Timer effect
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeRemaining((prev) => {
-        if (prev <= 0) {
+      setTimeRemaining((prevTime) => {
+        if (prevTime <= 0) {
           clearInterval(timer);
           return 0;
         }
-        return prev - 1;
+        return prevTime - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubjectChange = (index: number) => {
-    setCurrentSubject(index);
+  const handleSubjectChange = (i: any) => {
+    setCurrentSubject(i);
     setCurrentQuestion(0);
   };
 
+  const handleQuestionChange = (index: number) => {
+    setCurrentQuestion(index);
+  };
+
   const handleNext = () => {
+    // if (currentQuestion < questionsPerSubject[currentSubject].length - 1) {
+    //   setCurrentQuestion(currentQuestion + 1);
+    // }
     if (
-      questions[currentSubject]?.worksheets[0]?.questions.length > currentQuestion + 1
+      currentQuestion <
+      question[currentSubject]?.worksheets[0].questions.length - 1
     ) {
       setCurrentQuestion(currentQuestion + 1);
     }
@@ -52,15 +79,15 @@ const Test: React.FC = () => {
     }
   };
 
-  const handleOptionSelect = (option: string) => {
-    setSelectedAnswers((prev) => ({
-      ...prev,
-      [currentSubject]: {
-        ...(prev[currentSubject] || {}),
-        [currentQuestion]: option,
-      },
-    }));
-  };
+  // const handleOptionSelect = (optionIndex: number) => {
+  //   setSelectedAnswers({
+  //     ...selectedAnswers,
+  //     [currentSubject]: {
+  //       ...(selectedAnswers[currentSubject] || {}),
+  //       [currentQuestion]: optionIndex,
+  //     },
+  //   });
+  // };
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -71,57 +98,125 @@ const Test: React.FC = () => {
       .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  const currentQuestions = 
-  questions[currentSubject]?.worksheets[0]?.questions
-    ?.slice()
-    ?.sort((a: any, b: any) => a.number - b.number) // Sort questions by 'number'
-    ?.map((question: any, index: number) => ({
-      ...question,
-      displayNumber: index + 1, // Assign sequential display numbers
-    })) || [];
+  return (
+    <div className="test-container">
+      <div className="subject-tabs">
+        {subjects.map((subjects: any, i: any) => (
+          <button
+            key={subjects}
+            className={currentSubject === i ? "active" : ""}
+            onClick={() => handleSubjectChange(i)}>
+            {subjects}
+          </button>
+        ))}
+      </div>
 
-const currentOptions = currentQuestions[currentQuestion];
+      <div className="timer">{formatTime(timeRemaining)}</div>
 
-return (
-  <div className="test-container">
-    <div className="subject-tabs">
-      {subjects.map((subject, index) => (
-        <button
-          key={subject}
-          className={currentSubject === index ? "active" : ""}
-          onClick={() => handleSubjectChange(index)}
-        >
-          {subject.toUpperCase()}
-        </button>
-      ))}
-    </div>
-
-    <div className="timer">{formatTime(timeRemaining)}</div>
-
-    {currentQuestions.length > 0 ? (
       <div className="question-section">
         <div className="question-counter">
-          Question {currentQuestions[currentQuestion]?.displayNumber} / {currentQuestions.length}
+          {/* {currentQuestion + 1} / {questionsPerSubject[currentSubject].length} */}
         </div>
-        <div className="question-text">{currentOptions?.text}</div>
+        <div className="question-text">
+          {/* {questionsPerSubject[currentSubject][currentQuestion].question} */}
+          {
+            question[currentSubject]?.worksheets[0]?.questions[currentQuestion]
+              .text
+          }
+        </div>
 
-        <div className="options">
-          {["option_a", "option_b", "option_c", "option_d"].map((key) => (
-            <label key={key}>
+        {/* <div className="options">
+          {question[currentSubject].worksheets[0]?.questions[
+            currentQuestion
+          ].map((option: any, idx: any) => (
+            <label key={idx}>
               <input
                 type="radio"
                 name={`question-${currentQuestion}`}
                 checked={
-                  selectedAnswers[currentSubject]?.[currentQuestion] ===
-                  currentOptions?.[key]
+                  selectedAnswers[currentSubject]?.[currentQuestion] === idx
                 }
-                onChange={() => handleOptionSelect(currentOptions?.[key])}
+                onChange={() => handleOptionSelect(idx)}
               />
-              {`${key.split("_")[1].toUpperCase()}. ${
-                currentOptions?.[key]
-              }`}
+              {String.fromCharCode(65 + idx)}. {option}
             </label>
           ))}
+        </div> */}
+        <div className="options">
+          {question[currentSubject].worksheets[0]?.questions[
+            currentQuestion
+          ] && (
+            <>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_a}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_a
+                }
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_b}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_b
+                }
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_c}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_c
+                }
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_d}`}
+                  // checked={
+                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
+                  // }
+                  checked={false}
+                  // onChange={() => handleOptionSelect(idx)}
+                />
+                {/* {String.fromCharCode(65 + idx)}. */}
+                {
+                  question[currentSubject].worksheets[0]?.questions[
+                    currentQuestion
+                  ].option_d
+                }
+              </label>
+            </>
+          )}
         </div>
 
         <div className="navigation-buttons">
@@ -130,36 +225,40 @@ return (
           </button>
           <button
             onClick={handleNext}
-            disabled={currentQuestion >= currentQuestions.length - 1}
-          >
+            // disabled={currentQuestion === question[currentSubject].length - 1}
+            disabled={
+              currentQuestion ===
+              question[currentSubject].worksheets[currentQuestion]?.questions
+                .length -
+                1
+            }>
             Next
           </button>
         </div>
       </div>
-    ) : (
-      <p>No questions available for the selected subject.</p>
-    )}
 
-    <div className="question-grid">
-      {currentQuestions.map((question: any, index: number) => (
-        <button
-          key={index}
-          className={`${
-            currentQuestion === index ? "active" : ""
-          } ${selectedAnswers[currentSubject]?.[index] ? "answered" : ""}`}
-          onClick={() => setCurrentQuestion(index)}
-        >
-          {question.displayNumber}
-        </button>
-      ))}
+      <div className="question-grid">
+        {question[currentSubject].worksheets[0]?.questions.map(
+          (_: any, i: any) => (
+            <button
+              key={i}
+              className={`${currentQuestion === i ? "active" : ""} ${
+                selectedAnswers[currentSubject]?.[i] !== undefined
+                  ? "answered"
+                  : ""
+              }`}
+              onClick={() => handleQuestionChange(i)}>
+              {i + 1}
+            </button>
+          )
+        )}
+      </div>
+
+      <div className="submit-section">
+        <button className="submit-button">Submit</button>
+      </div>
     </div>
-
-    <div className="submit-section">
-      <button className="submit-button">Submit</button>
-    </div>
-  </div>
-);
-
+  );
 };
 
 export default Test;
