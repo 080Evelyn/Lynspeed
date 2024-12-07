@@ -96,6 +96,12 @@
   font-weight: 700;
   color: #0659a6;
 }
+.resultflow{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .botf {
   margin-top: 20px;
@@ -107,6 +113,7 @@
   cursor: pointer;
   transition: 0.5s;
   width: fit-content;
+
 }
 
 .botf a {

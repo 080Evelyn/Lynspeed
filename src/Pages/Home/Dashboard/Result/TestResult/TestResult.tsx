@@ -74,7 +74,7 @@ const TestResult = () => {
               </table>
             </div>
             <div className="botf">
-              <Link to="/Correction">Recommendation</Link>
+              <Link to="/CorrectionPage">Corrections</Link>
             </div>
           </div>
         </div>

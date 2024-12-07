@@ -22,6 +22,7 @@ import Subscription from "./Pages/Home/Dashboard/Profile/Subscription";
 import FAQ from "./Components/ui/FAQ/FAQ";
 import Privacy from "./Components/ui/Privacy/Privacy";
 import Terms from "./Components/ui/Terms/Terms";
+import CorrectionPage from "./Pages/Home/Dashboard/Result/CorrectionPage";
 
 const App = () => {
   return (
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/testresult" element={<TestResult />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
         </Route>
       </Routes>

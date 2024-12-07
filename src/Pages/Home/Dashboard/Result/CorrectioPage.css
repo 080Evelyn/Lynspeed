@@ -1,0 +1,88 @@
+.correction-page,
+.recommendation-page {
+  padding: 16px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin: 30px;
+  font-size: 24px;
+}
+
+.question-card {
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+}
+
+.question-text {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.options-list {
+  list-style: none;
+  padding: 0;
+}
+
+.option-item {
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+.correct {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.wrong {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.icon {
+  margin-left: 12px;
+  font-size: 16px;
+}
+
+.correct-icon {
+  color: #28a745;
+}
+
+.wrong-icon {
+  color: #dc3545;
+}
+
+.view-recommendation-button,
+.back-button {
+  display: block;
+  margin: 16px auto;
+  padding: 12px 24px;
+  background-color: #0659a6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.view-recommendation-button:hover,
+.back-button:hover {
+  background-color: #0659a6;
+}
+
+.recommendation-list {
+  list-style: disc;
+  margin-left: 24px;
+  font-size: 16px;
+}
