@@ -34,7 +34,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       // Send a POST request to your backend endpoint
-      await axios.post('https://lynspeed.pythonanywhere.com/api/v1/contact-support/', formData);
+      await axios.post('https://lynspeed.pythonanywhere.com/api/v1/contact-support', formData);
       setStatusMessage("Message sent successfully!");
     } catch (error: unknown) {
       // Type guard for AxiosError
