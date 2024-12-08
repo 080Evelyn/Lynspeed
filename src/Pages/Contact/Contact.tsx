@@ -34,7 +34,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       // Send a POST request to your backend endpoint
-      await axios.post('https://lynspeed.pythonanywhere.com/api/v1/contact/', formData);
+      await axios.post('https://lynspeed.pythonanywhere.com/api/v1/contact-support/', formData);
       setStatusMessage("Message sent successfully!");
     } catch (error: unknown) {
       // Type guard for AxiosError
@@ -79,7 +79,7 @@ const Contact = () => {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="phone">Phone Number</label>
             <input
               type="tel"
@@ -90,7 +90,7 @@ const Contact = () => {
               onChange={handleInputChange}
               className="contact-input"
             />
-          </div>
+          </div> */}
 
           <div className="form-group">
             <label htmlFor="message">Message*</label>
