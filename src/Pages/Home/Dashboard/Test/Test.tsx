@@ -6,6 +6,7 @@ import { RootState } from "../../../../State/Store";
 const Test: React.FC = () => {
   // Getting questions and subjects from Redux store
   const questions = useSelector((state: RootState) => state.testQuestions.data);
+
   const savedSubjects = useSelector(
     (state: RootState) => state.savedSubjectList.data
   );
@@ -40,7 +41,8 @@ const Test: React.FC = () => {
 
   const handleNext = () => {
     if (
-      questions[currentSubject]?.worksheets[0]?.questions.length > currentQuestion + 1
+      questions[currentSubject]?.worksheets[0]?.questions.length >
+      currentQuestion + 1
     ) {
       setCurrentQuestion(currentQuestion + 1);
     }
@@ -71,95 +73,96 @@ const Test: React.FC = () => {
       .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  const currentQuestions = 
-  questions[currentSubject]?.worksheets[0]?.questions
-    ?.slice()
-    ?.sort((a: any, b: any) => a.number - b.number) // Sort questions by 'number'
-    ?.map((question: any, index: number) => ({
-      ...question,
-      displayNumber: index + 1, // Assign sequential display numbers
-    })) || [];
+  const currentQuestions =
+    questions[currentSubject]?.worksheets[0]?.questions
+      ?.slice()
+      ?.sort((a: any, b: any) => a.number - b.number) // Sort questions by 'number'
+      ?.map((question: any, index: number) => ({
+        ...question,
+        displayNumber: index + 1, // Assign sequential display numbers
+      })) || [];
 
-const currentOptions = currentQuestions[currentQuestion];
+  const currentOptions = currentQuestions[currentQuestion];
 
-return (
-  <div className="test-container">
-    <div className="subject-tabs">
-      {subjects.map((subject: string, index: number) => (
-        <button
-          key={subject}
-          className={currentSubject === index ? "active" : ""}
-          onClick={() => handleSubjectChange(index)}
-        >
-          {subject.toUpperCase()}
-        </button>
-      ))}
-    </div>
-
-    <div className="timer">{formatTime(timeRemaining)}</div>
-
-    {currentQuestions.length > 0 ? (
-      <div className="question-section">
-        <div className="question-counter">
-          Question {currentQuestions[currentQuestion]?.displayNumber} / {currentQuestions.length}
-        </div>
-        <div className="question-text">{currentOptions?.text}</div>
-
-        <div className="options">
-          {["option_a", "option_b", "option_c", "option_d"].map((key) => (
-            <label key={key}>
-              <input
-                type="radio"
-                name={`question-${currentQuestion}`}
-                checked={
-                  selectedAnswers[currentSubject]?.[currentQuestion] ===
-                  currentOptions?.[key]
-                }
-                onChange={() => handleOptionSelect(currentOptions?.[key])}
-              />
-              {`${key.split("_")[1].toUpperCase()}. ${
-                currentOptions?.[key]
-              }`}
-            </label>
-          ))}
-        </div>
-
-        <div className="navigation-buttons">
-          <button onClick={handlePrevious} disabled={currentQuestion === 0}>
-            Previous
-          </button>
+  return (
+    <div className="test-container">
+      <div className="subject-tabs">
+        {subjects.map((subject: string, index: number) => (
           <button
-            onClick={handleNext}
-            disabled={currentQuestion >= currentQuestions.length - 1}
-          >
-            Next
+            key={subject}
+            className={currentSubject === index ? "active" : ""}
+            onClick={() => handleSubjectChange(index)}>
+            {subject.toUpperCase()}
           </button>
-        </div>
+        ))}
       </div>
-    ) : (
-      <p>No questions available for the selected subject.</p>
-    )}
 
-    <div className="question-grid">
-      {currentQuestions.map((question: any, index: number) => (
-        <button
-          key={index}
-          className={`${
-            currentQuestion === index ? "active" : ""
-          } ${selectedAnswers[currentSubject]?.[index] ? "answered" : ""}`}
-          onClick={() => setCurrentQuestion(index)}
-        >
-          {question.displayNumber}
-        </button>
-      ))}
+      <div className="timer">{formatTime(timeRemaining)}</div>
+
+      {currentQuestions.length > 0 ? (
+        <div className="question-section">
+          <div className="question-counter">
+            Question {currentQuestions[currentQuestion]?.displayNumber} /{" "}
+            {currentQuestions.length}
+          </div>
+          <div className="question-text">{currentOptions?.text}</div>
+          {currentOptions?.image && (
+            <img
+              src={`https://lynspeed.pythonanywhere.com${currentOptions?.image}`}
+              alt="test_image"
+            />
+          )}
+
+          <div className="options">
+            {["option_a", "option_b", "option_c", "option_d"].map((key) => (
+              <label key={key}>
+                <input
+                  type="radio"
+                  name={`question-${currentQuestion}`}
+                  checked={
+                    selectedAnswers[currentSubject]?.[currentQuestion] ===
+                    currentOptions?.[key]
+                  }
+                  onChange={() => handleOptionSelect(currentOptions?.[key])}
+                />
+                {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]}`}
+              </label>
+            ))}
+          </div>
+
+          <div className="navigation-buttons">
+            <button onClick={handlePrevious} disabled={currentQuestion === 0}>
+              Previous
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentQuestion >= currentQuestions.length - 1}>
+              Next
+            </button>
+          </div>
+        </div>
+      ) : (
+        <p>No questions available for the selected subject.</p>
+      )}
+
+      <div className="question-grid">
+        {currentQuestions.map((question: any, index: number) => (
+          <button
+            key={index}
+            className={`${currentQuestion === index ? "active" : ""} ${
+              selectedAnswers[currentSubject]?.[index] ? "answered" : ""
+            }`}
+            onClick={() => setCurrentQuestion(index)}>
+            {question.displayNumber}
+          </button>
+        ))}
+      </div>
+
+      <div className="submit-section">
+        <button className="submit-button">Submit</button>
+      </div>
     </div>
-
-    <div className="submit-section">
-      <button className="submit-button">Submit</button>
-    </div>
-  </div>
-);
-
+  );
 };
 
 export default Test;
