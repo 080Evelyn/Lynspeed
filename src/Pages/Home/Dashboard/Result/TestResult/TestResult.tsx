@@ -3,9 +3,26 @@ import profilePic from "../../../../../assets/profile.svg"; // Example profile /
 import studentPic from "../../../../../assets/studentImage.png"; // Example student pic
 // import Navbar2 from "../../../../../Components/ui/Navbar/Navbar2";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../../State/Store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchTestResults } from "../../../../../State/TestResultSlice";
 // import Footer from "../../../../../Components/ui/Footer/Footer";
 
 const TestResult = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  // Getting the testID from Redux store
+  const questionsArray = useSelector(
+    (state: RootState) => state.testQuestions.data
+  );
+  const testSectionId = questionsArray?.test_session_id;
+  const testResult = useSelector((state: RootState) => state.testResult.data);
+  console.log(testResult);
+  useEffect(() => {
+    dispatch(fetchTestResults(testSectionId));
+  }, []);
+
   return (
     <div className="result-page">
       {/* <Navbar2 /> */}

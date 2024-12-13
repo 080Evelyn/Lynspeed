@@ -1,57 +1,56 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface Test {
-  data: [];
+interface SubjectList {
+  data: any[]; // Changed from [] to any[] for flexibility
   loading: boolean;
   error: boolean;
-  test_id: any;
 }
 
-const initialState: Test = {
+const initialState: SubjectList = {
   data: [],
   loading: false,
   error: false,
-  test_id: "",
 };
+
 const token = localStorage.getItem("authToken");
 // Asynchronous thunk to fetch subject list data
-export const fetchTestQuestions = createAsyncThunk(
-  "testQuestion/fetchTestQuestions",
-  async (_, { rejectWithValue }) => {
+export const fetchTestResults = createAsyncThunk<any, number>(
+  "testResult/fetchTestResult",
+  async (testID) => {
     try {
-      const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/test-session/start/",
-        null,
+      const response = await axios.get(
+        `https://lynspeed.pythonanywhere.com/api/v1/test-session/${testID}/results/`,
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Add token to Authorization header
           },
         }
       );
       return response.data;
     } catch (error: any) {
-      // console.log(error);
-      return rejectWithValue(error.message);
+      //   return rejectWithValue(error.message);
+      console.log(error);
     }
   }
 );
 
-const testQuestionsSlice = createSlice({
-  name: "testQuestions",
+const testResultSlice = createSlice({
+  name: "subjectList",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTestQuestions.pending, (state) => {
+      .addCase(fetchTestResults.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(fetchTestQuestions.fulfilled, (state, action) => {
+      .addCase(fetchTestResults.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchTestQuestions.rejected, (state) => {
+      .addCase(fetchTestResults.rejected, (state) => {
         state.loading = false;
         state.error = true;
         state.data = [];
@@ -59,4 +58,4 @@ const testQuestionsSlice = createSlice({
   },
 });
 
-export default testQuestionsSlice.reducer;
+export default testResultSlice.reducer;

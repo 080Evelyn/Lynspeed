@@ -2,10 +2,19 @@ import React, { useState, useEffect } from "react";
 import "./Test.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../State/Store";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Test: React.FC = () => {
+  const navigate = useNavigate();
   // Getting questions and subjects from Redux store
-  const questions = useSelector((state: RootState) => state.testQuestions.data);
+  const questionsArray = useSelector(
+    (state: RootState) => state.testQuestions.data
+  );
+  const questions = questionsArray?.subjects;
+
+  const testSectionId = questionsArray?.test_session_id;
 
   const savedSubjects = useSelector(
     (state: RootState) => state.savedSubjectList.data
@@ -17,8 +26,10 @@ const Test: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [subjectIndex: number]: { [questionIndex: number]: string };
   }>({});
+  const [response, setResponse] = useState<Response[]>([]);
+  //response to be sent to the backend
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 2 hours
-
   // Timer effect
   useEffect(() => {
     const timer = setInterval(() => {
@@ -38,7 +49,33 @@ const Test: React.FC = () => {
     setCurrentSubject(index);
     setCurrentQuestion(0);
   };
-
+  const token = localStorage.getItem("authToken");
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      await axios.post(
+        "https://lynspeed.pythonanywhere.com/api/v1/test-session/submit/",
+        {
+          test_session_id: testSectionId,
+          responses: response,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        }
+      );
+      setSubmitting(false);
+      navigate("/testresult");
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      toast.error(
+        "Something went wrong, check internet connection and try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const handleNext = () => {
     if (
       questions[currentSubject]?.worksheets[0]?.questions.length >
@@ -54,14 +91,30 @@ const Test: React.FC = () => {
     }
   };
 
-  const handleOptionSelect = (option: string) => {
+  const handleOptionSelect = (selected_option: string, question_id: number) => {
     setSelectedAnswers((prev) => ({
       ...prev,
       [currentSubject]: {
         ...(prev[currentSubject] || {}),
-        [currentQuestion]: option,
+        [currentQuestion]: selected_option,
       },
     }));
+    //handle response to be sent to the backend
+    setResponse((prevAnswers: any) => {
+      const existingAnswerIndex = prevAnswers.findIndex(
+        (answer: any) => answer.question_id === question_id
+      );
+
+      if (existingAnswerIndex !== -1) {
+        // Update the existing answer for this question
+        const updatedAnswers = [...prevAnswers];
+        updatedAnswers[existingAnswerIndex] = { question_id, selected_option };
+        return updatedAnswers;
+      }
+
+      // Add a new answer if no existing answer is found
+      return [...prevAnswers, { question_id, selected_option }];
+    });
   };
 
   const formatTime = (seconds: number) => {
@@ -83,7 +136,9 @@ const Test: React.FC = () => {
       })) || [];
 
   const currentOptions = currentQuestions[currentQuestion];
-
+  useEffect(() => {
+    console.log(response);
+  }, [response]);
   return (
     <div className="test-container">
       <div className="subject-tabs">
@@ -123,7 +178,9 @@ const Test: React.FC = () => {
                     selectedAnswers[currentSubject]?.[currentQuestion] ===
                     currentOptions?.[key]
                   }
-                  onChange={() => handleOptionSelect(currentOptions?.[key])}
+                  onChange={() =>
+                    handleOptionSelect(currentOptions?.[key], currentOptions.id)
+                  }
                 />
                 {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]}`}
               </label>
@@ -159,7 +216,12 @@ const Test: React.FC = () => {
       </div>
 
       <div className="submit-section">
-        <button className="submit-button">Submit</button>
+        <button
+          onClick={handleSubmit}
+          disabled={submitting}
+          className="submit-button">
+          {submitting ? "Submitting" : "Submit"}
+        </button>
       </div>
     </div>
   );
