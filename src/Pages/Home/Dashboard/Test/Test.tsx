@@ -99,7 +99,6 @@ const Test: React.FC = () => {
         [currentQuestion]: selected_option,
       },
     }));
-
     //handle response to be sent to the backend
     setResponse((prevAnswers: any) => {
       const existingAnswerIndex = prevAnswers.findIndex(
