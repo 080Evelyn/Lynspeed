@@ -45,7 +45,6 @@ const Dashboard = () => {
 
   // Load selected subjects from local storage with error handling
   useEffect(() => {
-    // dispatch(fetchSubjectList());
     const subjects = localStorage.getItem("selectedSubjects");
     try {
       if (subjects) {
@@ -175,29 +174,6 @@ const Dashboard = () => {
                     Notification
                     <input type="checkbox" className="notification-toggle" />
                   </div>
-                  {/* {isChangePasswordOpen && (
-                    <div className="change-password-form">
-                      <label htmlFor="old-password">Old Password</label>
-                      <input
-                        type="password"
-                        id="old-password"
-                        placeholder="Old Password"
-                      />
-                      <label htmlFor="new-password">New Password</label>
-                      <input
-                        type="password"
-                        id="new-password"
-                        placeholder="New Password"
-                      />
-                      <label htmlFor="confirm-password">Confirm Password</label>
-                      <input
-                        type="password"
-                        id="confirm-password"
-                        placeholder="Confirm Password"
-                      />
-                      <button className="submit-btn">Submit</button>
-                    </div>
-                  )} */}
                 </div>
               )}
             </li>

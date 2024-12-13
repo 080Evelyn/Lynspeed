@@ -1,30 +1,35 @@
 import React, { useState } from "react";
 import "./CorrectioPage.css";
+import { RootState } from "../../../../State/Store";
+import { useSelector } from "react-redux";
 
 interface Question {
-  question: string;
+  user_response: any;
+  option: string;
+  question: any;
   options: string[];
-  correct: number;
-  selected: number;
+  correct_option: string;
+  selected: string;
 }
 
 const CorrectionPage: React.FC = () => {
-  const [showRecommendations, setShowRecommendations] = useState(false);
+  //getting the testresults data from redux store
+  const testResult = useSelector((state: RootState) => state.testResult.data);
 
-  const questions: Question[] = [
-    {
-      question: "What is the synonym of 'happy'?",
-      options: ["Sad", "Joyful", "Angry", "Upset"],
-      correct: 1,
-      selected: 3,
-    },
-    {
-      question: "Which is the capital of Nigeria?",
-      options: ["Lagos", "Abuja", "Port Harcourt", "Kano"],
-      correct: 1,
-      selected: 0,
-    },
-  ];
+  const subjects = testResult.subjects;
+
+  const question1: Question[] =
+    testResult.failed_questions_by_subject[subjects[0]];
+
+  const question2: Question[] =
+    testResult.failed_questions_by_subject[subjects[1]];
+
+  const question3: Question[] =
+    testResult.failed_questions_by_subject[subjects[2]];
+
+  const question4: Question[] =
+    testResult.failed_questions_by_subject[subjects[3]];
+  const [showRecommendations, setShowRecommendations] = useState(false);
 
   const recommendations = [
     "Read more on synonyms and antonyms.",
@@ -42,8 +47,7 @@ const CorrectionPage: React.FC = () => {
         </ul>
         <button
           className="back-button"
-          onClick={() => setShowRecommendations(false)}
-        >
+          onClick={() => setShowRecommendations(false)}>
           Back to Corrections
         </button>
       </div>
@@ -53,33 +57,177 @@ const CorrectionPage: React.FC = () => {
   return (
     <div className="correction-page">
       <h2>Corrections</h2>
-      {questions.map((q, index) => (
+      {/* first subject */}
+      <h2>{subjects[0]}</h2>
+      {question1?.map((q, index) => (
         <div key={index} className="question-card">
           <p className="question-text">
-            {index + 1}. {q.question}
+            {index + 1}. {q.question.text}
           </p>
+          {q.question.image && (
+            <img
+              src={`https://lynspeed.pythonanywhere.com${q.question?.image}`}
+              alt="test_image"
+            />
+          )}
           <ul className="options-list">
-            {q.options.map((option, i) => (
-              <li
-                key={i}
-                className={`option-item ${
-                  i === q.correct ? "correct" : i === q.selected ? "wrong" : ""
-                }`}
-              >
-                {option}
-                {i === q.correct && <span className="icon correct-icon">✅</span>}
-                {i === q.selected && i !== q.correct && (
-                  <span className="icon wrong-icon">❌</span>
-                )}
-              </li>
-            ))}
+            {["option_a", "option_b", "option_c", "option_d"].map(
+              (option: any) => (
+                <li
+                  key={option}
+                  className={`option-item ${
+                    option.split("_")[1].toUpperCase() === q.correct_option
+                      ? "correct"
+                      : option.split("_")[1].toUpperCase() ===
+                        q.user_response.selected_option
+                      ? "wrong"
+                      : ""
+                  }`}>
+                  {`${option.split("_")[1].toUpperCase()}. ${
+                    q.question[option]
+                  }`}
+                  {option === q.correct_option && (
+                    <span className="icon correct-icon">✅</span>
+                  )}
+                  {option === q.selected && option !== q.correct_option && (
+                    <span className="icon wrong-icon">❌</span>
+                  )}
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+      ))}
+
+      {/* second subject */}
+      <h2>{subjects[1]}</h2>
+      {question2?.map((q, index) => (
+        <div key={index} className="question-card">
+          <p className="question-text">
+            {index + 1}. {q.question.text}
+          </p>
+          {q.question.image && (
+            <img
+              src={`https://lynspeed.pythonanywhere.com${q.question?.image}`}
+              alt="test_image"
+            />
+          )}
+          <ul className="options-list">
+            {["option_a", "option_b", "option_c", "option_d"].map(
+              (option: any) => (
+                <li
+                  key={option}
+                  className={`option-item ${
+                    option.split("_")[1].toUpperCase() === q.correct_option
+                      ? "correct"
+                      : option.split("_")[1].toUpperCase() ===
+                        q.user_response.selected_option
+                      ? "wrong"
+                      : ""
+                  }`}>
+                  {`${option.split("_")[1].toUpperCase()}. ${
+                    q.question[option]
+                  }`}
+                  {option === q.correct_option && (
+                    <span className="icon correct-icon">✅</span>
+                  )}
+                  {option === q.selected && option !== q.correct_option && (
+                    <span className="icon wrong-icon">❌</span>
+                  )}
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+      ))}
+
+      {/* third subject */}
+      <h2>{subjects[2]}</h2>
+      {question3?.map((q, index) => (
+        <div key={index} className="question-card">
+          <p className="question-text">
+            {index + 1}. {q.question.text}
+          </p>
+          {q.question.image && (
+            <img
+              src={`https://lynspeed.pythonanywhere.com${q.question?.image}`}
+              alt="test_image"
+            />
+          )}
+          <ul className="options-list">
+            {["option_a", "option_b", "option_c", "option_d"].map(
+              (option: any) => (
+                <li
+                  key={option}
+                  className={`option-item ${
+                    option.split("_")[1].toUpperCase() === q.correct_option
+                      ? "correct"
+                      : option.split("_")[1].toUpperCase() ===
+                        q.user_response.selected_option
+                      ? "wrong"
+                      : ""
+                  }`}>
+                  {`${option.split("_")[1].toUpperCase()}. ${
+                    q.question[option]
+                  }`}
+                  {option === q.correct_option && (
+                    <span className="icon correct-icon">✅</span>
+                  )}
+                  {option === q.selected && option !== q.correct_option && (
+                    <span className="icon wrong-icon">❌</span>
+                  )}
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+      ))}
+
+      {/* fourth subject */}
+      {/* third subject */}
+      <h2>{subjects[3]}</h2>
+      {question4?.map((q, index) => (
+        <div key={index} className="question-card">
+          <p className="question-text">
+            {index + 1}. {q.question.text}
+          </p>
+          {q.question.image && (
+            <img
+              src={`https://lynspeed.pythonanywhere.com${q.question?.image}`}
+              alt="test_image"
+            />
+          )}
+          <ul className="options-list">
+            {["option_a", "option_b", "option_c", "option_d"].map(
+              (option: any) => (
+                <li
+                  key={option}
+                  className={`option-item ${
+                    option.split("_")[1].toUpperCase() === q.correct_option
+                      ? "correct"
+                      : option.split("_")[1].toUpperCase() ===
+                        q.user_response.selected_option
+                      ? "wrong"
+                      : ""
+                  }`}>
+                  {`${option.split("_")[1].toUpperCase()}. ${
+                    q.question[option]
+                  }`}
+                  {option === q.correct_option && (
+                    <span className="icon correct-icon">✅</span>
+                  )}
+                  {option === q.selected && option !== q.correct_option && (
+                    <span className="icon wrong-icon">❌</span>
+                  )}
+                </li>
+              )
+            )}
           </ul>
         </div>
       ))}
       <button
         className="view-recommendation-button"
-        onClick={() => setShowRecommendations(true)}
-      >
+        onClick={() => setShowRecommendations(true)}>
         View Recommendations
       </button>
     </div>
