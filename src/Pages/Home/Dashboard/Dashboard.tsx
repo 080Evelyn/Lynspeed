@@ -14,6 +14,7 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
+import { persistor } from "../../../State/Store";
 // import { useDispatch } from "react-redux";
 // import { AppDispatch } from "../../../State/Store";
 // import { expiredLogout } from "../../../Components/authSlice";
@@ -72,6 +73,7 @@ const Dashboard = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
     localStorage.removeItem("selectedSubjects");
+    persistor.purge(); //clears all persisted data from local storage
     navigate("/login");
   };
 

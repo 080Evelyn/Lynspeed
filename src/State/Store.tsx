@@ -7,15 +7,21 @@ import userReducer from "../Components/userSlice"; // Import user reducer
 import subjectListReducer from "./SubjectListSlice";
 import savedSubjectListReducer from "./SavedSubjectListSlice";
 import testQuestionsReducer from "./TestQuestionSlice";
+import testResultReducer from "./TestResultSlice";
 // import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
 const persistConfig = {
   key: "root", // Key for the persisted state
   storage, // Which storage to use (localStorage)
-  whitelist: ["auth", "subjectList", "savedSubjectList", "testQuestions"], // Add savedSubjectList
+  whitelist: [
+    "auth",
+    "subjectList",
+    "savedSubjectList",
+    "testQuestions",
+    "testResult",
+  ], // Add savedSubjectList
 };
-
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -23,6 +29,7 @@ const rootReducer = combineReducers({
   subjectList: subjectListReducer,
   savedSubjectList: savedSubjectListReducer,
   testQuestions: testQuestionsReducer,
+  testResult: testResultReducer,
 });
 
 // Wrap rootReducer with persistReducer
