@@ -136,9 +136,7 @@ const Test: React.FC = () => {
       })) || [];
 
   const currentOptions = currentQuestions[currentQuestion];
-  useEffect(() => {
-    console.log(response);
-  }, [response]);
+  useEffect(() => {}, []);
   return (
     <div className="test-container">
       <div className="subject-tabs">
@@ -176,10 +174,13 @@ const Test: React.FC = () => {
                   name={`question-${currentQuestion}`}
                   checked={
                     selectedAnswers[currentSubject]?.[currentQuestion] ===
-                    currentOptions?.[key]
+                    `${key.split("_")[1].toUpperCase()}`
                   }
                   onChange={() =>
-                    handleOptionSelect(currentOptions?.[key], currentOptions.id)
+                    handleOptionSelect(
+                      `${key.split("_")[1].toUpperCase()}`,
+                      currentOptions.id
+                    )
                   }
                 />
                 {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]}`}

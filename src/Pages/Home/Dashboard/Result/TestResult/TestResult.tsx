@@ -12,16 +12,99 @@ import { fetchTestResults } from "../../../../../State/TestResultSlice";
 
 const TestResult = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // Getting the testID from Redux store
+  const userName = useSelector(
+    (state: RootState) => state.auth.token.user.full_name
+  );
+
+  // Getting the testID and questionsArray from Redux store
   const questionsArray = useSelector(
     (state: RootState) => state.testQuestions.data
   );
   const testSectionId = questionsArray?.test_session_id;
+  const questions = questionsArray?.subjects;
+  //total questions
+  const totalTestQuestions = questions.map((sub: any) => {
+    return [sub?.worksheets[0]?.questions.length];
+  });
+
+  //getting the names of each subject from questions array
+  const name = questions.map((sub: any) => {
+    return sub?.name;
+  });
+
+  //getting the testresults data from redux store
   const testResult = useSelector((state: RootState) => state.testResult.data);
-  console.log(testResult);
+
+  //result object
+  const resultObj = testResult.failed_questions_by_subject;
+  //start time
+  const startTime = testResult?.start_time;
+  //end time
+  const endTime = testResult?.end_time;
+  //subjects from test result
+  const subjects = testResult?.subjects;
+
+  //dispatching fetch result onmount
   useEffect(() => {
     dispatch(fetchTestResults(testSectionId));
   }, []);
+  //function to get each subject score
+  const getScore = (keyToCheck: any, resultObj: any, totalQuestions: any) => {
+    if (keyToCheck in resultObj) {
+      const value = resultObj[keyToCheck];
+
+      return totalQuestions - value.length;
+    }
+  };
+  //function to get totalScore
+  const getTotalScore = () => {
+    const score1: any = getScore(name[0], resultObj, totalTestQuestions[0]);
+    const score2 = getScore(name[1], resultObj, totalTestQuestions[1]);
+    const score3 = getScore(name[2], resultObj, totalTestQuestions[2]);
+    const score4 = getScore(name[3], resultObj, totalTestQuestions[3]);
+    return score1 + score2 + score3 + score4;
+  };
+  const totalScore = getTotalScore();
+  // Utility function to calculate and format the duration
+  const calculateDuration = (startTime: string, endTime: string) => {
+    // Parse the ISO timestamps into Date objects
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+
+    // Calculate the difference in milliseconds
+    const durationMs = end.getTime() - start.getTime();
+
+    if (durationMs < 0) {
+      return "Invalid time range";
+    }
+
+    // Convert the duration to hours, minutes, and seconds
+    const hours = Math.floor(durationMs / (1000 * 60 * 60));
+    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((durationMs % (1000 * 60)) / 1000);
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  // Calculate the duration
+  const duration = calculateDuration(startTime, endTime);
+
+  const formatDate = (isoString: string): string => {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  };
+  const date = formatDate(startTime);
+
+  const formatTime = (isoString: string): string => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString("en-US", { hour12: false }); // 24-hour format
+  };
+
+  const time = formatTime(startTime);
 
   return (
     <div className="result-page">
@@ -39,13 +122,13 @@ const TestResult = () => {
               <div className="user-info">
                 <div className="info-text">
                   <p>
-                    <b>Name:</b> Ahube Rawlins
+                    <b>Name:</b> {userName}
                   </p>
                   <p>
-                    <b>Date:</b> 03 / 06 / 2024
+                    <b>Date:</b> {date}
                   </p>
                   <p>
-                    <b>Time:</b> 04:45 pm
+                    <b>Time:</b> {time}
                   </p>
                 </div>
                 <div className="profile-pic">
@@ -63,29 +146,39 @@ const TestResult = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>English Language</td>
-                    <td>01:45:00</td>
-                    <td>45</td>
+                    <td>{subjects[0]}</td>
+                    <td>{duration}</td>
+                    <td>
+                      {getScore(name[0], resultObj, totalTestQuestions[0])}
+                    </td>
+                  </tr>
+                  <tr></tr>
+
+                  <tr>
+                    <td>{subjects[1]}</td>
+                    <td>{duration}</td>
+                    <td>
+                      {getScore(name[1], resultObj, totalTestQuestions[1])}
+                    </td>
                   </tr>
                   <tr>
-                    <td>Mathematics</td>
-                    <td>01:45:00</td>
-                    <td>40</td>
+                    <td>{subjects[2]}</td>
+                    <td>{duration}</td>
+                    <td>
+                      {getScore(name[2], resultObj, totalTestQuestions[2])}
+                    </td>
                   </tr>
                   <tr>
-                    <td>Physics</td>
-                    <td>00:55:00</td>
-                    <td>50</td>
-                  </tr>
-                  <tr>
-                    <td>Chemistry</td>
-                    <td>00:55:00</td>
-                    <td>40</td>
+                    <td>{subjects[3]}</td>
+                    <td>{duration}</td>
+                    <td>
+                      {getScore(name[3], resultObj, totalTestQuestions[3])}
+                    </td>
                   </tr>
                   <tr className="total-score">
                     <td>Total</td>
-                    <td>01:50:20</td>
-                    <td>175</td>
+                    <td>{duration}</td>
+                    <td>{totalScore}</td>
                   </tr>
                 </tbody>
               </table>
