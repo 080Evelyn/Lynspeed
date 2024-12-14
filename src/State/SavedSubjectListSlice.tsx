@@ -5,12 +5,14 @@ interface SavedSubjectList {
   data: [];
   loading: boolean;
   error: any;
+  success: boolean;
 }
 
 const initialState: SavedSubjectList = {
   data: [],
   loading: false,
   error: false,
+  success: false,
 };
 const token = localStorage.getItem("authToken");
 // Asynchronous thunk to fetch subject list data
@@ -48,6 +50,7 @@ const savedSubjectListSlice = createSlice({
       .addCase(fetchSavedSubjectList.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        state.success = true;
       })
       .addCase(fetchSavedSubjectList.rejected, (state, action) => {
         state.loading = false;

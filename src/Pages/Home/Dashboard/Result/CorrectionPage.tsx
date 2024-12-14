@@ -79,7 +79,7 @@ const CorrectionPage: React.FC = () => {
                     option.split("_")[1].toUpperCase() === q.correct_option
                       ? "correct"
                       : option.split("_")[1].toUpperCase() ===
-                        q.user_response.selected_option
+                        q.user_response?.selected_option
                       ? "wrong"
                       : ""
                   }`}>
@@ -121,7 +121,7 @@ const CorrectionPage: React.FC = () => {
                     option.split("_")[1].toUpperCase() === q.correct_option
                       ? "correct"
                       : option.split("_")[1].toUpperCase() ===
-                        q.user_response.selected_option
+                        q.user_response?.selected_option
                       ? "wrong"
                       : ""
                   }`}>
@@ -163,7 +163,7 @@ const CorrectionPage: React.FC = () => {
                     option.split("_")[1].toUpperCase() === q.correct_option
                       ? "correct"
                       : option.split("_")[1].toUpperCase() ===
-                        q.user_response.selected_option
+                        q.user_response?.selected_option
                       ? "wrong"
                       : ""
                   }`}>
@@ -206,7 +206,7 @@ const CorrectionPage: React.FC = () => {
                     option.split("_")[1].toUpperCase() === q.correct_option
                       ? "correct"
                       : option.split("_")[1].toUpperCase() ===
-                        q.user_response.selected_option
+                        q.user_response?.selected_option
                       ? "wrong"
                       : ""
                   }`}>
