@@ -2,15 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface SubjectList {
-  data: any[]; // Changed from [] to any[] for flexibility
+  data: any;
   loading: boolean;
   error: boolean;
+  success: boolean;
 }
 
 const initialState: SubjectList = {
-  data: [],
+  data: null,
   loading: false,
   error: false,
+  success: false,
 };
 
 const token = localStorage.getItem("authToken");
@@ -49,11 +51,12 @@ const testResultSlice = createSlice({
       .addCase(fetchTestResults.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        state.success = true;
       })
       .addCase(fetchTestResults.rejected, (state) => {
         state.loading = false;
         state.error = true;
-        state.data = [];
+        state.data = null;
       });
   },
 });

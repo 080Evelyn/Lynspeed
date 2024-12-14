@@ -34,9 +34,14 @@ const TestResult = () => {
 
   //getting the testresults data from redux store
   const testResult = useSelector((state: RootState) => state.testResult.data);
+  const loading = useSelector((state: RootState) => state.testResult.loading);
+  const error = useSelector((state: RootState) => state.testResult.error);
+  const success = useSelector((state: RootState) => state.testResult.success);
 
   //result object
-  const resultObj = testResult.failed_questions_by_subject;
+  const resultObj = testResult?.failed_questions_by_subject;
+  // console.log(testResult);
+
   //start time
   const startTime = testResult?.start_time;
   //end time
@@ -44,17 +49,13 @@ const TestResult = () => {
   //subjects from test result
   const subjects = testResult?.subjects;
 
-  //dispatching fetch result onmount
-  useEffect(() => {
-    dispatch(fetchTestResults(testSectionId));
-  }, []);
   //function to get each subject score
   const getScore = (keyToCheck: any, resultObj: any, totalQuestions: any) => {
-    if (keyToCheck in resultObj) {
-      const value = resultObj[keyToCheck];
+    // if (keyToCheck in resultObj) {
+    const value = resultObj ?? [keyToCheck];
 
-      return totalQuestions - value.length;
-    }
+    return totalQuestions - value.length;
+    // }
   };
   //function to get totalScore
   const getTotalScore = () => {
@@ -86,18 +87,18 @@ const TestResult = () => {
     return `${hours}h ${minutes}m ${seconds}s`;
   };
 
-  // Calculate the duration
+  // // Calculate the duration
   const duration = calculateDuration(startTime, endTime);
 
-  const formatDate = (isoString: string): string => {
-    const date = new Date(isoString);
-    return new Intl.DateTimeFormat("en-CA", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(date);
-  };
-  const date = formatDate(startTime);
+  // const formatDate = (isoString: string): string => {
+  //   const date = new Date(isoString);
+  //   return new Intl.DateTimeFormat("en-CA", {
+  //     year: "numeric",
+  //     month: "2-digit",
+  //     day: "2-digit",
+  //   }).format(date);
+  // };
+  // const date = formatDate(startTime);
 
   const formatTime = (isoString: string): string => {
     const date = new Date(isoString);
@@ -106,89 +107,106 @@ const TestResult = () => {
 
   const time = formatTime(startTime);
 
+  //dispatching fetch result onmount
+  useEffect(() => {
+    if (success) {
+      return; //endpoint wont be called if its already successful
+    }
+
+    dispatch(fetchTestResults(testSectionId));
+  }, []);
   return (
     <div className="result-page">
       {/* <Navbar2 /> */}
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : !loading && error ? (
+        <h2>Something went wrong, check internet connection.</h2>
+      ) : (
+        <>
+          <div className="content">
+            <div className="left-section">
+              <img src={studentPic} alt="Student" className="student-pic" />
+            </div>
 
-      <div className="content">
-        <div className="left-section">
-          <img src={studentPic} alt="Student" className="student-pic" />
-        </div>
+            <div className="right-section">
+              <div className="resultflow">
+                <div className="result-card">
+                  <h2>TEST RESULT</h2>
+                  <div className="user-info">
+                    <div className="info-text">
+                      <p>
+                        <b>Name:</b> {userName}
+                      </p>
+                      <p>{/* <b>Date:</b> {date} */}</p>
+                      <p>
+                        <b>Time:</b> {time}
+                      </p>
+                    </div>
+                    <div className="profile-pic">
+                      <img src={profilePic} alt="Profile" />
+                    </div>
+                  </div>
 
-        <div className="right-section">
-          <div className="resultflow">
-            <div className="result-card">
-              <h2>TEST RESULT</h2>
-              <div className="user-info">
-                <div className="info-text">
-                  <p>
-                    <b>Name:</b> {userName}
-                  </p>
-                  <p>
-                    <b>Date:</b> {date}
-                  </p>
-                  <p>
-                    <b>Time:</b> {time}
-                  </p>
+                  <table className="result-table">
+                    <thead>
+                      <tr>
+                        <th>Subjects</th>
+                        <th>Duration</th>
+                        <th>Scores</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{subjects ? subjects[0] : null}</td>
+                        <td>{duration}</td>
+                        <td>
+                          {getScore(name[0], resultObj, totalTestQuestions[0])}
+                        </td>
+                      </tr>
+                      <tr></tr>
+
+                      <tr>
+                        <td>{subjects ? subjects[1] : null}</td>
+
+                        <td>{duration}</td>
+                        <td>
+                          {getScore(name[1], resultObj, totalTestQuestions[1])}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{subjects ? subjects[2] : null}</td>
+
+                        <td>{duration}</td>
+                        <td>
+                          {getScore(name[2], resultObj, totalTestQuestions[2])}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{subjects ? subjects[3] : null}</td>
+
+                        <td>{duration}</td>
+                        <td>
+                          {getScore(name[3], resultObj, totalTestQuestions[3])}
+                        </td>
+                      </tr>
+                      <tr className="total-score">
+                        <td>Total</td>
+                        <td>{duration}</td>
+                        <td>{totalScore}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div className="profile-pic">
-                  <img src={profilePic} alt="Profile" />
+                <div className="botf">
+                  <Link to="/CorrectionPage">Corrections</Link>
                 </div>
               </div>
-
-              <table className="result-table">
-                <thead>
-                  <tr>
-                    <th>Subjects</th>
-                    <th>Duration</th>
-                    <th>Scores</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{subjects[0]}</td>
-                    <td>{duration}</td>
-                    <td>
-                      {getScore(name[0], resultObj, totalTestQuestions[0])}
-                    </td>
-                  </tr>
-                  <tr></tr>
-
-                  <tr>
-                    <td>{subjects[1]}</td>
-                    <td>{duration}</td>
-                    <td>
-                      {getScore(name[1], resultObj, totalTestQuestions[1])}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{subjects[2]}</td>
-                    <td>{duration}</td>
-                    <td>
-                      {getScore(name[2], resultObj, totalTestQuestions[2])}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{subjects[3]}</td>
-                    <td>{duration}</td>
-                    <td>
-                      {getScore(name[3], resultObj, totalTestQuestions[3])}
-                    </td>
-                  </tr>
-                  <tr className="total-score">
-                    <td>Total</td>
-                    <td>{duration}</td>
-                    <td>{totalScore}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="botf">
-              <Link to="/CorrectionPage">Corrections</Link>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
+
       {/* <Footer></Footer> */}
     </div>
   );
