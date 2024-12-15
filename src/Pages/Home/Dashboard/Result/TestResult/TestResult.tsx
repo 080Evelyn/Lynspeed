@@ -36,11 +36,9 @@ const TestResult = () => {
   const testResult = useSelector((state: RootState) => state.testResult.data);
   const loading = useSelector((state: RootState) => state.testResult.loading);
   const error = useSelector((state: RootState) => state.testResult.error);
-  const success = useSelector((state: RootState) => state.testResult.success);
 
   //result object
   const resultObj = testResult?.failed_questions_by_subject;
-  // console.log(testResult);
 
   //start time
   const startTime = testResult?.start_time;
@@ -51,11 +49,12 @@ const TestResult = () => {
 
   //function to get each subject score
   const getScore = (keyToCheck: any, resultObj: any, totalQuestions: any) => {
-    // if (keyToCheck in resultObj) {
-    const value = resultObj ?? [keyToCheck];
+    if (!testResult) {
+      return;
+    }
+    const value = resultObj[keyToCheck];
 
     return totalQuestions - value.length;
-    // }
   };
   //function to get totalScore
   const getTotalScore = () => {
@@ -109,10 +108,6 @@ const TestResult = () => {
 
   //dispatching fetch result onmount
   useEffect(() => {
-    if (success) {
-      return; //endpoint wont be called if its already successful
-    }
-
     dispatch(fetchTestResults(testSectionId));
   }, []);
   return (
@@ -159,7 +154,7 @@ const TestResult = () => {
                     <tbody>
                       <tr>
                         <td>{subjects ? subjects[0] : null}</td>
-                        <td>{duration}</td>
+                        <td></td>
                         <td>
                           {getScore(name[0], resultObj, totalTestQuestions[0])}
                         </td>
@@ -169,7 +164,7 @@ const TestResult = () => {
                       <tr>
                         <td>{subjects ? subjects[1] : null}</td>
 
-                        <td>{duration}</td>
+                        <td></td>
                         <td>
                           {getScore(name[1], resultObj, totalTestQuestions[1])}
                         </td>
@@ -177,7 +172,7 @@ const TestResult = () => {
                       <tr>
                         <td>{subjects ? subjects[2] : null}</td>
 
-                        <td>{duration}</td>
+                        <td></td>
                         <td>
                           {getScore(name[2], resultObj, totalTestQuestions[2])}
                         </td>
@@ -185,7 +180,7 @@ const TestResult = () => {
                       <tr>
                         <td>{subjects ? subjects[3] : null}</td>
 
-                        <td>{duration}</td>
+                        <td></td>
                         <td>
                           {getScore(name[3], resultObj, totalTestQuestions[3])}
                         </td>
