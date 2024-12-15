@@ -12,6 +12,10 @@ const Test: React.FC = () => {
   const questionsArray = useSelector(
     (state: RootState) => state.testQuestions.data
   );
+  const loading = useSelector(
+    (state: RootState) => state.testQuestions.loading
+  );
+  const error = useSelector((state: RootState) => state.testQuestions.error);
   const questions = questionsArray?.subjects;
 
   const testSectionId = questionsArray?.test_session_id;
@@ -136,94 +140,106 @@ const Test: React.FC = () => {
       })) || [];
 
   const currentOptions = currentQuestions[currentQuestion];
-  useEffect(() => {}, []);
+
   return (
     <div className="test-container">
-      <div className="subject-tabs">
-        {subjects.map((subject: string, index: number) => (
-          <button
-            key={subject}
-            className={currentSubject === index ? "active" : ""}
-            onClick={() => handleSubjectChange(index)}>
-            {subject.toUpperCase()}
-          </button>
-        ))}
-      </div>
-
-      <div className="timer">{formatTime(timeRemaining)}</div>
-
-      {currentQuestions.length > 0 ? (
-        <div className="question-section">
-          <div className="question-counter">
-            Question {currentQuestions[currentQuestion]?.displayNumber} /{" "}
-            {currentQuestions.length}
-          </div>
-          <div className="question-text">{currentOptions?.text}</div>
-          {currentOptions?.image && (
-            <img
-              src={`https://lynspeed.pythonanywhere.com${currentOptions?.image}`}
-              alt="test_image"
-            />
-          )}
-
-          <div className="options">
-            {["option_a", "option_b", "option_c", "option_d"].map((key) => (
-              <label key={key}>
-                <input
-                  type="radio"
-                  name={`question-${currentQuestion}`}
-                  checked={
-                    selectedAnswers[currentSubject]?.[currentQuestion] ===
-                    `${key.split("_")[1].toUpperCase()}`
-                  }
-                  onChange={() =>
-                    handleOptionSelect(
-                      `${key.split("_")[1].toUpperCase()}`,
-                      currentOptions.id
-                    )
-                  }
-                />
-                {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]}`}
-              </label>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : !loading && error ? (
+        <h2>Something went wrong, check internet connection</h2>
+      ) : (
+        <>
+          <div className="subject-tabs">
+            {subjects.map((subject: string, index: number) => (
+              <button
+                key={subject}
+                className={currentSubject === index ? "active" : ""}
+                onClick={() => handleSubjectChange(index)}>
+                {subject.toUpperCase()}
+              </button>
             ))}
           </div>
 
-          <div className="navigation-buttons">
-            <button onClick={handlePrevious} disabled={currentQuestion === 0}>
-              Previous
-            </button>
+          <div className="timer">{formatTime(timeRemaining)}</div>
+
+          {currentQuestions.length > 0 ? (
+            <div className="question-section">
+              <div className="question-counter">
+                Question {currentQuestions[currentQuestion]?.displayNumber} /{" "}
+                {currentQuestions.length}
+              </div>
+              <div className="question-text">{currentOptions?.text}</div>
+              {currentOptions?.image && (
+                <img
+                  src={`https://lynspeed.pythonanywhere.com${currentOptions?.image}`}
+                  alt="test_image"
+                />
+              )}
+
+              <div className="options">
+                {["option_a", "option_b", "option_c", "option_d"].map((key) => (
+                  <label key={key}>
+                    <input
+                      type="radio"
+                      name={`question-${currentQuestion}`}
+                      checked={
+                        selectedAnswers[currentSubject]?.[currentQuestion] ===
+                        `${key.split("_")[1].toUpperCase()}`
+                      }
+                      onChange={() =>
+                        handleOptionSelect(
+                          `${key.split("_")[1].toUpperCase()}`,
+                          currentOptions.id
+                        )
+                      }
+                    />
+                    {`${key.split("_")[1].toUpperCase()}. ${
+                      currentOptions?.[key]
+                    }`}
+                  </label>
+                ))}
+              </div>
+
+              <div className="navigation-buttons">
+                <button
+                  onClick={handlePrevious}
+                  disabled={currentQuestion === 0}>
+                  Previous
+                </button>
+                <button
+                  onClick={handleNext}
+                  disabled={currentQuestion >= currentQuestions.length - 1}>
+                  Next
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p>No questions available for the selected subject.</p>
+          )}
+
+          <div className="question-grid">
+            {currentQuestions.map((question: any, index: number) => (
+              <button
+                key={index}
+                className={`${currentQuestion === index ? "active" : ""} ${
+                  selectedAnswers[currentSubject]?.[index] ? "answered" : ""
+                }`}
+                onClick={() => setCurrentQuestion(index)}>
+                {question.displayNumber}
+              </button>
+            ))}
+          </div>
+
+          <div className="submit-section">
             <button
-              onClick={handleNext}
-              disabled={currentQuestion >= currentQuestions.length - 1}>
-              Next
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="submit-button">
+              {submitting ? "Submitting" : "Submit"}
             </button>
           </div>
-        </div>
-      ) : (
-        <p>No questions available for the selected subject.</p>
+        </>
       )}
-
-      <div className="question-grid">
-        {currentQuestions.map((question: any, index: number) => (
-          <button
-            key={index}
-            className={`${currentQuestion === index ? "active" : ""} ${
-              selectedAnswers[currentSubject]?.[index] ? "answered" : ""
-            }`}
-            onClick={() => setCurrentQuestion(index)}>
-            {question.displayNumber}
-          </button>
-        ))}
-      </div>
-
-      <div className="submit-section">
-        <button
-          onClick={handleSubmit}
-          disabled={submitting}
-          className="submit-button">
-          {submitting ? "Submitting" : "Submit"}
-        </button>
-      </div>
     </div>
   );
 };

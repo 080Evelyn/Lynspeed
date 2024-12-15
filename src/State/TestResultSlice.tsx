@@ -5,14 +5,14 @@ interface SubjectList {
   data: any;
   loading: boolean;
   error: boolean;
-  success: boolean;
+  //   success: boolean;
 }
 
 const initialState: SubjectList = {
   data: null,
   loading: false,
   error: false,
-  success: false,
+  //   success: false,
 };
 
 const token = localStorage.getItem("authToken");
@@ -51,7 +51,7 @@ const testResultSlice = createSlice({
       .addCase(fetchTestResults.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
-        state.success = true;
+        // state.success = true;
       })
       .addCase(fetchTestResults.rejected, (state) => {
         state.loading = false;
