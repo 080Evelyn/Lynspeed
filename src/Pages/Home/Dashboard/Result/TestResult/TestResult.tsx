@@ -54,7 +54,7 @@ const TestResult = () => {
     }
     const value = resultObj[keyToCheck];
 
-    return totalQuestions - value.length;
+    return totalQuestions - value?.length;
   };
   //function to get totalScore
   const getTotalScore = () => {
