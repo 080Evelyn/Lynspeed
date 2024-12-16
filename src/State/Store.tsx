@@ -8,6 +8,7 @@ import subjectListReducer from "./SubjectListSlice";
 import savedSubjectListReducer from "./SavedSubjectListSlice";
 import testQuestionsReducer from "./TestQuestionSlice";
 import testResultReducer from "./TestResultSlice";
+import resultHistoryReducer from "./ResultHistorySlice";
 // import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
@@ -17,8 +18,9 @@ const persistConfig = {
   whitelist: [
     "auth",
     "subjectList",
-    "savedSubjectList",
+    // "savedSubjectList",
     "testQuestions",
+    "resultHistory",
     // "testResult",
   ], // Add savedSubjectList
 };
@@ -30,6 +32,7 @@ const rootReducer = combineReducers({
   savedSubjectList: savedSubjectListReducer,
   testQuestions: testQuestionsReducer,
   testResult: testResultReducer,
+  resultHistory: resultHistoryReducer,
 });
 
 // Wrap rootReducer with persistReducer
