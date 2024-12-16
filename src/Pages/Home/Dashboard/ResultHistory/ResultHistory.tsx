@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const ResultHistory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const resultsHistory = useSelector(
-    (state: RootState) => state.resultHistory.data.results
+    (state: RootState) => state.resultHistory.data?.results
   );
   const loading = useSelector(
     (state: RootState) => state.resultHistory.loading
@@ -48,7 +48,7 @@ const ResultHistory: React.FC = () => {
       ) : (
         <div className="app">
           <main className="result-history">
-            {resultsHistory.map((result: any, index: any) => (
+            {resultsHistory?.map((result: any, index: any) => (
               <ResultItem key={index} {...result} />
             ))}
           </main>
