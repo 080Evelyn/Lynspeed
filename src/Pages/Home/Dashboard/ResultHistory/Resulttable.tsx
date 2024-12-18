@@ -2,13 +2,13 @@ import React from "react";
 import "./Resulttable.css";
 
 interface ResultsTableProps {
-  subject: string;
+  results: any[];
   totalTime: string;
   totalScore: number;
 }
 
 const ResultsTable: React.FC<ResultsTableProps> = ({
-  subject,
+  results,
   totalTime,
   totalScore,
 }) => {
@@ -22,11 +22,15 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{subject}</td>
-          {/* <td>{subject.}</td>
-            <td>{subject.score}</td> */}
-        </tr>
+        {results.map((subject, i) => {
+          return (
+            <tr key={i}>
+              <td>{subject.subject}</td>
+              <td>{subject.test_speed}</td>
+              <td>{subject.test_score}</td>
+            </tr>
+          );
+        })}
 
         <tr>
           <td>

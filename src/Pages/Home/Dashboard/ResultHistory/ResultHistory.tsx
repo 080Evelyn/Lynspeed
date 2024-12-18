@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const ResultHistory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const resultsHistory = useSelector(
-    (state: RootState) => state.resultHistory.data?.results
+    (state: RootState) => state.resultHistory?.data?.test_sessions
   );
   const loading = useSelector(
     (state: RootState) => state.resultHistory.loading
