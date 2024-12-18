@@ -7,8 +7,8 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 interface ResultItemProps {
-  test_timestamp: string;
-  subject: string;
+  timestamp: string;
+  results: any[];
   test_speed: string;
   test_score: number;
   stats: {
@@ -17,14 +17,37 @@ interface ResultItemProps {
   };
 }
 
-const ResultItem: React.FC<ResultItemProps> = ({
-  test_timestamp,
-  subject,
-  test_speed,
-  test_score,
-}) => {
+const ResultItem: React.FC<ResultItemProps> = ({ timestamp, results }) => {
   const resultRef = useRef<HTMLDivElement | null>(null);
 
+  // Calculate the total test_score
+  const totalTestScore = results.reduce(
+    (sum, item) => sum + item.test_score,
+    0
+  );
+
+  // Helper function to add two "mm:ss" formatted times
+  const addSpeeds = (speeds: string[]): string => {
+    let totalMinutes = 0;
+    let totalSeconds = 0;
+
+    speeds.forEach((speed) => {
+      const [minutes, seconds] = speed
+        .split("m")
+        .map((part) => parseFloat(part.replace("s", "").trim()));
+      totalMinutes += minutes;
+      totalSeconds += seconds;
+    });
+
+    // Add extra minutes from total seconds exceeding 60
+    totalMinutes += Math.floor(totalSeconds / 60);
+    totalSeconds = totalSeconds % 60;
+
+    return `${totalMinutes}m ${totalSeconds.toFixed(2)}s`;
+  };
+
+  // Extract test_speed values and calculate total
+  const totalTestSpeed = addSpeeds(results.map((item) => item.test_speed));
   const handleDownload = () => {
     const input = resultRef.current;
     if (input) {
@@ -46,7 +69,7 @@ const ResultItem: React.FC<ResultItemProps> = ({
       });
     }
   };
-  const dateTimeString = test_timestamp;
+  const dateTimeString = timestamp;
 
   // Convert the string to a Date object
   const dateObj = new Date(dateTimeString.replace(" ", "T")); // Replace space with 'T' for ISO compliance
@@ -65,8 +88,8 @@ const ResultItem: React.FC<ResultItemProps> = ({
     second: "2-digit",
   });
 
-  console.log("Date:", formattedDate); // Example: "December 15, 2024"
-  console.log("Time:", formattedTime);
+  // console.log("Date:", formattedDate); // Example: "December 15, 2024"
+  // console.log("Time:", formattedTime);
   return (
     <>
       <div className="result-item" ref={resultRef}>
@@ -86,19 +109,17 @@ const ResultItem: React.FC<ResultItemProps> = ({
 
         <div className="middle-section">
           <ResultsTable
-            subject={subject}
-            totalTime={test_speed}
-            totalScore={test_score}
+            results={results}
+            totalTime={totalTestSpeed}
+            totalScore={totalTestScore}
           />
         </div>
 
         <div className="right-section">
           <div className="stats-box">
+            <div>{/* <b>Average Time Per Question:</b> {} */}</div>
             <div>
-              {/* <b>Average Time Per Question:</b> {stats.avgTimePerQuestion} */}
-            </div>
-            <div>
-              <b>Total Time Spent:</b> {test_speed}
+              <b>Total Time Spent:</b> {totalTestSpeed}
             </div>
           </div>
         </div>
