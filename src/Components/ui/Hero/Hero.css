@@ -73,7 +73,8 @@
   width: 100%;
   height: auto;
 }
-.foot{
+
+.foot {
   display: none;
 }
 
@@ -81,6 +82,7 @@
 .animate-text {
   animation: scaleIn 1.5s ease forwards;
 }
+
 .animate-image {
   animation: slideInRight 1.2s ease forwards;
 }
@@ -94,20 +96,24 @@
     transform: scale(0.8);
     opacity: 0;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.7;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
   }
 }
+
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -118,6 +124,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -131,7 +138,8 @@
     height: auto;
     gap: 20px;
   }
-  .foot{
+
+  .foot {
     display: block;
   }
 
@@ -178,7 +186,8 @@
     font-size: 14px;
     padding: 8px 15px;
   }
-  .foot{
+
+  .foot {
     display: block;
   }
 }

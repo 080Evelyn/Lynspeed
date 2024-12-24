@@ -32,8 +32,9 @@ const CorrectionPage: React.FC = () => {
   const [showRecommendations, setShowRecommendations] = useState(false);
 
   const recommendations = [
-    "Read more on synonyms and antonyms.",
-    "Study maps and capitals for geography.",
+    // "Read more on synonyms and antonyms.",
+    // "Study maps and capitals for geography.",
+    "COMING SOON!"
   ];
 
   if (showRecommendations) {
