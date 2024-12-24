@@ -16,6 +16,7 @@ import { AppDispatch, RootState } from "../../../../State/Store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchResultHstory } from "../../../../State/ResultHistorySlice";
+import { fetchAnalysis } from "../../../../State/AnalysisSlice";
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 // Register chart components for Bar and Line charts
@@ -136,44 +137,43 @@ const Performance: React.FC = () => {
   // );
   // const error = useSelector((state: RootState) => state.resultHistory.error);
   useEffect(() => {
-    dispatch(fetchResultHstory());
+    dispatch(fetchAnalysis());
   }, []);
   // Define the data structure for both Bar and Line charts
-  const timeDatasss = {
-    labels: date,
+  // const timeDatasss = {
+  //   labels: date,
 
-    datasets: [
-      {
-        label: "Use of English",
-        data: result,
-        backgroundColor: "rgba(6, 89, 166, 0.8)",
-        borderColor: "rgba(6, 89, 166, 1)",
-        borderWidth: 2,
-      },
-      {
-        label: "Mathematics",
-        data: result,
-        backgroundColor: "rgba(255, 99, 132, 0.8)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 2,
-      },
-      {
-        label: "Physics",
-        data: result,
-        backgroundColor: "rgba(54, 162, 235, 0.8)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        borderWidth: 2,
-      },
-      {
-        label: "Chemistry",
-        data: result,
-        backgroundColor: "rgba(255, 205, 86, 0.8)",
-        borderColor: "rgba(255, 205, 86, 1)",
-        borderWidth: 2,
-      },
-      // result,
-    ],
-  };
+  //   datasets: [
+  //     {
+  //       label: "Use of English",
+  //       data: result,
+  //       backgroundColor: "rgba(6, 89, 166, 0.8)",
+  //       borderColor: "rgba(6, 89, 166, 1)",
+  //       borderWidth: 2,
+  //     },
+  //     {
+  //       label: "Mathematics",
+  //       data: result,
+  //       backgroundColor: "rgba(255, 99, 132, 0.8)",
+  //       borderColor: "rgba(255, 99, 132, 1)",
+  //       borderWidth: 2,
+  //     },
+  //     {
+  //       label: "Physics",
+  //       data: result,
+  //       backgroundColor: "rgba(54, 162, 235, 0.8)",
+  //       borderColor: "rgba(54, 162, 235, 1)",
+  //       borderWidth: 2,
+  //     },
+  //     {
+  //       label: "Chemistry",
+  //       data: result,
+  //       backgroundColor: "rgba(255, 205, 86, 0.8)",
+  //       borderColor: "rgba(255, 205, 86, 1)",
+  //       borderWidth: 2,
+  //     },
+  //   ],
+  // };
   return (
     <>
       {/* <Navbar2 /> */}
@@ -188,7 +188,7 @@ const Performance: React.FC = () => {
         <div className="chart-container">
           <h3>Performance Over Time (Bar Chart)</h3>
           <Bar
-            data={timeDatasss}
+            data={timeData}
             options={{
               responsive: true,
               maintainAspectRatio: false,

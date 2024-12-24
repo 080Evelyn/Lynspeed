@@ -9,6 +9,7 @@ import savedSubjectListReducer from "./SavedSubjectListSlice";
 import testQuestionsReducer from "./TestQuestionSlice";
 import testResultReducer from "./TestResultSlice";
 import resultHistoryReducer from "./ResultHistorySlice";
+import analysisReducer from "./AnalysisSlice";
 // import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   testQuestions: testQuestionsReducer,
   testResult: testResultReducer,
   resultHistory: resultHistoryReducer,
+  analysis: analysisReducer,
 });
 
 // Wrap rootReducer with persistReducer
