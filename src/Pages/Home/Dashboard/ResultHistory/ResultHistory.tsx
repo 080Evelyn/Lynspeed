@@ -13,6 +13,7 @@ const ResultHistory: React.FC = () => {
   const resultsHistory = useSelector(
     (state: RootState) => state.resultHistory?.data?.test_sessions
   );
+  // console.log(resultsHistory);
   const loading = useSelector(
     (state: RootState) => state.resultHistory.loading
   );
@@ -48,9 +49,13 @@ const ResultHistory: React.FC = () => {
       ) : (
         <div className="app">
           <main className="result-history">
-            {resultsHistory?.map((result: any, index: any) => (
-              <ResultItem key={index} {...result} />
-            ))}
+            {resultsHistory?.length === 0 ? (
+              <h2>No results for you yet, try completing a test session.</h2>
+            ) : (
+              resultsHistory?.map((result: any, index: any) => (
+                <ResultItem key={index} {...result} />
+              ))
+            )}
           </main>
           {/* <main className="result-history">
           {resultsData.map((result, index) => (

@@ -131,21 +131,52 @@ const Test: React.FC = () => {
   };
 
   const currentQuestions =
-    questions[currentSubject]?.worksheets[0]?.questions
-      ?.slice()
-      ?.sort((a: any, b: any) => a.number - b.number) // Sort questions by 'number'
-      ?.map((question: any, index: number) => ({
-        ...question,
-        displayNumber: index + 1, // Assign sequential display numbers
-      })) || [];
+    (questions &&
+      questions[currentSubject]?.worksheets[0]?.questions
+        ?.slice()
+        ?.sort((a: any, b: any) => a.number - b.number) // Sort questions by 'number'
+        ?.map((question: any, index: number) => ({
+          ...question,
+          displayNumber: index + 1, // Assign sequential display numbers
+        }))) ||
+    [];
 
   const currentOptions = currentQuestions[currentQuestion];
+
+  useEffect(() => {
+    // Push a dummy state to the history stack
+    window.history.pushState(null, "", window.location.href);
+
+    const handleBackButton = () => {
+      // Redirect to a specific page
+      navigate("/dashboard", { replace: true });
+    };
+
+    const onPopState = (_event: PopStateEvent) => {
+      // Intercept the back button behavior
+      handleBackButton();
+    };
+
+    // Add event listener for popstate
+    window.addEventListener("popstate", onPopState);
+
+    return () => {
+      // Clean up the event listener on unmount
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [navigate]);
 
   return (
     <div className="test-container">
       {loading ? (
         <h2>Loading...</h2>
-      ) : !loading && error ? (
+      ) : !loading &&
+        error &&
+        error === "Request failed with status code 403" ? (
+        <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+      ) : !loading &&
+        error &&
+        error !== "Request failed with status code 403" ? (
         <h2>Something went wrong, check internet connection</h2>
       ) : (
         <>

@@ -105,6 +105,10 @@ const SubjectSelection = () => {
   }, [subjectSaved]);
 
   const handleStartTest = async (_e: React.MouseEvent) => {
+    if (userSubject) {
+      alert("Select subjects before proceeding.");
+      return;
+    }
     dispatch(fetchTestQuestions());
     navigate("/test");
   };
@@ -191,12 +195,6 @@ const SubjectSelection = () => {
                       <br /> <strong> Good luck!</strong>
                     </p>
                   </div>
-
-                  <div className="but">
-                    <div className="bot">
-                      <Link to="/dashboard">Go Back</Link>
-                    </div>
-                  </div>
                 </div>
               </>
             )}
@@ -252,20 +250,19 @@ const SubjectSelection = () => {
                       <br /> <strong> Good luck!</strong>
                     </p>
                   </div>
-
-                  <div className="but">
-                    <div className="bot">
-                      <Link to="/dashboard">Go Back</Link>
-                    </div>
-                    <div className="bot">
-                      <Link to="/test" onClick={handleStartTest}>
-                        Start Test
-                      </Link>
-                    </div>
-                  </div>
                 </div>
               </>
             )}
+            <div className="but">
+              <div className="bot">
+                <Link to="/dashboard">Go Back</Link>
+              </div>
+              <div className="bot">
+                <Link to={userSubject ? "" : "/test"} onClick={handleStartTest}>
+                  Start Test
+                </Link>
+              </div>
+            </div>
 
             {showAlert && (
               <SubjectAlert

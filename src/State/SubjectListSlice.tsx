@@ -48,6 +48,11 @@ const subjectListSlice = createSlice({
     setSubjectList: (state, action) => {
       state.data = action.payload; // Allows direct setting of subject list from another component
     },
+    resetSubjectList: (state) => {
+      state.data = [];
+      state.error = false;
+      state.saved = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -67,5 +72,6 @@ const subjectListSlice = createSlice({
   },
 });
 
-export const { saveSubject, unSaveSubject, setSubjectList } = subjectListSlice.actions;
+export const { saveSubject, unSaveSubject, setSubjectList, resetSubjectList } =
+  subjectListSlice.actions;
 export default subjectListSlice.reducer;

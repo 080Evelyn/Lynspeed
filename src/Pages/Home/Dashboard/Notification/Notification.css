@@ -1,5 +1,7 @@
 .notification-page {
   padding: 30px;
+  background-color: #ccdfe6;
+  height: 100vh;
 }
 
 .notification-header {

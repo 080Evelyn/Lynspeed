@@ -41,7 +41,12 @@ export const fetchResultHstory = createAsyncThunk(
 const resultHistorySlice = createSlice({
   name: "subjectList",
   initialState,
-  reducers: {},
+  reducers: {
+    resetResultHistory: (state) => {
+      state.data = null;
+      state.error = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchResultHstory.pending, (state) => {
@@ -61,4 +66,5 @@ const resultHistorySlice = createSlice({
   },
 });
 
+export const { resetResultHistory } = resultHistorySlice.actions;
 export default resultHistorySlice.reducer;

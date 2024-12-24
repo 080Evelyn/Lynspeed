@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,6 +12,10 @@ import {
   PointElement,
 } from "chart.js";
 import "./Performance.css";
+import { AppDispatch, RootState } from "../../../../State/Store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { fetchResultHstory } from "../../../../State/ResultHistorySlice";
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 // Register chart components for Bar and Line charts
@@ -100,6 +104,76 @@ const timeData = {
 
 // Component for rendering the performance bar and line charts
 const Performance: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const resultsHistory = useSelector(
+    (state: RootState) => state.resultHistory?.data?.test_sessions
+  );
+  // console.log(resultsHistory);
+  const date = resultsHistory?.map((item: any) => {
+    // Convert the string to a Date object
+    const dateObj = new Date(item.timestamp.replace(" ", "T")); // Replace space with 'T' for ISO compliance
+    // Extract and format the date
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    return formattedDate;
+  });
+
+  const resultArray = resultsHistory?.map((item: any) => {
+    return item.results;
+  });
+
+  const result = resultArray?.map((item: any) => {
+    return item.map((item: any) => {
+      return item;
+    });
+  });
+  // const loading = useSelector(
+  //   (state: RootState) => state.resultHistory.loading
+  // );
+  // const error = useSelector((state: RootState) => state.resultHistory.error);
+  useEffect(() => {
+    dispatch(fetchResultHstory());
+  }, []);
+  // Define the data structure for both Bar and Line charts
+  const timeDatasss = {
+    labels: date,
+
+    datasets: [
+      {
+        label: "Use of English",
+        data: result,
+        backgroundColor: "rgba(6, 89, 166, 0.8)",
+        borderColor: "rgba(6, 89, 166, 1)",
+        borderWidth: 2,
+      },
+      {
+        label: "Mathematics",
+        data: result,
+        backgroundColor: "rgba(255, 99, 132, 0.8)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 2,
+      },
+      {
+        label: "Physics",
+        data: result,
+        backgroundColor: "rgba(54, 162, 235, 0.8)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 2,
+      },
+      {
+        label: "Chemistry",
+        data: result,
+        backgroundColor: "rgba(255, 205, 86, 0.8)",
+        borderColor: "rgba(255, 205, 86, 1)",
+        borderWidth: 2,
+      },
+      // result,
+    ],
+  };
   return (
     <>
       {/* <Navbar2 /> */}
@@ -114,7 +188,7 @@ const Performance: React.FC = () => {
         <div className="chart-container">
           <h3>Performance Over Time (Bar Chart)</h3>
           <Bar
-            data={timeData}
+            data={timeDatasss}
             options={{
               responsive: true,
               maintainAspectRatio: false,

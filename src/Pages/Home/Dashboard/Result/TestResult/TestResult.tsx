@@ -2,7 +2,7 @@ import "./TestResult.css"; // Import CSS for styles
 import profilePic from "../../../../../assets/profile.svg"; // Example profile /
 import studentPic from "../../../../../assets/studentImage.png"; // Example student pic
 // import Navbar2 from "../../../../../Components/ui/Navbar/Navbar2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../../State/Store";
 import { useDispatch } from "react-redux";
@@ -105,8 +105,30 @@ const TestResult = () => {
   };
 
   const time = formatTime(startTime);
+  const navigate = useNavigate();
+  useEffect(() => {
+    // Push a dummy state to the history stack
+    window.history.pushState(null, "", window.location.href);
 
-  //dispatching fetch result onmount
+    const handleBackButton = () => {
+      // Redirect to a specific page
+      navigate("/dashboard", { replace: true });
+    };
+
+    const onPopState = (_event: PopStateEvent) => {
+      // Intercept the back button behavior
+      handleBackButton();
+    };
+
+    // Add event listener for popstate
+    window.addEventListener("popstate", onPopState);
+
+    return () => {
+      // Clean up the event listener on unmount
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [navigate]);
+
   useEffect(() => {
     dispatch(fetchTestResults(testSectionId));
   }, []);
