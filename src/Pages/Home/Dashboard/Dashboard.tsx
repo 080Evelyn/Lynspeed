@@ -15,8 +15,14 @@ import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
 import { persistor } from "../../../State/Store";
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "../../../State/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../State/Store";
+import { resetAuth } from "../../../Components/authSlice";
+import { resetResultHistory } from "../../../State/ResultHistorySlice";
+import { resetSavedSubject } from "../../../State/SavedSubjectListSlice";
+import { resetSubjectList } from "../../../State/SubjectListSlice";
+import { resetTestQuestions } from "../../../State/TestQuestionSlice";
+import { resetTestResult } from "../../../State/TestResultSlice";
 // import { expiredLogout } from "../../../Components/authSlice";
 // import { fetchSubjectList } from "../../../State/SubjectListSlice";
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
@@ -28,7 +34,7 @@ interface UserProfile {
   email: string;
 }
 const Dashboard = () => {
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(
     null
   );
@@ -69,9 +75,16 @@ const Dashboard = () => {
   //   setIsChangePasswordOpen((prev) => !prev);
 
   const handleSignOut = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-    localStorage.removeItem("selectedSubjects");
+    // localStorage.removeItem("authToken");
+    // localStorage.removeItem("user");
+    // localStorage.removeItem("selectedSubjects");
+    localStorage.clear();
+    dispatch(resetAuth());
+    dispatch(resetResultHistory());
+    dispatch(resetSavedSubject());
+    dispatch(resetSubjectList());
+    dispatch(resetTestQuestions());
+    dispatch(resetTestResult());
     persistor.purge(); //clears all persisted data from local storage
     navigate("/login");
   };

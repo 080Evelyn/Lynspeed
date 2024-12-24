@@ -19,8 +19,8 @@ const persistConfig = {
     "auth",
     "subjectList",
     // "savedSubjectList",
-    "testQuestions",
-    "resultHistory",
+    // "testQuestions",
+    // "resultHistory",
     // "testResult",
   ], // Add savedSubjectList
 };

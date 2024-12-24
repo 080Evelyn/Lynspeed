@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
-import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
+// import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
 
 const ResetPassword: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -38,7 +38,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <>
-      <Navbar2 />
+      {/* <Navbar2 /> */}
       <form
         onSubmit={handleSubmit}
         style={{

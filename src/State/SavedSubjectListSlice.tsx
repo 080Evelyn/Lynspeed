@@ -40,7 +40,13 @@ export const fetchSavedSubjectList = createAsyncThunk(
 const savedSubjectListSlice = createSlice({
   name: "SavedSubjectList",
   initialState,
-  reducers: {},
+  reducers: {
+    resetSavedSubject: (state) => {
+      state.data = [];
+      state.error = false;
+      state.success = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSavedSubjectList.pending, (state) => {
@@ -60,5 +66,5 @@ const savedSubjectListSlice = createSlice({
   },
 });
 
-// export const {} = savedSubjectListSlice.actions;
+export const {resetSavedSubject} = savedSubjectListSlice.actions;
 export default savedSubjectListSlice.reducer;

@@ -41,7 +41,12 @@ export const fetchTestResults = createAsyncThunk<any, number>(
 const testResultSlice = createSlice({
   name: "subjectList",
   initialState,
-  reducers: {},
+  reducers: {
+    resetTestResult: (state) => {
+      state.data = [];
+      state.error = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTestResults.pending, (state) => {
@@ -60,5 +65,5 @@ const testResultSlice = createSlice({
       });
   },
 });
-
+export const { resetTestResult } = testResultSlice.actions;
 export default testResultSlice.reducer;

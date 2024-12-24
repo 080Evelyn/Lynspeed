@@ -10,24 +10,23 @@ interface SubscriptionStatus {
   is_active: boolean;
 }
 
+interface planStatus {
+  map(
+    arg0: (plan: any) => import("react/jsx-runtime").JSX.Element
+  ): React.ReactNode;
+  id: number;
+  name: string;
+  price: boolean;
+  duration: number;
+}
+
 const Subscription: React.FC = () => {
-  const plans = [
-    {
-      name: "WEEKLY",
-      description:
-        "7 days validity, Unlimited access to questions, Full test simulations, Performance analysis, Result History Email support",
-      price: "₦600",
-    },
-    {
-      name: "MONTHLY",
-      description:
-        "30 days validity, Unlimited access to questions, Full test simulations,  Performance analysis,  Priority customer support,  Test result & History.",
-      price: "₦2000",
-    },
-  ];
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(
     null
   );
+
+  const [plan, setPlan] = useState<planStatus | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [subLoader, setSubLoader] = useState(false);
   const [error, setError] = useState("");
@@ -45,6 +44,17 @@ const Subscription: React.FC = () => {
             },
           }
         );
+        if (statusResponse.statusText === "OK") {
+          const planResponse = await axios.get(
+            "https://lynspeed.pythonanywhere.com/api/v1/plans/",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Add token to Authorization header
+              },
+            }
+          );
+          setPlan(planResponse.data);
+        }
         setSubscription(statusResponse.data);
       } catch (error) {
         setError("Failed to fetch subscription data. Please try again.");
@@ -55,19 +65,24 @@ const Subscription: React.FC = () => {
 
     fetchPlansAndStatus();
   }, []);
-
-  const handleActivateSubscription = async (planName: string) => {
+  const handleActivateSubscription = async (planName: string, id: number) => {
     try {
       setSubLoader(true);
       const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/subscription/activate/",
+        "https://lynspeed.pythonanywhere.com/api/v1/payment/initialize/",
+
         {
+          plan_id: id,
           plan: planName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
         }
       );
-
-      const { paystackUrl } = response.data;
-      window.location.href = paystackUrl;
+      const { payment_url } = response.data;
+      window.location.href = payment_url;
     } catch (error) {
       console.error("Error activating subscription:", error);
 
@@ -83,11 +98,11 @@ const Subscription: React.FC = () => {
     <div className="subscription-container">
       {/* Backward Arrow */}
       <div className="header-container">
-      <span className="back-arrow" onClick={() => window.history.back()}>
-        ←
-      </span>
-      <h1 className="subscription-title">My Subscription</h1>
-    </div>
+        <span className="back-arrow" onClick={() => window.history.back()}>
+          ←
+        </span>
+        <h1 className="subscription-title">My Subscription</h1>
+      </div>
       {loading ? (
         <p>Loading subscription details...</p>
       ) : error ? (
@@ -107,19 +122,35 @@ const Subscription: React.FC = () => {
           )}
 
           <div className="plans-container">
-            {plans.map((plan) => (
-              <div key={plan.name} className="plan-card">
-                <h2>{plan.name}</h2>
-                <p>{plan.description}</p>
-                <h3>{plan.price}</h3>
-                <button
-                  disabled={subLoader}
-                  className="subscribe-button"
-                  onClick={() => handleActivateSubscription(plan.name)}>
-                  Subscribe
-                </button>
-              </div>
-            ))}
+            {plan &&
+              plan.map((plan) => (
+                <div key={plan.id} className="plan-card">
+                  <h2>{plan.name}</h2>
+                  {plan.duration === 7 && (
+                    <p>
+                      7 days validity, Unlimited access to questions, Full test
+                      simulations, Performance analysis, Result History Email
+                      support
+                    </p>
+                  )}
+                  {plan.duration === 30 && (
+                    <p>
+                      30 days validity, Unlimited access to questions, Full test
+                      simulations, Performance analysis, Priority customer
+                      support, Test result & History.
+                    </p>
+                  )}
+                  <h3>{plan.price}</h3>
+                  <button
+                    disabled={subLoader}
+                    className="subscribe-button"
+                    onClick={() =>
+                      handleActivateSubscription(plan.name, plan.id)
+                    }>
+                    {subLoader ? "loading..." : "Subscribe"}
+                  </button>
+                </div>
+              ))}
           </div>
         </>
       )}

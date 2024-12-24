@@ -4,7 +4,7 @@ import axios from "axios";
 interface Test {
   data: [];
   loading: boolean;
-  error: boolean;
+  error: any;
   test_id: any;
 }
 
@@ -40,7 +40,12 @@ export const fetchTestQuestions = createAsyncThunk(
 const testQuestionsSlice = createSlice({
   name: "testQuestions",
   initialState,
-  reducers: {},
+  reducers: {
+    resetTestQuestions: (state) => {
+      state.data = [];
+      state.error = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTestQuestions.pending, (state) => {
@@ -51,12 +56,12 @@ const testQuestionsSlice = createSlice({
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchTestQuestions.rejected, (state) => {
+      .addCase(fetchTestQuestions.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.payload;
         state.data = [];
       });
   },
 });
-
+export const { resetTestQuestions } = testQuestionsSlice.actions;
 export default testQuestionsSlice.reducer;
