@@ -7,12 +7,12 @@ import Footer from '../Footer/Footer';
 const Hero = () => {
   return (
     <>
-      <Bubbles /> 
+      <Bubbles />
       <div className='hero'>
         <div className="left">
-          <div className="write-up"> 
-            <p className='write1 animate-text'> 
-              <b>JAMB</b> made <br></br> 
+          <div className="write-up">
+            <p className='write1 animate-text'>
+              <b>JAMB</b> made <br></br>
               <span>easy </span>for <b>you</b>
             </p>
             <p className='write2 animate-subtext'>
@@ -28,9 +28,9 @@ const Hero = () => {
         </div>
       </div>
       <div className='foot'>
-      <Footer/>
+        <Footer />
       </div>
-     
+
     </>
   )
 }
