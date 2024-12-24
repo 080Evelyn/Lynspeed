@@ -5,6 +5,7 @@ import Navbar from "../../Components/ui/Navbar/Navbar";
 import "./Pricing.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import { Link } from "react-router-dom";
 
 type PlanType = "FREE" | "WEEKLY" | "MONTHLY";
 
@@ -75,8 +76,8 @@ const Pricing: React.FC = () => {
               <li>Result History</li>
               <li>Email support</li>
             </ul>
-            <button onClick={() => handleSubscribe("WEEKLY")}>
-              Get Started
+            <button >
+              <Link style={{color:"white"}} to="/login">Get Started</Link>
             </button>
           </div>
         </div>
@@ -98,8 +99,8 @@ const Pricing: React.FC = () => {
               <li>Priority customer support</li>
               <li>Test result & History</li>
             </ul>
-            <button onClick={() => handleSubscribe("MONTHLY")}>
-              Get Started
+            <button >
+              <Link style={{color:"white"}} to="/login">Get Started</Link>
             </button>
           </div>
         </div>
