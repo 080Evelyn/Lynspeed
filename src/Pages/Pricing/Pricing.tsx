@@ -38,7 +38,7 @@ const Pricing: React.FC = () => {
   return (
     <>
       <Navbar />
-      <h1 className="pricing-title">Pricing List</h1>
+      <h2 className="pricing-title">Pricing</h2>
       <div className="pricing-cards">
         {/* Free Plan Card */}
         <div className="card">
