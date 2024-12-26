@@ -106,9 +106,8 @@
 .validation {
   position: absolute;
   top: 25%;
-  height: 200px;
-  width: 50%;
-  left: 25%;
+  width: 60%;
+  left: 22%;
   margin: auto;
   z-index: 30;
   background-color: #fff;

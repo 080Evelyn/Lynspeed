@@ -21,24 +21,11 @@ const TestResult = () => {
     (state: RootState) => state.testQuestions.data
   );
   const testSectionId = questionsArray?.test_session_id;
-  const questions = questionsArray?.subjects;
-  //total questions
-  const totalTestQuestions = questions.map((sub: any) => {
-    return [sub?.worksheets[0]?.questions.length];
-  });
-
-  //getting the names of each subject from questions array
-  const name = questions.map((sub: any) => {
-    return sub?.name;
-  });
 
   //getting the testresults data from redux store
   const testResult = useSelector((state: RootState) => state.testResult.data);
   const loading = useSelector((state: RootState) => state.testResult.loading);
   const error = useSelector((state: RootState) => state.testResult.error);
-
-  //result object
-  const resultObj = testResult?.failed_questions_by_subject;
 
   //start time
   const startTime = testResult?.start_time;
@@ -47,21 +34,14 @@ const TestResult = () => {
   //subjects from test result
   const subjects = testResult?.subjects;
 
-  //function to get each subject score
-  const getScore = (keyToCheck: any, resultObj: any, totalQuestions: any) => {
-    if (!testResult) {
-      return;
-    }
-    const value = resultObj[keyToCheck];
+  const testScores = testResult.scores_by_subject;
 
-    return totalQuestions - value?.length;
-  };
   //function to get totalScore
   const getTotalScore = () => {
-    const score1: any = getScore(name[0], resultObj, totalTestQuestions[0]);
-    const score2 = getScore(name[1], resultObj, totalTestQuestions[1]);
-    const score3 = getScore(name[2], resultObj, totalTestQuestions[2]);
-    const score4 = getScore(name[3], resultObj, totalTestQuestions[3]);
+    const score1: any = testScores[subjects[0]].score;
+    const score2 = testScores[subjects[1]].score;
+    const score3 = testScores[subjects[2]].score;
+    const score4 = testScores[subjects[3]].score;
     return score1 + score2 + score3 + score4;
   };
   const totalScore = getTotalScore();
@@ -177,9 +157,7 @@ const TestResult = () => {
                       <tr>
                         <td>{subjects ? subjects[0] : null}</td>
                         <td></td>
-                        <td>
-                          {getScore(name[0], resultObj, totalTestQuestions[0])}
-                        </td>
+                        <td>{testScores[subjects[0]].score}</td>
                       </tr>
                       <tr></tr>
 
@@ -187,25 +165,19 @@ const TestResult = () => {
                         <td>{subjects ? subjects[1] : null}</td>
 
                         <td></td>
-                        <td>
-                          {getScore(name[1], resultObj, totalTestQuestions[1])}
-                        </td>
+                        <td>{testScores[subjects[1]].score}</td>
                       </tr>
                       <tr>
                         <td>{subjects ? subjects[2] : null}</td>
 
                         <td></td>
-                        <td>
-                          {getScore(name[2], resultObj, totalTestQuestions[2])}
-                        </td>
+                        <td>{testScores[subjects[2]].score}</td>
                       </tr>
                       <tr>
                         <td>{subjects ? subjects[3] : null}</td>
 
                         <td></td>
-                        <td>
-                          {getScore(name[3], resultObj, totalTestQuestions[3])}
-                        </td>
+                        <td>{testScores[subjects[3]].score}</td>
                       </tr>
                       <tr className="total-score">
                         <td>Total</td>

@@ -10,7 +10,8 @@ const PaymentValidationText = ({ text }: PaymentText) => {
       {text === "your payment has been successfully verified" && (
         <img src={success} alt="img" />
       )}
-      {text === "Invalid Payment" && (
+      {text ===
+        "Payment status: abandoned. Please contact support if you need assistance." && (
         <svg
           width="82"
           height="84"

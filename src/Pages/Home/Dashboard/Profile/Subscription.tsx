@@ -32,6 +32,7 @@ const Subscription: React.FC = () => {
   const [paymentNotVerify, setPaymentNotVerify] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [verifiactionLoading, setVerificationLoading] = useState(false);
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -74,6 +75,9 @@ const Subscription: React.FC = () => {
     if (!referenceId) {
       return;
     }
+    setPaymentNotVerify(false);
+    setPaymentVerify(false);
+    setVerificationLoading(true);
 
     try {
       const response = await axios.post(
@@ -88,26 +92,27 @@ const Subscription: React.FC = () => {
         }
       );
       console.log(response);
-      // const validationData = response;
-
-      // if (validationData.status === "success") {
-      //   alert("Payment successful! Subscription activated.");
-      //   // Update UI or user state accordingly
-      // } else {
-      //   alert("Payment failed or incomplete.");
-      // }
-      localStorage.removeItem("referenceId");
+      if (response.statusText === "OK") {
+        setPaymentVerify(true);
+        localStorage.removeItem("referenceId");
+        setVerificationLoading(false);
+      }
     } catch (error: any) {
-      console.error("Validation error:", error.response.data.detail);
-      if (error.response.data.detail === "Invalid payment") {
+      console.error("Validation error:", error.response.data.status);
+      if (error.response.data.status === "abandoned") {
         setPaymentNotVerify(true);
         localStorage.removeItem("referenceId");
       }
+    } finally {
+      setVerificationLoading(false);
     }
   };
 
   // Call validatePayment when the page loads
-  validatePayment();
+  const referenceId = localStorage.getItem("referenceId");
+  useEffect(() => {
+    validatePayment();
+  }, [referenceId]);
 
   return (
     <div className="subscription-container">
@@ -118,7 +123,7 @@ const Subscription: React.FC = () => {
         </span>
         <h1 className="subscription-title">My Subscription</h1>
       </div>
-      {loading ? (
+      {loading || verifiactionLoading ? (
         <p>Loading subscription details...</p>
       ) : error ? (
         <p className="error-message">{error}</p>
@@ -178,7 +183,11 @@ const Subscription: React.FC = () => {
       )}
       {paymentNotVerify && (
         <>
-          <PaymentValidationText text={"Invalid Payment"} />
+          <PaymentValidationText
+            text={
+              "Payment status: abandoned. Please contact support if you need assistance."
+            }
+          />
 
           <div
             onClick={() => {
