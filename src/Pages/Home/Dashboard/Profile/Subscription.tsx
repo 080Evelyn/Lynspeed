@@ -112,9 +112,27 @@ const Subscription: React.FC = () => {
   const referenceId = localStorage.getItem("referenceId");
 
   useEffect(() => {
-    if (referenceId) {
-      validatePayment(referenceId);
-    }
+    // if (referenceId) {
+    //   validatePayment(referenceId);
+    // }
+    // Listen for changes to the page (e.g., when user returns from Paystack)
+    const handlePopState = () => {
+      const referenceId = localStorage.getItem("referenceId");
+      if (referenceId) {
+        validatePayment(referenceId);
+      }
+    };
+
+    // Call validation on initial load
+    handlePopState();
+
+    // Add event listener for browser navigation
+    window.addEventListener("popstate", handlePopState);
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, [referenceId]);
 
   return (
