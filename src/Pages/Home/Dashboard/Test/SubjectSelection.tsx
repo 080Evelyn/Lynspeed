@@ -106,7 +106,7 @@ const SubjectSelection = () => {
 
   const handleStartTest = async (_e: React.MouseEvent) => {
     if (userSubject) {
-      alert("Select subjects before proceeding.");
+      alert("Selectsubjects before proceeding.");
       return;
     }
     dispatch(fetchTestQuestions());

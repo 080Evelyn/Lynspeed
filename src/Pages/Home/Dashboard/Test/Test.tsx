@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Test.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../State/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../State/Store";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
 
 const Test: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   // Getting questions and subjects from Redux store
   const questionsArray = useSelector(
@@ -48,7 +50,9 @@ const Test: React.FC = () => {
 
     return () => clearInterval(timer);
   }, []);
-
+  useEffect(() => {
+    dispatch(fetchTestQuestions());
+  }, []);
   const handleSubjectChange = (index: number) => {
     setCurrentSubject(index);
     setCurrentQuestion(0);

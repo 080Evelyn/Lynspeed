@@ -34,14 +34,14 @@ const TestResult = () => {
   //subjects from test result
   const subjects = testResult?.subjects;
 
-  const testScores = testResult.scores_by_subject;
+  const testScores = testResult?.scores_by_subject;
 
   //function to get totalScore
   const getTotalScore = () => {
-    const score1: any = testScores[subjects[0]].score;
-    const score2 = testScores[subjects[1]].score;
-    const score3 = testScores[subjects[2]].score;
-    const score4 = testScores[subjects[3]].score;
+    const score1: any = testScores && testScores[subjects[0]].score;
+    const score2 = testScores && testScores[subjects[1]].score;
+    const score3 = testScores && testScores[subjects[2]].score;
+    const score4 = testScores && testScores[subjects[3]].score;
     return score1 + score2 + score3 + score4;
   };
   const totalScore = getTotalScore();
@@ -157,7 +157,7 @@ const TestResult = () => {
                       <tr>
                         <td>{subjects ? subjects[0] : null}</td>
                         <td></td>
-                        <td>{testScores[subjects[0]].score}</td>
+                        <td>{testScores && testScores[subjects[0]].score}</td>
                       </tr>
                       <tr></tr>
 
@@ -165,19 +165,19 @@ const TestResult = () => {
                         <td>{subjects ? subjects[1] : null}</td>
 
                         <td></td>
-                        <td>{testScores[subjects[1]].score}</td>
+                        <td>{testScores && testScores[subjects[1]].score}</td>
                       </tr>
                       <tr>
                         <td>{subjects ? subjects[2] : null}</td>
 
                         <td></td>
-                        <td>{testScores[subjects[2]].score}</td>
+                        <td>{testScores && testScores[subjects[2]].score}</td>
                       </tr>
                       <tr>
                         <td>{subjects ? subjects[3] : null}</td>
 
                         <td></td>
-                        <td>{testScores[subjects[3]].score}</td>
+                        <td>{testScores && testScores[subjects[3]].score}</td>
                       </tr>
                       <tr className="total-score">
                         <td>Total</td>
