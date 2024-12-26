@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Subscription.css";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import SubBtn from "./SubBtn";
+import PaymentValidationText from "./PaymentValidationText";
 
 interface SubscriptionStatus {
   plan: string;
@@ -26,9 +28,9 @@ const Subscription: React.FC = () => {
   );
 
   const [plan, setPlan] = useState<planStatus | null>(null);
-
+  const [paymentVerify, setPaymentVerify] = useState(false);
+  const [paymentNotVerify, setPaymentNotVerify] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [subLoader, setSubLoader] = useState(false);
   const [error, setError] = useState("");
   const token = localStorage.getItem("authToken");
 
@@ -65,15 +67,19 @@ const Subscription: React.FC = () => {
 
     fetchPlansAndStatus();
   }, []);
-  const handleActivateSubscription = async (planName: string, id: number) => {
-    try {
-      setSubLoader(true);
-      const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/payment/initialize/",
 
+  const validatePayment = async () => {
+    const referenceId = localStorage.getItem("referenceId");
+
+    if (!referenceId) {
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `https://lynspeed.pythonanywhere.com/api/v1/payment/verify/`,
         {
-          plan_id: id,
-          plan: planName,
+          reference: referenceId,
         },
         {
           headers: {
@@ -81,18 +87,27 @@ const Subscription: React.FC = () => {
           },
         }
       );
-      const { payment_url } = response.data;
-      window.location.href = payment_url;
-    } catch (error) {
-      console.error("Error activating subscription:", error);
+      console.log(response);
+      // const validationData = response;
 
-      toast.error(
-        "There was an issue activating the subscription. Please try again."
-      );
-    } finally {
-      setSubLoader(false);
+      // if (validationData.status === "success") {
+      //   alert("Payment successful! Subscription activated.");
+      //   // Update UI or user state accordingly
+      // } else {
+      //   alert("Payment failed or incomplete.");
+      // }
+      localStorage.removeItem("referenceId");
+    } catch (error: any) {
+      console.error("Validation error:", error.response.data.detail);
+      if (error.response.data.detail === "Invalid payment") {
+        setPaymentNotVerify(true);
+        localStorage.removeItem("referenceId");
+      }
     }
   };
+
+  // Call validatePayment when the page loads
+  validatePayment();
 
   return (
     <div className="subscription-container">
@@ -141,20 +156,37 @@ const Subscription: React.FC = () => {
                     </p>
                   )}
                   <h3>{plan.price}</h3>
-                  <button
-                    disabled={subLoader}
-                    className="subscribe-button"
-                    onClick={() =>
-                      handleActivateSubscription(plan.name, plan.id)
-                    }>
-                    {subLoader ? "loading..." : "Subscribe"}
-                  </button>
+
+                  <SubBtn name={plan.name} id={plan.id} />
                 </div>
               ))}
           </div>
         </>
       )}
       <ToastContainer />
+      {paymentVerify && (
+        <>
+          <PaymentValidationText
+            text={"your payment has been successfuly verified"}
+          />
+          <div
+            onClick={() => {
+              setPaymentVerify(false);
+            }}
+            className="modal "></div>
+        </>
+      )}
+      {paymentNotVerify && (
+        <>
+          <PaymentValidationText text={"Invalid Payment"} />
+
+          <div
+            onClick={() => {
+              setPaymentNotVerify(false);
+            }}
+            className="modal"></div>
+        </>
+      )}
     </div>
   );
 };
