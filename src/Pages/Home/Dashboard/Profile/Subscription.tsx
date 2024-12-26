@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Subscription.css";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import SubBtn from "./SubBtn";
+import PaymentValidationText from "./PaymentValidationText";
 
 interface SubscriptionStatus {
   plan: string;
@@ -26,10 +28,11 @@ const Subscription: React.FC = () => {
   );
 
   const [plan, setPlan] = useState<planStatus | null>(null);
-
+  const [paymentVerify, setPaymentVerify] = useState(false);
+  const [paymentNotVerify, setPaymentNotVerify] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [subLoader, setSubLoader] = useState(false);
   const [error, setError] = useState("");
+  const [verifiactionLoading, setVerificationLoading] = useState(false);
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -65,15 +68,22 @@ const Subscription: React.FC = () => {
 
     fetchPlansAndStatus();
   }, []);
-  const handleActivateSubscription = async (planName: string, id: number) => {
-    try {
-      setSubLoader(true);
-      const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/payment/initialize/",
 
+  const validatePayment = async () => {
+    const referenceId = localStorage.getItem("referenceId");
+
+    if (!referenceId) {
+      return;
+    }
+    setPaymentNotVerify(false);
+    setPaymentVerify(false);
+    setVerificationLoading(true);
+
+    try {
+      const response = await axios.post(
+        `https://lynspeed.pythonanywhere.com/api/v1/payment/verify/`,
         {
-          plan_id: id,
-          plan: planName,
+          reference: referenceId,
         },
         {
           headers: {
@@ -81,18 +91,28 @@ const Subscription: React.FC = () => {
           },
         }
       );
-      const { payment_url } = response.data;
-      window.location.href = payment_url;
-    } catch (error) {
-      console.error("Error activating subscription:", error);
-
-      toast.error(
-        "There was an issue activating the subscription. Please try again."
-      );
+      console.log(response);
+      if (response.statusText === "OK") {
+        setPaymentVerify(true);
+        localStorage.removeItem("referenceId");
+        setVerificationLoading(false);
+      }
+    } catch (error: any) {
+      console.error("Validation error:", error.response.data.status);
+      if (error.response.data.status === "abandoned") {
+        setPaymentNotVerify(true);
+        localStorage.removeItem("referenceId");
+      }
     } finally {
-      setSubLoader(false);
+      setVerificationLoading(false);
     }
   };
+
+  // Call validatePayment when the page loads
+  const referenceId = localStorage.getItem("referenceId");
+  useEffect(() => {
+    validatePayment();
+  }, [referenceId]);
 
   return (
     <div className="subscription-container">
@@ -103,7 +123,7 @@ const Subscription: React.FC = () => {
         </span>
         <h1 className="subscription-title">My Subscription</h1>
       </div>
-      {loading ? (
+      {loading || verifiactionLoading ? (
         <p>Loading subscription details...</p>
       ) : error ? (
         <p className="error-message">{error}</p>
@@ -141,20 +161,41 @@ const Subscription: React.FC = () => {
                     </p>
                   )}
                   <h3>{plan.price}</h3>
-                  <button
-                    disabled={subLoader}
-                    className="subscribe-button"
-                    onClick={() =>
-                      handleActivateSubscription(plan.name, plan.id)
-                    }>
-                    {subLoader ? "loading..." : "Subscribe"}
-                  </button>
+
+                  <SubBtn name={plan.name} id={plan.id} />
                 </div>
               ))}
           </div>
         </>
       )}
       <ToastContainer />
+      {paymentVerify && (
+        <>
+          <PaymentValidationText
+            text={"your payment has been successfuly verified"}
+          />
+          <div
+            onClick={() => {
+              setPaymentVerify(false);
+            }}
+            className="modal "></div>
+        </>
+      )}
+      {paymentNotVerify && (
+        <>
+          <PaymentValidationText
+            text={
+              "Payment status: abandoned. Please contact support if you need assistance."
+            }
+          />
+
+          <div
+            onClick={() => {
+              setPaymentNotVerify(false);
+            }}
+            className="modal"></div>
+        </>
+      )}
     </div>
   );
 };

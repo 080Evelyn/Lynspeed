@@ -23,6 +23,7 @@ import { resetSavedSubject } from "../../../State/SavedSubjectListSlice";
 import { resetSubjectList } from "../../../State/SubjectListSlice";
 import { resetTestQuestions } from "../../../State/TestQuestionSlice";
 import { resetTestResult } from "../../../State/TestResultSlice";
+import { resetAnalysis } from "../../../State/AnalysisSlice";
 // import { expiredLogout } from "../../../Components/authSlice";
 // import { fetchSubjectList } from "../../../State/SubjectListSlice";
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
@@ -75,9 +76,6 @@ const Dashboard = () => {
   //   setIsChangePasswordOpen((prev) => !prev);
 
   const handleSignOut = () => {
-    // localStorage.removeItem("authToken");
-    // localStorage.removeItem("user");
-    // localStorage.removeItem("selectedSubjects");
     localStorage.clear();
     dispatch(resetAuth());
     dispatch(resetResultHistory());
@@ -85,6 +83,7 @@ const Dashboard = () => {
     dispatch(resetSubjectList());
     dispatch(resetTestQuestions());
     dispatch(resetTestResult());
+    dispatch(resetAnalysis());
     persistor.purge(); //clears all persisted data from local storage
     navigate("/login");
   };

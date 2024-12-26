@@ -7,7 +7,7 @@ import Footer from "../../Components/ui/Footer/Footer";
 interface FormData {
   name: string;
   email: string;
-  phone: string;
+  // phone: string;
   message: string;
 }
 
@@ -15,7 +15,7 @@ const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    phone: "",
+    // phone: "",
     message: "",
   });
   const [statusMessage, setStatusMessage] = useState<string>("");
@@ -37,12 +37,19 @@ const Contact = () => {
     setStatusMessage(""); // Clear any existing message
     try {
       // Send a POST request to your backend endpoint
-      await axios.post("https://lynspeed.pythonanywhere.com/api/v1/contact-support", formData);
-      setStatusMessage("Message sent successfully!");
+      const response = await axios.post(
+        "https://lynspeed.pythonanywhere.com/api/v1/contact-support",
+        formData
+      );
+      if (response.statusText === "OK") {
+        setStatusMessage("Message sent successfully!");
+      }
     } catch (error: unknown) {
       // Type guard for AxiosError
       if (axios.isAxiosError(error)) {
-        setStatusMessage("There was an error sending your message. Please try again later.");
+        setStatusMessage(
+          "There was an error sending your message. Please try again later."
+        );
       } else {
         setStatusMessage("An unexpected error occurred.");
       }
@@ -93,10 +100,12 @@ const Contact = () => {
               placeholder="Please enter your comments......"
               value={formData.message}
               onChange={handleInputChange}
-              className="contact-textarea"
-            ></textarea>
+              className="contact-textarea"></textarea>
           </div>
-          <button type="submit" className="contact-submit" disabled={isSubmitting}>
+          <button
+            type="submit"
+            className="contact-submit"
+            disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </form>
