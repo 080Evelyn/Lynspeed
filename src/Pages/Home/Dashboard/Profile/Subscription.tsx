@@ -7,9 +7,9 @@ import SubBtn from "./SubBtn";
 import PaymentValidationText from "./PaymentValidationText";
 
 interface SubscriptionStatus {
+  subscription_end_date: string | number | Date;
+  subscribed: SubscriptionStatus | null;
   plan: string;
-  expiration_date: string;
-  is_active: boolean;
 }
 
 interface planStatus {
@@ -109,12 +109,13 @@ const Subscription: React.FC = () => {
   };
 
   // Call validatePayment when the page loads
-  // const referenceId = localStorage.getItem("referenceId");
+  const referenceId = localStorage.getItem("referenceId");
 
   useEffect(() => {
-    window.onload;
-    validatePayment();
-  }, []);
+    if (referenceId) {
+      validatePayment();
+    }
+  }, [referenceId]);
 
   return (
     <div className="subscription-container">
@@ -131,12 +132,14 @@ const Subscription: React.FC = () => {
         <p className="error-message">{error}</p>
       ) : (
         <>
-          {subscription && subscription.is_active ? (
+          {subscription && subscription.subscribed ? (
             <div className="subscription-details">
               <h2>Current Plan: {subscription.plan}</h2>
               <p>
                 <strong>Valid Until:</strong>{" "}
-                {new Date(subscription.expiration_date).toLocaleDateString()}
+                {new Date(
+                  subscription.subscription_end_date
+                ).toLocaleDateString()}
               </p>
             </div>
           ) : (
