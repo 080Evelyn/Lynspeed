@@ -270,7 +270,7 @@ const Test: React.FC = () => {
               onClick={handleSubmit}
               disabled={submitting}
               className="submit-button">
-              {submitting ? "Submitting" : "Submit"}
+              {submitting ? "Submitting..." : "Submit"}
             </button>
           </div>
         </>

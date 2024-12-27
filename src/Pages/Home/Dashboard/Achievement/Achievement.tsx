@@ -93,7 +93,7 @@ const Achievement = () => {
       highlight: averageScore <= 179 ? true : false,
     },
   ];
-  if (analysis.length === 0) {
+  if (analysis && analysis.length === 0) {
     return (
       <div className="performance-">
         <h2>No analysis for you yet, try taking a test session</h2>
