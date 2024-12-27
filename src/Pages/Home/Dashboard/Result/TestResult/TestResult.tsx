@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../../State/Store";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+
 import { fetchTestResults } from "../../../../../State/TestResultSlice";
 // import Footer from "../../../../../Components/ui/Footer/Footer";
 
@@ -114,7 +116,10 @@ const TestResult = () => {
   }, []);
   return (
     <div className="result-page">
-      {/* <Navbar2 /> */}
+      <div className="back-arrow" onClick={() => navigate("/dashboard")}>
+        <FaArrowLeft className="arrow-icon" />
+        <span>Back to Dashboard</span>
+      </div>
       {loading ? (
         <h2>Loading...</h2>
       ) : !loading && error ? (

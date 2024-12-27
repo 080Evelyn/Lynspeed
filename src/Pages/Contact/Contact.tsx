@@ -7,7 +7,7 @@ import Footer from "../../Components/ui/Footer/Footer";
 interface FormData {
   name: string;
   email: string;
-  // phone: string;
+  phone: string;
   message: string;
 }
 
@@ -15,7 +15,7 @@ const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    // phone: "",
+   phone: "",
     message: "",
   });
   const [statusMessage, setStatusMessage] = useState<string>("");
@@ -43,7 +43,7 @@ const Contact = () => {
       );
       if (response.statusText === "OK") {
         setStatusMessage("Message sent successfully!");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", message: "" });
       }
     } catch (error: unknown) {
       // Type guard for AxiosError
@@ -87,6 +87,18 @@ const Contact = () => {
               name="email"
               placeholder="Eg. xxxxxxx@gmail.com"
               value={formData.email}
+              onChange={handleInputChange}
+              className="contact-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Eg. +23412345678"
+              value={formData.phone}
               onChange={handleInputChange}
               className="contact-input"
             />
