@@ -35,6 +35,7 @@ const Subscription: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [verifiactionLoading, setVerificationLoading] = useState(false);
+
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -97,6 +98,7 @@ const Subscription: React.FC = () => {
       if (response.statusText === "OK") {
         setPaymentVerify(true);
         localStorage.removeItem("referenceId");
+        localStorage.setItem("paymentInProgress", "false");
         setVerificationLoading(false);
       }
     } catch (error: any) {
@@ -112,9 +114,18 @@ const Subscription: React.FC = () => {
 
   // Call validatePayment when the page loads
   const referenceId = localStorage.getItem("referenceId");
-
   useEffect(() => {
-    if (referenceId) {
+    const paymentStatus = localStorage.getItem("paymentStatus");
+
+    if (paymentStatus === "pending") {
+      localStorage.removeItem("paymentStatus");
+      window.location.reload();
+    }
+  }, []);
+  useEffect(() => {
+    if (!referenceId) {
+      return;
+    } else {
       validatePayment(referenceId);
     }
   }, [referenceId]);
@@ -136,7 +147,9 @@ const Subscription: React.FC = () => {
         <>
           {subscription && subscription.subscribed ? (
             <div className="subscription-details">
-              <h2>Current Plan: {subscription.plan.name}</h2>
+              <h2>
+                Current Plan: {subscription.plan && subscription.plan.name}
+              </h2>
               <p>
                 <strong>Valid Until:</strong>{" "}
                 {new Date(

@@ -9,7 +9,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: null,
+  token: localStorage.getItem("authToken"),
   error: null,
 };
 
@@ -17,10 +17,18 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginSuccessful(state, action) {
+    loginSuccessful(state) {
       state.isAuthenticated = true;
-      state.token = action.payload;
       state.error = null;
+    },
+    setToken: (state, action: PayloadAction<string | null>) => {
+      // console.log("setToken action payload:", action.payload);
+      state.token = action.payload;
+      if (action.payload) {
+        localStorage.setItem("authToken", action.payload);
+      } else {
+        localStorage.removeItem("authToken");
+      }
     },
     // expiredLogout(state) {
     //   state.isAuthenticated = false;
@@ -52,5 +60,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccessful, setError, resetAuth } = authSlice.actions;
+export const { loginSuccessful, setError, resetAuth, setToken } =
+  authSlice.actions;
 export default authSlice.reducer;
