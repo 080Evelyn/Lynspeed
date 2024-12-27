@@ -69,8 +69,8 @@ const Subscription: React.FC = () => {
     fetchPlansAndStatus();
   }, []);
 
-  const validatePayment = async () => {
-    const referenceId = localStorage.getItem("referenceId");
+  const validatePayment = async (referenceId: string) => {
+    // const referenceId = localStorage.getItem("referenceId");
 
     if (!referenceId) {
       return;
@@ -113,7 +113,7 @@ const Subscription: React.FC = () => {
 
   useEffect(() => {
     if (referenceId) {
-      validatePayment();
+      validatePayment(referenceId);
     }
   }, [referenceId]);
 
