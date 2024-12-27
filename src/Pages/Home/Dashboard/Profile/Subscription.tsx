@@ -109,10 +109,11 @@ const Subscription: React.FC = () => {
   };
 
   // Call validatePayment when the page loads
-  const referenceId = localStorage.getItem("referenceId");
-  useEffect(() => {
-    validatePayment();
-  }, [referenceId]);
+  // const referenceId = localStorage.getItem("referenceId");
+
+  // useEffect(() => {
+  validatePayment();
+  // }, [referenceId]);
 
   return (
     <div className="subscription-container">

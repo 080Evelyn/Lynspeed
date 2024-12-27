@@ -43,6 +43,7 @@ const Contact = () => {
       );
       if (response.statusText === "OK") {
         setStatusMessage("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
       }
     } catch (error: unknown) {
       // Type guard for AxiosError

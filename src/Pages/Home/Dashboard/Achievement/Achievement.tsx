@@ -59,6 +59,14 @@ const Achievement = () => {
   useEffect(() => {
     dispatch(fetchAnalysis());
   }, []);
+  interface UserProfile {
+    id: string;
+    full_name: string;
+    email: string;
+  }
+  //Access user from local storage
+  const storedUser = localStorage.getItem("user");
+  const user: UserProfile = storedUser !== null ? JSON.parse(storedUser) : null;
   const achievements: AchievementItem[] = [
     {
       title: "DIAMOND",
@@ -85,7 +93,13 @@ const Achievement = () => {
       highlight: averageScore <= 179 ? true : false,
     },
   ];
-
+  if (analysis.length === 0) {
+    return (
+      <div className="performance-">
+        <h2>No analysis for you yet, try taking a test session</h2>
+      </div>
+    );
+  }
   return (
     <>
       {/* <Navbar2/> */}
@@ -120,7 +134,7 @@ const Achievement = () => {
                     </div>
                     {achievement.highlight && (
                       <div className="current-user-badge">
-                        <span>👤 User</span>
+                        <span>👤 {user?.full_name?.toUpperCase()}</span>
                       </div>
                     )}
                   </div>
