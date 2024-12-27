@@ -7,9 +7,11 @@ import SubBtn from "./SubBtn";
 import PaymentValidationText from "./PaymentValidationText";
 
 interface SubscriptionStatus {
+  status: string;
+  end_date: string | number | Date;
   subscription_end_date: string | number | Date;
   subscribed: SubscriptionStatus | null;
-  plan: string;
+  plan: any;
 }
 
 interface planStatus {
@@ -112,27 +114,9 @@ const Subscription: React.FC = () => {
   const referenceId = localStorage.getItem("referenceId");
 
   useEffect(() => {
-    // if (referenceId) {
-    //   validatePayment(referenceId);
-    // }
-    // Listen for changes to the page (e.g., when user returns from Paystack)
-    const handlePopState = () => {
-      const referenceId = localStorage.getItem("referenceId");
-      if (referenceId) {
-        validatePayment(referenceId);
-      }
-    };
-
-    // Call validation on initial load
-    handlePopState();
-
-    // Add event listener for browser navigation
-    window.addEventListener("popstate", handlePopState);
-
-    // Cleanup event listener
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
+    if (referenceId) {
+      validatePayment(referenceId);
+    }
   }, [referenceId]);
 
   return (
@@ -152,7 +136,7 @@ const Subscription: React.FC = () => {
         <>
           {subscription && subscription.subscribed ? (
             <div className="subscription-details">
-              <h2>Current Plan: {subscription.plan}</h2>
+              <h2>Current Plan: {subscription.plan.name}</h2>
               <p>
                 <strong>Valid Until:</strong>{" "}
                 {new Date(

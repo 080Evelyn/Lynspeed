@@ -68,7 +68,7 @@ const Performance: React.FC = () => {
     // Extract and format the date
     const formattedDate = dateObj.toLocaleDateString("en-US", {
       year: "numeric",
-      month: "long",
+      month: "short",
       day: "numeric",
     });
 
