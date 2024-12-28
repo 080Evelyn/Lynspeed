@@ -66,5 +66,5 @@ const savedSubjectListSlice = createSlice({
   },
 });
 
-export const {resetSavedSubject} = savedSubjectListSlice.actions;
+export const { resetSavedSubject } = savedSubjectListSlice.actions;
 export default savedSubjectListSlice.reducer;

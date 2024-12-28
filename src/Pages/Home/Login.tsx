@@ -9,7 +9,7 @@ import Bubbles from "../../Components/ui/Bubbles/Bubbles";
 // import Footer from "../../Components/ui/Footer/Footer";
 // import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { loginSuccessful } from "../../Components/authSlice";
+import { loginSuccessful, setToken } from "../../Components/authSlice";
 import { fetchSubjectList } from "../../State/SubjectListSlice";
 import { AppDispatch } from "../../State/Store";
 
@@ -47,28 +47,31 @@ const Login: React.FC = () => {
           password,
         }
       );
+      if (response.statusText === "OK") {
+        const { access: token, refresh } = response.data;
+        const profileResponse = await axios.get(`${baseUrl}/profile/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        //fetching the subject list
+        dispatch(fetchSubjectList());
 
-      const { access: token, refresh } = response.data;
-      const profileResponse = await axios.get(`${baseUrl}/profile/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      //fetching the subject list
-      dispatch(fetchSubjectList());
+        const user: UserProfile = profileResponse.data;
 
-      const user: UserProfile = profileResponse.data;
+        // Save token and user data to local storage
+        // localStorage.setItem("authToken", token);
+        localStorage.setItem("refreshToken", refresh);
+        localStorage.setItem("user", JSON.stringify(user));
 
-      // Save token and user data to local storage
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("refreshToken", refresh);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      // Dispatch loginSuccess action to save user data in Redux
-      dispatch(loginSuccessful({ jwt: token, user }));
+        // Dispatch loginSuccess action to save user data in Redux
+        dispatch(loginSuccessful());
+        dispatch(setToken(token));
+      }
 
       // Redirect to the dashboard
       navigate("/dashboard");
+      location.reload();
     } catch (error: any) {
       if (error.response && error.response.data) {
         setError(error.response.data.message || "Invalid email or password");

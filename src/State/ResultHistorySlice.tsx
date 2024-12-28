@@ -14,12 +14,15 @@ const initialState: Result = {
   error: false,
   //   success: false,
 };
-
 const token = localStorage.getItem("authToken");
+
 // Asynchronous thunk to fetch subject list data
 export const fetchResultHstory = createAsyncThunk(
   "testResultHistory/fetchTestResultHistory",
-  async () => {
+  async (_, { rejectWithValue }) => {
+    if (!token) {
+      return rejectWithValue("No token found");
+    }
     try {
       const response = await axios.get(
         `https://lynspeed.pythonanywhere.com/api/v1/records/`,

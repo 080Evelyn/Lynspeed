@@ -41,9 +41,7 @@ const SubjectSelection = () => {
     (state: RootState) => state.savedSubjectList.loading
   );
   const error = useSelector((state: RootState) => state.savedSubjectList.error);
-  // const success = useSelector(
-  //   (state: RootState) => state.savedSubjectList.success
-  // );
+
   //this error shows user has not selected subjects yet
   const userSubject = error === "Request failed with status code 404";
 
@@ -114,10 +112,6 @@ const SubjectSelection = () => {
   };
 
   useEffect(() => {
-    //calling the saved  subject list endpoint onMount for users that might log out after picking subjects
-    // if (success) {
-    //   return; //endpoint wont be called if its already successful
-    // }
     dispatch(fetchSavedSubjectList());
   }, []);
   return (

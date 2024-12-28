@@ -35,6 +35,7 @@ const Subscription: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [verifiactionLoading, setVerificationLoading] = useState(false);
+
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -97,6 +98,7 @@ const Subscription: React.FC = () => {
       if (response.statusText === "OK") {
         setPaymentVerify(true);
         localStorage.removeItem("referenceId");
+        localStorage.setItem("paymentInProgress", "false");
         setVerificationLoading(false);
       }
     } catch (error: any) {
@@ -104,6 +106,7 @@ const Subscription: React.FC = () => {
       if (error.response.data.status === "abandoned") {
         setPaymentNotVerify(true);
         localStorage.removeItem("referenceId");
+        localStorage.setItem("paymentInProgress", "false");
       }
     } finally {
       setVerificationLoading(false);
@@ -114,9 +117,25 @@ const Subscription: React.FC = () => {
   const referenceId = localStorage.getItem("referenceId");
 
   useEffect(() => {
-    if (referenceId) {
+    if (!referenceId) {
+      return;
+    } else {
       validatePayment(referenceId);
     }
+    // const handleNavigation = () => {
+    //   const referenceId = localStorage.getItem("referenceId");
+    //   if (referenceId) {
+    //     validatePayment(referenceId);
+    //   }
+    //   console.log("hey");
+    // };
+    // // Trigger verification on page load and browser navigation
+    // window.addEventListener("popstate", handleNavigation);
+
+    // // Cleanup
+    // return () => {
+    //   window.removeEventListener("popstate", handleNavigation);
+    // };
   }, [referenceId]);
 
   return (
@@ -136,7 +155,9 @@ const Subscription: React.FC = () => {
         <>
           {subscription && subscription.subscribed ? (
             <div className="subscription-details">
-              <h2>Current Plan: {subscription.plan.name}</h2>
+              <h2>
+                Current Plan: {subscription.plan && subscription.plan.name}
+              </h2>
               <p>
                 <strong>Valid Until:</strong>{" "}
                 {new Date(
