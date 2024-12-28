@@ -98,7 +98,6 @@ const Subscription: React.FC = () => {
       if (response.statusText === "OK") {
         setPaymentVerify(true);
         localStorage.removeItem("referenceId");
-        localStorage.setItem("paymentInProgress", "false");
         setVerificationLoading(false);
       }
     } catch (error: any) {
@@ -112,23 +111,34 @@ const Subscription: React.FC = () => {
     }
   };
 
-  // Call validatePayment when the page loads
-  const referenceId = localStorage.getItem("referenceId");
+  // // Call validatePayment when the page loads
+  // const referenceId = localStorage.getItem("referenceId");
   useEffect(() => {
-    const paymentStatus = localStorage.getItem("paymentStatus");
+    // Get all navigation entries
+    const navigationEntries = window.performance.getEntriesByType("navigation");
+    if (navigationEntries.length > 0) {
+      // Cast to PerformanceNavigationTiming to access the 'type' property
+      const navigationType = (
+        navigationEntries[0] as PerformanceNavigationTiming
+      ).type;
 
-    if (paymentStatus === "pending") {
-      localStorage.removeItem("paymentStatus");
-      window.location.reload();
+      if (navigationType === "back_forward") {
+        // location.reload();
+        const referenceId = localStorage.getItem("referenceId");
+        if (referenceId) {
+          validatePayment(referenceId);
+        }
+      }
     }
   }, []);
-  useEffect(() => {
-    if (!referenceId) {
-      return;
-    } else {
-      validatePayment(referenceId);
-    }
-  }, [referenceId]);
+
+  // useEffect(() => {
+  //   if (!referenceId) {
+  //     return;
+  //   } else {
+  //     validatePayment(referenceId);
+  //   }
+  // }, [referenceId]);
 
   return (
     <div className="subscription-container">
