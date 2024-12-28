@@ -1,15 +1,20 @@
+import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
+import { RootState } from "../State/Store";
 
 const ProtectedRoute = () => {
-  //Access token from local storage
+  //Access user from local storage
   const jwt = localStorage.getItem("authToken");
-
-  // If no token, redirect to login
-  if (!jwt) {
+  // getting the isAuthenticated state from redux store
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  // If not authenticated, redirect to login
+  if (!isAuthenticated || !jwt) {
     return <Navigate to="/login" />;
   }
 
-  // If token, render the protected route
+  // If authenticated, render the protected route
   return <Outlet />;
 };
 

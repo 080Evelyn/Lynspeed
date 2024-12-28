@@ -111,34 +111,14 @@ const Subscription: React.FC = () => {
     }
   };
 
-  // // Call validatePayment when the page loads
-  // const referenceId = localStorage.getItem("referenceId");
+  // Call validatePayment when the page loads
+  const referenceId = localStorage.getItem("referenceId");
+
   useEffect(() => {
-    // Get all navigation entries
-    const navigationEntries = window.performance.getEntriesByType("navigation");
-    if (navigationEntries.length > 0) {
-      // Cast to PerformanceNavigationTiming to access the 'type' property
-      const navigationType = (
-        navigationEntries[0] as PerformanceNavigationTiming
-      ).type;
-
-      if (navigationType === "back_forward") {
-        // location.reload();
-        const referenceId = localStorage.getItem("referenceId");
-        if (referenceId) {
-          validatePayment(referenceId);
-        }
-      }
+    if (referenceId) {
+      validatePayment(referenceId);
     }
-  }, []);
-
-  // useEffect(() => {
-  //   if (!referenceId) {
-  //     return;
-  //   } else {
-  //     validatePayment(referenceId);
-  //   }
-  // }, [referenceId]);
+  }, [referenceId]);
 
   return (
     <div className="subscription-container">
