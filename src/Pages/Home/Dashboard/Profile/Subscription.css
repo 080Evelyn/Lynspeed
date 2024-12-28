@@ -120,6 +120,23 @@
   z-index: 30;
 }
 
+.validateBtn {
+  padding: 10px 10px;
+  background-color: lightgreen;
+  font-weight: bold;
+  font-size: medium;
+  border-color: green;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+.validateBtn:hover {
+  background-color: green;
+}
+.p {
+  font-weight: bolder;
+}
+
 @media (max-width: 768px) {
   .back-arrow {
     display: inline; /* Visible on mobile */
