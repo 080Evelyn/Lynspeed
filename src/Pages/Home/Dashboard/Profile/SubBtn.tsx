@@ -28,7 +28,6 @@ const SubBtn = ({ name, id }: Payload) => {
       const { payment_url, reference } = response.data;
       // Store referenceId for validation later
       localStorage.setItem("referenceId", reference);
-      localStorage.setItem("paymentStatus", "pending");
 
       window.location.href = payment_url;
     } catch (error) {
