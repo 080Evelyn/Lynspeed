@@ -106,7 +106,6 @@ const Subscription: React.FC = () => {
       if (error.response.data.status === "abandoned") {
         setPaymentNotVerify(true);
         localStorage.removeItem("referenceId");
-        localStorage.setItem("paymentInProgress", "false");
       }
     } finally {
       setVerificationLoading(false);
@@ -115,27 +114,20 @@ const Subscription: React.FC = () => {
 
   // Call validatePayment when the page loads
   const referenceId = localStorage.getItem("referenceId");
+  useEffect(() => {
+    const paymentStatus = localStorage.getItem("paymentStatus");
 
+    if (paymentStatus === "pending") {
+      localStorage.removeItem("paymentStatus");
+      window.location.reload();
+    }
+  }, []);
   useEffect(() => {
     if (!referenceId) {
       return;
     } else {
       validatePayment(referenceId);
     }
-    // const handleNavigation = () => {
-    //   const referenceId = localStorage.getItem("referenceId");
-    //   if (referenceId) {
-    //     validatePayment(referenceId);
-    //   }
-    //   console.log("hey");
-    // };
-    // // Trigger verification on page load and browser navigation
-    // window.addEventListener("popstate", handleNavigation);
-
-    // // Cleanup
-    // return () => {
-    //   window.removeEventListener("popstate", handleNavigation);
-    // };
   }, [referenceId]);
 
   return (

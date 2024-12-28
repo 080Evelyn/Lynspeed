@@ -14,9 +14,9 @@ import { fetchTestResults } from "../../../../../State/TestResultSlice";
 
 const TestResult = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const userName = useSelector(
-    (state: RootState) => state.auth.token.user.full_name
-  );
+  //Access user from local storage
+  const storedUser = localStorage.getItem("user");
+  const user: any = storedUser !== null ? JSON.parse(storedUser) : null;
 
   // Getting the testID and questionsArray from Redux store
   const questionsArray = useSelector(
@@ -138,7 +138,7 @@ const TestResult = () => {
                   <div className="user-info">
                     <div className="info-text">
                       <p>
-                        <b>Name:</b> {userName}
+                        <b>Name:</b> {user.full_name}
                       </p>
                       <p>{/* <b>Date:</b> {date} */}</p>
                       <p>
