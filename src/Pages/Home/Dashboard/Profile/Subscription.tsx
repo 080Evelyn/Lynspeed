@@ -112,13 +112,22 @@ const Subscription: React.FC = () => {
   };
 
   // Call validatePayment when the page loads
-  const referenceId = localStorage.getItem("referenceId");
+  // const referenceId = localStorage.getItem("referenceId");
 
+  const referrer = document.referrer;
   useEffect(() => {
-    if (referenceId) {
+    const referenceId = localStorage.getItem("referenceId");
+    console.log("Referrer:", referrer);
+
+    if (referenceId && !referrer.includes("paystack")) {
       validatePayment(referenceId);
     }
-  }, [referenceId]);
+  }, []);
+  // useEffect(() => {
+  //   if (referenceId) {
+  //     validatePayment(referenceId);
+  //   }
+  // }, [referenceId]);
 
   return (
     <div className="subscription-container">
