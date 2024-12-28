@@ -113,19 +113,26 @@ const Subscription: React.FC = () => {
 
   // Call validatePayment when the page loads
   // const referenceId = localStorage.getItem("referenceId");
-
   useEffect(() => {
-    const handleFocus = () => {
-      const referenceId = localStorage.getItem("referenceId");
-      if (referenceId) validatePayment(referenceId);
+    const referenceId = localStorage.getItem("referenceId");
+
+    const handlePopstate = () => {
+      if (referenceId) {
+        validatePayment(referenceId);
+      }
     };
 
-    // Add event listener for window focus
-    window.addEventListener("focus", handleFocus);
+    // Call on initial load
+    if (referenceId) {
+      validatePayment(referenceId);
+    }
+
+    // Listen for the popstate event
+    window.addEventListener("popstate", handlePopstate);
 
     // Cleanup listener on unmount
     return () => {
-      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("popstate", handlePopstate);
     };
   }, []);
 
