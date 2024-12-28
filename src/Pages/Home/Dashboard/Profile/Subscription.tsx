@@ -114,15 +114,21 @@ const Subscription: React.FC = () => {
   // Call validatePayment when the page loads
   // const referenceId = localStorage.getItem("referenceId");
 
-  const referrer = document.referrer;
   useEffect(() => {
-    const referenceId = localStorage.getItem("referenceId");
-    console.log("Referrer:", referrer);
+    const handleFocus = () => {
+      const referenceId = localStorage.getItem("referenceId");
+      if (referenceId) validatePayment(referenceId);
+    };
 
-    if (referenceId && !referrer.includes("paystack")) {
-      validatePayment(referenceId);
-    }
+    // Add event listener for window focus
+    window.addEventListener("focus", handleFocus);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
   }, []);
+
   // useEffect(() => {
   //   if (referenceId) {
   //     validatePayment(referenceId);
