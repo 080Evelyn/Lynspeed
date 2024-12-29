@@ -35,7 +35,7 @@ h3 {
 }
 
 input {
-  width: 650px;
+  width: 550px;
   height: 55px;
   padding: 15px;
   font-size: 1rem;
@@ -56,8 +56,9 @@ input::placeholder {
 
 .password input {
   background-color: #f0f0f0;
+  width: 100%;
 }
-.eye {
+.password .eye {
   position: absolute;
   top: 18px;
   right: 10%;
