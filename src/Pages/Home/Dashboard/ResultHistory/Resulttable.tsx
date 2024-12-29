@@ -19,7 +19,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
           <th>Subjects</th>
           <th>Duration</th>
           <th>Scores</th>
-        </tr>
+        </tr> 
       </thead>
       <tbody>
         {results.map((subject, i) => {
