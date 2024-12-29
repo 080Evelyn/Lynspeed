@@ -10,20 +10,15 @@ import testQuestionsReducer from "./TestQuestionSlice";
 import testResultReducer from "./TestResultSlice";
 import resultHistoryReducer from "./ResultHistorySlice";
 import analysisReducer from "./AnalysisSlice";
+import validateReducer from "./PaymentValidationSlice";
+import notifactionReducer from "./NotificationSlice";
 // import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
 const persistConfig = {
   key: "root", // Key for the persisted state
   storage, // Which storage to use (localStorage)
-  whitelist: [
-    "auth",
-    "subjectList",
-    // "savedSubjectList",
-    // "testQuestions",
-    // "resultHistory",
-    // "testResult",
-  ], // Add savedSubjectList
+  whitelist: ["auth", "subjectList", "paymentValidate"],
 };
 
 const rootReducer = combineReducers({
@@ -35,6 +30,8 @@ const rootReducer = combineReducers({
   testResult: testResultReducer,
   resultHistory: resultHistoryReducer,
   analysis: analysisReducer,
+  paymentValidate: validateReducer,
+  notification: notifactionReducer,
 });
 
 // Wrap rootReducer with persistReducer

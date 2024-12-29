@@ -5,6 +5,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import SubBtn from "./SubBtn";
 import PaymentValidationText from "./PaymentValidationText";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../State/Store";
+import { setValidate } from "../../../../State/PaymentValidationSlice";
 
 interface SubscriptionStatus {
   status: string;
@@ -25,6 +28,10 @@ interface planStatus {
 }
 
 const Subscription: React.FC = () => {
+  const validate = useSelector(
+    (state: RootState) => state.paymentValidate.validate
+  );
+  const dispatch = useDispatch<AppDispatch>();
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(
     null
   );
@@ -72,8 +79,8 @@ const Subscription: React.FC = () => {
     fetchPlansAndStatus();
   }, []);
 
-  const validatePayment = async (referenceId: string) => {
-    // const referenceId = localStorage.getItem("referenceId");
+  const validatePayment = async () => {
+    const referenceId = localStorage.getItem("referenceId");
 
     if (!referenceId) {
       return;
@@ -99,10 +106,12 @@ const Subscription: React.FC = () => {
         setPaymentVerify(true);
         localStorage.removeItem("referenceId");
         setVerificationLoading(false);
+        dispatch(setValidate(false));
       }
     } catch (error: any) {
       console.error("Validation error:", error.response.data.status);
       if (error.response.data.status === "abandoned") {
+        dispatch(setValidate(false));
         setPaymentNotVerify(true);
         localStorage.removeItem("referenceId");
       }
@@ -110,37 +119,6 @@ const Subscription: React.FC = () => {
       setVerificationLoading(false);
     }
   };
-
-  // Call validatePayment when the page loads
-  // const referenceId = localStorage.getItem("referenceId");
-  useEffect(() => {
-    const referenceId = localStorage.getItem("referenceId");
-
-    const handlePopstate = () => {
-      if (referenceId) {
-        validatePayment(referenceId);
-      }
-    };
-
-    // Call on initial load
-    if (referenceId) {
-      validatePayment(referenceId);
-    }
-
-    // Listen for the popstate event
-    window.addEventListener("popstate", handlePopstate);
-
-    // Cleanup listener on unmount
-    return () => {
-      window.removeEventListener("popstate", handlePopstate);
-    };
-  }, []);
-
-  // useEffect(() => {
-  //   if (referenceId) {
-  //     validatePayment(referenceId);
-  //   }
-  // }, [referenceId]);
 
   return (
     <div className="subscription-container">
@@ -172,7 +150,20 @@ const Subscription: React.FC = () => {
           ) : (
             <p>You do not have an active subscription.</p>
           )}
-
+          {validate && (
+            <div>
+              <p className="p">
+                Click on the button below to validate your payment
+              </p>
+              <button
+                onClick={() => {
+                  validatePayment();
+                }}
+                className="validateBtn">
+                Validate Payment
+              </button>
+            </div>
+          )}
           <div className="plans-container">
             {plan &&
               plan.map((plan) => (
