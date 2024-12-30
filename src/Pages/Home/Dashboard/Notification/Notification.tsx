@@ -25,6 +25,7 @@ const Notification = () => {
   useEffect(() => {
     dispatch(fetchNotification());
   }, []);
+
   // const notifications: NotificationItem[] = [
   //   {
   //     time: "09:00am",

@@ -31,7 +31,7 @@ export const fetchSavedSubjectList = createAsyncThunk(
       );
       return response.data.selected_subjects;
     } catch (error: any) {
-      // console.log(error);
+      console.log(error);
       return rejectWithValue(error.message);
     }
   }

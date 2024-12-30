@@ -1,16 +1,18 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface notification {
   data: any[]; // Changed from [] to any[] for flexibility
   loading: boolean;
   error: boolean;
+  isRead: boolean;
 }
 
 const initialState: notification = {
   data: [],
   loading: false,
   error: false,
+  isRead: false,
 };
 
 const token = localStorage.getItem("authToken");
@@ -38,7 +40,16 @@ export const fetchNotification = createAsyncThunk(
 const notificationSlice = createSlice({
   name: "notification",
   initialState,
-  reducers: {},
+  reducers: {
+    markAsRead: (state, action: PayloadAction<string>) => {
+      const notification = state.data.find(
+        (notif) => notif.id === action.payload
+      );
+      if (notification) {
+        notification.is_read = true;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNotification.pending, (state) => {
@@ -57,5 +68,5 @@ const notificationSlice = createSlice({
   },
 });
 
-export const {} = notificationSlice.actions;
+export const { markAsRead } = notificationSlice.actions;
 export default notificationSlice.reducer;

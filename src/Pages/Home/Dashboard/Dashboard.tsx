@@ -14,16 +14,24 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
-import { persistor } from "../../../State/Store";
-import { useDispatch } from "react-redux";
+import { persistor, RootState } from "../../../State/Store";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../State/Store";
 import { resetAuth } from "../../../Components/authSlice";
 import { resetResultHistory } from "../../../State/ResultHistorySlice";
 import { resetSavedSubject } from "../../../State/SavedSubjectListSlice";
-import { resetSubjectList } from "../../../State/SubjectListSlice";
+import {
+  fetchSubjectList,
+  resetSubjectList,
+} from "../../../State/SubjectListSlice";
 import { resetTestQuestions } from "../../../State/TestQuestionSlice";
 import { resetTestResult } from "../../../State/TestResultSlice";
 import { resetAnalysis } from "../../../State/AnalysisSlice";
+import {
+  fetchNotification,
+  markAsRead,
+} from "../../../State/NotificationSlice";
+import axios from "axios";
 // import { expiredLogout } from "../../../Components/authSlice";
 // import { fetchSubjectList } from "../../../State/SubjectListSlice";
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
@@ -87,12 +95,49 @@ const Dashboard = () => {
     persistor.purge(); //clears all persisted data from local storage
     navigate("/login");
   };
+  const notifications = useSelector(
+    (state: RootState) => state.notification.data
+  );
+  const loading = useSelector((state: RootState) => state.notification.loading);
+  useEffect(() => {
+    // Fetch notifications from API when the component mounts
+    dispatch(fetchNotification());
 
-  // useEffect(() => {
-  //   // Whenever the user is logged out, show a toast
-  //   // toast.error('Session expired. Please log in again.');
-  //   dispatch(expiredLogout());
-  // }, [dispatch]);
+    //fetching the subject list
+    dispatch(fetchSubjectList());
+  }, []);
+
+  const token = localStorage.getItem("authToken");
+  const markNotificationAsRead = async (notificationId: string) => {
+    // Call your PATCH endpoint to mark the notification as read
+    if (!notificationId) {
+      return;
+    }
+    try {
+      await axios.patch(
+        `https://lynspeed.pythonanywhere.com/api/v1/notifications/${notificationId}/`,
+        {
+          body: JSON.stringify({ is_read: true }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add token to Authorization header,
+          },
+        }
+      );
+
+      // Dispatch Redux action to update local state
+      dispatch(markAsRead(notificationId));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  let latestNotification = notifications[notifications.length - 1];
+  const notificationId = latestNotification?.id;
+  const isReadd = latestNotification?.is_read;
+
+  const handleNotificationClick = () => {
+    markNotificationAsRead(notificationId); // Mark as read when the notification is clicked
+  };
   return (
     <>
       {/* <Navbar2 /> */}
@@ -161,8 +206,14 @@ const Dashboard = () => {
             </li>
 
             {/* Notification */}
-            <li>
+            <li onClick={handleNotificationClick}>
               <img src={notify} alt="Notification" />
+              {notifications.message && null}
+              {loading
+                ? null
+                : notifications.message
+                ? null
+                : !isReadd && <span className="notify"></span>}
               <Link className="menu-item" to="/notification">
                 Notification
               </Link>
