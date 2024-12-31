@@ -16,25 +16,27 @@ const Navbar: React.FC = () => {
       <button className="menu-toggle" onClick={toggleMenu}>
         {isMenuOpen ? "✖" : "☰"}
       </button>
-      <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/pricing">Pricing</Link>
-        </li>
-        <li>
-          <Link to="/contact">Contact</Link>
-        </li>
-        <li>
-          <Link to="/blog">Blog</Link>
-        </li>
-      </ul>
-      <div className="nav-login">
-        <Link to="/login">Login</Link>
+      <div className={`nav-menu-container ${isMenuOpen ? "active" : ""}`}>
+        <ul className="nav-menu">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/pricing">Pricing</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+          <li>
+            <Link to="/blog">Blog</Link>
+          </li>
+        </ul>
+        <div className="nav-login">
+          <Link to="/login">Login</Link>
+        </div>
       </div>
     </div>
   );

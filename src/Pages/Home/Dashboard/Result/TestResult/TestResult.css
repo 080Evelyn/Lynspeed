@@ -125,13 +125,13 @@
   transform: scale(1.05);
 }
 /* Back Arrow Styling */
-.back-arrow {
+.result-page .back-arrow {
   display: flex;
   align-items: center;
   gap: 8px; /* Spacing between the icon and text */
   font-size: 1.2rem;
   font-weight: 500;
-  color: #333;
+  color: #0659a6;
   cursor: pointer;
   padding: 10px;
   transition: all 0.3s ease-in-out;
