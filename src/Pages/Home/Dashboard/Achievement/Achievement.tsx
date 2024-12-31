@@ -26,7 +26,7 @@ const Achievement = () => {
     (state: RootState) => state.analysis.loading
   );
   const analysisError = useSelector((state: RootState) => state.analysis.error);
-  const totalTestSessions = analysis && analysis[0].results.length;
+  const totalTestSessions = analysis && analysis[0]?.results.length;
 
   const subject1Score =
     analysis &&
@@ -93,13 +93,7 @@ const Achievement = () => {
       highlight: averageScore <= 179 ? true : false,
     },
   ];
-  if (analysis && analysis.length === 0) {
-    return (
-      <div className="performance-">
-        <h2>No analysis for you yet, try taking a test session</h2>
-      </div>
-    );
-  }
+
   return (
     <>
       {/* <Navbar2/> */}
@@ -110,6 +104,11 @@ const Achievement = () => {
           <h2>Something went wrong, check intenet connection</h2>
         ) : (
           <>
+            {analysis && analysis.length === 0 && (
+              <div className="performance-">
+                <h2>No Ranking for you yet, try taking a test session</h2>
+              </div>
+            )}
             <div className="leaderboard-header">
               <span
                 className="back-arrow"

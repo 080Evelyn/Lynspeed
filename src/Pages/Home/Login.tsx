@@ -10,7 +10,6 @@ import Bubbles from "../../Components/ui/Bubbles/Bubbles";
 // import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { loginSuccessful, setToken } from "../../Components/authSlice";
-import { fetchSubjectList } from "../../State/SubjectListSlice";
 import { AppDispatch } from "../../State/Store";
 
 interface UserProfile {
@@ -54,8 +53,6 @@ const Login: React.FC = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        //fetching the subject list
-        dispatch(fetchSubjectList());
 
         const user: UserProfile = profileResponse.data;
 
