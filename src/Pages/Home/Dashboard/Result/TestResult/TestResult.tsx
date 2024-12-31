@@ -162,7 +162,8 @@ const TestResult = () => {
                       <tr>
                         <td>{subjects ? subjects[0] : null}</td>
                         <td></td>
-                        <td>{testScores && testScores[subjects[0]].score}</td>
+                        {testScores &&
+                          Math.ceil(testScores[subjects[0]].score * 100) / 100}
                       </tr>
                       <tr></tr>
 
@@ -170,24 +171,32 @@ const TestResult = () => {
                         <td>{subjects ? subjects[1] : null}</td>
 
                         <td></td>
-                        <td>{testScores && testScores[subjects[1]].score}</td>
+                        {testScores &&
+                          Math.ceil(testScores[subjects[1]].score * 100) / 100}
                       </tr>
                       <tr>
                         <td>{subjects ? subjects[2] : null}</td>
 
                         <td></td>
-                        <td>{testScores && testScores[subjects[2]].score}</td>
+                        {testScores &&
+                          Math.ceil(testScores[subjects[2]].score * 100) / 100}
                       </tr>
                       <tr>
                         <td>{subjects ? subjects[3] : null}</td>
 
                         <td></td>
-                        <td>{testScores && testScores[subjects[3]].score}</td>
+                        <td>
+                          {testScores &&
+                            Math.ceil(testScores[subjects[3]].score * 100) /
+                              100}
+                        </td>
                       </tr>
                       <tr className="total-score">
                         <td>Total</td>
                         <td>{duration}</td>
-                        <td>{totalScore}</td>
+                        <td>{Math.ceil(totalScore * 100) / 100}</td>
+
+                        {/* <td>{(Math.ceil(totalScore) * 100) / 100}</td> */}
                       </tr>
                     </tbody>
                   </table>

@@ -32,7 +32,7 @@ const SubjectSelection = () => {
   const [subjectSaved, setSubjectSaved] = useState<boolean>(false);
   // getting the subjectList states from redux store
   const subjectList = useSelector((state: RootState) => state.subjectList.data);
-  console.log(subjectList);
+  // console.log(subjectList);
   // getting the SavedsubjectList states from redux store
   const savedSubjectList = useSelector(
     (state: RootState) => state.savedSubjectList.data
@@ -44,7 +44,7 @@ const SubjectSelection = () => {
 
   //this error shows user has not selected subjects yet
   const userSubject = error === "Request failed with status code 404";
-  console.log(userSubject);
+  // console.log(userSubject);
 
   // Handle subject change
   const handleSubjectChange = (subject: string) => {
