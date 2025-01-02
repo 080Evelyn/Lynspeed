@@ -99,28 +99,38 @@ const Dashboard = () => {
     (state: RootState) => state.notification.data
   );
   const loading = useSelector((state: RootState) => state.notification.loading);
+  const success = useSelector((state: RootState) => state.subjectList.success);
+
   useEffect(() => {
     // Fetch notifications from API when the component mounts
     dispatch(fetchNotification());
 
     //fetching the subject list
+    if (success) {
+      return;
+    }
     dispatch(fetchSubjectList());
   }, []);
 
   const token = localStorage.getItem("authToken");
+
   const markNotificationAsRead = async (notificationId: string) => {
-    // Call your PATCH endpoint to mark the notification as read
-    if (!notificationId) {
+    if (!notificationId || isReadd) {
       return;
     }
+
     try {
-      await axios.patch(
+      // Ensure you use template literals properly for Authorization header
+      await axios.put(
         `https://lynspeed.pythonanywhere.com/api/v1/notifications/${notificationId}/`,
         {
-          body: JSON.stringify({ is_read: true }),
+          body: null,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Add token to Authorization header,
+            // Properly format the Bearer token string
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -131,6 +141,7 @@ const Dashboard = () => {
       console.log(err);
     }
   };
+
   let latestNotification = notifications[notifications.length - 1];
   const notificationId = latestNotification?.id;
   const isReadd = latestNotification?.is_read;

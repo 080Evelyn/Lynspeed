@@ -195,8 +195,6 @@ const TestResult = () => {
                         <td>Total</td>
                         <td>{duration}</td>
                         <td>{Math.ceil(totalScore * 100) / 100}</td>
-
-                        {/* <td>{(Math.ceil(totalScore) * 100) / 100}</td> */}
                       </tr>
                     </tbody>
                   </table>
