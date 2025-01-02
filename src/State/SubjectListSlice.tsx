@@ -6,6 +6,7 @@ interface SubjectList {
   loading: boolean;
   error: boolean;
   saved: boolean;
+  success: boolean;
 }
 
 const initialState: SubjectList = {
@@ -13,6 +14,7 @@ const initialState: SubjectList = {
   loading: false,
   error: false,
   saved: false,
+  success: false,
 };
 
 // Asynchronous thunk to fetch subject list data
@@ -63,11 +65,13 @@ const subjectListSlice = createSlice({
       .addCase(fetchSubjectList.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        state.success = true;
       })
       .addCase(fetchSubjectList.rejected, (state) => {
         state.loading = false;
         state.error = true;
         state.data = [];
+        state.success = false;
       });
   },
 });
