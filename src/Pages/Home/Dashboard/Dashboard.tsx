@@ -27,11 +27,7 @@ import {
 import { resetTestQuestions } from "../../../State/TestQuestionSlice";
 import { resetTestResult } from "../../../State/TestResultSlice";
 import { resetAnalysis } from "../../../State/AnalysisSlice";
-import {
-  fetchNotification,
-  markAsRead,
-} from "../../../State/NotificationSlice";
-import axios from "axios";
+import { fetchNotification } from "../../../State/NotificationSlice";
 // import { expiredLogout } from "../../../Components/authSlice";
 // import { fetchSubjectList } from "../../../State/SubjectListSlice";
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
@@ -112,43 +108,11 @@ const Dashboard = () => {
     dispatch(fetchSubjectList());
   }, []);
 
-  const token = localStorage.getItem("authToken");
+  const unreadNotification = notifications.filter((notice: any) => {
+    return notice.is_read === false;
+  });
+  const notificationCount = unreadNotification.length;
 
-  const markNotificationAsRead = async (notificationId: string) => {
-    if (!notificationId || isReadd) {
-      return;
-    }
-
-    try {
-      // Ensure you use template literals properly for Authorization header
-      await axios.put(
-        `https://lynspeed.pythonanywhere.com/api/v1/notifications/${notificationId}/`,
-        {
-          body: null,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            // Properly format the Bearer token string
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Dispatch Redux action to update local state
-      dispatch(markAsRead(notificationId));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  let latestNotification = notifications[notifications.length - 1];
-  const notificationId = latestNotification?.id;
-  const isReadd = latestNotification?.is_read;
-
-  const handleNotificationClick = () => {
-    markNotificationAsRead(notificationId); // Mark as read when the notification is clicked
-  };
   return (
     <>
       {/* <Navbar2 /> */}
@@ -217,14 +181,18 @@ const Dashboard = () => {
             </li>
 
             {/* Notification */}
-            <li onClick={handleNotificationClick}>
+            <li>
               <img src={notify} alt="Notification" />
               {notifications.message && null}
               {loading
                 ? null
                 : notifications.message
                 ? null
-                : !isReadd && <span className="notify"></span>}
+                : notificationCount > 0 && (
+                    <span className="notify">
+                      <p className="count">{notificationCount}</p>
+                    </span>
+                  )}
               <Link className="menu-item" to="/notification">
                 Notification
               </Link>
