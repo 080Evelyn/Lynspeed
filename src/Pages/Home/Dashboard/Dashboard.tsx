@@ -108,9 +108,11 @@ const Dashboard = () => {
     dispatch(fetchSubjectList());
   }, []);
 
-  const unreadNotification = notifications.filter((notice: any) => {
-    return notice.is_read === false;
-  });
+  const unreadNotification =
+    !notifications.message &&
+    notifications?.filter((notice: any) => {
+      return notice.is_read === false;
+    });
   const notificationCount = unreadNotification.length;
 
   return (
