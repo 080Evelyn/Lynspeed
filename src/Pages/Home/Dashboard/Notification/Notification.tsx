@@ -6,6 +6,8 @@ import { AppDispatch, RootState } from "../../../../State/Store";
 import { useEffect } from "react";
 import { fetchNotification } from "../../../../State/NotificationSlice";
 
+import BtnNotify from "./BtnNotify";
+
 // interface NotificationItem {
 //   time: string;
 //   title: string;
@@ -25,44 +27,7 @@ const Notification = () => {
   useEffect(() => {
     dispatch(fetchNotification());
   }, []);
-
-  // const notifications: NotificationItem[] = [
-  //   {
-  //     time: "09:00am",
-  //     title: "Tortor et vel",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
-  //     date: "23 - 04 - 2024",
-  //   },
-  //   {
-  //     time: "03:40pm",
-  //     title: "Tortor et vel",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
-  //     date: "23 - 04 - 2024",
-  //   },
-  //   {
-  //     time: "07:00am",
-  //     title: "Tortor et vel",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
-  //     date: "24 - 04 - 2024",
-  //   },
-  //   {
-  //     time: "02:20pm",
-  //     title: "Tortor et vel",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
-  //     date: "24 - 04 - 2024",
-  //   },
-  //   {
-  //     time: "04:40pm",
-  //     title: "Tortor et vel",
-  //     description:
-  //       "Lorem ipsum dolor sit amet consectetur. Tortor et vel tellus massa justo tristique. Non vel vehicula sed consectetur scelerisque donec. Tortor purus pellentesque scelerisque hac.",
-  //     date: "24 - 04 - 2024",
-  //   },
-  // ];
+  // console.log(notification);
 
   return (
     <div className="notification-page">
@@ -91,11 +56,18 @@ const Notification = () => {
                   </div>
                   <div className="notification-content">
                     <h3 className="notification-title">{notification.title}</h3>
-                    <p>{notification.message}</p>
+                    {!notification.is_read && (
+                      <>
+                        <p>{notification.snippet}</p>
+                        <BtnNotify id={notification.id} />
+                      </>
+                    )}
+                    {notification.is_read && <p>{notification.message}</p>}
                   </div>
                   <div className="notification-date">
                     <span>{notification.date}</span>
                   </div>
+                  {!notification.is_read && <span className="notified"></span>}
                 </div>
               ))}
           </div>

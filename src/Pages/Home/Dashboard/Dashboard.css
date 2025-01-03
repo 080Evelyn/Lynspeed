@@ -87,11 +87,17 @@
 
 .notify {
   background: red;
-  height: 10px;
-  width: 10px;
+  height: 25px;
+  width: 25px;
   border-radius: 100%;
-  margin-top: -25px;
-  margin-left: -10px;
+  margin-top: -23px;
+  margin-left: -15px;
+}
+.count {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  margin: auto;
 }
 .profile-item {
   position: relative;
