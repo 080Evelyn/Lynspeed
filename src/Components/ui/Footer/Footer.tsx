@@ -68,7 +68,7 @@ const Footer = () => {
 
           <div className="footer-social">
             <a
-              href="https://www.tiktok.com/@lynogtech"
+              href="https://www.tiktok.com/@lynspeed.com.ng"
               target="_blank"
               rel="noopener noreferrer"
             >
