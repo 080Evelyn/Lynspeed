@@ -75,7 +75,7 @@ const Footer = () => {
               <img src={tiktok} alt="TikTok" />
             </a>
             <a
-              href="https://www.facebook.com/LYNSPEED.com.ng"
+              href="https://www.facebook.com/profile.php?id=61571319971338"
               target="_blank"
               rel="noopener noreferrer"
             >
