@@ -75,14 +75,14 @@ const Footer = () => {
               <img src={tiktok} alt="TikTok" />
             </a>
             <a
-              href="https://www.facebook.com/lynogtech/"
+              href="https://www.facebook.com/LYNSPEED.com.ng"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img src={facebook} alt="Facebook" />
             </a>
             <a
-              href="https://www.instagram.com/lynogtech/"
+              href="https://www.instagram.com/lynspeed.com.ng/"
               target="_blank"
               rel="noopener noreferrer"
             >
