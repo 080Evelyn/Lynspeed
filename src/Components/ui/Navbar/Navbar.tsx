@@ -1,7 +1,7 @@
-import "./Navbar.css";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/selffront5.png";
-import { useState } from "react";
+import "./Navbar.css";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -12,14 +12,29 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="navbar">
-      <img src={logo} alt="Logo" style={{ width: "85px" }} />
-      <button className="menu-toggle" onClick={toggleMenu}>
+      <img
+        src={logo}
+        alt="Lynspeed logo"
+        loading="lazy"
+        className="navbar-logo"
+      />
+      <button
+        className="menu-toggle"
+        onClick={toggleMenu}
+        aria-label="Toggle navigation menu"
+        aria-expanded={isMenuOpen ? "true" : "false"}
+      >
         {isMenuOpen ? "✖" : "☰"}
       </button>
-      <div className={`nav-menu-container ${isMenuOpen ? "active" : ""}`}>
+      <div
+        className={`nav-menu-container ${isMenuOpen ? "active" : ""}`}
+        role="menu"
+      >
         <ul className="nav-menu">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" aria-current="page">
+              Home
+            </Link>
           </li>
           <li>
             <Link to="/about">About</Link>
