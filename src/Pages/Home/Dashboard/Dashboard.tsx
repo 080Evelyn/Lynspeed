@@ -95,16 +95,13 @@ const Dashboard = () => {
     (state: RootState) => state.notification.data
   );
   const loading = useSelector((state: RootState) => state.notification.loading);
-  const success = useSelector((state: RootState) => state.subjectList.success);
 
   useEffect(() => {
     // Fetch notifications from API when the component mounts
     dispatch(fetchNotification());
 
     //fetching the subject list
-    if (success) {
-      return;
-    }
+
     dispatch(fetchSubjectList());
   }, []);
 
