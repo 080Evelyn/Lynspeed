@@ -1,4 +1,4 @@
-.result-page {  
+.result-page {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -13,7 +13,8 @@
   padding: 20px;
 }
 
-.left-section, .right-section {
+.left-section,
+.right-section {
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -22,6 +23,9 @@
 
 .left-section {
   width: 30%;
+}
+.upperCase {
+  text-transform: uppercase;
 }
 
 .student-pic {
@@ -96,7 +100,7 @@
   font-weight: 700;
   color: #0659a6;
 }
-.resultflow{
+.resultflow {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -113,7 +117,6 @@
   cursor: pointer;
   transition: 0.5s;
   width: fit-content;
-
 }
 
 .botf a {
@@ -162,7 +165,8 @@
     font-size: 1.2rem;
   }
 
-  .left-section, .right-section {
+  .left-section,
+  .right-section {
     width: 100%;
   }
 
