@@ -211,10 +211,10 @@ const Dashboard = () => {
                     to="/resetpassword">
                     <p>Change Password</p>
                   </Link>
-                  <div className="dropdown-item">
+                  {/* <div className="dropdown-item">
                     Notification
                     <input type="checkbox" className="notification-toggle" />
-                  </div>
+                  </div> */}
                 </div>
               )}
             </li>
