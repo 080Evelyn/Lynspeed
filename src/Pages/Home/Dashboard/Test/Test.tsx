@@ -1,130 +1,93 @@
 import React, { useState, useEffect } from "react";
 import "./Test.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../State/Store";
-
-// Define the structure of each question
-// interface Question {
-//   id: number;
-//   question: string;
-//   options: string[];
-// }
-
-// Define the structure for questionsPerSubject
-// interface QuestionsPerSubject {
-//   [key: string]: Question[];
-// }
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../State/Store";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
 
 const Test: React.FC = () => {
-  // const subjects = ["Use of English", "Mathematics", "Physics", "Chemistry"];
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  // Getting questions and subjects from Redux store
+  const questionsArray = useSelector(
+    (state: RootState) => state.testQuestions.data
+  );
+  const loading = useSelector(
+    (state: RootState) => state.testQuestions.loading
+  );
+  const error = useSelector((state: RootState) => state.testQuestions.error);
+  const questions = questionsArray?.subjects;
 
-  // const questionsPerSubject: QuestionsPerSubject = {
-  //   "Use of English": [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     {
-  //       id: 2,
-  //       question:
-  //         "English Lorem ipsum dolor sit amet consectetur. Use of English question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  //   Mathematics: [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "Maths Lorem ipsum dolor sit amet consectetur. Mathematics question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  //   Physics: [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     {
-  //       id: 2,
-  //       question:
-  //         "Physics Lorem ipsum dolor sit amet consectetur. Physics question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  //   Chemistry: [
-  //     {
-  //       id: 1,
-  //       question:
-  //         "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     {
-  //       id: 2,
-  //       question:
-  //         "Chemistry Lorem ipsum dolor sit amet consectetur. Chemistry question 1.",
-  //       options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-  //     },
-  //     // Add more questions
-  //   ],
-  // };
+  const testSectionId = questionsArray?.test_session_id;
 
-  //getting the questions from redux store
-  const question = useSelector((state: RootState) => state.testQuestions.data);
-  // getting the subjectList states from redux store
   const savedSubjects = useSelector(
     (state: RootState) => state.savedSubjectList.data
   );
-  const subjects = savedSubjects.map((sub: any) => {
-    return sub.name;
-  });
 
+  const subjects = savedSubjects.map((sub: any) => sub.name);
   const [currentSubject, setCurrentSubject] = useState<number>(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [
-    selectedAnswers,
-    // setSelectedAnswers
-  ] = useState<{
-    [key: string]: { [key: number]: number };
+  const [selectedAnswers, setSelectedAnswers] = useState<{
+    [subjectIndex: number]: { [questionIndex: number]: string };
   }>({});
-  const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 180 minutes in seconds
-
+  const [response, setResponse] = useState<Response[]>([]);
+  //response to be sent to the backend
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 2 hours
+  // Timer effect
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeRemaining((prevTime) => {
-        if (prevTime <= 0) {
+      setTimeRemaining((prev) => {
+        if (prev <= 0) {
           clearInterval(timer);
           return 0;
         }
-        return prevTime - 1;
+        return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
-
-  const handleSubjectChange = (i: any) => {
-    setCurrentSubject(i);
+  useEffect(() => {
+    dispatch(fetchTestQuestions());
+  }, []);
+  const handleSubjectChange = (index: number) => {
+    setCurrentSubject(index);
     setCurrentQuestion(0);
   };
-
-  const handleQuestionChange = (index: number) => {
-    setCurrentQuestion(index);
+  const token = localStorage.getItem("authToken");
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    try {
+      await axios.post(
+        "https://lynspeed.pythonanywhere.com/api/v1/test-session/submit/",
+        {
+          test_session_id: testSectionId,
+          responses: response,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        }
+      );
+      setSubmitting(false);
+      navigate("/testresult");
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      toast.error(
+        "Something went wrong, check internet connection and try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
-
   const handleNext = () => {
-    // if (currentQuestion < questionsPerSubject[currentSubject].length - 1) {
-    //   setCurrentQuestion(currentQuestion + 1);
-    // }
     if (
-      currentQuestion <
-      question[currentSubject]?.worksheets[0].questions.length - 1
+      questions[currentSubject]?.worksheets[0]?.questions.length >
+      currentQuestion + 1
     ) {
       setCurrentQuestion(currentQuestion + 1);
     }
@@ -136,15 +99,31 @@ const Test: React.FC = () => {
     }
   };
 
-  // const handleOptionSelect = (optionIndex: number) => {
-  //   setSelectedAnswers({
-  //     ...selectedAnswers,
-  //     [currentSubject]: {
-  //       ...(selectedAnswers[currentSubject] || {}),
-  //       [currentQuestion]: optionIndex,
-  //     },
-  //   });
-  // };
+  const handleOptionSelect = (selected_option: string, question_id: number) => {
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [currentSubject]: {
+        ...(prev[currentSubject] || {}),
+        [currentQuestion]: selected_option,
+      },
+    }));
+    //handle response to be sent to the backend
+    setResponse((prevAnswers: any) => {
+      const existingAnswerIndex = prevAnswers.findIndex(
+        (answer: any) => answer.question_id === question_id
+      );
+
+      if (existingAnswerIndex !== -1) {
+        // Update the existing answer for this question
+        const updatedAnswers = [...prevAnswers];
+        updatedAnswers[existingAnswerIndex] = { question_id, selected_option };
+        return updatedAnswers;
+      }
+
+      // Add a new answer if no existing answer is found
+      return [...prevAnswers, { question_id, selected_option }];
+    });
+  };
 
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
@@ -155,165 +134,147 @@ const Test: React.FC = () => {
       .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
+  const currentQuestions =
+    (questions &&
+      questions[currentSubject]?.worksheets[0]?.questions
+        ?.slice()
+        ?.sort((a: any, b: any) => a.number - b.number) // Sort questions by 'number'
+        ?.map((question: any, index: number) => ({
+          ...question,
+          displayNumber: index + 1, // Assign sequential display numbers
+        }))) ||
+    [];
+
+  const currentOptions = currentQuestions[currentQuestion];
+
+  useEffect(() => {
+    // Push a dummy state to the history stack
+    window.history.pushState(null, "", window.location.href);
+
+    const handleBackButton = () => {
+      // Redirect to a specific page
+      navigate("/dashboard", { replace: true });
+    };
+
+    const onPopState = (_event: PopStateEvent) => {
+      // Intercept the back button behavior
+      handleBackButton();
+    };
+
+    // Add event listener for popstate
+    window.addEventListener("popstate", onPopState);
+
+    return () => {
+      // Clean up the event listener on unmount
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [navigate]);
+
   return (
     <div className="test-container">
-      <div className="subject-tabs">
-        {subjects.map((subjects: any, i: any) => (
-          <button
-            key={subjects}
-            className={currentSubject === i ? "active" : ""}
-            onClick={() => handleSubjectChange(i)}>
-            {subjects}
-          </button>
-        ))}
-      </div>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : !loading &&
+        error &&
+        error === "Request failed with status code 403" ? (
+        <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+      ) : !loading &&
+        error &&
+        error !== "Request failed with status code 403" ? (
+        <h2>Something went wrong, check internet connection</h2>
+      ) : (
+        <>
+          <div className="subject-tabs">
+            {subjects.map((subject: string, index: number) => (
+              <button
+                key={subject}
+                className={currentSubject === index ? "active" : ""}
+                onClick={() => handleSubjectChange(index)}>
+                {subject.toUpperCase()}
+              </button>
+            ))}
+          </div>
 
-      <div className="timer">{formatTime(timeRemaining)}</div>
+          <div className="timer">{formatTime(timeRemaining)}</div>
 
-      <div className="question-section">
-        <div className="question-counter">
-          {/* {currentQuestion + 1} / {questionsPerSubject[currentSubject].length} */}
-        </div>
-        <div className="question-text">
-          {/* {questionsPerSubject[currentSubject][currentQuestion].question} */}
-          {
-            question[currentSubject]?.worksheets[0]?.questions[currentQuestion]
-              .text
-          }
-        </div>
+          {currentQuestions.length > 0 ? (
+            <div className="question-section">
+              <div className="question-counter">
+                Question {currentQuestions[currentQuestion]?.displayNumber} /{" "}
+                {currentQuestions.length}
+              </div>
+              <div className="question-text">{currentOptions?.text}</div>
+              {currentOptions?.image && (
+                <img
+                  src={`https://lynspeed.pythonanywhere.com${currentOptions?.image}`}
+                  alt="test_image"
+                />
+              )}
 
-        {/* <div className="options">
-          {question[currentSubject].worksheets[0]?.questions[
-            currentQuestion
-          ].map((option: any, idx: any) => (
-            <label key={idx}>
-              <input
-                type="radio"
-                name={`question-${currentQuestion}`}
-                checked={
-                  selectedAnswers[currentSubject]?.[currentQuestion] === idx
-                }
-                onChange={() => handleOptionSelect(idx)}
-              />
-              {String.fromCharCode(65 + idx)}. {option}
-            </label>
-          ))}
-        </div> */}
-        <div className="options">
-          {question[currentSubject].worksheets[0]?.questions[
-            currentQuestion
-          ] && (
-            <>
-              <label>
-                <input
-                  type="radio"
-                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_a}`}
-                  // checked={
-                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
-                  // }
-                  checked={false}
-                  // onChange={() => handleOptionSelect(idx)}
-                />
-                {/* {String.fromCharCode(65 + idx)}. */}
-                {
-                  question[currentSubject].worksheets[0]?.questions[
-                    currentQuestion
-                  ].option_a
-                }
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_b}`}
-                  // checked={
-                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
-                  // }
-                  checked={false}
-                  // onChange={() => handleOptionSelect(idx)}
-                />
-                {/* {String.fromCharCode(65 + idx)}. */}
-                {
-                  question[currentSubject].worksheets[0]?.questions[
-                    currentQuestion
-                  ].option_b
-                }
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_c}`}
-                  // checked={
-                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
-                  // }
-                  checked={false}
-                  // onChange={() => handleOptionSelect(idx)}
-                />
-                {/* {String.fromCharCode(65 + idx)}. */}
-                {
-                  question[currentSubject].worksheets[0]?.questions[
-                    currentQuestion
-                  ].option_c
-                }
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name={`question-${question[currentSubject].worksheets[0]?.questions[currentQuestion].option_d}`}
-                  // checked={
-                  //   selectedAnswers[currentSubject]?.[currentQuestion] === idx
-                  // }
-                  checked={false}
-                  // onChange={() => handleOptionSelect(idx)}
-                />
-                {/* {String.fromCharCode(65 + idx)}. */}
-                {
-                  question[currentSubject].worksheets[0]?.questions[
-                    currentQuestion
-                  ].option_d
-                }
-              </label>
-            </>
+              <div className="options">
+                {["option_a", "option_b", "option_c", "option_d"].map((key) => (
+                  <label key={key}>
+                    <input
+                      type="radio"
+                      name={`question-${currentQuestion}`}
+                      checked={
+                        selectedAnswers[currentSubject]?.[currentQuestion] ===
+                        `${key.split("_")[1].toUpperCase()}`
+                      }
+                      onChange={() =>
+                        handleOptionSelect(
+                          `${key.split("_")[1].toUpperCase()}`,
+                          currentOptions.id
+                        )
+                      }
+                    />
+                    {`${key.split("_")[1].toUpperCase()}. ${
+                      currentOptions?.[key]
+                    }`}
+                  </label>
+                ))}
+              </div>
+
+              <div className="navigation-buttons">
+                <button
+                  onClick={handlePrevious}
+                  disabled={currentQuestion === 0}>
+                  Previous
+                </button>
+                <button
+                  onClick={handleNext}
+                  disabled={currentQuestion >= currentQuestions.length - 1}>
+                  Next
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p>No questions available for the selected subject.</p>
           )}
-        </div>
 
-        <div className="navigation-buttons">
-          <button onClick={handlePrevious} disabled={currentQuestion === 0}>
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            // disabled={currentQuestion === question[currentSubject].length - 1}
-            disabled={
-              currentQuestion ===
-              question[currentSubject].worksheets[currentQuestion]?.questions
-                .length -
-                1
-            }>
-            Next
-          </button>
-        </div>
-      </div>
+          <div className="question-grid">
+            {currentQuestions.map((question: any, index: number) => (
+              <button
+                key={index}
+                className={`${currentQuestion === index ? "active" : ""} ${
+                  selectedAnswers[currentSubject]?.[index] ? "answered" : ""
+                }`}
+                onClick={() => setCurrentQuestion(index)}>
+                {question.displayNumber}
+              </button>
+            ))}
+          </div>
 
-      <div className="question-grid">
-        {question[currentSubject].worksheets[0]?.questions.map(
-          (_: any, i: any) => (
+          <div className="submit-section">
             <button
-              key={i}
-              className={`${currentQuestion === i ? "active" : ""} ${
-                selectedAnswers[currentSubject]?.[i] !== undefined
-                  ? "answered"
-                  : ""
-              }`}
-              onClick={() => handleQuestionChange(i)}>
-              {i + 1}
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="submit-button">
+              {submitting ? "Submitting..." : "Submit"}
             </button>
-          )
-        )}
-      </div>
-
-      <div className="submit-section">
-        <button className="submit-button">Submit</button>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

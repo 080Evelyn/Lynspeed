@@ -73,7 +73,8 @@
   width: 100%;
   height: auto;
 }
-.foot{
+
+.foot {
   display: none;
 }
 
@@ -81,6 +82,7 @@
 .animate-text {
   animation: scaleIn 1.5s ease forwards;
 }
+
 .animate-image {
   animation: slideInRight 1.2s ease forwards;
 }
@@ -103,6 +105,7 @@
     opacity: 1;
   }
 }
+
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -131,7 +134,8 @@
     height: auto;
     gap: 20px;
   }
-  .foot{
+
+  .foot {
     display: block;
   }
 
@@ -178,7 +182,8 @@
     font-size: 14px;
     padding: 8px 15px;
   }
-  .foot{
+
+  .foot {
     display: block;
   }
 }

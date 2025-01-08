@@ -41,6 +41,7 @@ const SubjectSelection = () => {
     (state: RootState) => state.savedSubjectList.loading
   );
   const error = useSelector((state: RootState) => state.savedSubjectList.error);
+
   //this error shows user has not selected subjects yet
   const userSubject = error === "Request failed with status code 404";
 
@@ -102,19 +103,29 @@ const SubjectSelection = () => {
   }, [subjectSaved]);
 
   const handleStartTest = async (_e: React.MouseEvent) => {
+    if (userSubject) {
+      alert("Selectsubjects before proceeding.");
+      return;
+    }
     dispatch(fetchTestQuestions());
     navigate("/test");
   };
 
   useEffect(() => {
-    //calling the saved  subject list endpoint onMount for users that might log out after picking subjects
     dispatch(fetchSavedSubjectList());
   }, []);
   return (
     <>
       {/* <Navbar2 /> */}
       <div>
-        <div className="spa"></div>
+        <div className="spa">
+          <span
+            className="back-arrow"
+            onClick={() => window.history.back()}
+            style={{ color: "white", margin: "20px" }}>
+            ←
+          </span>
+        </div>
         {loading ? (
           <h2 className="loading">Loading....</h2>
         ) : !loading &&
@@ -178,12 +189,6 @@ const SubjectSelection = () => {
                       <br /> <strong> Good luck!</strong>
                     </p>
                   </div>
-
-                  <div className="but">
-                    <div className="bot">
-                      <Link to="/dashboard">Go Back</Link>
-                    </div>
-                  </div>
                 </div>
               </>
             )}
@@ -239,20 +244,19 @@ const SubjectSelection = () => {
                       <br /> <strong> Good luck!</strong>
                     </p>
                   </div>
-
-                  <div className="but">
-                    <div className="bot">
-                      <Link to="/dashboard">Go Back</Link>
-                    </div>
-                    <div className="bot">
-                      <Link to="/test" onClick={handleStartTest}>
-                        Start Test
-                      </Link>
-                    </div>
-                  </div>
                 </div>
               </>
             )}
+            <div className="but">
+              <div className="bot">
+                <Link to="/dashboard">Go Back</Link>
+              </div>
+              <div className="bot">
+                <Link to={userSubject ? "" : "/test"} onClick={handleStartTest}>
+                  Start Test
+                </Link>
+              </div>
+            </div>
 
             {showAlert && (
               <SubjectAlert

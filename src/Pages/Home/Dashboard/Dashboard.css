@@ -85,6 +85,20 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.notify {
+  background: red;
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  margin-top: -23px;
+  margin-left: -15px;
+}
+.count {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 500;
+  margin: auto;
+}
 .profile-item {
   position: relative;
   color: white;

@@ -1,98 +1,144 @@
 .subscription-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .header-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    justify-content: center;
-   
-    gap: 0.5rem; /* Adds spacing between arrow and title */
-  }
-  
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+
+  gap: 0.5rem; /* Adds spacing between arrow and title */
+}
+
+.back-arrow {
+  font-size: 1.5rem;
+  display: none;
+  color: #0073e6;
+  cursor: pointer;
+}
+
+.subscription-title {
+  font-size: 2rem;
+  text-align: center;
+  align-items: center;
+  color: #333;
+  margin: 0; /* Removes default margin for better alignment */
+}
+
+.subscription-details {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.plan-card {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card h2 {
+  font-size: 1.5rem;
+  color: #0073e6;
+}
+
+.plan-card h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.plan-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.subscribe-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #0073e6;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.subscribe-button:hover {
+  background-color: #005bb5;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 1rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150%;
+  width: 100%;
+  z-index: 20;
+  background: #000;
+  opacity: 0.5;
+  transition: all;
+  cursor: pointer !important;
+}
+.validation {
+  position: absolute;
+  top: 25%;
+  width: 60%;
+  left: 22%;
+  margin: auto;
+  z-index: 30;
+  background-color: #fff;
+  border: 2px;
+  border-radius: 1%;
+}
+
+.validation h2 {
+  text-align: center;
+  z-index: 30;
+}
+
+.validateBtn {
+  padding: 10px 10px;
+  background-color: lightgreen;
+  font-weight: bold;
+  font-size: medium;
+  border-color: green;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+.validateBtn:hover {
+  background-color: green;
+}
+.p {
+  font-weight: bolder;
+}
+
+@media (max-width: 768px) {
   .back-arrow {
-    font-size: 1.5rem;
-    display: none;
-    color: #0073e6;
-    cursor: pointer;
+    display: inline; /* Visible on mobile */
   }
-  
-  .subscription-title {
-    font-size: 2rem;
-    text-align: center;
-    align-items: center;
-    color: #333;
-    margin: 0; /* Removes default margin for better alignment */
-  }
-  
-  
-  .subscription-details {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    border-radius: 8px;
-  }
-  
-  .plans-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .plan-card {
-    padding: 1.5rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .plan-card h2 {
-    font-size: 1.5rem;
-    color: #0073e6;
-  }
-  
-  .plan-card h3 {
-    font-size: 1.25rem;
-    color: #333;
-    margin: 0.5rem 0;
-  }
-  
-  .plan-card p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  .subscribe-button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #0073e6;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .subscribe-button:hover {
-    background-color: #005bb5;
-  }
-  
-  .error-message {
-    color: #d9534f;
-    font-size: 1rem;
-  }
-  
-  @media (max-width: 768px) {
-    .back-arrow {
-      display: inline; /* Visible on mobile */
-    }
-  }
+}

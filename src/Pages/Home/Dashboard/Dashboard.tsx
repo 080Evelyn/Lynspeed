@@ -14,8 +14,20 @@ import r2 from "../../../assets/Analpic3.png";
 import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "../../../State/Store";
+import { persistor, RootState } from "../../../State/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../State/Store";
+import { resetAuth } from "../../../Components/authSlice";
+import { resetResultHistory } from "../../../State/ResultHistorySlice";
+import { resetSavedSubject } from "../../../State/SavedSubjectListSlice";
+import {
+  fetchSubjectList,
+  resetSubjectList,
+} from "../../../State/SubjectListSlice";
+import { resetTestQuestions } from "../../../State/TestQuestionSlice";
+import { resetTestResult } from "../../../State/TestResultSlice";
+import { resetAnalysis } from "../../../State/AnalysisSlice";
+import { fetchNotification } from "../../../State/NotificationSlice";
 // import { expiredLogout } from "../../../Components/authSlice";
 // import { fetchSubjectList } from "../../../State/SubjectListSlice";
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
@@ -27,7 +39,7 @@ interface UserProfile {
   email: string;
 }
 const Dashboard = () => {
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(
     null
   );
@@ -44,7 +56,6 @@ const Dashboard = () => {
 
   // Load selected subjects from local storage with error handling
   useEffect(() => {
-    // dispatch(fetchSubjectList());
     const subjects = localStorage.getItem("selectedSubjects");
     try {
       if (subjects) {
@@ -69,17 +80,38 @@ const Dashboard = () => {
   //   setIsChangePasswordOpen((prev) => !prev);
 
   const handleSignOut = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-    localStorage.removeItem("selectedSubjects");
+    localStorage.clear();
+    dispatch(resetAuth());
+    dispatch(resetResultHistory());
+    dispatch(resetSavedSubject());
+    dispatch(resetSubjectList());
+    dispatch(resetTestQuestions());
+    dispatch(resetTestResult());
+    dispatch(resetAnalysis());
+    persistor.purge(); //clears all persisted data from local storage
     navigate("/login");
   };
+  const notifications = useSelector(
+    (state: RootState) => state.notification.data
+  );
+  const loading = useSelector((state: RootState) => state.notification.loading);
 
-  // useEffect(() => {
-  //   // Whenever the user is logged out, show a toast
-  //   // toast.error('Session expired. Please log in again.');
-  //   dispatch(expiredLogout());
-  // }, [dispatch]);
+  useEffect(() => {
+    // Fetch notifications from API when the component mounts
+    dispatch(fetchNotification());
+
+    //fetching the subject list
+
+    dispatch(fetchSubjectList());
+  }, []);
+
+  const unreadNotification =
+    !notifications.message &&
+    notifications?.filter((notice: any) => {
+      return notice.is_read === false;
+    });
+  const notificationCount = unreadNotification.length;
+
   return (
     <>
       {/* <Navbar2 /> */}
@@ -150,6 +182,16 @@ const Dashboard = () => {
             {/* Notification */}
             <li>
               <img src={notify} alt="Notification" />
+              {notifications.message && null}
+              {loading
+                ? null
+                : notifications.message
+                ? null
+                : notificationCount > 0 && (
+                    <span className="notify">
+                      <p className="count">{notificationCount}</p>
+                    </span>
+                  )}
               <Link className="menu-item" to="/notification">
                 Notification
               </Link>
@@ -169,33 +211,10 @@ const Dashboard = () => {
                     to="/resetpassword">
                     <p>Change Password</p>
                   </Link>
-                  <div className="dropdown-item">
+                  {/* <div className="dropdown-item">
                     Notification
                     <input type="checkbox" className="notification-toggle" />
-                  </div>
-                  {/* {isChangePasswordOpen && (
-                    <div className="change-password-form">
-                      <label htmlFor="old-password">Old Password</label>
-                      <input
-                        type="password"
-                        id="old-password"
-                        placeholder="Old Password"
-                      />
-                      <label htmlFor="new-password">New Password</label>
-                      <input
-                        type="password"
-                        id="new-password"
-                        placeholder="New Password"
-                      />
-                      <label htmlFor="confirm-password">Confirm Password</label>
-                      <input
-                        type="password"
-                        id="confirm-password"
-                        placeholder="Confirm Password"
-                      />
-                      <button className="submit-btn">Submit</button>
-                    </div>
-                  )} */}
+                  </div> */}
                 </div>
               )}
             </li>

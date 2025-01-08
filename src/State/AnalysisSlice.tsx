@@ -1,27 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface SavedSubjectList {
-  data: [];
+interface analysisList {
+  data: any[]; // Changed from [] to any[] for flexibility
   loading: boolean;
-  error: any;
-  success: boolean;
+  error: boolean;
 }
 
-const initialState: SavedSubjectList = {
+const initialState: analysisList = {
   data: [],
   loading: false,
   error: false,
-  success: false,
 };
+
 const token = localStorage.getItem("authToken");
 // Asynchronous thunk to fetch subject list data
-export const fetchSavedSubjectList = createAsyncThunk(
-  "savedSubjectList/fetchSavedSubjectList",
+export const fetchAnalysis = createAsyncThunk(
+  "analysis/fetchAnalysis",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "https://lynspeed.pythonanywhere.com/api/v1/user/subjects/",
+        "https://lynspeed.pythonanywhere.com/api/v1/analysis/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -29,42 +28,39 @@ export const fetchSavedSubjectList = createAsyncThunk(
           },
         }
       );
-      return response.data.selected_subjects;
+      return response.data;
     } catch (error: any) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   }
 );
 
-const savedSubjectListSlice = createSlice({
-  name: "SavedSubjectList",
+const analysisSlice = createSlice({
+  name: "analysis",
   initialState,
   reducers: {
-    resetSavedSubject: (state) => {
+    resetAnalysis: (state) => {
       state.data = [];
       state.error = false;
-      state.success = false;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSavedSubjectList.pending, (state) => {
+      .addCase(fetchAnalysis.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(fetchSavedSubjectList.fulfilled, (state, action) => {
+      .addCase(fetchAnalysis.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
-        state.success = true;
       })
-      .addCase(fetchSavedSubjectList.rejected, (state, action) => {
+      .addCase(fetchAnalysis.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = true;
         state.data = [];
       });
   },
 });
 
-export const { resetSavedSubject } = savedSubjectListSlice.actions;
-export default savedSubjectListSlice.reducer;
+export const { resetAnalysis } = analysisSlice.actions;
+export default analysisSlice.reducer;

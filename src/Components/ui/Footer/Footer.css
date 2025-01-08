@@ -3,66 +3,57 @@ footer {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px;
-  margin-top: 20px;
+  gap: 20px;
+  padding: 20px;
   width: 100vw;
   background-color: #f9f9f9;
 }
 
 .footer-container {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 30px;
-  width: 100%;
   max-width: 1200px;
-  padding: 12px;
-  margin: 20px;
-  flex-wrap: wrap; /* Enable wrapping for responsive layouts */
+  width: 100%;
+  padding: 10px 20px;
 }
 
-.footer-logo {
-  display: flex;
-  align-items: start;
-  flex-direction: column;
-  gap: 15px;
-  flex: 1;
+.footer-logo img {
+  max-width: 80px;
 }
 
 .footer-logo p {
-  font-size: 14px;
-  font-weight: 400;
-  color: #333;
   text-align: justify;
+  font-size: 14px;
   line-height: 1.6;
-  max-width: 95%;
+  margin-top: 10px;
+  color: #333;
 }
 
 .footer-links,
-.usefullink {
+.usefullink,
+.connect {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  min-width: 200px;
 }
 
 .footer-links ul,
 .usefullink ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-links p,
 .usefullink p {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   color: #0659a6;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 li {
-  list-style: none;
   line-height: 2;
 }
 
@@ -70,7 +61,7 @@ li a {
   text-decoration: none;
   color: #0659a6;
   font-size: 14px;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 li a:hover {
@@ -78,32 +69,27 @@ li a:hover {
 }
 
 .connect {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   text-align: center;
-  align-items: center;
-  margin-top: 50px;
-}
-.connect p{
-  font-size: 14px;
 }
 
-.footer-contact {
-  line-height: 1.2;
+.footer-contact p {
+  margin: 5px 0;
   font-size: 14px;
 }
 
 .footer-social {
   display: flex;
+  justify-content: center;
   gap: 15px;
 }
 
-.footer-social a img {
+.footer-social img {
   width: 30px;
   height: 30px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
 }
 
 .footer-social a:hover img {
@@ -111,52 +97,66 @@ li a:hover {
 }
 
 .footer-copyright {
-  margin-top: 20px;
+  background-color: #0659a6;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-
-.footer-copyright .space {
-  height: 2px;
-  width: 30vw;
-  background-color: #639dd3;
+  color: white;
+  text-align: center;
+  padding: 15px 20px;
+  font-size: 14px;
+  position: relative;
 }
 
 .footer-copyright p {
-  font-size: 13px;
-  font-weight: 400;
+  margin: 5px 0;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
-.footer-copyright p strong {
-  color: #0659a6;
+.footer-copyright strong {
+  color: #ffcc00;
 }
 
-/* Responsive Styles */
-@media (max-width: 992px) {
+.footer-copyright .divider {
+  height: 2px;
+  width: 60%;
+  margin: 10px auto;
+  background-color: #ffffff33; /* Subtle divider effect */
+  border: none;
+}
+
+
+@media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
-    align-items: center;
     text-align: center;
   }
 
-  .footer-logo,
-  .footer-links,
-  .usefullink,
-  .connect {
-    flex: none;
-    width: 100%;
+  .footer-logo img {
+    margin: 0 auto;
   }
-}
 
-@media (max-width: 600px) {
-  footer {
+  .footer-social img {
+    width: 28px;
+    height: 28px;
+  }
+  .footer-copyright {
+    font-size: 13px;
     padding: 10px;
   }
 
-  .footer-logo p {
+  .footer-copyright .divider {
+    width: 80%;
+  }
+
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 15px;
+  }
+
+  .footer-links p,
+  .usefullink p {
     font-size: 14px;
   }
 
@@ -164,17 +164,16 @@ li a:hover {
     font-size: 13px;
   }
 
-  .footer-contact {
-    font-size: 13px;
-    align-items: center;
+  .footer-social img {
+    width: 24px;
+    height: 24px;
   }
 
-  .footer-social a img {
-    width: 25px;
-    height: 25px;
+  .footer-copyright {
+    font-size: 12px;
   }
 
-  .footer-copyright .space {
-    width: 60%;
+  .footer-copyright .divider {
+    width: 90%;
   }
 }

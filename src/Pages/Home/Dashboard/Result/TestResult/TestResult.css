@@ -96,6 +96,12 @@
   font-weight: 700;
   color: #0659a6;
 }
+.resultflow{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .botf {
   margin-top: 20px;
@@ -107,6 +113,7 @@
   cursor: pointer;
   transition: 0.5s;
   width: fit-content;
+
 }
 
 .botf a {
@@ -117,12 +124,42 @@
 .botf:hover {
   transform: scale(1.05);
 }
+/* Back Arrow Styling */
+.result-page .back-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing between the icon and text */
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #0659a6;
+  cursor: pointer;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+.back-arrow:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.arrow-icon {
+  font-size: 1.5rem;
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .content {
     flex-direction: column;
     align-items: center;
+  }
+  .back-arrow {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  .arrow-icon {
+    font-size: 1.2rem;
   }
 
   .left-section, .right-section {
@@ -164,5 +201,13 @@
   .profile-pic img {
     width: 60px;
     height: 60px;
+  }
+  .back-arrow {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .arrow-icon {
+    font-size: 1rem;
   }
 }

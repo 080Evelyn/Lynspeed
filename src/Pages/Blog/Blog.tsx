@@ -9,67 +9,98 @@ import blogpic4 from "../../assets/logpic4.png";
 const Blog = () => {
   return (
     <>
-      <Navbar />   
+      <Navbar />
+      {/* Add SEO meta tags */}
+      <head>
+        <title>LYNSPEED Blog | JAMB Success Tips & Guides</title>
+        <meta
+          name="description"
+          content="Explore tips, guides, and strategies for JAMB success. Learn how to pass with flying colors, study past questions, avoid common mistakes, and manage time effectively."
+        />
+        <meta
+          name="keywords"
+          content="JAMB simulation, JAMB success tips, passing JAMB, JAMB time management, JAMB mistakes, JAMB past questions"
+        />
+        <meta name="author" content="LYNOG TECH NIG" />
+      </head>
+
       <div className="blog-content">
         <div className="header">
-          <h2>Blog</h2>
+          <h2> Blog</h2>
+         
         </div>
+
+        {/* Blog sections */}
         <div className="section">
-          <img src={blogpic1} alt="passing JAMB" />
+          <img
+            src={blogpic1}
+            alt="Guide on how to pass JAMB with flying colors"
+          />
           <div className="top">
-            <h2>How to pass JAMB with flying colours</h2>
+            <h2>How to Pass JAMB with Flying Colours</h2>
             <p>
               Passing JAMB in flying colours requires planning and consistent
-              execution. These entails understanding the JAMB syllabus,
-              scheduling study time, familiarizing oneself with JAMB past
-              questions, ensuring all topics are covered and focusing more on
-              weak subjects. As time management is also the key to success in
-              this exam, regular practice with JAMB simulations like Lynspeed
-              would help improve speed and accuracy, boost confidence, and
-              identify areas of weakness. Also, ensure to rest, stay calm during
-              the exam and pray.
+              execution. This includes understanding the JAMB syllabus,
+              scheduling study time, familiarizing yourself with JAMB past
+              questions, and ensuring all topics are covered while focusing on
+              weak subjects. Time management is key, and practicing with JAMB
+              simulations like Lynspeed can improve speed, accuracy, and
+              confidence while identifying areas of weakness. Stay calm, rest,
+              and pray for a smooth exam day.
             </p>
           </div>
         </div>
 
         <div className="section">
           <div className="top">
-            <h2>Is it important to study Jamb past questions</h2>
+            <h2>Is it Important to Study JAMB Past Questions?</h2>
             <p>
-              Yes. The importance of studying past questions can not be
-              overemphasized for exam success as it sheds light on frequently
-              asked topics, exam format, and how questions are structured.
+              Absolutely! Studying past questions is crucial for exam success
+              as it highlights frequently asked topics, familiarizes you with
+              the exam format, and provides insights into how questions are
+              structured.
             </p>
           </div>
-          <img src={blogpic2} alt="importance of past question" />
+          <img
+            src={blogpic2}
+            alt="Importance of studying JAMB past questions"
+          />
         </div>
+
         <div className="section">
-          <img src={blogpic3} alt="common mistakes in JAMB" />
+          <img
+            src={blogpic3}
+            alt="Common mistakes students make during JAMB exams"
+          />
           <div className="top">
-            <h2>Common mistakes students make in JAMB</h2>
+            <h2>Common Mistakes Students Make in JAMB</h2>
             <p>
-              The common mistake students make is failing to read instructions
-              carefully, starting with difficult questions, time mismanagement,
-              failing to sufficiently practice with JAMB simulation or past
-              questions, allowing fear to creep in.
+              Some common mistakes include failing to read instructions
+              carefully, starting with difficult questions, poor time
+              management, lack of sufficient practice with JAMB simulations or
+              past questions, and succumbing to fear or anxiety.
             </p>
           </div>
         </div>
+
         <div className="section">
           <div className="top">
-            <h2>How to manage time during exam</h2>
+            <h2>How to Manage Time During JAMB Exams</h2>
             <p>
-              Time management is crucial during the JAMB exam. Start by
-              answering the questions you find easiest, leaving the difficult
-              ones for later. Allocate a specific amount of time to each section
-              based on its number of questions, and keep an eye on the timer.
-              Avoid spending too much time on any single question.
+              Time management is crucial. Start with the easiest questions,
+              leaving the harder ones for later. Allocate time to each section
+              based on the number of questions, and monitor the timer closely.
+              Avoid spending too much time on a single question to maximize
+              efficiency.
             </p>
           </div>
-          <img src={blogpic4} alt="time management" />
+          <img
+            src={blogpic4}
+            alt="Tips for effective time management during exams"
+          />
         </div>
-  
       </div>
+
       <Footer />
     </>
   );
