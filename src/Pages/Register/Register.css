@@ -58,6 +58,7 @@ input::placeholder {
   background-color: #f0f0f0;
   width: 100%;
 }
+
 .password .eye {
   position: absolute;
   top: 18px;
@@ -87,121 +88,20 @@ input::placeholder {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.5s;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
-.signup-button:hover {
-  transform: scale(1.05);
+.signup-button:disabled {
+  background-color: #8b8b8b;
+  cursor: not-allowed;
 }
 
-.loader-container,
 .success-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  color: green;
+  font-size: 18px;
+  margin-top: 20px;
 }
 
-/* Media Queries for Responsiveness */
-
-@media (max-width: 1024px) {
-  .gather {
-    flex-direction: column;
-    gap: 50px;
-    margin: 20px;
-  }
-
-  .left img {
-    width: 40%;
-  }
-
-  .right {
-    gap: 15px;
-  }
-
-  input {
-    width: 100%;
-    max-width: 550px;
-  }
-
-}
-
-
-@media (max-width: 768px) {
-  .gather {
-    margin: 10px;
-    gap: 30px;
-  }
-
-  h3 {
-    font-size: 22px;
-  }
-
-  input {
-    width: 100%;
-    max-width: 550px;
-    font-size: 1rem;
-  }
-
-  .signup-button {
-    font-size: 16px;
-  }
-
-  .down p,
-  .log a {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  h3 {
-    font-size: 20px;
-  }
-
-  input {
-    width: 100%;
-    font-size: 0.8rem;
-    height: 50px;
-  }
-
-  .signup-button {
-    font-size: 15px;
-    padding: 8px 16px;
-  }
-
-  .left img {
-    width: 30%;
-    margin-top: 10px;
-  }
-
-  .down p,
-  .log a {
-    font-size: 15px;
-  }
-}
-.password-container {
-  position: relative;
-  width: 100%;
-}
-
-.password-container input {
-  width: 100%;
-  padding-right: 40px; /* Adjust padding for icon space */
-}
-
-.toggle-password {
-  position: absolute;
-  top: 50%;
-  right: 10px; /* Position the icon inside the input field */
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .password-container input {
-    padding-right: 30px; /* Adjust for smaller screens */
-  }
-  .toggle-password {
-    right: 8px; /* Adjust for smaller screens */
-  }
+.error-message {
+  color: red;
 }
