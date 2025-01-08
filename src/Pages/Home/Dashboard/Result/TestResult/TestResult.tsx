@@ -160,7 +160,9 @@ const TestResult = () => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{subjects ? subjects[0] : null}</td>
+                        <td className="upperCase">
+                          {subjects ? subjects[0] : null}
+                        </td>
                         <td></td>
                         {testScores &&
                           Math.ceil(testScores[subjects[0]].score * 100) / 100}
@@ -168,21 +170,27 @@ const TestResult = () => {
                       <tr></tr>
 
                       <tr>
-                        <td>{subjects ? subjects[1] : null}</td>
+                        <td className="upperCase">
+                          {subjects ? subjects[1] : null}
+                        </td>
 
                         <td></td>
                         {testScores &&
                           Math.ceil(testScores[subjects[1]].score * 100) / 100}
                       </tr>
                       <tr>
-                        <td>{subjects ? subjects[2] : null}</td>
+                        <td className="upperCase">
+                          {subjects ? subjects[2] : null}
+                        </td>
 
                         <td></td>
                         {testScores &&
                           Math.ceil(testScores[subjects[2]].score * 100) / 100}
                       </tr>
                       <tr>
-                        <td>{subjects ? subjects[3] : null}</td>
+                        <td className="upperCase">
+                          {subjects ? subjects[3] : null}
+                        </td>
 
                         <td></td>
                         <td>

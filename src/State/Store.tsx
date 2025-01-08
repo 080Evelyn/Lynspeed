@@ -18,7 +18,7 @@ import notifactionReducer from "./NotificationSlice";
 const persistConfig = {
   key: "root", // Key for the persisted state
   storage, // Which storage to use (localStorage)
-  whitelist: ["auth", "subjectList", "paymentValidate"],
+  whitelist: ["auth", "subjectList", "paymentValidate", "savedSubjectList"],
 };
 
 const rootReducer = combineReducers({
