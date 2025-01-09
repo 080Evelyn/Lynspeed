@@ -6,7 +6,7 @@ import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = () => { 
   return (
     <footer>
       <div className="footer-container">
@@ -96,7 +96,7 @@ const Footer = () => {
         <div className="space"></div>
         <p>&copy; 2024 Lynspeed. All Rights Reserved.</p>
         <p>
-          Powered by <strong>LYNOG TECH NIG</strong>.
+          Powered by <strong>LYNOG TECH NIG</strong>
         </p>
       </div>
     </footer>

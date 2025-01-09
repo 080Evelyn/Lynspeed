@@ -1,12 +1,12 @@
-/* Footer Container */
+/* Footer Styles */
 footer {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
-  padding: 20px;
-  width: 100vw;
+  width: 100%;
   background-color: #f9f9f9;
+  position: relative;
 }
 
 .footer-container {
@@ -16,18 +16,18 @@ footer {
   gap: 30px;
   max-width: 1200px;
   width: 100%;
-  padding: 10px 20px;
+  padding: 20px;
 }
 
 .footer-logo img {
-  max-width: 80px;
+  max-width: 100px;
+  margin-bottom: 10px;
 }
 
 .footer-logo p {
   text-align: justify;
   font-size: 14px;
   line-height: 1.6;
-  margin-top: 10px;
   color: #333;
 }
 
@@ -35,26 +35,25 @@ footer {
 .usefullink,
 .connect {
   flex: 1;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .footer-links ul,
 .usefullink ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .footer-links p,
 .usefullink p {
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
   color: #0659a6;
-  margin-bottom: 15px;
 }
 
 li {
-  line-height: 2;
+  line-height: 1.8;
 }
 
 li a {
@@ -89,45 +88,36 @@ li a:hover {
 .footer-social img {
   width: 30px;
   height: 30px;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
 
 .footer-social a:hover img {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .footer-copyright {
-  background-color: #0659a6;
-  width: 100%;
+  width: 100vw; /* Stretch to full viewport width */
+  background-color: #0659a6; /* Blue background */
   color: white;
   text-align: center;
-  padding: 15px 20px;
+  padding: 30px 20px; /* Extra padding for spacing */
   font-size: 14px;
-  position: relative;
+  box-sizing: border-box; /* Include padding in dimensions */
 }
 
 .footer-copyright p {
   margin: 5px 0;
-  font-weight: 500;
-  line-height: 1.6;
 }
 
 .footer-copyright strong {
   color: #ffcc00;
 }
 
-.footer-copyright .divider {
-  height: 2px;
-  width: 60%;
-  margin: 10px auto;
-  background-color: #ffffff33; /* Subtle divider effect */
-  border: none;
-}
-
-
+/* Responsive Styles */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
@@ -139,15 +129,11 @@ li a:hover {
     width: 28px;
     height: 28px;
   }
-  .footer-copyright {
-    font-size: 13px;
-    padding: 10px;
-  }
 
-  .footer-copyright .divider {
-    width: 80%;
+  .footer-links ul,
+  .usefullink ul {
+    text-align: center;
   }
-
 }
 
 @media (max-width: 480px) {
@@ -171,9 +157,6 @@ li a:hover {
 
   .footer-copyright {
     font-size: 12px;
-  }
-
-  .footer-copyright .divider {
-    width: 90%;
+    padding: 20px;
   }
 }
