@@ -25,7 +25,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
         {results.map((subject, i) => {
           return (
             <tr key={i}>
-              <td>{subject.subject}</td>
+              <td className="upperCase">{subject.subject}</td>
               <td>{subject.test_speed}</td>
               <td>{subject.test_score}</td>
             </tr>
