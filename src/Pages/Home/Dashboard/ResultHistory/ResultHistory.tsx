@@ -30,7 +30,14 @@ const ResultHistory: React.FC = () => {
         <h2>Something went wrong, check internet connection</h2>
       ) : (
         <div className="app">
+          <span
+                className="back-arrow"
+                onClick={() => window.history.back()}>
+                ←
+              </span>
+
           <main className="result-history">
+           
             {resultsHistory?.length === 0 ? (
               <h2>No results for you yet, try completing a test session.</h2>
             ) : (
@@ -47,3 +54,4 @@ const ResultHistory: React.FC = () => {
 };
 
 export default ResultHistory;
+ 

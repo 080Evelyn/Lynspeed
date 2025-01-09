@@ -108,7 +108,7 @@ const Achievement = () => {
               <div className="performance-">
                 <h2>No Ranking for you yet, try taking a test session</h2>
               </div>
-            )}
+            )} 
             <div className="leaderboard-header">
               <span
                 className="back-arrow"

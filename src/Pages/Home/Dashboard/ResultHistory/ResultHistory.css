@@ -1,10 +1,49 @@
+/* General styles */
 .app {
   width: 100%;
-  height: 50%;
+  min-height: 100vh;
   background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
+/* Result history container */
 .result-history {
   padding: 20px;
-  margin: 20px 50px;
+  margin: 0 auto; /* Center the content horizontally */
+  max-width: 1200px; /* Set a maximum width for the content */
+  width: 90%; /* Ensure it takes most of the viewport width on smaller screens */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better appearance */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add spacing between result items */
+}
+
+/* Result item styles (if needed) */
+.result-history h2 {
+  text-align: center; /* Center-align headers */
+  color: #333; /* Neutral text color */
+  margin: 20px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .result-history {
+    padding: 15px;
+    width: 95%; /* Slightly reduce width on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .result-history {
+    padding: 10px;
+  }
+
+  .result-history h2 {
+    font-size: 16px; /* Smaller text size for mobile */
+  }
 }
