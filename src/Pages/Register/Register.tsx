@@ -13,7 +13,6 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
 } from "../../State/Auth/ActionType";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 interface RegisterResponse {
   message: string;
@@ -31,16 +30,10 @@ const Register: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [formVisible, setFormVisible] = useState<boolean>(true); // New state for form visibility
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [showPassword] = useState(false);
+  const [showPasswordConfirm] = useState(false);
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleShowPasswordConfirm = () => {
-    setShowPasswordConfirm(!showPasswordConfirm);
-  };
+  
 
   const isValidPassword = (password: string): boolean => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -173,11 +166,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                {showPassword ? (
-                  <BsEye onClick={handleShowPassword} className="eye" />
-                ) : (
-                  <BsEyeSlash onClick={handleShowPassword} className="eye" />
-                )}
+               
               </div>
               <div className="password">
                 <input
@@ -188,14 +177,7 @@ const Register: React.FC = () => {
                   onChange={(e) => setConfirm_password(e.target.value)}
                   required
                 />
-                {showPasswordConfirm ? (
-                  <BsEye onClick={handleShowPasswordConfirm} className="eye" />
-                ) : (
-                  <BsEyeSlash
-                    onClick={handleShowPasswordConfirm}
-                    className="eye"
-                  />
-                )}
+                
               </div>
               {error && <p style={{ color: "red" }}>{error}</p>}
               <button
