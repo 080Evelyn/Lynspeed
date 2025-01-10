@@ -24,7 +24,7 @@ const SubjectSelection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([
-    "English",
+    "ENGLISH",
   ]); // Default selected
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showSelectionAlert, setShowSelectionAlert] = useState<boolean>(false);
@@ -48,11 +48,11 @@ const SubjectSelection = () => {
   // Handle subject change
   const handleSubjectChange = (subject: string) => {
     const extraSelectedSubjects = selectedSubjects.filter(
-      (s) => s !== "English"
+      (s) => s !== "ENGLISH"
     );
     const isSubjectSelected = selectedSubjects.includes(subject);
 
-    if (subject === "English") return;
+    if (subject === "ENGLISH") return;
 
     if (isSubjectSelected) {
       setSelectedSubjects((prev) => prev.filter((s) => s !== subject));
