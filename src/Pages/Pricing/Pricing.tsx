@@ -96,8 +96,9 @@ const Pricing: React.FC = () => {
               <li>Unlimited access to questions</li>
               <li>Full test simulations</li>
               <li>Performance analysis</li>
+              <li>Result History</li>
               <li>Priority customer support</li>
-              <li>Test result & History</li>
+             
             </ul>
             <button >
               <Link style={{color:"white"}} to="/login">Get Started</Link>
