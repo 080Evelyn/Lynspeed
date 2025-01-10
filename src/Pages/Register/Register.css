@@ -36,13 +36,14 @@
   }
   
   input {
-  width: 100%;
-  height: 55px;
-  padding: 15px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #d1d1d1;
-  background-color: #f0f0f0;
+    width: 100%; /* Full width of parent */
+    max-width: 550px; /* Max width for larger screens */
+    height: 55px;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #d1d1d1;
+    background-color: #f0f0f0;
   }
   
   input::placeholder {
@@ -57,15 +58,15 @@
   
   .password input {
   background-color: #f0f0f0;
-  width: 100%;
+ 
   }
   
-  /* .password .eye {
+  .password .eye {
   position: absolute;
   top: 18px;
    right: 10%;
    z-index: 20;
-  } */
+  }
   
   .down {
      display: flex;
