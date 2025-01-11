@@ -123,7 +123,7 @@ const Login: React.FC = () => {
             <button type="submit" className="signup-button" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </button>
-            <div className="down">
+            <div className="down1">
               <p>Yet to sign up?</p>
               <div className="log">
                 <Link to="/register">Register</Link>
