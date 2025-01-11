@@ -209,7 +209,7 @@ const Dashboard = () => {
                     className="dropdown-item"
                     // onClick={toggleChangePasswordDropdown}
                     to="/resetpassword">
-                    <p>Change Password</p>
+                    <p>Change password</p>
                   </Link>
                   {/* <div className="dropdown-item">
                     Notification

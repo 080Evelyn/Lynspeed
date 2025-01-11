@@ -63,6 +63,12 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.user-info .testint{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 430;
+}
 
 .info-text p {
   margin: 5px 0;
