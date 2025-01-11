@@ -71,15 +71,6 @@ const TestResult = () => {
   // // Calculate the duration
   const duration = calculateDuration(startTime, endTime);
 
-  // const formatDate = (isoString: string): string => {
-  //   const date = new Date(isoString);
-  //   return new Intl.DateTimeFormat("en-CA", {
-  //     year: "numeric",
-  //     month: "2-digit",
-  //     day: "2-digit",
-  //   }).format(date);
-  // };
-  // const date = formatDate(startTime);
 
   const formatTime = (isoString: string): string => {
     const date = new Date(isoString);
