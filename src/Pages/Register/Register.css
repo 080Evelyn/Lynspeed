@@ -1,109 +1,156 @@
-
-.gather {
-  margin: 50px 40px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 250px;
-  }
-  
-  .gather .left {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 30px;
-  }
-  
-  .right {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 40%;
-  gap: 20px;
-  }
-  
-  h3 {
-  color: #0659a6;
-  font-size: 25px;
-  font-weight: 600;
-  }
-  
-  .fillup {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  }
-  
-  input {
-    width: 100%; /* Full width of parent */
-    max-width: 550px; /* Max width for larger screens */
-    height: 55px;
-    padding: 15px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #d1d1d1;
-    background-color: #f0f0f0;
-  }
-  
-  input::placeholder {
-  color: #b1b1b1;
-  }
-  
-  .password {
-  width: 100%;
-  position: relative;
-  background-color: #f0f0f0;
-  }
-  
-  .password input {
-  background-color: #f0f0f0;
+.gathereg {
+   margin: 50px 20px; /* Reduced left/right margin for smaller screens */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+   gap: 80px; /* Reduced gap for smaller screens */
+   flex-wrap: wrap; /* Responsive wrapping for smaller devices */
+ }
  
-  }
-  
-  .password .eye {
-  position: absolute;
-  top: 18px;
-   right: 10%;
+ .gathereg .left {
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   margin-top: 30px;
+   padding: 0 20px;
+ }
+ 
+ .gathereg .left img {
+   max-width: 40%; /* Ensures image responsiveness */
+   height: auto; /* Maintain aspect ratio */
+ }
+ 
+ .gathereg .right {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   width: 100%; /* Full width for smaller screens */
+   max-width: 600px; /* Limits width for larger screens */
+   gap: 20px;
+   text-align: center; /* Align content for better readability */
+ }
+ 
+ .gathereg h3 {
+   color: #0659a6;
+   font-size: 1.5rem;
+   font-weight: 600;
+ }
+ 
+ .gathereg .fillup {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   gap: 20px;
+   width: 100%; /* Ensures inputs align properly */
+ }
+ 
+ .gathereg input {
+   max-width: 100%;
+   height: 55px;
+   padding: 15px;
+   font-size: 1rem;
+   border-radius: 8px;
+   border: 1px solid #d1d1d1;
+   background-color: #f0f0f0;
+ }
+ 
+ .gathereg input::placeholder {
+   color: #b1b1b1;
+ }
+ 
+ .gathereg .password {
+   width: 100%;
+   position: relative;
+   background-color: #f0f0f0;
+ }
+ 
+ .gathereg .password input {
+   background-color: #f0f0f0;
+ }
+ 
+ .gathereg .password .eye {
+   position: absolute;
+   top: 50%; /* Center vertically */
+   transform: translateY(-50%);
+   right: 10px; /* Adjusted for better alignment */
    z-index: 20;
-  }
-  
-  .down {
-     display: flex;
-     align-items: center;
-     flex-direction: row;
-     gap: 8px;
-  }
-  
-  .log a {
-     color: #e7e737;
-     font-size: 18px;
-     font-weight: 500;
-  }
-  
-  .signup-button {
-     padding: 10px 20px;
-     font-size: 18px;
-     color: white;
-     background-color: #0659a6;
-     border: none;
-     border-radius: 8px;
-     cursor: pointer;
-     transition: 0.5s;
-     margin-top: 20px;
-  }
-  
-  .signup-button:disabled {
-     background-color: #8b8b8b;
-     cursor: not-allowed;
-  }
-  
-  .success-message {
-     color: green;
-     font-size: 18px;
-     margin-top: 20px;
-  }
-  
-  .error-message {
-     color: red;
-  }
+   cursor: pointer;
+ }
+ 
+ .gathereg .down {
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   gap: 8px;
+ }
+ 
+ .gathereg .log a {
+   color: #e7e737;
+   font-size: 18px;
+   font-weight: 500;
+   text-decoration: none; /* Remove underline */
+ }
+ 
+ .gathereg .log a:hover {
+   text-decoration: underline; /* Adds underline on hover */
+ }
+ 
+ .gathereg .signup-button {
+   padding: 12px 25px; /* Increased padding for better clickability */
+   font-size: 18px;
+   color: white;
+   background-color: #0659a6;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   transition: background-color 0.3s, transform 0.3s;
+   margin-top: 20px;
+ }
+ 
+ .gathereg .signup-button:hover {
+   background-color: #054b8f; /* Slightly darker shade on hover */
+   transform: scale(1.05); /* Adds hover animation */
+ }
+ 
+ .gathereg .signup-button:disabled {
+   background-color: #8b8b8b;
+   cursor: not-allowed;
+ }
+ 
+ .gathereg .success-message {
+   color: green;
+   font-size: 18px;
+   margin-top: 20px;
+ }
+ 
+ .gathereg .error-message {
+   color: red;
+   font-size: 16px; /* Added font size for consistency */
+ }
+ 
+ /* Media Queries for Responsiveness */
+ @media (max-width: 768px) {
+   .gathereg {
+     flex-direction: column; /* Stack elements on smaller screens */
+     gap: 30px;
+     margin: 30px 10px;
+   }
+ 
+   .gathereg .right {
+     width: 100%;
+   }
+ 
+   .gathereg .password .eye {
+     right: 15px;
+   }
+ 
+   .gathereg h3 {
+     font-size: 1.25rem; /* Adjust heading size for smaller screens */
+   }
+ 
+   .gathereg input {
+     max-width: 100%;
+   }
+ }
+ 
