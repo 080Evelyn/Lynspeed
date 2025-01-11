@@ -128,9 +128,9 @@ const TestResult = () => {
                   <h2>TEST RESULT</h2>
                   <div className="user-info">
                     <div className="info-text">
-                      <p>
-                        <b>Name:</b> {user.full_name}
-                      </p>
+                      <div className="testint">
+                        <b>Name:</b> <p className="upperCase">{user.full_name}</p> 
+                      </div>
                       <p>{/* <b>Date:</b> {date} */}</p>
                       <p>
                         <b>Time:</b> {time}
