@@ -134,7 +134,7 @@ const Register: React.FC = () => {
  return (
   <>
    <Navbar />
-   <div className="gather">
+   <div className="gathereg">
     <div className="left">
      <img src={note1} alt="signup" />
      <img src={note2} alt="signup" />
