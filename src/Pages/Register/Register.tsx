@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axios from "axios"; 
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import note1 from "../../assets/image 17.png";
 import note2 from "../../assets/image 18.png";
@@ -10,7 +10,7 @@ import Footer from "../../Components/ui/Footer/Footer";
 import ClipLoader from "react-spinners/ClipLoader";
 import {
  REGISTER_REQUEST,
- REGISTER_SUCCESS,
+ REGISTER_SUCCESS, 
  REGISTER_FAILURE,
 } from "../../State/Auth/ActionType";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -123,14 +123,14 @@ const Register: React.FC = () => {
      errorMessage = errorData.message;
     }
    }
-
+ 
    setError(errorMessage);
    dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
   } finally {
    setLoading(false);
   }
- };
-
+ }; 
+ 
  return (
   <>
    <Navbar />
@@ -224,6 +224,68 @@ const Register: React.FC = () => {
 };
 
 export default Register;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
