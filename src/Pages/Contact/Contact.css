@@ -7,7 +7,7 @@
   padding: 15px;
   background-image: url(../../assets/homebackpic.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
 }
 
 .contact-container h3 {
