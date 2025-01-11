@@ -86,7 +86,8 @@
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .result-table th {
