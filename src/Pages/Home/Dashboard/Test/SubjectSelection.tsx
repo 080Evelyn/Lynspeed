@@ -69,6 +69,7 @@ const SubjectSelection = () => {
       // Show alert if user tries to select more than 3 extra subjects
     }
   };
+  console.log(selectedSubjects);
   const token = localStorage.getItem("authToken");
   useEffect(() => {
     const handleUserSubject = async () => {
