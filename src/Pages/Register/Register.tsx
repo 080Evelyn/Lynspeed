@@ -81,7 +81,6 @@ const Register: React.FC = () => {
           confirm_password: confirm_password.trim(),
         }
       );
-      console.log(response);
       if (response.status === 200) {
         if (response.data.confirmed) {
           setSuccessMessage(
