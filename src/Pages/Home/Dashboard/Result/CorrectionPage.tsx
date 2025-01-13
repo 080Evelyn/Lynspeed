@@ -57,9 +57,18 @@ const CorrectionPage: React.FC = () => {
 
   return (
     <div className="correction-page">
-      <h2>Corrections</h2>
+      
+      <div className="cat">
+              <span
+                className="back-arrow"
+                onClick={() => window.history.back()}>
+                ←
+              </span>
+              <h2>Corrections</h2>
+            </div>
+
       {/* first subject */}
-      <h2>{subjects[0]}</h2>
+      <h3>{subjects[0]}</h3>
       {question1?.map((q, index) => (
         <div key={index} className="question-card">
           <p className="question-text">
@@ -101,7 +110,7 @@ const CorrectionPage: React.FC = () => {
       ))}
 
       {/* second subject */}
-      <h2>{subjects[1]}</h2>
+      <h3>{subjects[1]}</h3>
       {question2?.map((q, index) => (
         <div key={index} className="question-card">
           <p className="question-text">
@@ -143,7 +152,7 @@ const CorrectionPage: React.FC = () => {
       ))}
 
       {/* third subject */}
-      <h2>{subjects[2]}</h2>
+      <h3>{subjects[2]}</h3>
       {question3?.map((q, index) => (
         <div key={index} className="question-card">
           <p className="question-text">
@@ -186,7 +195,7 @@ const CorrectionPage: React.FC = () => {
 
       {/* fourth subject */}
       {/* third subject */}
-      <h2>{subjects[3]}</h2>
+      <h3>{subjects[3]}</h3>
       {question4?.map((q, index) => (
         <div key={index} className="question-card">
           <p className="question-text">

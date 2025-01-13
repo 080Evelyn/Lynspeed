@@ -209,7 +209,7 @@ const Dashboard = () => {
                     className="dropdown-item"
                     // onClick={toggleChangePasswordDropdown}
                     to="/resetpassword">
-                    <p>Change Password</p>
+                    <p>Change password</p>
                   </Link>
                   {/* <div className="dropdown-item">
                     Notification
@@ -225,7 +225,7 @@ const Dashboard = () => {
         </aside>
 
         {/* Right Section */}
-        <main className="right">
+        <main className="right1">
           <section className="welcome-section">
             <div className="welcome-banner">
               <img loading="lazy" src={dash1} alt="Banner" />

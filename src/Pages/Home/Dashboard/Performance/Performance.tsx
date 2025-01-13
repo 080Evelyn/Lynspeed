@@ -109,8 +109,8 @@ const Performance: React.FC = () => {
       {
         label: analysis && analysis[2]?.subject,
         data: subject3Score,
-        backgroundColor: "rgba(54, 162, 235, 0.8)",
-        borderColor: "rgba(54, 162, 235, 1)",
+        backgroundColor: "rgba(77, 250, 43, 0.8)",
+        borderColor: "rgb(59, 155, 30)",
         borderWidth: 2,
       },
       {

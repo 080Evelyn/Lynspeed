@@ -1,5 +1,5 @@
 .performance-analysis {
-  width: auto;
+  width: 100%;
   margin: 20px;
 }
 .performance-analysis .perform {
@@ -13,15 +13,15 @@
 .performance-analysis h2 {
   text-align: center;
   color: #0659a6;
-  margin: 50px;
-  font-size: 28px;
+  margin: 40px;
+  font-size: 30px;
 }
 
 .performance-analysis h3 {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 26px;
 }
 
 .chart-wrapper {
@@ -32,17 +32,17 @@
 }
 
 .chart-container {
-  flex: 1 1 45%;
-  margin: 20px 30px;
+  flex: 1 1 48%;
+  margin: 20px;
   background-color: #f9f9f9;
   padding: 40px;
-  border-radius: 10px;
-  max-height: 600px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-height: 700px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .chart-container canvas {
-  height: 300px !important;
+  height: 400px !important;
 }
 
 @media (max-width: 1024px) {
@@ -53,12 +53,12 @@
 
 @media (max-width: 768px) {
   .performance-analysis h2 {
-    font-size: 24px;
+    font-size: 26px;
     margin: 20px;
   }
 
   .performance-analysis h3 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .chart-container {
@@ -67,13 +67,13 @@
   }
 
   .chart-container canvas {
-    height: 250px !important;
+    height: 300px !important;
   }
 }
 
 @media (max-width: 480px) {
   .performance-analysis h2 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .performance-analysis h3 {
@@ -81,6 +81,6 @@
   }
 
   .chart-container canvas {
-    height: 200px !important;
+    height: 250px !important;
   }
 }
