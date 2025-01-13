@@ -126,7 +126,7 @@ const Performance: React.FC = () => {
   if (analysis?.length === 0 && resultsHistory?.length === 0) {
     return (
       <div className="performance-">
-        <h2>No Analysis For You Yet, Try Taking a Test Session</h2>
+        <h2>No analysis for you yet, try taking a test session</h2>
       </div>
     );
   }
