@@ -127,7 +127,7 @@ const Subscription: React.FC = () => {
         <span className="back-arrow" onClick={() => window.history.back()}>
           ←
         </span>
-        <h1 className="subscription-title">My Subscription</h1>
+        <h2 className="subscription-title">My Subscription</h2>
       </div>
       {loading || verifiactionLoading ? (
         <p>Loading subscription details...</p>
@@ -137,9 +137,9 @@ const Subscription: React.FC = () => {
         <>
           {subscription && subscription.subscribed ? (
             <div className="subscription-details">
-              <h2>
+              <h3>
                 Current Plan: {subscription.plan && subscription.plan.name}
-              </h2>
+              </h3>
               <p>
                 <strong>Valid Until:</strong>{" "}
                 {new Date(
