@@ -17,7 +17,7 @@
     flex: 1; /* Allow buttons to resize dynamically */
     text-align: center;
     padding: 8px 12px; /* Reduce padding for smaller screens */
-    background-color: #f1f1f1;
+    background-color: #fff;
     border: none;
     border-radius: 6px;
     font-size: 14px; /* Adjust font size for smaller devices */
