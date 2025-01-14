@@ -199,6 +199,42 @@ const SubjectSelection = () => {
                     </label>
                   ))}
                 </div>
+                <div className="talk">
+                  <div className="head">
+                    <div className="inst"></div>
+                    <h3>Instructions</h3>
+                    <div className="inst"></div>
+                  </div>
+                  <div className="ma">
+                    <p>
+                      Above are the 4 selected subjects that align with your
+                      desired course of study. Click "Start Test" to begin. The
+                      test session has a specific time limit of two hours, which
+                      will be displayed on the right side of your screen. To
+                      maximize your performance:
+                    </p>
+                    <ul>
+                      <li>
+                        Begin with questions you are most confident about.
+                      </li>
+                      <li>
+                        Allocate time wisely for each question and avoid
+                        spending too much time on a single item.
+                      </li>
+                      <li>
+                        Once you finish answering, take a moment to review your
+                        responses for any mistakes or omissions.
+                      </li>
+                    </ul>
+                    <p>
+                      <i>
+                        Before submitting, double-check all answers to ensure
+                        accuracy.
+                      </i>
+                      <br /> <strong> Good luck!</strong>
+                    </p>
+                  </div>
+                </div>
               </>
             )}
 
