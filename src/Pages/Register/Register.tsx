@@ -30,7 +30,7 @@ const Register: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [formVisible, setFormVisible] = useState<boolean>(true); // New state for form visibility
+  const [formVisible, setFormVisible] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
@@ -42,11 +42,6 @@ const Register: React.FC = () => {
     setShowPasswordConfirm(!showPasswordConfirm);
   };
 
-  const isValidPassword = (password: string): boolean => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    return passwordRegex.test(password.trim());
-  };
-
   const handleRegister = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -54,20 +49,6 @@ const Register: React.FC = () => {
     setError("");
     setSuccessMessage("");
     setLoading(true);
-
-    if (password.trim() !== confirm_password.trim()) {
-      setError("Passwords do not match.");
-      setLoading(false);
-      return;
-    }
-
-    if (!isValidPassword(password.trim())) {
-      setError(
-        "Password must be at least 8 characters long and contain at least one uppercase letter and a number."
-      );
-      setLoading(false);
-      return;
-    }
 
     try {
       dispatch({ type: REGISTER_REQUEST });
@@ -93,7 +74,7 @@ const Register: React.FC = () => {
         }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
 
-        setFormVisible(false); // Hide the form on success
+        setFormVisible(false);
 
         // Clear input fields
         setFull_name("");
@@ -107,17 +88,10 @@ const Register: React.FC = () => {
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
     } catch (err: any) {
-      const error = err.response.data;
-      if (error.code === "VALIDATION_ERROR") {
-        const errorMsg = error.details.password[0];
-        setError(errorMsg);
-        return;
-      }
       let errorMessage = "An unexpected error occurred. Please try again.";
 
       if (axios.isAxiosError(err) && err.response?.data) {
         const errorData = err.response.data;
-        console.log(errorData.details.password[0]);
 
         if (errorData.details) {
           if (errorData.details.email) {
