@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "https://www.lynspeed.com.ng/:path*", 
+      "source": "/:path*", 
       "destination": "https://lynspeed.com.ng/:path*", 
       "permanent": true
     }
