@@ -1,12 +1,5 @@
 {
-  "redirects": [
-    {
-      "source": "/:path*", 
-      "destination": "https://lynspeed.com.ng/:path*", 
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
-}
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/" }
+    ]
+  }
