@@ -202,3 +202,65 @@ section div h3 {
 section div p {
   margin: 5px 0;
 }
+
+/* File Upload Form */
+.file-upload-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.file-upload-form h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.file-upload-form label {
+  font-size: 1rem;
+  color: #34495e;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.file-upload-form input[type="text"],
+.file-upload-form input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.file-upload-form input[type="text"]:focus,
+.file-upload-form input[type="file"]:focus {
+  border-color: #16a085;
+}
+
+.file-upload-form button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #0659a6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.file-upload-form button:hover {
+  background-color: #1abc9c;
+}
+
+.file-upload-form button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}

@@ -8,6 +8,30 @@ const AdminPanel = () => {
     setSelectedMenu(menu);
   };
 
+  const [subject, setSubject] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files ? e.target.files[0] : null;
+    setFile(selectedFile);
+  };
+
+  const handleSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSubject(e.target.value);
+  };
+
+  const handleFileSubmit = () => {
+    if (subject && file) {
+      console.log("Subject:", subject);
+      console.log("File:", file.name);
+      // Implement file upload logic (e.g., sending it to the backend)
+      setSubject("");
+      setFile(null);
+    } else {
+      alert("Please select a subject and a file to upload.");
+    }
+  };
+
   const users = [
     { name: "John Doe", email: "johndoe@example.com" },
     { name: "Jane Smith", email: "janesmith@example.com" },
@@ -54,6 +78,31 @@ const AdminPanel = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </section>
+        );
+      case "question":
+        return (
+          <section>
+            <h2>Upload File for Subject</h2>
+            <div className="file-upload-form">
+              <label>Subject</label>
+              <input
+                type="text"
+                value={subject}
+                onChange={handleSubjectChange}
+                placeholder="Enter subject"
+              />
+
+              <label>Upload File</label>
+              <input
+                type="file"
+                onChange={handleFileChange}
+              />
+
+              <button className="action-btn" onClick={handleFileSubmit}>
+                Submit File
+              </button>
             </div>
           </section>
         );
@@ -202,10 +251,10 @@ const AdminPanel = () => {
               Users
             </li>
             <li
-              className={selectedMenu === "payments" ? "active" : ""}
-              onClick={() => handleMenuClick("payments")}
+              className={selectedMenu === "question" ? "active" : ""}
+              onClick={() => handleMenuClick("question")}
             >
-              Payments
+              Upload Files
             </li>
             <li
               className={selectedMenu === "reports" ? "active" : ""}
@@ -214,31 +263,25 @@ const AdminPanel = () => {
               Reports
             </li>
             <li
+              className={selectedMenu === "payments" ? "active" : ""}
+              onClick={() => handleMenuClick("payments")}
+            >
+              Payments
+            </li>
+            <li
               className={selectedMenu === "notifications" ? "active" : ""}
               onClick={() => handleMenuClick("notifications")}
             >
               Notifications
             </li>
             <li>System Configuration</li>
-            <li>Logs and Audit</li>
+            {/* <li>Logs and Audit</li> */}
           </ul>
         </nav>
       </aside>
 
       {/* Main Content */}
-      <main className="main-content">
-        {/* Top Bar */}
-        <header className="top-bar">
-          <input type="text" placeholder="Search..." className="search-bar" />
-          <div className="top-bar-icons">
-            <span className="notification-bell">🔔</span>
-            <div className="profile">Admin</div>
-          </div>
-        </header>
-
-        {/* Dynamic Content */}
-        {renderContent()}
-      </main>
+      <main className="main-content">{renderContent()}</main>
     </div>
   );
 };
