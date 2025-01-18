@@ -87,25 +87,35 @@ const Register: React.FC = () => {
         setError(errorMessage);
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
+
     } catch (err: any) {
-      let errorMessage = "An unexpected error occurred. Please try again.";
-
-      if (axios.isAxiosError(err) && err.response?.data) {
-        const errorData = err.response.data;
-
-        if (errorData.details) {
-          if (errorData.details.email) {
-            errorMessage = "This email is already registered.";
-          } else if (errorData.details.full_name) {
-            errorMessage = "Full name is required.";
-          }
-        } else if (errorData.message) {
-          errorMessage = errorData.message;
-        }
+      const error = err.response.data;
+      if(error.code === "VALIDATION_ERROR"){
+        const errorMsg = error.details.password[0];
+        setError(errorMsg);
+        return;
       }
 
-      setError(errorMessage);
-      dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
+
+
+      // let errorMessage = "An unexpected error occurred. Please try again.";
+
+      // if (axios.isAxiosError(err) && err.response?.data) {
+      //   const errorData = err.response.data;
+
+      //   if (errorData.details) {
+      //     if (errorData.details.email) {
+      //       errorMessage = "This email is already registered.";
+      //     } else if (errorData.details.full_name) {
+      //       errorMessage = "Full name is required.";
+      //     }
+      //   } else if (errorData.message) {
+      //     errorMessage = errorData.message;
+      //   }
+      // }
+
+      // setError(errorMessage);
+      // dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
     } finally {
       setLoading(false);
     }

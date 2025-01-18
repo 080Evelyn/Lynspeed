@@ -23,7 +23,6 @@ import FAQ from "./Components/ui/FAQ/FAQ";
 import Privacy from "./Components/ui/Privacy/Privacy";
 import Terms from "./Components/ui/Terms/Terms";
 import CorrectionPage from "./Pages/Home/Dashboard/Result/CorrectionPage";
-import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 
 const App = () => {
   return (
@@ -58,9 +57,15 @@ const App = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
-          <Route path="/adminPanel" element={<AdminPanel/>} />
         </Route>
       </Routes>
+
+      {/* Admin Section  */}
+      {/* <Routes>
+        <Route path="/adminPanel" element={<AdminPanel/>} />
+        <Route path="/loginAdmin" element={<LoginAdmin/>}/>
+      </Routes> */}
+
     </Router>
   );
 };
