@@ -24,8 +24,6 @@ import Privacy from "./Components/ui/Privacy/Privacy";
 import Terms from "./Components/ui/Terms/Terms";
 import CorrectionPage from "./Pages/Home/Dashboard/Result/CorrectionPage";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
-import AdminProtectedRoute from "./Components/AdminProtectedRoute";
-import AdminLogin from "./Pages/AdminPanel/AdminLogin";
 
 const App = () => {
   return (
@@ -59,18 +57,10 @@ const App = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
+          <Route path="/adminPanel" element={<AdminPanel />} />
         </Route>
 
-        {/* Admin Authentication Routes */}
-         <Route path="/adminLogin" element={<AdminLogin />} />
-        <Route
-          path="/adminPanel"
-          element={
-            <AdminProtectedRoute isAuthenticated={false} >
-              <AdminPanel />
-            </AdminProtectedRoute>
-          }
-        /> 
+       
       </Routes>
     </Router>
   );

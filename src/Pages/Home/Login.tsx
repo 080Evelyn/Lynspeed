@@ -6,8 +6,6 @@ import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from "../../assets/image 16.png";
 import "./Login.css";
 import Bubbles from "../../Components/ui/Bubbles/Bubbles";
-// import Footer from "../../Components/ui/Footer/Footer";
-// import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { loginSuccessful, setToken } from "../../Components/authSlice";
 import { AppDispatch } from "../../State/Store";
@@ -16,9 +14,13 @@ interface UserProfile {
   id: string;
   full_name: string;
   email: string;
+  is_staff: boolean;
+  is_active: boolean;
 }
+
 // Base API URL
 const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,7 @@ const Login: React.FC = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  // Handle form submission
+
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
@@ -40,15 +42,16 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/login/",
+        `${baseUrl}login/`,
         {
           email,
           password,
         }
       );
+
       if (response.statusText === "OK") {
         const { access: token, refresh } = response.data;
-        const profileResponse = await axios.get(`${baseUrl}/profile/`, {
+        const profileResponse = await axios.get(`${baseUrl}profile/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,18 +60,22 @@ const Login: React.FC = () => {
         const user: UserProfile = profileResponse.data;
 
         // Save token and user data to local storage
-        // localStorage.setItem("authToken", token);
         localStorage.setItem("refreshToken", refresh);
         localStorage.setItem("user", JSON.stringify(user));
 
         // Dispatch loginSuccess action to save user data in Redux
         dispatch(loginSuccessful());
         dispatch(setToken(token));
-      }
 
-      // Redirect to the dashboard
-      navigate("/dashboard");
-      location.reload();
+        // Check user role and redirect accordingly
+        if (user.is_staff && user.is_active) {
+          navigate("/adminPanel");
+        } else {
+          navigate("/dashboard");
+        }
+
+        location.reload();
+      }
     } catch (error: any) {
       if (error.response && error.response.data) {
         setError(error.response.data.message || "Invalid email or password");
@@ -96,7 +103,7 @@ const Login: React.FC = () => {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email" // Added autoComplete attribute
+              autoComplete="email"
               required
             />
             <div className="password">
@@ -105,7 +112,7 @@ const Login: React.FC = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password" // Added autoComplete attribute
+                autoComplete="current-password"
                 required
               />
               {showPassword ? (
@@ -132,7 +139,6 @@ const Login: React.FC = () => {
           </form>
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };
