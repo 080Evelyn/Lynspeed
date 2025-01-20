@@ -25,7 +25,6 @@ import Terms from "./Components/ui/Terms/Terms";
 import CorrectionPage from "./Pages/Home/Dashboard/Result/CorrectionPage";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import AdminProtectedRoute from "./Components/AdminProtectedRoute";
-import AdminLogin from "./Pages/AdminPanel/AdminLogin";
 
 const App = () => {
   return (
@@ -62,15 +61,14 @@ const App = () => {
         </Route>
 
         {/* Admin Authentication Routes */}
-         <Route path="/adminLogin" element={<AdminLogin />} />
         <Route
           path="/adminPanel"
           element={
-            <AdminProtectedRoute isAuthenticated={false} >
+            <AdminProtectedRoute isAdmin={false}>
               <AdminPanel />
             </AdminProtectedRoute>
           }
-        /> 
+        />
       </Routes>
     </Router>
   );
