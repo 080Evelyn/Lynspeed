@@ -62,6 +62,7 @@ const Register: React.FC = () => {
           confirm_password: confirm_password.trim(),
         }
       );
+
       if (response.status === 200) {
         if (response.data.confirmed) {
           setSuccessMessage(
@@ -87,35 +88,51 @@ const Register: React.FC = () => {
         setError(errorMessage);
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
-
     } catch (err: any) {
-      const error = err.response.data;
-      if(error.code === "VALIDATION_ERROR"){
-        const errorMsg = error.details.password[0];
-        setError(errorMsg);
-        return;
+      if (axios.isAxiosError(err)) {
+        const errorData = err.response?.data;
+
+        // Handle validation error
+        if (errorData?.code === "VALIDATION_ERROR") {
+          if (errorData.details) {
+            const errorMsgs: string[] = [];
+            if (errorData.details.full_name) {
+              errorMsgs.push("Full name is required.");
+            }
+            if (errorData.details.email) {
+              errorMsgs.push("Invalid email address or email already registered.");
+            }
+            if (errorData.details.password) {
+              errorMsgs.push(errorData.details.password[0]);
+            }
+            if (errorData.details.confirm_password) {
+              errorMsgs.push("Confirm password doesn't match the password.");
+            }
+            setError(errorMsgs.join(" "));
+          } else {
+            setError("Validation error. Please check your input fields.");
+          }
+        }
+        // Handle server errors
+        else if (err.response?.status === 500) {
+          setError("Server error. Please try again later.");
+        } 
+        // Handle specific errors such as email already registered
+        else if (err.response?.data?.message) {
+          setError(err.response.data.message);
+        } 
+        // Handle network issues
+        else if (!err.response) {
+          setError("Network error. Please check your internet connection.");
+        } else {
+          setError("An unexpected error occurred. Please try again.");
+        }
+
+        dispatch({ type: REGISTER_FAILURE, payload: error });
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+        dispatch({ type: REGISTER_FAILURE, payload: "Unknown error" });
       }
-
-
-
-      // let errorMessage = "An unexpected error occurred. Please try again.";
-
-      // if (axios.isAxiosError(err) && err.response?.data) {
-      //   const errorData = err.response.data;
-
-      //   if (errorData.details) {
-      //     if (errorData.details.email) {
-      //       errorMessage = "This email is already registered.";
-      //     } else if (errorData.details.full_name) {
-      //       errorMessage = "Full name is required.";
-      //     }
-      //   } else if (errorData.message) {
-      //     errorMessage = errorData.message;
-      //   }
-      // }
-
-      // setError(errorMessage);
-      // dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
     } finally {
       setLoading(false);
     }

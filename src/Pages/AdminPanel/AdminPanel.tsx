@@ -1,15 +1,16 @@
 import "./AdminPanel.css";
 import { SetStateAction, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
+  const [subject, setSubject] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const navigate = useNavigate();
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
     setSelectedMenu(menu);
   };
-
-  const [subject, setSubject] = useState("");
-  const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
@@ -30,6 +31,13 @@ const AdminPanel = () => {
     } else {
       alert("Please select a subject and a file to upload.");
     }
+  };
+
+  const handleLogout = () => {
+    // Clear session or authentication tokens
+    localStorage.clear();
+    alert("You have been logged out.");
+    navigate("/adminLogin"); // Redirect to the login page
   };
 
   const users = [
@@ -95,10 +103,7 @@ const AdminPanel = () => {
               />
 
               <label>Upload File</label>
-              <input
-                type="file"
-                onChange={handleFileChange}
-              />
+              <input type="file" onChange={handleFileChange} />
 
               <button className="action-btn" onClick={handleFileSubmit}>
                 Submit File
@@ -127,105 +132,107 @@ const AdminPanel = () => {
             </div>
           </section>
         );
-      case "reports":
-        return (
-          <section className="reports-section">
-            <h2>User Performance Reports</h2>
-            <div className="performance-report">
-              <h3>Average Scores by Subject</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Subject</th>
-                    <th>Average Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Mathematics</td>
-                    <td>85%</td>
-                  </tr>
-                  <tr>
-                    <td>Physics</td>
-                    <td>78%</td>
-                  </tr>
-                  <tr>
-                    <td>Chemistry</td>
-                    <td>80%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="exam-trends">
-              <h3>Exam Trends</h3>
-              <p>Monitor exam completion rates and performance over time. This could be displayed as a line graph or bar chart (use a chart library like Chart.js).</p>
-            </div>
-
-            <div className="export-data">
-              <h3>Export Data</h3>
-              <button className="action-btn">Export to CSV</button>
-              <button className="action-btn">Export to Excel</button>
-              <button className="action-btn">Export to PDF</button>
-            </div>
-          </section>
-        );
-      case "payments":
-        return (
-          <section className="payments-section">
-            <h2>Payments Management</h2>
-            <div className="payment-history">
-              <h3>Payment History</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>$30</td>
-                    <td>Completed</td>
-                    <td>2025-01-10</td>
-                  </tr>
-                  <tr>
-                    <td>Jane Smith</td>
-                    <td>$45</td>
-                    <td>Pending</td>
-                    <td>2025-01-11</td>
-                  </tr>
-                  <tr>
-                    <td>Alice Johnson</td>
-                    <td>$60</td>
-                    <td>Failed</td>
-                    <td>2025-01-12</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="discounts-section">
-              <h3>Discounts/Promo Codes</h3>
-              <button className="action-btn">Create Promo Code</button>
-              <button className="action-btn">Manage Promo Codes</button>
-            </div>
-          </section>
-        );
-      case "notifications":
-        return (
-          <section className="notifications-section">
-            <h2>User Notifications</h2>
-            <p>Send announcements, updates, or reminders to users.</p>
-            <p>Customize email or SMS notifications for specific events (e.g., payment confirmation, new features).</p>
-            
-            <h2>Admin Notifications</h2>
-            <p>Receive alerts for critical system events (e.g., failed backups, unusual activity).</p>
-          </section>
-        );
+        case "reports":
+          return (
+            <section className="reports-section">
+              <h2>User Performance Reports</h2>
+              <div className="performance-report">
+                <h3>Average Scores by Subject</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>Average Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Mathematics</td>
+                      <td>85%</td>
+                    </tr>
+                    <tr>
+                      <td>Physics</td>
+                      <td>78%</td>
+                    </tr>
+                    <tr>
+                      <td>Chemistry</td>
+                      <td>80%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+              <div className="exam-trends">
+                <h3>Exam Trends</h3>
+                <p>Monitor exam completion rates and performance over time. This could be displayed as a line graph or bar chart (use a chart library like Chart.js).</p>
+              </div>
+  
+              <div className="export-data">
+                <h3>Export Data</h3>
+                <button className="action-btn">Export to CSV</button>
+                <button className="action-btn">Export to Excel</button>
+                <button className="action-btn">Export to PDF</button>
+              </div>
+            </section>
+          );
+      
+          case "payments":
+            return (
+              <section className="payments-section">
+                <h2>Payments Management</h2>
+                <div className="payment-history">
+                  <h3>Payment History</h3>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>User</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>John Doe</td>
+                        <td>$30</td>
+                        <td>Completed</td>
+                        <td>2025-01-10</td>
+                      </tr>
+                      <tr>
+                        <td>Jane Smith</td>
+                        <td>$45</td>
+                        <td>Pending</td>
+                        <td>2025-01-11</td>
+                      </tr>
+                      <tr>
+                        <td>Alice Johnson</td>
+                        <td>$60</td>
+                        <td>Failed</td>
+                        <td>2025-01-12</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+    
+                <div className="discounts-section">
+                  <h3>Discounts/Promo Codes</h3>
+                  <button className="action-btn">Create Promo Code</button>
+                  <button className="action-btn">Manage Promo Codes</button>
+                </div>
+              </section>
+            );
+        
+            case "notifications":
+            return (
+              <section className="notifications-section">
+                <h2>User Notifications</h2>
+                <p>Send announcements, updates, or reminders to users.</p>
+                <p>Customize email or SMS notifications for specific events (e.g., payment confirmation, new features).</p>
+                
+                <h2>Admin Notifications</h2>
+                <p>Receive alerts for critical system events (e.g., failed backups, unusual activity).</p>
+              </section>
+            );
       default:
         return <p>Welcome to the Admin Panel</p>;
     }
@@ -274,10 +281,13 @@ const AdminPanel = () => {
             >
               Notifications
             </li>
-            <li>System Configuration</li>
+            {/* <li>System Configuration</li> */}
             {/* <li>Logs and Audit</li> */}
           </ul>
         </nav>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </aside>
 
       {/* Main Content */}
