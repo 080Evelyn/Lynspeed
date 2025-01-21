@@ -14,26 +14,23 @@ interface UserProfile {
   id: string;
   full_name: string;
   email: string;
-  is_staff: boolean;
-  is_active: boolean;
+  is_admin: boolean;
 }
 
 // Base API URL
 const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const handleShowPassword = () => setShowPassword((prev) => !prev);
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -41,47 +38,43 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${baseUrl}login/`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${baseUrl}login/`, {
+        email,
+        password,
+      });
 
+      console.log(response);
       if (response.statusText === "OK") {
         const { access: token, refresh } = response.data;
+
+        // Fetch user profile
         const profileResponse = await axios.get(`${baseUrl}profile/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         const user: UserProfile = profileResponse.data;
 
-        // Save token and user data to local storage
+        // Save tokens and user info locally
         localStorage.setItem("refreshToken", refresh);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Dispatch loginSuccess action to save user data in Redux
+        // Update Redux state
         dispatch(loginSuccessful());
         dispatch(setToken(token));
 
-        // Check user role and redirect accordingly
-        if (user.is_staff && user.is_active) {
+        const admin = response.data.is_admin;
+        // Redirect based on user role
+        if (admin) {
           navigate("/adminPanel");
         } else {
           navigate("/dashboard");
+          
         }
-
-        location.reload();
       }
     } catch (error: any) {
-      if (error.response && error.response.data) {
-        setError(error.response.data.message || "Invalid email or password");
-      } else {
-        setError("An error occurred. Please try again.");
-      }
+      setError(
+        error.response?.data?.message || "Invalid credentials. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -115,13 +108,11 @@ const Login: React.FC = () => {
                 autoComplete="current-password"
                 required
               />
-              {showPassword ? (
-                <BsEye onClick={handleShowPassword} className="eye" />
-              ) : (
-                <BsEyeSlash onClick={handleShowPassword} className="eye" />
-              )}
+              <span className="eye" onClick={handleShowPassword}>
+                {showPassword ? <BsEye /> : <BsEyeSlash />}
+              </span>
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <p className="error">{error}</p>}
             <div className="down1">
               <div className="log">
                 <Link to="/forgotPassword">Forgot password?</Link>
