@@ -70,7 +70,7 @@ const Register: React.FC = () => {
           );
         } else {
           setSuccessMessage(
-            "Registration successful! Please check your email to confirm your account."
+            "Registration successful! Please check your email to confirm your account. NOTE: If you don't see the email, please check your spam folder."
           );
         }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
