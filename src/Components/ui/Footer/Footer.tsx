@@ -63,7 +63,7 @@ const Footer = () => {
         <div className="connect">
           <div className="footer-contact">
             <p>Email: support@lynspeed.com.ng</p>
-            <p>WhatsApp: 09065366858</p>
+            <a href="https://wa.me/2349065366858"><p style={{color:"#0659a6"}}>Chat with us</p></a>
           </div>
 
           <div className="footer-social">
