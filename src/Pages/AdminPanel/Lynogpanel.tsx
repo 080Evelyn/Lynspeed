@@ -1,8 +1,8 @@
-import "./AdminPanel.css";
+import "./Lynogpanel.css";
 import { SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const AdminPanel = () => {
+const Lynogpanel = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
   const [subject, setSubject] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -37,7 +37,7 @@ const AdminPanel = () => {
     // Clear session or authentication tokens
     localStorage.clear();
     alert("You have been logged out.");
-    navigate("/adminLogin"); // Redirect to the login page
+    navigate("/home"); // Redirect to the login page
   };
 
   const users = [
@@ -296,4 +296,4 @@ const AdminPanel = () => {
   );
 };
 
-export default AdminPanel;
+export default Lynogpanel;

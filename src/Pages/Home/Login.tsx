@@ -65,7 +65,7 @@ const Login: React.FC = () => {
         const admin = response.data.is_admin;
         // Redirect based on user role
         if (admin) {
-          navigate("/adminPanel");
+          navigate("/lynogpanel");
         } else {
           navigate("/dashboard");
           
