@@ -1,3 +1,4 @@
+import axios from "axios";
 import "./Lynogpanel.css";
 import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,23 +18,26 @@ const Lynogpanel = () => {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("authToken");
+
   useEffect(() => {
     // Fetch users from API using fetch
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://lynspeed.pythonanywhere.com/api/v1/users/"
-        ); // Replace with your actual API endpoint
-        if (!response.ok) {
-          throw new Error("Failed to fetch users");
-        }
-        const data: UserProfile[] = await response.json();
-        setUsers(data);
-      } catch (error) {
+        const response = await axios.get(
+          "https://lynspeed.pythonanywhere.com/api/v1/users/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add token to Authorization header
+            },
+          }
+        );
+        setUsers(response.data);
+      }
+       catch (error) {
         console.error("Error fetching users:", error);
       }
     };
-
     fetchUsers();
   }, []);
 
