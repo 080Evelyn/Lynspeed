@@ -159,7 +159,8 @@ const Subscription: React.FC = () => {
                 onClick={() => {
                   validatePayment();
                 }}
-                className="validateBtn">
+                className="validateBtn"
+              >
                 Validate Payment
               </button>
             </div>
@@ -183,6 +184,13 @@ const Subscription: React.FC = () => {
                       support, Test result & History.
                     </p>
                   )}
+                  {plan.duration === 90 && (
+                    <p>
+                      90 days validity, Unlimited access to questions, Full test
+                      simulations, Performance analysis, Priority customer
+                      support, Test result & History.
+                    </p>
+                  )}
                   <h3>{plan.price}</h3>
 
                   <SubBtn name={plan.name} id={plan.id} />
@@ -201,7 +209,8 @@ const Subscription: React.FC = () => {
             onClick={() => {
               setPaymentVerify(false);
             }}
-            className="modal "></div>
+            className="modal "
+          ></div>
         </>
       )}
       {paymentNotVerify && (
@@ -216,7 +225,8 @@ const Subscription: React.FC = () => {
             onClick={() => {
               setPaymentNotVerify(false);
             }}
-            className="modal"></div>
+            className="modal"
+          ></div>
         </>
       )}
     </div>
