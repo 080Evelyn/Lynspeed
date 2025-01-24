@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import { Link } from "react-router-dom";
 
-type PlanType = "FREE" | "WEEKLY" | "MONTHLY";
+type PlanType = "FREE" | "WEEKLY" | "MONTHLY" | "QUARTERLY";
 
 const Pricing: React.FC = () => {
   const handleSubscribe = async (plan: PlanType) => {
@@ -86,13 +86,37 @@ const Pricing: React.FC = () => {
         <div className="card">
           <div className="card-header">
             <div className="corner-icon"></div>
-            <div className="rating">★★★★★</div>
+            <div className="rating">★★★★</div>
           </div>
           <div className="card-body">
             <h2>MONTHLY</h2>
             <h3>₦2000</h3>
             <ul>
               <li>30 days validity</li>
+              <li>Unlimited access to questions</li>
+              <li>Full test simulations</li>
+              <li>Performance analysis</li>
+              <li>Result History</li>
+              <li>Priority customer support</li>
+             
+            </ul>
+            <button >
+              <Link style={{color:"white"}} to="/login">Get Started</Link>
+            </button>
+          </div>
+        </div>
+
+        {/* Quarterly Plan Card */}
+        <div className="card">
+          <div className="card-header">
+            <div className="corner-icon"></div>
+            <div className="rating">★★★★★</div>
+          </div>
+          <div className="card-body">
+            <h2>QUARTERLY</h2>
+            <h3>₦6000</h3>
+            <ul>
+              <li>90 days validity</li>
               <li>Unlimited access to questions</li>
               <li>Full test simulations</li>
               <li>Performance analysis</li>

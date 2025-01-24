@@ -1,12 +1,42 @@
 import "./Lynogpanel.css";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+interface UserProfile {
+  id: number;
+  email: string;
+  full_name: string;
+  is_active: boolean;
+  created_at: string;
+}
 
 const Lynogpanel = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
   const [subject, setSubject] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [users, setUsers] = useState<UserProfile[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch users from API using fetch
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(
+          "https://lynspeed.pythonanywhere.com/api/v1/users/"
+        ); // Replace with your actual API endpoint
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        const data: UserProfile[] = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
     setSelectedMenu(menu);
@@ -40,16 +70,6 @@ const Lynogpanel = () => {
     navigate("/home"); // Redirect to the login page
   };
 
-  const users = [
-    { name: "John Doe", email: "johndoe@example.com" },
-    { name: "Jane Smith", email: "janesmith@example.com" },
-    { name: "Alice Johnson", email: "alicej@example.com" },
-    { name: "Bob Brown", email: "bobbrown@example.com" },
-    { name: "Charlie Lee", email: "charlielee@example.com" },
-    { name: "Dana White", email: "danawhite@example.com" },
-    { name: "Emma Clark", email: "emmaclark@example.com" },
-    { name: "Fred Green", email: "fredgreen@example.com" },
-  ];
 
   const renderContent = () => {
     switch (selectedMenu) {
@@ -61,29 +81,33 @@ const Lynogpanel = () => {
               <table>
                 <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Actions</th>
-                    <th>Track User Activity</th>
+                    <th>Creation Date</th>
+                    {/* <th>Track User Activity</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user, index) => (
-                    <tr key={index}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td>
-                        <button className="action-btn">Edit</button>
-                        <button className="action-btn">Deactivate</button>
-                        <button className="action-btn">Delete</button>
-                      </td>
-                      <td>
-                        <p>Last Login: 2025-01-10</p>
-                        <p>Exams Taken: 5</p>
-                        <p>Average Score: 85%</p>
-                      </td>
+                  {users.length > 0 ? (
+                    users.map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <td>{user.full_name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.is_active ? "Active" : "Inactive"}</td>
+                        <td>{new Date(user.created_at).toLocaleString()}</td>
+                        <td>
+                          <button className="action-btn">Delete</button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={6}>No users found.</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
