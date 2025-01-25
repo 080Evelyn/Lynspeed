@@ -21,26 +21,52 @@ const Lynogpanel = () => {
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
-    // Fetch users from API using fetch
+    // Fetch users from API using Axios
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
           "https://lynspeed.pythonanywhere.com/api/v1/users/",
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Add token to Authorization header
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         setUsers(response.data);
-      }
-       catch (error) {
+      } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
     fetchUsers();
-  }, []);
+  }, [token]);
 
+  const handleDelete = async (userId: number) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axios.delete(
+        `https://lynspeed.pythonanywhere.com/api/v1/users/${userId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 204) {
+        alert("User deleted successfully!");
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+      } else {
+        alert("Failed to delete user. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("An error occurred while deleting the user.");
+    }
+  };
+  
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
     setSelectedMenu(menu);
@@ -74,7 +100,6 @@ const Lynogpanel = () => {
     navigate("/home"); // Redirect to the login page
   };
 
-
   const renderContent = () => {
     switch (selectedMenu) {
       case "users":
@@ -88,8 +113,8 @@ const Lynogpanel = () => {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Actions</th>
                     <th>Creation Date</th>
+                    <th>Actions</th>
                     {/* <th>Track User Activity</th> */}
                   </tr>
                 </thead>
@@ -100,10 +125,15 @@ const Lynogpanel = () => {
                         <td>{user.id}</td>
                         <td>{user.full_name}</td>
                         <td>{user.email}</td>
-                        <td>{user.is_active ? "Active" : "Inactive"}</td>
+                        {/* <td>{user.is_active ? "Active" : "Inactive"}</td> */}
                         <td>{new Date(user.created_at).toLocaleString()}</td>
                         <td>
-                          <button className="action-btn">Delete</button>
+                          <button
+                            className="action-btn"
+                            onClick={() => handleDelete(user.id)} // Pass user.id dynamically
+                          >
+                            Delete
+                          </button>
                         </td>
                       </tr>
                     ))
@@ -160,107 +190,117 @@ const Lynogpanel = () => {
             </div>
           </section>
         );
-        case "reports":
-          return (
-            <section className="reports-section">
-              <h2>User Performance Reports</h2>
-              <div className="performance-report">
-                <h3>Average Scores by Subject</h3>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Subject</th>
-                      <th>Average Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Mathematics</td>
-                      <td>85%</td>
-                    </tr>
-                    <tr>
-                      <td>Physics</td>
-                      <td>78%</td>
-                    </tr>
-                    <tr>
-                      <td>Chemistry</td>
-                      <td>80%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-  
-              <div className="exam-trends">
-                <h3>Exam Trends</h3>
-                <p>Monitor exam completion rates and performance over time. This could be displayed as a line graph or bar chart (use a chart library like Chart.js).</p>
-              </div>
-  
-              <div className="export-data">
-                <h3>Export Data</h3>
-                <button className="action-btn">Export to CSV</button>
-                <button className="action-btn">Export to Excel</button>
-                <button className="action-btn">Export to PDF</button>
-              </div>
-            </section>
-          );
-      
-          case "payments":
-            return (
-              <section className="payments-section">
-                <h2>Payments Management</h2>
-                <div className="payment-history">
-                  <h3>Payment History</h3>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>John Doe</td>
-                        <td>$30</td>
-                        <td>Completed</td>
-                        <td>2025-01-10</td>
-                      </tr>
-                      <tr>
-                        <td>Jane Smith</td>
-                        <td>$45</td>
-                        <td>Pending</td>
-                        <td>2025-01-11</td>
-                      </tr>
-                      <tr>
-                        <td>Alice Johnson</td>
-                        <td>$60</td>
-                        <td>Failed</td>
-                        <td>2025-01-12</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-    
-                <div className="discounts-section">
-                  <h3>Discounts/Promo Codes</h3>
-                  <button className="action-btn">Create Promo Code</button>
-                  <button className="action-btn">Manage Promo Codes</button>
-                </div>
-              </section>
-            );
-        
-            case "notifications":
-            return (
-              <section className="notifications-section">
-                <h2>User Notifications</h2>
-                <p>Send announcements, updates, or reminders to users.</p>
-                <p>Customize email or SMS notifications for specific events (e.g., payment confirmation, new features).</p>
-                
-                <h2>Admin Notifications</h2>
-                <p>Receive alerts for critical system events (e.g., failed backups, unusual activity).</p>
-              </section>
-            );
+      case "reports":
+        return (
+          <section className="reports-section">
+            <h2>User Performance Reports</h2>
+            <div className="performance-report">
+              <h3>Average Scores by Subject</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Average Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Mathematics</td>
+                    <td>85%</td>
+                  </tr>
+                  <tr>
+                    <td>Physics</td>
+                    <td>78%</td>
+                  </tr>
+                  <tr>
+                    <td>Chemistry</td>
+                    <td>80%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="exam-trends">
+              <h3>Exam Trends</h3>
+              <p>
+                Monitor exam completion rates and performance over time. This
+                could be displayed as a line graph or bar chart (use a chart
+                library like Chart.js).
+              </p>
+            </div>
+
+            <div className="export-data">
+              <h3>Export Data</h3>
+              <button className="action-btn">Export to CSV</button>
+              <button className="action-btn">Export to Excel</button>
+              <button className="action-btn">Export to PDF</button>
+            </div>
+          </section>
+        );
+
+      case "payments":
+        return (
+          <section className="payments-section">
+            <h2>Payments Management</h2>
+            <div className="payment-history">
+              <h3>Payment History</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Doe</td>
+                    <td>$30</td>
+                    <td>Completed</td>
+                    <td>2025-01-10</td>
+                  </tr>
+                  <tr>
+                    <td>Jane Smith</td>
+                    <td>$45</td>
+                    <td>Pending</td>
+                    <td>2025-01-11</td>
+                  </tr>
+                  <tr>
+                    <td>Alice Johnson</td>
+                    <td>$60</td>
+                    <td>Failed</td>
+                    <td>2025-01-12</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="discounts-section">
+              <h3>Discounts/Promo Codes</h3>
+              <button className="action-btn">Create Promo Code</button>
+              <button className="action-btn">Manage Promo Codes</button>
+            </div>
+          </section>
+        );
+
+      case "notifications":
+        return (
+          <section className="notifications-section">
+            <h2>User Notifications</h2>
+            <p>Send announcements, updates, or reminders to users.</p>
+            <p>
+              Customize email or SMS notifications for specific events (e.g.,
+              payment confirmation, new features).
+            </p>
+
+            <h2>Admin Notifications</h2>
+            <p>
+              Receive alerts for critical system events (e.g., failed backups,
+              unusual activity).
+            </p>
+          </section>
+        );
       default:
         return <p>Welcome to the Admin Panel</p>;
     }
