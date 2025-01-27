@@ -11,11 +11,20 @@ interface UserProfile {
   created_at: string;
 }
 
+interface PaymentProfile{
+  id: number;
+  amount: string;
+  transaction_id: number;
+  payment_date: string;
+  email?: string;
+}
+
 const Lynogpanel = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
   const [subject, setSubject] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [users, setUsers] = useState<UserProfile[]>([]);
+  const [payments, setPayments] = useState<PaymentProfile[]>([]);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("authToken");
@@ -66,6 +75,34 @@ const Lynogpanel = () => {
       alert("An error occurred while deleting the user.");
     }
   };
+
+  
+  useEffect(() => {
+    // Fetch payment data from the API
+    const fetchPayments = async () => {
+      try {
+        const response = await axios.get(
+          "https://lynspeed.pythonanywhere.com/api/v1/payments/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setPayments(response.data); // Assuming the API returns an array of payments
+      } catch (error) {
+        console.error("Error fetching payments:", error);
+      }
+    };
+
+    fetchPayments();
+  
+
+   // Fetch payments for a specific user
+
+}, [token]);
+
+  
   
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
@@ -174,7 +211,7 @@ const Lynogpanel = () => {
           <section className="dashboard-cards">
             <div className="card">
               <h3>Total Users</h3>
-              <p>1,234</p>
+              <p>{users.length}</p> {/* Dynamically displaying total number of users */}
             </div>
             <div className="card">
               <h3>Exams Taken</h3>
@@ -241,47 +278,40 @@ const Lynogpanel = () => {
       case "payments":
         return (
           <section className="payments-section">
-            <h2>Payments Management</h2>
-            <div className="payment-history">
-              <h3>Payment History</h3>
-              <table>
-                <thead>
+          <h2>Payments Management</h2>
+          <div className="payment-history">
+            <h3>Payment History</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Transaction ID</th>
+                  <th>Payment Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {payments.length > 0 ? (
+                  payments.map((payment) => (
+                    <tr key={payment.id}>
+                      <td>{payment.id}</td>
+                      <td>{payment.email}</td>
+                      <td><i>&#8358;</i> {payment.amount}</td>
+                      <td>{payment.transaction_id}</td>
+                      <td>{new Date(payment.payment_date).toLocaleDateString()}</td>
+                    </tr>
+                  ))
+                ) : (
                   <tr>
-                    <th>User</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Date</th>
+                    <td colSpan={5}>No payment records found.</td>
                   </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>$30</td>
-                    <td>Completed</td>
-                    <td>2025-01-10</td>
-                  </tr>
-                  <tr>
-                    <td>Jane Smith</td>
-                    <td>$45</td>
-                    <td>Pending</td>
-                    <td>2025-01-11</td>
-                  </tr>
-                  <tr>
-                    <td>Alice Johnson</td>
-                    <td>$60</td>
-                    <td>Failed</td>
-                    <td>2025-01-12</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="discounts-section">
-              <h3>Discounts/Promo Codes</h3>
-              <button className="action-btn">Create Promo Code</button>
-              <button className="action-btn">Manage Promo Codes</button>
-            </div>
-          </section>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </section>
+    
         );
 
       case "notifications":
