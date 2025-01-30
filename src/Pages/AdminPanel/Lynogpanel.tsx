@@ -11,12 +11,12 @@ interface UserProfile {
   created_at: string;
 }
 
-interface PaymentProfile{
+interface PaymentProfile {
   id: number;
   amount: string;
   transaction_id: number;
   payment_date: string;
-  email?: string;
+  user_email: string;
 }
 
 const Lynogpanel = () => {
@@ -76,7 +76,7 @@ const Lynogpanel = () => {
     }
   };
 
-  
+
   useEffect(() => {
     // Fetch payment data from the API
     const fetchPayments = async () => {
@@ -96,14 +96,14 @@ const Lynogpanel = () => {
     };
 
     fetchPayments();
-  
 
-   // Fetch payments for a specific user
 
-}, [token]);
+    // Fetch payments for a specific user
 
-  
-  
+  }, [token]);
+
+
+
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
     setSelectedMenu(menu);
@@ -278,40 +278,40 @@ const Lynogpanel = () => {
       case "payments":
         return (
           <section className="payments-section">
-          <h2>Payments Management</h2>
-          <div className="payment-history">
-            <h3>Payment History</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>User</th>
-                  <th>Amount</th>
-                  <th>Transaction ID</th>
-                  <th>Payment Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payments.length > 0 ? (
-                  payments.map((payment) => (
-                    <tr key={payment.id}>
-                      <td>{payment.id}</td>
-                      <td>{payment.email}</td>
-                      <td><i>&#8358;</i> {payment.amount}</td>
-                      <td>{payment.transaction_id}</td>
-                      <td>{new Date(payment.payment_date).toLocaleDateString()}</td>
-                    </tr>
-                  ))
-                ) : (
+            <h2>Payments Management</h2>
+            <div className="payment-history">
+              <h3>Payment History</h3>
+              <table>
+                <thead>
                   <tr>
-                    <td colSpan={5}>No payment records found.</td>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Transaction ID</th>
+                    <th>Payment Date</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </section>
-    
+                </thead>
+                <tbody>
+                  {payments.length > 0 ? (
+                    payments.map((payment) => (
+                      <tr key={payment.id}>
+                        <td>{payment.id}</td>
+                        <td>{payment.user_email}</td>
+                        <td><i>&#8358;</i> {payment.amount}</td>
+                        <td>{payment.transaction_id}</td>
+                        <td>{new Date(payment.payment_date).toLocaleDateString()}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={5}>No payment records found.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
         );
 
       case "notifications":
