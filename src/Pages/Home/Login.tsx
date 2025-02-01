@@ -68,8 +68,8 @@ const Login: React.FC = () => {
           navigate("/lynogpanel");
         } else {
           navigate("/dashboard");
-          
         }
+        location.reload();
       }
     } catch (error: any) {
       setError(
