@@ -61,13 +61,13 @@ const Register: React.FC = () => {
       return;
     }
 
-    if (!isValidPassword(password.trim())) {
-      setError(
-        "Password must be at least 8 characters long and contain at least one uppercase letter and a number."
-      );
-      setLoading(false);
-      return;
-    }
+    // if (!isValidPassword(password.trim())) {
+    //   setError(
+    //     "Password must be at least 8 characters long and contain at least one uppercase letter and a number."
+    //   );
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       dispatch({ type: REGISTER_REQUEST });
