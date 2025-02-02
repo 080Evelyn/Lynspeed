@@ -77,7 +77,7 @@ const Pricing: React.FC = () => {
               <li>Email support</li>
             </ul>
             <button >
-              <Link style={{color:"white"}} to="/login">Get Started</Link>
+              <Link style={{ color: "white" }} to="/login">Get Started</Link>
             </button>
           </div>
         </div>
@@ -98,10 +98,10 @@ const Pricing: React.FC = () => {
               <li>Performance analysis</li>
               <li>Result History</li>
               <li>Priority customer support</li>
-             
+
             </ul>
             <button >
-              <Link style={{color:"white"}} to="/login">Get Started</Link>
+              <Link style={{ color: "white" }} to="/login">Get Started</Link>
             </button>
           </div>
         </div>
@@ -119,13 +119,13 @@ const Pricing: React.FC = () => {
               <li>90 days validity</li>
               <li>Unlimited access to questions</li>
               <li>Full test simulations</li>
-              <li>Performance analysis</li>
+              <li>Advanced Performance analysis</li>
               <li>Result History</li>
               <li>Priority customer support</li>
-             
+
             </ul>
             <button >
-              <Link style={{color:"white"}} to="/login">Get Started</Link>
+              <Link style={{ color: "white" }} to="/login">Get Started</Link>
             </button>
           </div>
         </div>
