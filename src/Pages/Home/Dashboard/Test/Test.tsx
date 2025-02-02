@@ -59,6 +59,8 @@ const Test: React.FC = () => {
   };
   const token = localStorage.getItem("authToken");
   const handleSubmit = async () => {
+    const isConfirmed = window.confirm("Are you sure you want to submit?");
+    if (!isConfirmed) return;
     setSubmitting(true);
     try {
       await axios.post(
@@ -173,7 +175,7 @@ const Test: React.FC = () => {
   return (
     <div className="test-container">
       {loading ? (
-        <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
+        <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
       ) : !loading &&
         error &&
         error === "Request failed with status code 403" ? (
@@ -228,9 +230,8 @@ const Test: React.FC = () => {
                         )
                       }
                     />
-                    {`${key.split("_")[1].toUpperCase()}. ${
-                      currentOptions?.[key]
-                    }`}
+                    {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]
+                      }`}
                   </label>
                 ))}
               </div>
@@ -256,9 +257,8 @@ const Test: React.FC = () => {
             {currentQuestions.map((question: any, index: number) => (
               <button
                 key={index}
-                className={`${currentQuestion === index ? "active" : ""} ${
-                  selectedAnswers[currentSubject]?.[index] ? "answered" : ""
-                }`}
+                className={`${currentQuestion === index ? "active" : ""} ${selectedAnswers[currentSubject]?.[index] ? "answered" : ""
+                  }`}
                 onClick={() => setCurrentQuestion(index)}>
                 {question.displayNumber}
               </button>
