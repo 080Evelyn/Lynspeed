@@ -58,8 +58,9 @@ const App = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
-          <Route path="/lynogpanel" element={<Lynogpanel/>} />
-          <Route path="/notAuthorized" element={<NotAuthorized/>} />
+          <Route path="/lynogpanel" element={<Lynogpanel />} />
+          <Route path="/notAuthorized" element={<NotAuthorized />} />
+
         </Route>
 
         {/* Admin Authentication Routes */}
