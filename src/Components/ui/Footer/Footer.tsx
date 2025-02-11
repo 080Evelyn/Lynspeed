@@ -1,12 +1,12 @@
 // Footer Component
 import "./Footer.css";
-import logo from "../../../assets/logofooter.png";
+import logo from "../../../assets/plainLogobrand.png";
 import tiktok from "../../../assets/tiktok.png";
 import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
 import { Link } from "react-router-dom";
 
-const Footer = () => { 
+const Footer = () => {
   return (
     <footer>
       <div className="footer-container">
@@ -63,7 +63,7 @@ const Footer = () => {
         <div className="connect">
           <div className="footer-contact">
             <p>Email: support@lynspeed.com.ng</p>
-            <a href="https://wa.me/2349065366858"><p style={{color:"#0659a6"}}>Chat with us</p></a>
+            <a href="https://wa.me/2349065366858"><p style={{ color: "#0659a6" }}>Chat with us</p></a>
           </div>
 
           <div className="footer-social">
