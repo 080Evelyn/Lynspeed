@@ -18,8 +18,8 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
         <tr>
           <th>Subjects</th>
           <th>Duration</th>
-          <th>Scores</th>
-        </tr> 
+          <th>Scores (100)</th>
+        </tr>
       </thead>
       <tbody>
         {results.map((subject, i) => {
