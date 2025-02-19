@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../State/Store";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
 
 const Test: React.FC = () => {
@@ -179,7 +179,10 @@ const Test: React.FC = () => {
       ) : !loading &&
         error &&
         error === "Request failed with status code 403" ? (
-        <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+        <div className="sub-opt">
+          <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+          <button><Link to="/subscription" style={{ color: "white" }} >Subscription</Link></button>
+        </div>
       ) : !loading &&
         error &&
         error !== "Request failed with status code 403" ? (
