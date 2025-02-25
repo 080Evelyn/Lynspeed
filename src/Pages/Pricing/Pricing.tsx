@@ -53,7 +53,6 @@ const Pricing: React.FC = () => {
               <li>Two trials</li>
               <li>Access to basic questions</li>
               <li>Limited test simulations</li>
-              <li>24 hours validity</li>
             </ul>
             <button onClick={() => handleSubscribe("FREE")}>Get Started</button>
           </div>
