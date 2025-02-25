@@ -12,12 +12,14 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="navbar">
-      <img
-        src={logo}
-        alt="Lynspeed logo"
-        loading="lazy"
-        className="navbar-logo"
-      />
+      <Link to={"/"}>
+        <img
+          src={logo}
+          alt="Lynspeed logo"
+          loading="lazy"
+          className="navbar-logo"
+        />
+      </Link>
       <button
         className="menu-toggle"
         onClick={toggleMenu}
