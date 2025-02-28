@@ -6,8 +6,8 @@ import { resetAuth } from "../../../Components/authSlice";
 import { resetResultHistory } from "../../../State/ResultHistorySlice";
 import { resetSavedSubject } from "../../../State/SavedSubjectListSlice";
 import {
-    fetchSubjectList,
-    resetSubjectList,
+  fetchSubjectList,
+  resetSubjectList,
 } from "../../../State/SubjectListSlice";
 import { resetTestQuestions } from "../../../State/TestQuestionSlice";
 import { resetTestResult } from "../../../State/TestResultSlice";
@@ -28,83 +28,83 @@ import pro from "../../../assets/profile.svg";
 import "./Dashboard.css";
 
 interface UserProfile {
-    id: string;
-    full_name: string;
-    email: string;
+  id: string;
+  full_name: string;
+  email: string;
 }
 
 const Dashboard = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(null);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
-    const [subjectSelectionMessage, setSubjectSelectionMessage] = useState(""); 
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
+  const dispatch = useDispatch<AppDispatch>();
+  const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
+  const [subjectSelectionMessage, setSubjectSelectionMessage] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
 
-    const storedUser = localStorage.getItem("user");
-    const user: UserProfile = storedUser !== null ? JSON.parse(storedUser) : null;
-    const navigate = useNavigate();
+  const storedUser = localStorage.getItem("user");
+  const user: UserProfile = storedUser !== null ? JSON.parse(storedUser) : null;
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const subjects = localStorage.getItem("selectedSubjects");
-        try {
-            if (subjects) {
-                const parsedSubjects = JSON.parse(subjects);
-                setSelectedSubjects(parsedSubjects);
-                if (parsedSubjects.length === 4) {
-                    setSubjectSelectionMessage("Subjects saved successfully!");
-                }
-            } else {
-                setSelectedSubjects([]);
-            }
-        } catch (error) {
-            console.error("Error parsing selectedSubjects from localStorage:", error);
-            setSelectedSubjects([]);
+  useEffect(() => {
+    const subjects = localStorage.getItem("selectedSubjects");
+    try {
+      if (subjects) {
+        const parsedSubjects = JSON.parse(subjects);
+        setSelectedSubjects(parsedSubjects);
+        if (parsedSubjects.length === 4) {
+          setSubjectSelectionMessage("Subjects saved successfully!");
         }
-    }, []);
+      } else {
+        setSelectedSubjects([]);
+      }
+    } catch (error) {
+      console.error("Error parsing selectedSubjects from localStorage:", error);
+      setSelectedSubjects([]);
+    }
+  }, []);
 
-    const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-    const toggleSettingsDropdown = () => setIsSettingsDropdownOpen((prev) => !prev);
-    const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Toggle function
+  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+  const toggleSettingsDropdown = () => setIsSettingsDropdownOpen((prev) => !prev);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Toggle function
 
-    const handleSignOut = () => {
-        localStorage.clear();
-        dispatch(resetAuth());
-        dispatch(resetResultHistory());
-        dispatch(resetSavedSubject());
-        dispatch(resetSubjectList());
-        dispatch(resetTestQuestions());
-        dispatch(resetTestResult());
-        dispatch(resetAnalysis());
-        persistor.purge();
-        navigate("/login");
-    };
+  const handleSignOut = () => {
+    localStorage.clear();
+    dispatch(resetAuth());
+    dispatch(resetResultHistory());
+    dispatch(resetSavedSubject());
+    dispatch(resetSubjectList());
+    dispatch(resetTestQuestions());
+    dispatch(resetTestResult());
+    dispatch(resetAnalysis());
+    persistor.purge();
+    navigate("/login");
+  };
 
-    const notifications = useSelector((state: RootState) => state.notification.data);
-    const loading = useSelector((state: RootState) => state.notification.loading);
+  const notifications = useSelector((state: RootState) => state.notification.data);
+  const loading = useSelector((state: RootState) => state.notification.loading);
 
-    useEffect(() => {
-        dispatch(fetchNotification());
-        dispatch(fetchSubjectList());
-    }, []);
+  useEffect(() => {
+    dispatch(fetchNotification());
+    dispatch(fetchSubjectList());
+  }, []);
 
-    const unreadNotification =
-        !notifications.message &&
-        notifications?.filter((notice: any) => !notice.is_read);
-    const notificationCount = unreadNotification.length;
+  const unreadNotification =
+    !notifications.message &&
+    notifications?.filter((notice: any) => !notice.is_read);
+  const notificationCount = unreadNotification.length;
 
-    return (
-        <>
-            <div className="dashboard-container">
-                {/* Sidebar Toggle Button for Smaller Screens */}
-                <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
-                {isSidebarOpen ? "✖" : "☰"}
-                </button>
+  return (
+    <>
+      <div className="dashboard-container">
+        {/* Sidebar Toggle Button for Smaller Screens */}
+        <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
+          {isSidebarOpen ? "✖" : "☰"}
+        </button>
 
-                {/* Sidebar */}
-                <aside className={`dashboard-sidebar ${isSidebarOpen ? "open" : ""}`}>
-                    <h3>Dashboard</h3>
-                    <ul className="sidebar-menu">
+        {/* Sidebar */}
+        <aside className={`dashboard-sidebar ${isSidebarOpen ? "open" : ""}`}>
+          <h3>Dashboard</h3>
+          <ul className="sidebar-menu">
             {/* Profile Section */}
             <li className="profile-item">
               <img src={pro} alt="Profile" />
@@ -205,30 +205,30 @@ const Dashboard = () => {
               )}
             </li>
           </ul>
-                </aside>
+        </aside>
 
-                {/* Main Content */}
-                <main className="right1">
-                    <section className="welcome-section">
-                        <div className="welcome-first">
-                            <h4>Welcome back to Lynspeed</h4>
-                        </div>
-                        <div className="welcome-banner">
-                            <img src={dash1} alt="Banner" />
-                            <h1 className="welcome-text">Hi {user?.full_name?.toUpperCase() || "USER"}! 👋</h1>
-                            {subjectSelectionMessage && (
-                                <p className="subject-selection-message">{subjectSelectionMessage}</p>
-                            )}
-                        </div>
-                        <section className="right-pics">
-                            <img src={r1} alt="Right pic 1" />
-                            <img src={r2} alt="Right pic 2" />
-                        </section>
-                    </section>
-                </main>
+        {/* Main Content */}
+        <main className="right1">
+          <section className="welcome-section">
+            <div className="welcome-first">
+              <h4>Welcome back to Lynspeed</h4>
             </div>
-        </>
-    );
+            <div className="welcome-banner">
+              <img src={dash1} alt="Banner" />
+              <h1 className="welcome-text">Hi {user?.full_name?.toUpperCase() || "USER"}! 👋</h1>
+              {subjectSelectionMessage && (
+                <p className="subject-selection-message">{subjectSelectionMessage}</p>
+              )}
+            </div>
+            <section className="right-pics">
+              <img src={r1} alt="Right pic 1" />
+              <img src={r2} alt="Right pic 2" />
+            </section>
+          </section>
+        </main>
+      </div>
+    </>
+  );
 };
 
 export default Dashboard;

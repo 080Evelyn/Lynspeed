@@ -6,6 +6,9 @@ import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
 import { Link } from "react-router-dom";
 
+
+const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
+
 const Footer = () => {
   return (
     <footer>
@@ -64,6 +67,24 @@ const Footer = () => {
           <div className="footer-contact">
             <p>Email: support@lynspeed.com.ng</p>
             <a href="https://wa.me/2349065366858"><p style={{ color: "#0659a6", fontSize: "16px", fontWeight: "600" }}>Chat with us</p></a>
+            <a
+              href={whatsappGroupLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                backgroundColor: "#25D366",
+                color: "white",
+                padding: "6px",
+                maxWidth: "250px",
+                borderRadius: "5px",
+                textDecoration: "none",
+                fontSize: "16px",
+                fontWeight: "400",
+                display: "inline-block",
+              }}
+            >
+              Join Our WhatsApp Group
+            </a>
           </div>
 
           <div className="footer-social">
@@ -88,7 +109,10 @@ const Footer = () => {
             >
               <img src={insta} alt="Instagram" />
             </a>
+
           </div>
+
+
         </div>
       </div>
 
