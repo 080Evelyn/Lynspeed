@@ -4,6 +4,7 @@ import logo from "../../../assets/plainLogobrand.png";
 import tiktok from "../../../assets/tiktok.png";
 import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
+import twiter from "../../../assets/twitter.jpeg"
 import { Link } from "react-router-dom";
 
 
@@ -108,6 +109,13 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <img src={insta} alt="Instagram" />
+            </a>
+            <a
+              href="https://x.com/lynspeedtech"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={twiter} alt="X" />
             </a>
 
           </div>
