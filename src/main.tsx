@@ -4,6 +4,7 @@ import { Provider } from "react-redux"; // Import Provider from react-redux
 import store, { persistor } from "./State/Store"; // Import the Redux store
 import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 // Import Pages
 import App from "./App";
 
@@ -17,3 +18,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </Provider>
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
