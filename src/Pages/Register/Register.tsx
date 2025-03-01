@@ -70,7 +70,7 @@ const Register: React.FC = () => {
           );
         } else {
           setSuccessMessage(
-            "Registration successful! Please check your email to confirm your account. NOTE: If you don't see the email, please check your spam folder."
+            "Registration successful! Please check your email to confirm your account. Ensure you entered a valid email address. If you don’t see the email, check your spam folder."
           );
         }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
@@ -116,11 +116,11 @@ const Register: React.FC = () => {
         // Handle server errors
         else if (err.response?.status === 500) {
           setError("Server error. Please try again later.");
-        } 
+        }
         // Handle specific errors such as email already registered
         else if (err.response?.data?.message) {
           setError(err.response.data.message);
-        } 
+        }
         // Handle network issues
         else if (!err.response) {
           setError("Network error. Please check your internet connection.");
