@@ -75,9 +75,9 @@ const Footer = () => {
               style={{
                 backgroundColor: "#25D366",
                 color: "white",
-                padding: "6px",
+                padding: "10px",
                 maxWidth: "250px",
-                borderRadius: "5px",
+                borderRadius: "12px",
                 textDecoration: "none",
                 fontSize: "16px",
                 fontWeight: "400",
