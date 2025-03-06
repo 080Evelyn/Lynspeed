@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Bubbles from '../Bubbles/Bubbles';
 import Footer from '../Footer/Footer';
 import mage from '../../../assets/homeImage.png';
+import heroVideo from "../../../assets/siteTour.mp4"
 import './Hero.css';
 
 const Hero: React.FC = () => {
@@ -22,6 +23,17 @@ const Hero: React.FC = () => {
           </div>
           <div className="reg animate-button">
             <Link to="/register" aria-label="Register for Lynspeed">Register</Link>
+          </div>
+
+          {/* Video Section */}
+          <div className="video-container">
+            <video className="hero-video" controls>
+              <source src={heroVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p className="video-description">
+              How to register, log in, and take a test on Lynspeed.
+            </p>
           </div>
         </div>
         <div className="pic animate-image" role="img" aria-label="Student taking exam" tabIndex={0}>
