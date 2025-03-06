@@ -25,10 +25,11 @@ const Footer = () => {
         </div>
 
         <div className="footer-links">
+          <p>
+            <strong>Product</strong>
+          </p>
           <ul>
-            <p>
-              <strong>Product</strong>
-            </p>
+
             <li>
               <Link to="/home">Home</Link>
             </li>
@@ -48,10 +49,11 @@ const Footer = () => {
         </div>
 
         <div className="usefullink">
+          <p>
+            <strong>Useful Links</strong>
+          </p>
           <ul>
-            <p>
-              <strong>Useful Links</strong>
-            </p>
+
             <li>
               <Link to="/faq">FAQ</Link>
             </li>
@@ -67,22 +69,11 @@ const Footer = () => {
         <div className="connect">
           <div className="footer-contact">
             <p>Email: support@lynspeed.com.ng</p>
-            <a href="https://wa.me/2349065366858"><p style={{ color: "#0659a6", fontSize: "16px", fontWeight: "600" }}>Chat with us</p></a>
             <a
               href={whatsappGroupLink}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                backgroundColor: "#25D366",
-                color: "white",
-                padding: "10px",
-                maxWidth: "250px",
-                borderRadius: "12px",
-                textDecoration: "none",
-                fontSize: "16px",
-                fontWeight: "400",
-                display: "inline-block",
-              }}
+
             >
               Join Our WhatsApp Group
             </a>
