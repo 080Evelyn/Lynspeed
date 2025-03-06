@@ -27,11 +27,15 @@ import NotAuthorized from "./Components/NotAuthorized";
 import Lynogpanel from "./Pages/AdminPanel/Lynogpanel";
 // Import InstallPWA component
 import InstallPWA from "./Components/InstallPWA";
+import ChatButton from "./Components/ChatBtn";
 
 const App = () => {
   return (
     <Router>
       <InstallPWA /> {/* Add this line to make the prompt appear globally */}
+
+      {/* Add Chat Button Globally */}
+      <ChatButton />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />

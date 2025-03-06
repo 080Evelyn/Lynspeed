@@ -81,6 +81,18 @@ li a:hover {
   align-items: center;
 }
 
+.connect .footer-contact a {
+  background-color: #25D366;
+  color: white;
+  padding: 10px;
+  max-width: 250px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+  display: inline-block;
+}
+
 .footer-contact p {
   margin: 5px 0;
   font-size: 14px;
