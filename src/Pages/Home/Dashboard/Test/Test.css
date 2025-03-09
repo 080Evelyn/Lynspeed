@@ -4,6 +4,18 @@
     font-family: Arial, sans-serif;
 }
 
+.calculator-toggle {
+    background-color: #fcd156;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
 .subject-tabs {
     display: flex;
     justify-content: space-between;
