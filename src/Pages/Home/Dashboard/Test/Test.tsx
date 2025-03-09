@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import "./Test.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +8,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
+import FloatingCalculator from "../../../../Components/FloatingCalculator";
+
 
 const Test: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -52,7 +56,7 @@ const Test: React.FC = () => {
   }, []);
   useEffect(() => {
     dispatch(fetchTestQuestions());
-  }, []);
+  }, [dispatch]);
   const handleSubjectChange = (index: number) => {
     setCurrentSubject(index);
     setCurrentQuestion(0);
@@ -110,8 +114,10 @@ const Test: React.FC = () => {
       },
     }));
     //handle response to be sent to the backend
+
     setResponse((prevAnswers: any) => {
       const existingAnswerIndex = prevAnswers.findIndex(
+
         (answer: any) => answer.question_id === question_id
       );
 
@@ -148,6 +154,12 @@ const Test: React.FC = () => {
     [];
 
   const currentOptions = currentQuestions[currentQuestion];
+
+  const [showCalculator, setShowCalculator] = useState<boolean>(false);
+
+  const toggleCalculator = () => {
+    setShowCalculator((prev) => !prev);
+  };
 
   useEffect(() => {
     // Push a dummy state to the history stack
@@ -267,7 +279,16 @@ const Test: React.FC = () => {
               </button>
             ))}
           </div>
+          <div>
 
+            <div>
+              <button onClick={toggleCalculator} className="calculator-toggle">
+                {showCalculator ? "Hide Calculator" : "Show Calculator"}
+              </button>
+
+              {showCalculator && <FloatingCalculator />}
+            </div>
+          </div>
           <div className="submit-section">
             <button
               onClick={handleSubmit}
@@ -278,6 +299,7 @@ const Test: React.FC = () => {
           </div>
         </>
       )}
+
     </div>
   );
 };
