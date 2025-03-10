@@ -5,7 +5,7 @@ import "./FloatingCalculator.css"; // Ensure this CSS file exists
 const FloatingCalculator: React.FC = () => {
     const [input, setInput] = useState<string>("");
     const [result, setResult] = useState<string>("");
-    const [isVisible, setIsVisible] = useState<boolean>(true);
+    const [isVisible] = useState<boolean>(true);
 
     const handleButtonClick = (value: string) => {
         if (value === "=") {
@@ -24,9 +24,9 @@ const FloatingCalculator: React.FC = () => {
 
     return (
         <>
-            <button className="toggle-btn" onClick={() => setIsVisible(!isVisible)}>
+            {/* <button className="toggle-btn" onClick={() => setIsVisible(!isVisible)}>
                 {isVisible ? "Hide Calculator" : "Show Calculator"}
-            </button>
+            </button> */}
             {isVisible && (
                 <Draggable handle=".calculator-header" enableUserSelectHack={false}>
                     <div className="calculator">
