@@ -28,7 +28,8 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [confirm_password, setConfirm_password] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<React.ReactNode>(null);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [formVisible, setFormVisible] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +71,13 @@ const Register: React.FC = () => {
           );
         } else {
           setSuccessMessage(
-            "Registration successful! Please check your email (including your spam folder) to confirm your account."
+            <span>
+              Registration successful! {" "}
+              <span style={{ color: "#FF5733", fontWeight: "600" }}>
+                Please check your email (including your spam folder)
+              </span>{" "}
+              to confirm your account.
+            </span>
           );
         }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
@@ -88,7 +95,7 @@ const Register: React.FC = () => {
         setError(errorMessage);
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
-    } catch (err: any) {
+    } catch (err) {
       if (axios.isAxiosError(err)) {
         const errorData = err.response?.data;
 
