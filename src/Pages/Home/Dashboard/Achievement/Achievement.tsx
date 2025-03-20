@@ -99,7 +99,7 @@ const Achievement = () => {
       {/* <Navbar2/> */}
       <div className="leaderboard-page">
         {analysisLoading ? (
-          <h2>Loading...</h2>
+          <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
         ) : !analysisLoading && analysisError ? (
           <h2>Something went wrong, check intenet connection</h2>
         ) : (

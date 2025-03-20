@@ -33,7 +33,7 @@ const Notification = () => {
     <div className="notification-page">
       {/* <Navbar2/> */}
       {loading ? (
-        <h2>Loading...</h2>
+        <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
       ) : !loading && error ? (
         <h2>Something went wrong, check internet connection</h2>
       ) : (

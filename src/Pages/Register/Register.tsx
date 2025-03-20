@@ -30,7 +30,7 @@ const Register: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [formVisible, setFormVisible] = useState<boolean>(true); // New state for form visibility
+  const [formVisible, setFormVisible] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
@@ -42,11 +42,6 @@ const Register: React.FC = () => {
     setShowPasswordConfirm(!showPasswordConfirm);
   };
 
-  const isValidPassword = (password: string): boolean => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    return passwordRegex.test(password.trim());
-  };
-
   const handleRegister = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -54,20 +49,6 @@ const Register: React.FC = () => {
     setError("");
     setSuccessMessage("");
     setLoading(true);
-
-    if (password.trim() !== confirm_password.trim()) {
-      setError("Passwords do not match.");
-      setLoading(false);
-      return;
-    }
-
-    // if (!isValidPassword(password.trim())) {
-    //   setError(
-    //     "Password must be at least 8 characters long and contain at least one uppercase letter and a number."
-    //   );
-    //   setLoading(false);
-    //   return;
-    // }
 
     try {
       dispatch({ type: REGISTER_REQUEST });
@@ -81,6 +62,7 @@ const Register: React.FC = () => {
           confirm_password: confirm_password.trim(),
         }
       );
+
       if (response.status === 200) {
         if (response.data.confirmed) {
           setSuccessMessage(
@@ -88,12 +70,12 @@ const Register: React.FC = () => {
           );
         } else {
           setSuccessMessage(
-            "Registration successful! Please check your email to confirm your account."
+            "Registration successful! Please check your email to confirm your account. NOTE: If you don't see the email, please check your spam folder."
           );
         }
         dispatch({ type: REGISTER_SUCCESS, payload: response.data.jwt });
 
-        setFormVisible(false); // Hide the form on success
+        setFormVisible(false);
 
         // Clear input fields
         setFull_name("");
@@ -107,31 +89,52 @@ const Register: React.FC = () => {
         dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
       }
     } catch (err: any) {
-      const error = err.response.data;
-      if (error.code === "VALIDATION_ERROR") {
-        const errorMsg = error.details.password[0];
-        setError(errorMsg);
-        return;
-      }
-      let errorMessage = "An unexpected error occurred. Please try again.";
+      if (axios.isAxiosError(err)) {
+        const errorData = err.response?.data;
 
-      if (axios.isAxiosError(err) && err.response?.data) {
-        const errorData = err.response.data;
-        console.log(errorData.details.password[0]);
-
-        if (errorData.details) {
-          if (errorData.details.email) {
-            errorMessage = "This email is already registered.";
-          } else if (errorData.details.full_name) {
-            errorMessage = "Full name is required.";
+        // Handle validation error
+        if (errorData?.code === "VALIDATION_ERROR") {
+          if (errorData.details) {
+            const errorMsgs: string[] = [];
+            if (errorData.details.full_name) {
+              errorMsgs.push("Full name is required.");
+            }
+            if (errorData.details.email) {
+              errorMsgs.push(
+                "Invalid email address or email already registered."
+              );
+            }
+            if (errorData.details.password) {
+              errorMsgs.push(errorData.details.password[0]);
+            }
+            if (errorData.details.confirm_password) {
+              errorMsgs.push("Confirm password doesn't match the password.");
+            }
+            setError(errorMsgs.join(" "));
+          } else {
+            setError("Validation error. Please check your input fields.");
           }
-        } else if (errorData.message) {
-          errorMessage = errorData.message;
         }
-      }
+        // Handle server errors
+        else if (err.response?.status === 500) {
+          setError("Server error. Please try again later.");
+        }
+        // Handle specific errors such as email already registered
+        else if (err.response?.data?.message) {
+          setError(err.response.data.message);
+        }
+        // Handle network issues
+        else if (!err.response) {
+          setError("Network error. Please check your internet connection.");
+        } else {
+          setError("An unexpected error occurred. Please try again.");
+        }
 
-      setError(errorMessage);
-      dispatch({ type: REGISTER_FAILURE, payload: errorMessage });
+        dispatch({ type: REGISTER_FAILURE, payload: error });
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+        dispatch({ type: REGISTER_FAILURE, payload: "Unknown error" });
+      }
     } finally {
       setLoading(false);
     }

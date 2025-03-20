@@ -6,8 +6,6 @@ import Navbar from "../../Components/ui/Navbar/Navbar";
 import note3 from "../../assets/image 16.png";
 import "./Login.css";
 import Bubbles from "../../Components/ui/Bubbles/Bubbles";
-// import Footer from "../../Components/ui/Footer/Footer";
-// import { loginSuccess } from "../../State/Auth/Action"; // Import the loginSuccess action
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { loginSuccessful, setToken } from "../../Components/authSlice";
 import { AppDispatch } from "../../State/Store";
@@ -16,65 +14,68 @@ interface UserProfile {
   id: string;
   full_name: string;
   email: string;
+  is_admin: boolean;
 }
+
 // Base API URL
 const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
+
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  // Handle form submission
+  const handleShowPassword = () => setShowPassword((prev) => !prev);
+
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/login/",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${baseUrl}login/`, {
+        email,
+        password,
+      });
+
+      console.log(response);
       if (response.statusText === "OK") {
         const { access: token, refresh } = response.data;
-        const profileResponse = await axios.get(`${baseUrl}/profile/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+
+        // Fetch user profile
+        const profileResponse = await axios.get(`${baseUrl}profile/`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         const user: UserProfile = profileResponse.data;
 
-        // Save token and user data to local storage
-        // localStorage.setItem("authToken", token);
+        // Save tokens and user info locally
         localStorage.setItem("refreshToken", refresh);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Dispatch loginSuccess action to save user data in Redux
+        // Update Redux state
         dispatch(loginSuccessful());
         dispatch(setToken(token));
-      }
 
-      // Redirect to the dashboard
-      navigate("/dashboard");
-      location.reload();
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        setError(error.response.data.message || "Invalid email or password");
-      } else {
-        setError("An error occurred. Please try again.");
+        const admin = response.data.is_admin;
+        // Redirect based on user role
+        if (admin) {
+          navigate("/lynogpanel");
+        } else {
+          navigate("/dashboard");
+        }
+        location.reload();
       }
+    } catch (error: any) {
+      setError(
+        error.response?.data?.message ||
+          "Invalid credentials. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -96,7 +97,7 @@ const Login: React.FC = () => {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email" // Added autoComplete attribute
+              autoComplete="email"
               required
             />
             <div className="password">
@@ -105,16 +106,14 @@ const Login: React.FC = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password" // Added autoComplete attribute
+                autoComplete="current-password"
                 required
               />
-              {showPassword ? (
-                <BsEye onClick={handleShowPassword} className="eye" />
-              ) : (
-                <BsEyeSlash onClick={handleShowPassword} className="eye" />
-              )}
+              <span className="eye" onClick={handleShowPassword}>
+                {showPassword ? <BsEye /> : <BsEyeSlash />}
+              </span>
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <p className="error">{error}</p>}
             <div className="down1">
               <div className="log">
                 <Link to="/forgotPassword">Forgot password?</Link>
@@ -132,7 +131,6 @@ const Login: React.FC = () => {
           </form>
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };

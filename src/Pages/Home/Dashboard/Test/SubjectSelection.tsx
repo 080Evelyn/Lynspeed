@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./SubjectSelection.css";
-// import Footer from "../../../../Components/ui/Footer/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import SubjectAlert from "./SubjectAlert";
 import { AppDispatch, RootState } from "../../../../State/Store";
@@ -9,12 +8,12 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchSavedSubjectList } from "../../../../State/SavedSubjectListSlice";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
+import "react-toastify/dist/ReactToastify.css";
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
-// import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
-const MAX_EXTRA_SUBJECTS = 3; // Since Use of English is already selected
-const REQUIRED_TOTAL_SUBJECTS = 4; // Total subjects required
+const MAX_EXTRA_SUBJECTS = 3;
+const REQUIRED_TOTAL_SUBJECTS = 4;
+
 interface Subs {
   id: number;
   name: string;
@@ -23,17 +22,13 @@ interface Subs {
 const SubjectSelection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([
-    "ENGLISH",
-  ]); // Default selected
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(["ENGLISH"]);
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [showSelectionAlert, setShowSelectionAlert] = useState<boolean>(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false); // Success message state
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false); // Confirmation dialog state
   const [subjectSaved, setSubjectSaved] = useState<boolean>(false);
-  // getting the subjectList states from redux store
-  const subjectList = useSelector((state: RootState) => state.subjectList.data);
 
-  // getting the SavedsubjectList states from redux store
+  const subjectList = useSelector((state: RootState) => state.subjectList.data);
   const savedSubjectList = useSelector(
     (state: RootState) => state.savedSubjectList.data
   );
@@ -42,14 +37,10 @@ const SubjectSelection = () => {
   );
   const error = useSelector((state: RootState) => state.savedSubjectList.error);
 
-  //this error shows user has not selected subjects yet
   const userSubject = error === "Request failed with status code 404";
 
-  // Handle subject change
   const handleSubjectChange = (subject: string) => {
-    const extraSelectedSubjects = selectedSubjects.filter(
-      (s) => s !== "ENGLISH"
-    );
+    const extraSelectedSubjects = selectedSubjects.filter((s) => s !== "ENGLISH");
     const isSubjectSelected = selectedSubjects.includes(subject);
 
     if (subject === "ENGLISH") return;
@@ -60,40 +51,43 @@ const SubjectSelection = () => {
       setSelectedSubjects((prev) => [...prev, subject]);
 
       if (selectedSubjects.length === REQUIRED_TOTAL_SUBJECTS - 1) {
-        setSubjectSaved(true);
+        setShowConfirmation(true); // Show confirmation when 4 subjects are selected
       } else {
         setSubjectSaved(false);
       }
     } else {
       setShowAlert(true);
-      // Show alert if user tries to select more than 3 extra subjects
     }
   };
-  console.log(selectedSubjects);
+
+  const handleConfirmSelection = () => {
+    setSubjectSaved(true);
+    setShowConfirmation(false);
+  };
+
+  const handleCancelSelection = () => {
+    setSelectedSubjects((prev) => prev.slice(0, -1));
+    setShowConfirmation(false);
+  };
+
   const token = localStorage.getItem("authToken");
   useEffect(() => {
     const handleUserSubject = async () => {
-      if (subjectSaved === true) {
+      if (subjectSaved) {
         try {
           await axios.post(
             "https://lynspeed.pythonanywhere.com/api/v1/user/subjects/",
+            { subjects: selectedSubjects },
             {
-              subjects: selectedSubjects,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`, // Add token to Authorization header
-              },
+              headers: { Authorization: `Bearer ${token}` },
             }
           );
 
-          //getting the selected subjects from the backend
           dispatch(fetchSavedSubjectList());
-          setShowSuccessMessage(true); // Show success message when four subjects are selected
+          setShowSuccessMessage(true);
           setTimeout(() => {
-            // Simulate saving subjects (replace with actual save logic if needed)
-            setShowSuccessMessage(false); // Hide success message after 5 seconds
-          }, 2090); // Set timeout for 5 seconds
+            setShowSuccessMessage(false);
+          }, 2000);
         } catch (error) {
           console.error("Error subscribing:", error);
           toast.error("Something went wrong, check internet connection.");
@@ -105,7 +99,7 @@ const SubjectSelection = () => {
 
   const handleStartTest = async (_e: React.MouseEvent) => {
     if (userSubject) {
-      alert("Selectsubjects before proceeding.");
+      alert("Select subjects before proceeding.");
       return;
     }
     dispatch(fetchTestQuestions());
@@ -115,23 +109,22 @@ const SubjectSelection = () => {
   useEffect(() => {
     dispatch(fetchSavedSubjectList());
   }, []);
+
   return (
     <>
-      {/* <Navbar2 /> */}
       <div>
         <div className="spa">
           <span
             className="back-arrow"
             onClick={() => window.history.back()}
-            style={{ color: "white", margin: "20px" }}>
+            style={{ color: "white", margin: "20px" }}
+          >
             ←
           </span>
         </div>
         {loading ? (
           <h2 className="loading">Loading....</h2>
-        ) : !loading &&
-          error &&
-          error !== "Request failed with status code 404" ? (
+        ) : !loading && error && error !== "Request failed with status code 404" ? (
           <h2 className="loading">
             Something went wrong, check internet connection.
           </h2>
@@ -152,7 +145,6 @@ const SubjectSelection = () => {
                     </label>
                   ))}
                 </div>
-
                 <div className="talk">
                   <div className="head">
                     <div className="inst"></div>
@@ -161,13 +153,11 @@ const SubjectSelection = () => {
                   </div>
                   <div className="ma">
                     <p>
-                      Please select a combination of 4 subjects that align with
-                      your desired course of study by checking the boxes above.
-                      One of the subjects, <em>Use of English</em>, is already
-                      selected for you. After selecting your subjects, click
-                      "Start Test" to begin. The test session has a specific
-                      time limit of two hours, which will be displayed on the
-                      right side of your screen. To maximize your performance:
+                      Above are the 4 selected subjects that align with your
+                      desired course of study. Click "Start Test" to begin. The
+                      test session has a specific time limit of two hours, which
+                      will be displayed on the right side of your screen. To
+                      maximize your performance:
                     </p>
                     <ul>
                       <li>
@@ -209,7 +199,6 @@ const SubjectSelection = () => {
                     </label>
                   ))}
                 </div>
-
                 <div className="talk">
                   <div className="head">
                     <div className="inst"></div>
@@ -248,6 +237,7 @@ const SubjectSelection = () => {
                 </div>
               </>
             )}
+
             <div className="but">
               <div className="bot">
                 <Link to="/dashboard">Go Back</Link>
@@ -265,17 +255,14 @@ const SubjectSelection = () => {
                 onClose={() => setShowAlert(false)}
               />
             )}
-            {showSelectionAlert && (
+            {showConfirmation && (
               <SubjectAlert
-                message={`Please select ${REQUIRED_TOTAL_SUBJECTS} subjects to continue.`}
-                onClose={() => setShowSelectionAlert(false)}
-              />
-            )}
-            {showSuccessMessage && (
-              <SubjectAlert
-                message={`Please select ${REQUIRED_TOTAL_SUBJECTS} subjects to continue.`}
-                onClose={() => setShowSelectionAlert(false)}
-              />
+                message={`You have selected ${REQUIRED_TOTAL_SUBJECTS} subjects. Do you want to save these subjects or go back to change your selection?`}
+                onClose={() => setShowConfirmation(false)}
+              >
+                <button style={{padding:"5px", marginRight:"5px", backgroundColor:"#0659a6", border:"none", borderRadius:"5px", color:"white"}} onClick={handleConfirmSelection}>Yes, Save</button>
+                <button style={{padding:"5px", backgroundColor:"#0659a6", border:"none", borderRadius:"5px", color:"white"}} onClick={handleCancelSelection}>No, Change</button>
+              </SubjectAlert>
             )}
             {showSuccessMessage && (
               <SubjectAlert
@@ -288,7 +275,6 @@ const SubjectSelection = () => {
           </>
         )}
         <ToastContainer />
-        {/* <Footer /> */}
       </div>
     </>
   );

@@ -23,29 +23,29 @@ import FAQ from "./Components/ui/FAQ/FAQ";
 import Privacy from "./Components/ui/Privacy/Privacy";
 import Terms from "./Components/ui/Terms/Terms";
 import CorrectionPage from "./Pages/Home/Dashboard/Result/CorrectionPage";
-import AdminPanel from "./Pages/AdminPanel/AdminPanel";
+import NotAuthorized from "./Components/NotAuthorized";
+import Lynogpanel from "./Pages/AdminPanel/Lynogpanel";
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home/>}/>
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/faq" element={<FAQ/>}/>
-        <Route path="/privacy" element={<Privacy/>}/>
-        <Route path="/terms" element={<Terms/>}/>
-
-        {/* Catch-all route for 404 errors */}
-        <Route path="*" element={<ErrorPage />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/login" element={<Login />} />
+        <Route path="*" element={<ErrorPage />} />
 
-        {/* Protected Routes */}
+        {/* Protected User Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/subjectselection" element={<SubjectSelection />} />
@@ -58,8 +58,19 @@ const App = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
-          <Route path="/adminPanel" element={<AdminPanel/>} />
+          <Route path="/lynogpanel" element={<Lynogpanel/>} />
+          <Route path="/notAuthorized" element={<NotAuthorized/>} />
         </Route>
+
+        {/* Admin Authentication Routes */}
+        {/* <Route
+          path="/adminPanel"
+          element={
+            <AdminProtectedRoute is_admin={true}>
+              <AdminPanel />
+            </AdminProtectedRoute>
+          }
+        /> */}
       </Routes>
     </Router>
   );

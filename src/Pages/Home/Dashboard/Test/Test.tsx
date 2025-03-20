@@ -173,7 +173,7 @@ const Test: React.FC = () => {
   return (
     <div className="test-container">
       {loading ? (
-        <h2>Loading...</h2>
+        <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
       ) : !loading &&
         error &&
         error === "Request failed with status code 403" ? (
