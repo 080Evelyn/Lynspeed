@@ -16,7 +16,7 @@ const TestResult = () => {
   const dispatch = useDispatch<AppDispatch>();
   //Access user from local storage
   const storedUser = localStorage.getItem("user");
-  const user: any = storedUser !== null ? JSON.parse(storedUser) : null;
+  const user = storedUser !== null ? JSON.parse(storedUser) : null;
 
   // Getting the testID and questionsArray from Redux store
   const questionsArray = useSelector(
@@ -40,7 +40,7 @@ const TestResult = () => {
 
   //function to get totalScore
   const getTotalScore = () => {
-    const score1: any = testScores && testScores[subjects[0]].score;
+    const score1 = testScores && testScores[subjects[0]].score;
     const score2 = testScores && testScores[subjects[1]].score;
     const score3 = testScores && testScores[subjects[2]].score;
     const score4 = testScores && testScores[subjects[3]].score;
@@ -88,6 +88,7 @@ const TestResult = () => {
       navigate("/dashboard", { replace: true });
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onPopState = (_event: PopStateEvent) => {
       // Intercept the back button behavior
       handleBackButton();
@@ -104,7 +105,7 @@ const TestResult = () => {
 
   useEffect(() => {
     dispatch(fetchTestResults(testSectionId));
-  }, []);
+  }, [dispatch, testSectionId]);
   return (
     <div className="result-page">
       <div className="back-arrow" onClick={() => navigate("/dashboard")}>
