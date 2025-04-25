@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import "./Test.css";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../State/Store";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
+import FloatingCalculator from "../../../../Components/FloatingCalculator";
+
 
 const Test: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -52,13 +56,15 @@ const Test: React.FC = () => {
   }, []);
   useEffect(() => {
     dispatch(fetchTestQuestions());
-  }, []);
+  }, [dispatch]);
   const handleSubjectChange = (index: number) => {
     setCurrentSubject(index);
     setCurrentQuestion(0);
   };
   const token = localStorage.getItem("authToken");
   const handleSubmit = async () => {
+    const isConfirmed = window.confirm("Are you sure you want to submit?");
+    if (!isConfirmed) return;
     setSubmitting(true);
     try {
       await axios.post(
@@ -108,8 +114,10 @@ const Test: React.FC = () => {
       },
     }));
     //handle response to be sent to the backend
+
     setResponse((prevAnswers: any) => {
       const existingAnswerIndex = prevAnswers.findIndex(
+
         (answer: any) => answer.question_id === question_id
       );
 
@@ -147,6 +155,12 @@ const Test: React.FC = () => {
 
   const currentOptions = currentQuestions[currentQuestion];
 
+  const [showCalculator, setShowCalculator] = useState<boolean>(false);
+
+  const toggleCalculator = () => {
+    setShowCalculator((prev) => !prev);
+  };
+
   useEffect(() => {
     // Push a dummy state to the history stack
     window.history.pushState(null, "", window.location.href);
@@ -173,11 +187,14 @@ const Test: React.FC = () => {
   return (
     <div className="test-container">
       {loading ? (
-        <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
+        <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
       ) : !loading &&
         error &&
         error === "Request failed with status code 403" ? (
-        <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+        <div className="sub-opt">
+          <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+          <button><Link to="/subscription" style={{ color: "white" }} >Subscription</Link></button>
+        </div>
       ) : !loading &&
         error &&
         error !== "Request failed with status code 403" ? (
@@ -228,9 +245,8 @@ const Test: React.FC = () => {
                         )
                       }
                     />
-                    {`${key.split("_")[1].toUpperCase()}. ${
-                      currentOptions?.[key]
-                    }`}
+                    {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]
+                      }`}
                   </label>
                 ))}
               </div>
@@ -256,15 +272,23 @@ const Test: React.FC = () => {
             {currentQuestions.map((question: any, index: number) => (
               <button
                 key={index}
-                className={`${currentQuestion === index ? "active" : ""} ${
-                  selectedAnswers[currentSubject]?.[index] ? "answered" : ""
-                }`}
+                className={`${currentQuestion === index ? "active" : ""} ${selectedAnswers[currentSubject]?.[index] ? "answered" : ""
+                  }`}
                 onClick={() => setCurrentQuestion(index)}>
                 {question.displayNumber}
               </button>
             ))}
           </div>
+          <div>
 
+            <div>
+              <button onClick={toggleCalculator} className="calculator-toggle">
+                {showCalculator ? "Hide Calculator" : "Show Calculator"}
+              </button>
+
+              {showCalculator && <FloatingCalculator />}
+            </div>
+          </div>
           <div className="submit-section">
             <button
               onClick={handleSubmit}
@@ -275,6 +299,7 @@ const Test: React.FC = () => {
           </div>
         </>
       )}
+
     </div>
   );
 };

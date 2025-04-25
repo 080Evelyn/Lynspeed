@@ -25,10 +25,17 @@ import Terms from "./Components/ui/Terms/Terms";
 import CorrectionPage from "./Pages/Home/Dashboard/Result/CorrectionPage";
 import NotAuthorized from "./Components/NotAuthorized";
 import Lynogpanel from "./Pages/AdminPanel/Lynogpanel";
+// Import InstallPWA component
+import InstallPWA from "./Components/InstallPWA";
+import ChatButton from "./Components/ChatBtn";
 
 const App = () => {
   return (
     <Router>
+      <InstallPWA /> {/* Add this line to make the prompt appear globally */}
+
+      {/* Add Chat Button Globally */}
+      <ChatButton />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
@@ -58,8 +65,9 @@ const App = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
-          <Route path="/lynogpanel" element={<Lynogpanel/>} />
-          <Route path="/notAuthorized" element={<NotAuthorized/>} />
+          <Route path="/lynogpanel" element={<Lynogpanel />} />
+          <Route path="/notAuthorized" element={<NotAuthorized />} />
+
         </Route>
 
         {/* Admin Authentication Routes */}

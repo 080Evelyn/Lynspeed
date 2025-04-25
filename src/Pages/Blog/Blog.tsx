@@ -6,6 +6,9 @@ import blogpic2 from "../../assets/logpic2.png";
 import blogpic3 from "../../assets/blogpic3.png";
 import blogpic4 from "../../assets/logpic4.png";
 
+
+
+
 const Blog = () => {
   return (
     <>
@@ -27,7 +30,7 @@ const Blog = () => {
       <div className="blog-content">
         <div className="header">
           <h2> Blog</h2>
-         
+
         </div>
 
         {/* Blog sections */}
@@ -48,6 +51,7 @@ const Blog = () => {
               confidence while identifying areas of weakness. Stay calm, rest,
               and pray for a smooth exam day.
             </p>
+
           </div>
         </div>
 

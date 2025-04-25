@@ -104,9 +104,7 @@ const About = () => {
           <div className="chose">
             <ul className="why-list">
               <li>
-                <strong>Exam Familiarity</strong>: By simulating the actual JAMB
-                exam, it helps students become familiar with the format,
-                reducing exam anxiety.
+                <strong>Exam Familiarity</strong>: By simulating the actual JAMB exam, this platform helps students become familiar with the format, reduces exam anxiety, and provides a real JAMB experience.
               </li>
               <li>
                 <strong>Focused Study</strong>: The detailed feedback and

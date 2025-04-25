@@ -1,12 +1,16 @@
 // Footer Component
 import "./Footer.css";
-import logo from "../../../assets/logofooter.png";
+import logo from "../../../assets/plainLogobrand.png";
 import tiktok from "../../../assets/tiktok.png";
 import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
+import twiter from "../../../assets/twitter.jpeg"
 import { Link } from "react-router-dom";
 
-const Footer = () => { 
+
+const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
+
+const Footer = () => {
   return (
     <footer>
       <div className="footer-container">
@@ -21,10 +25,11 @@ const Footer = () => {
         </div>
 
         <div className="footer-links">
+          <p>
+            <strong>Product</strong>
+          </p>
           <ul>
-            <p>
-              <strong>Product</strong>
-            </p>
+
             <li>
               <Link to="/home">Home</Link>
             </li>
@@ -44,10 +49,11 @@ const Footer = () => {
         </div>
 
         <div className="usefullink">
+          <p>
+            <strong>Useful Links</strong>
+          </p>
           <ul>
-            <p>
-              <strong>Useful Links</strong>
-            </p>
+
             <li>
               <Link to="/faq">FAQ</Link>
             </li>
@@ -63,7 +69,14 @@ const Footer = () => {
         <div className="connect">
           <div className="footer-contact">
             <p>Email: support@lynspeed.com.ng</p>
-            <a href="https://wa.me/2349065366858"><p style={{color:"#0659a6"}}>Chat with us</p></a>
+            <a
+              href={whatsappGroupLink}
+              target="_blank"
+              rel="noopener noreferrer"
+
+            >
+              Join Our WhatsApp Group
+            </a>
           </div>
 
           <div className="footer-social">
@@ -88,7 +101,17 @@ const Footer = () => {
             >
               <img src={insta} alt="Instagram" />
             </a>
+            <a
+              href="https://x.com/lynspeedtech"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={twiter} alt="X" />
+            </a>
+
           </div>
+
+
         </div>
       </div>
 

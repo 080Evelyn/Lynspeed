@@ -70,8 +70,27 @@ li a:hover {
 .connect {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
   text-align: center;
+}
+
+.connect .footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+}
+
+.connect .footer-contact a {
+  background-color: #25D366;
+  color: white;
+  padding: 10px;
+  max-width: 250px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 400;
+  display: inline-block;
 }
 
 .footer-contact p {
@@ -96,14 +115,19 @@ li a:hover {
 }
 
 .footer-copyright {
-  width: 100vw; /* Full viewport width */
-  background-color: #0659a6; /* Blue background */
+  width: 100vw;
+  /* Full viewport width */
+  background-color: #0659a6;
+  /* Blue background */
   color: white;
   text-align: center;
-  padding: 30px 20px; /* Extra spacing */
+  padding: 30px 20px;
+  /* Extra spacing */
   font-size: 14px;
-  box-sizing: border-box; /* Include padding in dimensions */
-  margin-top: auto; /* Push the footer to the bottom */
+  box-sizing: border-box;
+  /* Include padding in dimensions */
+  margin-top: auto;
+  /* Push the footer to the bottom */
 }
 
 .footer-copyright p {
@@ -118,13 +142,15 @@ li a:hover {
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Make body take up the full viewport height */
+  min-height: 100vh;
+  /* Make body take up the full viewport height */
   margin: 0;
 }
 
 /* Main Content Section Before Footer */
 main {
-  flex: 1; /* Ensure main content expands to fill available space */
+  flex: 1;
+  /* Ensure main content expands to fill available space */
 }
 
 /* Responsive Styles */

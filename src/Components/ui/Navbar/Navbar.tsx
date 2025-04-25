@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/selffront5.png";
+import logo from "../../../assets/LynspeedName.jpg";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
@@ -12,12 +12,14 @@ const Navbar: React.FC = () => {
 
   return (
     <div className="navbar">
-      <img
-        src={logo}
-        alt="Lynspeed logo"
-        loading="lazy"
-        className="navbar-logo"
-      />
+      <Link to={"/"}>
+        <img
+          src={logo}
+          alt="Lynspeed logo"
+          loading="lazy"
+          className="navbar-logo"
+        />
+      </Link>
       <button
         className="menu-toggle"
         onClick={toggleMenu}

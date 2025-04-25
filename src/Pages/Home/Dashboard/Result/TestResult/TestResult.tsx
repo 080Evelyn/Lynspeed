@@ -148,7 +148,7 @@ const TestResult = () => {
                       <tr>
                         <th>Subjects</th>
                         <th>Duration</th>
-                        <th>Scores</th>
+                        <th>Scores (100)</th>
                       </tr>
                     </thead>
                     <tbody>
