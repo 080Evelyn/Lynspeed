@@ -73,7 +73,8 @@ const Login: React.FC = () => {
       }
     } catch (error: any) {
       setError(
-        error.response?.data?.message || "Invalid credentials. Please try again."
+        error.response?.data?.message ||
+          "Invalid credentials. Please try again."
       );
     } finally {
       setLoading(false);

@@ -33,7 +33,6 @@ const App = () => {
   return (
     <Router>
       <InstallPWA /> {/* Add this line to make the prompt appear globally */}
-
       {/* Add Chat Button Globally */}
       <ChatButton />
       <Routes>
@@ -67,7 +66,6 @@ const App = () => {
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/lynogpanel" element={<Lynogpanel />} />
           <Route path="/notAuthorized" element={<NotAuthorized />} />
-
         </Route>
 
         {/* Admin Authentication Routes */}

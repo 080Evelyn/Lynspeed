@@ -1,3 +1,4 @@
+@import "tailwindcss";
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +15,7 @@ body {
 
 body {
   min-height: 100vh;
-  background: #FFFFFF;
+  background: #ffffff;
   color: #000000;
   font-family: "Poppins", sans-serif;
 }

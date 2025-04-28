@@ -70,7 +70,8 @@ const TestResult = () => {
 
   // // Calculate the duration
   const duration = calculateDuration(startTime, endTime);
-
+  // console.log(duration, startTime, endTime);
+  // console.log(testResult);
 
   const formatTime = (isoString: string): string => {
     const date = new Date(isoString);
@@ -130,7 +131,8 @@ const TestResult = () => {
                   <div className="user-info">
                     <div className="info-text">
                       <div className="testint">
-                        <b>Name:</b> <p className="upperCase">{user.full_name}</p>
+                        <b>Name:</b>{" "}
+                        <p className="upperCase">{user.full_name}</p>
                       </div>
                       <p>{/* <b>Date:</b> {date} */}</p>
                       <p>
@@ -158,7 +160,8 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[0]].score * 100) / 100}
+                            Math.ceil(testScores[subjects[0]].score * 100) /
+                              100}
                         </td>
                       </tr>
                       <tr></tr>
@@ -171,7 +174,8 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[1]].score * 100) / 100}
+                            Math.ceil(testScores[subjects[1]].score * 100) /
+                              100}
                         </td>
                       </tr>
                       <tr>
@@ -182,7 +186,8 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[2]].score * 100) / 100}
+                            Math.ceil(testScores[subjects[2]].score * 100) /
+                              100}
                         </td>
                       </tr>
                       <tr>
@@ -194,13 +199,15 @@ const TestResult = () => {
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
                             Math.ceil(testScores[subjects[3]].score * 100) /
-                            100}
+                              100}
                         </td>
                       </tr>
                       <tr className="total-score">
                         <td>Total</td>
                         <td>{duration}</td>
-                        <td style={{ paddingLeft: "20px" }} >{Math.ceil(totalScore * 100) / 100}</td>
+                        <td style={{ paddingLeft: "20px" }}>
+                          {Math.ceil(totalScore * 100) / 100}
+                        </td>
                       </tr>
                     </tbody>
                   </table>

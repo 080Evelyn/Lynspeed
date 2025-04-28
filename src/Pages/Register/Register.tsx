@@ -107,7 +107,9 @@ const Register: React.FC = () => {
               errorMsgs.push("Full name is required.");
             }
             if (errorData.details.email) {
-              errorMsgs.push("Invalid email address or email already registered.");
+              errorMsgs.push(
+                "Invalid email address or email already registered."
+              );
             }
             if (errorData.details.password) {
               errorMsgs.push(errorData.details.password[0]);

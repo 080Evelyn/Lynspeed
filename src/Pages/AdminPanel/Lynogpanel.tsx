@@ -76,7 +76,6 @@ const Lynogpanel = () => {
     }
   };
 
-
   useEffect(() => {
     // Fetch payment data from the API
     const fetchPayments = async () => {
@@ -97,13 +96,8 @@ const Lynogpanel = () => {
 
     fetchPayments();
 
-
     // Fetch payments for a specific user
-
   }, [token]);
-
-
-
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
     setSelectedMenu(menu);
@@ -211,7 +205,8 @@ const Lynogpanel = () => {
           <section className="dashboard-cards">
             <div className="card">
               <h3>Total Users</h3>
-              <p>{users.length}</p> {/* Dynamically displaying total number of users */}
+              <p>{users.length}</p>{" "}
+              {/* Dynamically displaying total number of users */}
             </div>
             <div className="card">
               <h3>Exams Taken</h3>
@@ -297,9 +292,13 @@ const Lynogpanel = () => {
                       <tr key={payment.id}>
                         <td>{payment.id}</td>
                         <td>{payment.user_email}</td>
-                        <td><i>&#8358;</i> {payment.amount}</td>
+                        <td>
+                          <i>&#8358;</i> {payment.amount}
+                        </td>
                         <td>{payment.transaction_id}</td>
-                        <td>{new Date(payment.payment_date).toLocaleDateString()}</td>
+                        <td>
+                          {new Date(payment.payment_date).toLocaleDateString()}
+                        </td>
                       </tr>
                     ))
                   ) : (
@@ -311,7 +310,6 @@ const Lynogpanel = () => {
               </table>
             </div>
           </section>
-
         );
 
       case "notifications":
@@ -345,45 +343,39 @@ const Lynogpanel = () => {
           <ul>
             <li
               className={selectedMenu === "dashboard" ? "active" : ""}
-              onClick={() => handleMenuClick("dashboard")}
-            >
+              onClick={() => handleMenuClick("dashboard")}>
               Admin Dashboard
             </li>
             <li
               className={selectedMenu === "users" ? "active" : ""}
-              onClick={() => handleMenuClick("users")}
-            >
+              onClick={() => handleMenuClick("users")}>
               Users
             </li>
             <li
               className={selectedMenu === "question" ? "active" : ""}
-              onClick={() => handleMenuClick("question")}
-            >
+              onClick={() => handleMenuClick("question")}>
               Upload Files
             </li>
             <li
               className={selectedMenu === "reports" ? "active" : ""}
-              onClick={() => handleMenuClick("reports")}
-            >
+              onClick={() => handleMenuClick("reports")}>
               Reports
             </li>
             <li
               className={selectedMenu === "payments" ? "active" : ""}
-              onClick={() => handleMenuClick("payments")}
-            >
+              onClick={() => handleMenuClick("payments")}>
               Payments
             </li>
             <li
               className={selectedMenu === "notifications" ? "active" : ""}
-              onClick={() => handleMenuClick("notifications")}
-            >
+              onClick={() => handleMenuClick("notifications")}>
               Notifications
             </li>
             {/* <li>System Configuration</li> */}
             {/* <li>Logs and Audit</li> */}
           </ul>
         </nav>
-        <button className="logout-btn" onClick={handleLogout}>
+        <button className="text-justify" onClick={handleLogout}>
           Logout
         </button>
       </aside>
