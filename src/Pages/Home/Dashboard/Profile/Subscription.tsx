@@ -4,10 +4,10 @@ import "./Subscription.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import Toastify styles
 import SubBtn from "./SubBtn";
-import PaymentValidationText from "./PaymentValidationText";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../State/Store";
+import { AppDispatch } from "../../../../State/Store";
+import { useDispatch } from "react-redux";
 import { setValidate } from "../../../../State/PaymentValidationSlice";
+import PaymentValidationText from "./PaymentValidationText";
 
 interface SubscriptionStatus {
   status: string;
@@ -28,19 +28,16 @@ interface planStatus {
 }
 
 const Subscription: React.FC = () => {
-  const validate = useSelector(
-    (state: RootState) => state.paymentValidate.validate
-  );
-  const dispatch = useDispatch<AppDispatch>();
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(
     null
   );
 
   const [plan, setPlan] = useState<planStatus | null>(null);
-  const [paymentVerify, setPaymentVerify] = useState(false);
-  const [paymentNotVerify, setPaymentNotVerify] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+  const [paymentVerify, setPaymentVerify] = useState(false);
+  const [paymentNotVerify, setPaymentNotVerify] = useState(false);
   const [verifiactionLoading, setVerificationLoading] = useState(false);
 
   const token = localStorage.getItem("authToken");
@@ -120,6 +117,10 @@ const Subscription: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    validatePayment();
+  }, []);
+
   return (
     <div className="subscription-container">
       {/* Backward Arrow */}
@@ -150,21 +151,6 @@ const Subscription: React.FC = () => {
           ) : (
             <p>You do not have an active subscription.</p>
           )}
-          {validate && (
-            <div>
-              <p className="p">
-                Click on the button below to validate your payment
-              </p>
-              <button
-                onClick={() => {
-                  validatePayment();
-                }}
-                className="validateBtn"
-              >
-                Validate Payment
-              </button>
-            </div>
-          )}
           <div className="plans-container">
             {plan &&
               plan.map((plan) => (
@@ -193,42 +179,46 @@ const Subscription: React.FC = () => {
                   )}
                   <h3>{plan.price}</h3>
 
-                  <SubBtn name={plan.name} id={plan.id} />
+                  <SubBtn
+                    name={plan.name}
+                    id={plan.id}
+                    url={"https://www.lynspeed.com.ng/subscription"}
+                  />
                 </div>
               ))}
           </div>
+          <>
+            {paymentVerify && (
+              <>
+                <PaymentValidationText
+                  text={"your payment has been successfuly verified"}
+                />
+                <div
+                  onClick={() => {
+                    setPaymentVerify(false);
+                  }}
+                  className="modal "></div>
+              </>
+            )}
+            {paymentNotVerify && (
+              <>
+                <PaymentValidationText
+                  text={
+                    "Payment status: abandoned. Please contact support if you need assistance."
+                  }
+                />
+
+                <div
+                  onClick={() => {
+                    setPaymentNotVerify(false);
+                  }}
+                  className="modal"></div>
+              </>
+            )}
+          </>
         </>
       )}
       <ToastContainer />
-      {paymentVerify && (
-        <>
-          <PaymentValidationText
-            text={"your payment has been successfuly verified"}
-          />
-          <div
-            onClick={() => {
-              setPaymentVerify(false);
-            }}
-            className="modal "
-          ></div>
-        </>
-      )}
-      {paymentNotVerify && (
-        <>
-          <PaymentValidationText
-            text={
-              "Payment status: abandoned. Please contact support if you need assistance."
-            }
-          />
-
-          <div
-            onClick={() => {
-              setPaymentNotVerify(false);
-            }}
-            className="modal"
-          ></div>
-        </>
-      )}
     </div>
   );
 };

@@ -7,8 +7,9 @@ import { setValidate } from "../../../../State/PaymentValidationSlice";
 interface Payload {
   id: number;
   name: string;
+  url: string;
 }
-const SubBtn = ({ name, id }: Payload) => {
+const SubBtn = ({ name, id, url }: Payload) => {
   const dispatch = useDispatch<AppDispatch>();
   const [subLoader, setSubLoader] = useState(false);
   const token = localStorage.getItem("authToken");
@@ -22,6 +23,7 @@ const SubBtn = ({ name, id }: Payload) => {
         {
           plan_id: id,
           plan: name,
+          callback_url: url,
         },
         {
           headers: {

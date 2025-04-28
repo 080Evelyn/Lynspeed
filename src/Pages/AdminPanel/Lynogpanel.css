@@ -1,17 +1,17 @@
-
 .admin-panel {
   display: flex;
   height: 100vh;
 }
 
 /* Sidebar */
- .admin-panel .sidebar {
+.admin-panel .sidebar {
   width: 230px;
   background-color: #003f88;
   color: #fff;
   display: flex;
   flex-direction: column;
   position: fixed;
+  height: 100vh;
   padding: 20px;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
 }
@@ -39,7 +39,7 @@
   font-size: 16px;
 }
 
-.admin-panel .sidebar .menu ul li.active, 
+.admin-panel .sidebar .menu ul li.active,
 .admin-panel .sidebar .menu ul li:hover {
   background-color: #0056b3;
   transform: translateX(5px);
@@ -151,7 +151,8 @@
   background-color: #fff;
 }
 
-.admin-panel table th, table td {
+.admin-panel table th,
+table td {
   text-align: left;
   padding: 12px;
   border: 1px solid #ddd;
