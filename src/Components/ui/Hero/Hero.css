@@ -95,7 +95,6 @@
   }
 }
 
-
 .pic {
   margin: 10px;
   height: 100vh;
@@ -112,9 +111,9 @@
   height: auto;
 }
 
-.foot {
+/* .foot {
   display: none;
-}
+} */
 
 /* Animations */
 .animate-text {
