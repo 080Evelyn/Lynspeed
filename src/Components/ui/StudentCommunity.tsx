@@ -3,7 +3,6 @@ import img from "../../assets/section3img.png";
 import icon1 from "../../assets/Icon5.png";
 import icon2 from "../../assets/Frame1.png";
 import icon3 from "../../assets/Frame2.png";
-import { FaTelegram, FaWhatsapp } from "react-icons/fa";
 
 const StudentCommunity = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -67,29 +66,29 @@ const StudentCommunity = () => {
       {/* Button and Dropdown */}
       <div className="!w-[300px] md:!w-[500px] !m-auto !mt-5 relative">
         <button
-          className="!px-4 !py-2 bg-gray-100 w-full rounded-full text-[#0659a6] hover:!bg-gray-400 cursor-pointer"
+          className="!px-4 !py-2 bg-gray-100 w-full rounded-full text-[#0659a6] hover:!bg-gray-200 cursor-pointer"
           onClick={() => setDropdownOpen((prev) => !prev)}>
           Join the Conversation
         </button>
 
         {dropdownOpen && (
-          <div className="absolute !px-5 mt-2 bg-[#0659a6] border rounded-md shadow-lg z-50">
+          <div className="absolute !px-5 mt-2 bg-[#0659a6]  rounded-md shadow-lg z-50">
             <a
               href={whatsappGroupLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="block !px-4 !py-2 hover:bg-gray-100  ">
-              <span className="flex items-center justify-evenly ">
-                Join via WhatsApp <FaWhatsapp />
+              className="block !px-4 !py-2 hover:bg-gray-100   ">
+              <span className="flex items-center hover:text-black text-white justify-evenly ">
+                Join via WhatsApp
               </span>
             </a>
             <a
               href={telegramGroupLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="block !px-4 !py-2 hover:bg-gray-100 text-gray-800">
-              <span className="flex items-center justify-evenly">
-                Join via Telegram <FaTelegram />
+              className="block !px-4 !py-2 hover:bg-gray-100 ">
+              <span className="flex hover:text-black items-center text-white justify-evenly">
+                Join via Telegram
               </span>
             </a>
           </div>

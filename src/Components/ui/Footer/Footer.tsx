@@ -6,8 +6,10 @@ import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
 import twiter from "../../../assets/twitter.jpeg";
 import { Link } from "react-router-dom";
+import { FaTelegram } from "react-icons/fa";
 
 const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
+const telegramGroupLink = "https://t.me/+ECkwP9Us1CE5Yjhk";
 
 const Footer = () => {
   return (
@@ -97,6 +99,12 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer">
               <img src={twiter} alt="X" />
+            </a>
+            <a
+              href={telegramGroupLink}
+              target="_blank"
+              rel="noopener noreferrer">
+              <FaTelegram size={30} />
             </a>
           </div>
         </div>

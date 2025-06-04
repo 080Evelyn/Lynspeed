@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const CareerPath = ({ img }: any) => {
   return (
-    <section className="w-full !py-6 md:!py-16 !mt-[150px] md:!mt-50 bg-[#fcfcfc">
+    <section className="w-full !py-6 md:!py-16 !mt-[150px] md:!mt-20 bg-[#fcfcfc">
       <h2 className=" w-[90%] text-3xl text-center md:text-4xl font-semibold !py-5 md:py-16">
         Find Your Perfect Career Path
       </h2>
