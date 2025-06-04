@@ -52,7 +52,7 @@ const SkillsCarousel = () => {
           pagination={{ clickable: true }}>
           {skills.map((skill, index) => (
             <SwiperSlide key={index}>
-              <div className="bg-[#003260] text-white rounded-lg max-w-[300px] !pb-4 mt-11  md:!ml-[20%] !mx-auto p-6 shadow-lg !h-full flex flex-col justify-between">
+              <div className="bg-[#003260] text-white rounded-lg max-w-[300px]  mt-11  md:!ml-[20%] !mx-auto !p-6 shadow-lg !h-full flex flex-col justify-between">
                 <img
                   className="h-[50px] w-[50px] !mt-5 !ml-5"
                   src={skill.icon}
