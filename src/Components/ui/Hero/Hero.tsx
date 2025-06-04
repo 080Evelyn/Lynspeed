@@ -22,8 +22,9 @@ const Hero: React.FC = () => {
       <section className="hero">
         <div className="left">
           <div className="max-w-[800px] !mt-[50px] md:!mt-[100px] !px-5">
-            <h1 className="write1 animate-text">
-              Grow With Purpose: From Exam Prep to Lifelong Success
+            <h1 className="write1 text-[#0659a6] text-6xl  animate-text">
+              From <span className="text-amber-700">Books</span> to
+              <span className="!px-2">Big</span> Moves
             </h1>
             <p className="write2 animate-subtext !mt-5">
               Grow With Purpose: From Exam Prep to Lifelong Success At Lynspeed,
@@ -40,7 +41,7 @@ const Hero: React.FC = () => {
             </Link> */}
             <Link to="/register" aria-label="Register for Lynspeed">
               <button className="bg-[#0659a6]   text-[#fff] w-[150px] md:w-[200px]  animate-button cursor-pointer rounded-3xl !px-4 !py-2">
-                Register
+                Get Started
               </button>
             </Link>
           </div>
@@ -57,7 +58,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
         <div
-          className="animate-image relative md:left-[5%] h-[300px] w-[300px] md:h-[600px] md:w-[600px] rounded-full"
+          className="animate-image relative md:left-[5%] h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full"
           role="img"
           aria-label="Student taking exam"
           tabIndex={0}
@@ -66,7 +67,7 @@ const Hero: React.FC = () => {
               "radial-gradient(circle, #fffacd 0%, #ffe066 35%, #ffcc00 65%, transparent 100%)",
           }}>
           <img
-            className="md:relative h-[300px] md:!h-[700px] md:bottom-[50px] md:left-[100px]"
+            className="md:relative h-[300px] md:!h-[700px] md:!bottom-[50px] md:!left-[50px]"
             src={mage}
             alt="homepic"
           />
@@ -85,7 +86,7 @@ const Hero: React.FC = () => {
         <SkillsCarousel />
       </section>
       {/* student community section */}
-      <section>
+      <section id="our-tribe">
         <StudentCommunity />
       </section>
       {/* faq section */}

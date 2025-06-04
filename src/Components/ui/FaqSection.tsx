@@ -78,7 +78,7 @@ const FaqSection = () => {
                 className={`w-full text-left !px-6 !py-4 flex items-center justify-between hover:!text-white ${
                   openIndex === i ? "bg-blue-50" : "bg-gray-50"
                 }`}>
-                <span className="font-medium text-gray-800">
+                <span className="font-medium text-gray-800 hover:!text-white">
                   {faq.question}
                 </span>
                 {openIndex === i ? (

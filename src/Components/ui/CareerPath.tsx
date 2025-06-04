@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const CareerPath = ({ img }: any) => {
   return (
-    <section className="w-full !py-6 md:!py-16 !mt-[150px] md:!mt-10 bg-[#fcfcfc">
+    <section className="w-full !py-6 md:!py-16 !mt-[150px] md:!mt-50 bg-[#fcfcfc">
       <h2 className=" w-[90%] text-3xl text-center md:text-4xl font-semibold !py-5 md:py-16">
         Find Your Perfect Career Path
       </h2>
@@ -25,9 +25,9 @@ const CareerPath = ({ img }: any) => {
               },
             ].map((item, index) => (
               <div key={index} className="flex items-start gap-4">
-                <div className="w-3 h-3 md:w-5 md:h-5 !mt-7 md:!mt-5 rounded-full border-4 border-blue-600" />
+                <div className="w-2 h-2 md:w-5 md:h-5 !mt-7 md:!mt-5 rounded-full border-4 border-blue-600" />
                 <div>
-                  <h3 className="text-lg !text-justify font-semibold text-gray-900">
+                  <h3 className="!text-left !text-md md:!text-lg md:!text-justify font-semibold text-gray-900">
                     {item.title}
                   </h3>
                   <p className="text-gray-500 text-sm">{item.desc}</p>

@@ -6,7 +6,7 @@ const MasterJamb = ({ img1, img2, img3 }: any) => {
       <h2 className="text-center text-3xl md:text-4xl font-semibold !py-5">
         Master JAMB with Confidence
       </h2>
-      <div className="flex flex-col md:flex-row w-[90%] !m-auto justify-between !mt-5">
+      <div className="flex flex-col md:!flex-row !gap-3 w-[90%] !m-auto justify-between !mt-5">
         <div className="bg-white !p-5 !mb-3 rounded-md md:w-[450px]">
           <img
             className="!m-auto !h-[250px] md:!h-[350px] !w-[90%]"

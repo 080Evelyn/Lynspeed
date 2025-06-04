@@ -5,9 +5,14 @@ import "./Navbar.css";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [clicked, setClicked] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleDropdown = () => {
+    setClicked(!clicked);
   };
 
   return (
@@ -40,7 +45,9 @@ const Navbar: React.FC = () => {
             <Link to="/about">About</Link>
           </li>
           <li className="relative group ">
-            <span className="cursor-pointer inline-flex items-center gap-1 hover:text-blue-600">
+            <span
+              onClick={handleDropdown}
+              className="cursor-pointer inline-flex items-center gap-1 hover:text-blue-600">
               <p className="!text-[18px] ">Core Features</p>
               <svg
                 className="w-4 h-4"
@@ -55,27 +62,37 @@ const Navbar: React.FC = () => {
                 />
               </svg>
             </span>
-            <ul className="absolute hidden group-hover:block bg-white border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[300px]  z-50">
+            <ul
+              className={`absolute  ${
+                clicked ? "block" : "hidden"
+              } group-hover:block bg-[#0659a6] !px-2 border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[300px]  z-50`}>
+              <li>
+                <a
+                  href="#career-guidance"
+                  className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
+                  Career Guidance and Counseling
+                </a>
+              </li>
               <li>
                 <a
                   href="#jamb-simulation"
-                  className="block px-4 py-2 hover:bg-gray-100">
+                  className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100 ">
                   JAMB Simulation
                 </a>
               </li>
 
               <li>
                 <a
-                  href="#career-guidance"
-                  className="block px-4 py-2 hover:bg-gray-100">
-                  Career Guidance and Counseling
+                  href="#skill-discovery"
+                  className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
+                  Skill Discovery
                 </a>
               </li>
               <li>
                 <a
-                  href="#skill-discovery"
-                  className="block px-4 py-2 hover:bg-gray-100">
-                  Skill Discovery
+                  href="#our-tribe"
+                  className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
+                  Our Tribe
                 </a>
               </li>
             </ul>
