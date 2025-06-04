@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
         <div
-          className="animate-image relative md:left-[5%] h-[300px] w-[300px] md:h-[600px] md:w-[600px] rounded-full"
+          className="animate-image relative md:left-[5%] h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full"
           role="img"
           aria-label="Student taking exam"
           tabIndex={0}
