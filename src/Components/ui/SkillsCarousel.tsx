@@ -10,12 +10,12 @@ import img3 from "../../assets/Icon3.png";
 // import img4 from "../../assets/Icon4.png";
 const skills = [
   {
-    title: "Hard Skills (Technical Skills)",
+    title: "Hard Skills (Technical)",
     desc: "Build practical, hands-on skills that solve real challenges in your environment. From coding to critical thinking, these are the tools that open doors to lasting success.",
     icon: img1,
   },
   {
-    title: "Soft Skills (Interpersonal Skills)",
+    title: "Soft Skills (Interpersonal)",
     desc: "Master the art of leadership, clear communication and teamwork. With emotional intelligence and people skills, you'll stand out and build strong connections wherever you go.",
     icon: img2,
   },
