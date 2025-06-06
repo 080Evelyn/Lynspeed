@@ -7,11 +7,16 @@ import facebook from "../../../assets/facebook.png";
 import twiter from "../../../assets/twitter.jpeg";
 import { Link } from "react-router-dom";
 import { FaTelegram } from "react-icons/fa";
+// import { useState } from "react";
 
 const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
 const telegramGroupLink = "https://t.me/+ECkwP9Us1CE5Yjhk";
 
 const Footer = () => {
+  // const [clicked, setClicked] = useState<boolean>(true);
+  // const handleDropdown = () => {
+  //   setClicked(!clicked);
+  // };
   return (
     <footer>
       <div className="footer-container">
@@ -60,6 +65,46 @@ const Footer = () => {
             </li>
             <li>
               <Link to="/terms">Terms & Conditions</Link>
+            </li>
+            <li className=" ">
+              {/* <span
+                onClick={handleDropdown}
+                className="cursor-pointer inline-flex items-center gap-1 hover:text-blue-600">
+                <p className="!text-[18px] ">Core Features</p>
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </span> */}
+              <li>
+                <a href="#career-guidance" className="">
+                  Career Guidance and Counseling
+                </a>
+              </li>
+              <li>
+                <a href="#jamb-simulation" className=" ">
+                  JAMB Simulation
+                </a>
+              </li>
+
+              <li>
+                <a href="#skill-discovery" className="">
+                  Skill Discovery
+                </a>
+              </li>
+              <li>
+                <a href="#our-tribe" className="">
+                  Our Tribe
+                </a>
+              </li>
             </li>
           </ul>
         </div>

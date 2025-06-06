@@ -4,40 +4,38 @@ import { Link } from "react-router-dom";
 
 const faqs = [
   {
-    question: "How do I register for the JAMB simulation?",
+    question: "What if I don’t know what my strengths are? ",
     answer:
-      "You can register by signing up on our platform using your email and personal details. Once registered, you can log in to access the simulation tests.",
+      "That’s exactly what the career quiz is designed for, to help you discover your strengths and where you naturally shine.",
   },
   {
-    question: "What subjects are available?",
-    answer: (
-      <>
-        We cover a wide range of subjects, including:
-        <ul className="list-none mt-2 space-y-1">
-          <li>📘 Mathematics</li>
-          <li>📖 English Language</li>
-          <li>🧬 Science</li>
-          <li>🌍 Social Studies</li>
-          <li>💻 Computer Science</li>
-          <li>… and many more!</li>
-        </ul>
-      </>
-    ),
+    question: "What if the career suggested to me is not interesting to me? ",
+    answer:
+      "That could mean your quiz answers weren’t fully accurate. Try retaking the quiz and answer as sincerely as possible for better results.",
+    // (
+    //   <>
+    //     We cover a wide range of subjects, including:
+    //     <ul className="list-none mt-2 space-y-1">
+    //       <li>📘 Mathematics</li>
+    //       <li>📖 English Language</li>
+    //       <li>🧬 Science</li>
+    //       <li>🌍 Social Studies</li>
+    //       <li>💻 Computer Science</li>
+    //       <li>… and many more!</li>
+    //     </ul>
+    //   </>
+    // ),
   },
   {
-    question: "Can I view my performance history?",
+    question:
+      "What are the benefits of having a career mentor or how do I choose the right mentor?",
     answer:
-      "Yes, you can access your performance history on the dashboard under the 'Result History' section",
+      "A mentor makes your journey easier by sharing real experiences and guidance. Choose someone whose path aligns with your goals and who inspires you.",
   },
   {
-    question: "How much does the JAMB simulation cost?",
+    question: "Can I change my mentor if I don’t like him/her? ",
     answer:
-      "The cost depends on the package you choose. Check our pricing page for details about available plans.",
-  },
-  {
-    question: "How can I manage my time during the simulation?",
-    answer:
-      "The simulation includes a timer for each test. Practice completing each section within the allocated time to improve your time management skills.",
+      "Yes, you can Just reach out to our support team with a valid reason, and we’ll help you make the switch.",
   },
 ];
 
