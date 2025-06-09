@@ -75,7 +75,7 @@ const Login: React.FC = () => {
         } else {
           navigate("/dashboard");
         }
-        location.reload();
+        // location.reload();
       }
     } catch (error: any) {
       setError(
