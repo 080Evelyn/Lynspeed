@@ -22,7 +22,9 @@ interface Subs {
 const SubjectSelection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>(["ENGLISH"]);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([
+    "ENGLISH",
+  ]);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false); // Confirmation dialog state
@@ -40,7 +42,9 @@ const SubjectSelection = () => {
   const userSubject = error === "Request failed with status code 404";
 
   const handleSubjectChange = (subject: string) => {
-    const extraSelectedSubjects = selectedSubjects.filter((s) => s !== "ENGLISH");
+    const extraSelectedSubjects = selectedSubjects.filter(
+      (s) => s !== "ENGLISH"
+    );
     const isSubjectSelected = selectedSubjects.includes(subject);
 
     if (subject === "ENGLISH") return;
@@ -76,7 +80,7 @@ const SubjectSelection = () => {
       if (subjectSaved) {
         try {
           await axios.post(
-            "https://lynspeed.pythonanywhere.com/api/v1/user/subjects/",
+            `${import.meta.env.VITE_BASE_URL}user/subjects/`,
             { subjects: selectedSubjects },
             {
               headers: { Authorization: `Bearer ${token}` },
@@ -117,14 +121,15 @@ const SubjectSelection = () => {
           <span
             className="back-arrow"
             onClick={() => window.history.back()}
-            style={{ color: "white", margin: "20px" }}
-          >
+            style={{ color: "white", margin: "20px" }}>
             ←
           </span>
         </div>
         {loading ? (
           <h2 className="loading">Loading....</h2>
-        ) : !loading && error && error !== "Request failed with status code 404" ? (
+        ) : !loading &&
+          error &&
+          error !== "Request failed with status code 404" ? (
           <h2 className="loading">
             Something went wrong, check internet connection.
           </h2>
@@ -258,10 +263,30 @@ const SubjectSelection = () => {
             {showConfirmation && (
               <SubjectAlert
                 message={`You have selected ${REQUIRED_TOTAL_SUBJECTS} subjects. Do you want to save these subjects or go back to change your selection?`}
-                onClose={() => setShowConfirmation(false)}
-              >
-                <button style={{padding:"5px", marginRight:"5px", backgroundColor:"#0659a6", border:"none", borderRadius:"5px", color:"white"}} onClick={handleConfirmSelection}>Yes, Save</button>
-                <button style={{padding:"5px", backgroundColor:"#0659a6", border:"none", borderRadius:"5px", color:"white"}} onClick={handleCancelSelection}>No, Change</button>
+                onClose={() => setShowConfirmation(false)}>
+                <button
+                  style={{
+                    padding: "5px",
+                    marginRight: "5px",
+                    backgroundColor: "#0659a6",
+                    border: "none",
+                    borderRadius: "5px",
+                    color: "white",
+                  }}
+                  onClick={handleConfirmSelection}>
+                  Yes, Save
+                </button>
+                <button
+                  style={{
+                    padding: "5px",
+                    backgroundColor: "#0659a6",
+                    border: "none",
+                    borderRadius: "5px",
+                    color: "white",
+                  }}
+                  onClick={handleCancelSelection}>
+                  No, Change
+                </button>
               </SubjectAlert>
             )}
             {showSuccessMessage && (

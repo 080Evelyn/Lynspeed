@@ -37,10 +37,19 @@ const faqs = [
     answer:
       "Yes, you can Just reach out to our support team with a valid reason, and we’ll help you make the switch.",
   },
+  {
+    question: "Can I change my mentor later?",
+    answer: " Only before the first session begins.",
+  },
+  {
+    question: "Are sessions online or in person?",
+    answer:
+      "All sessions are virtual (chat, call, or video as agreed with mentor).",
+  },
 ];
 
 const FaqSection = () => {
-  const [openIndex, setOpenIndex] = useState(1); // open 2nd question by default
+  const [openIndex, setOpenIndex] = useState(0); // open 2nd question by default
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);

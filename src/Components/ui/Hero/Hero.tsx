@@ -23,8 +23,9 @@ const Hero: React.FC = () => {
         <div className="left">
           <div className="max-w-[800px] !mt-[50px] md:!mt-[100px] !px-5">
             <h1 className="write1 text-[#0659a6] text-6xl  animate-text">
-              From <span className="text-amber-700">Books</span> to
-              <span className="!px-2">Big</span> Moves
+              From <span className="text-amber-700">Books</span>
+              <br className="md:hidden" /> to
+              <span className="!pl-1">Big</span> Moves
             </h1>
             <p className="write2 animate-subtext !mt-5">
               Grow With Purpose: From Exam Prep to Lifelong Success At Lynspeed,

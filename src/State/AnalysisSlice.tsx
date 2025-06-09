@@ -20,7 +20,7 @@ export const fetchAnalysis = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "https://lynspeed.pythonanywhere.com/api/v1/analysis/",
+        `${import.meta.env.VITE_BASE_URL}analysis/`,
         {
           headers: {
             "Content-Type": "application/json",

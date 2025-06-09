@@ -66,7 +66,7 @@ const StudentCommunity = () => {
       {/* Button and Dropdown */}
       <div className="!w-[300px] md:!w-[500px] !m-auto !mt-5 relative">
         <button
-          className="!px-4 !py-2 bg-gray-100 w-full rounded-full text-[#0659a6] hover:!bg-gray-200 cursor-pointer"
+          className="!px-4 !py-2 bg-gray-100 border-[3px] border-[#0659a6] w-full rounded-full text-[#0659a6] hover:!bg-gray-200 cursor-pointer"
           onClick={() => setDropdownOpen((prev) => !prev)}>
           Join the Conversation
         </button>

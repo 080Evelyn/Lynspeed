@@ -22,7 +22,7 @@ export const fetchNotification = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "https://lynspeed.pythonanywhere.com/api/v1/notifications/",
+        `${import.meta.env.VITE_BASE_URL}notifications/`,
         {
           headers: {
             "Content-Type": "application/json",

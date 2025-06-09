@@ -55,7 +55,7 @@ const Register: React.FC = () => {
       dispatch({ type: REGISTER_REQUEST });
 
       const response = await axios.post<RegisterResponse>(
-        "https://lynspeed.pythonanywhere.com/api/v1/register/",
+        `${import.meta.env.VITE_BASE_URL}register/`,
         {
           full_name,
           email,
@@ -72,7 +72,7 @@ const Register: React.FC = () => {
         } else {
           setSuccessMessage(
             <span>
-              Registration successful! {" "}
+              Registration successful!{" "}
               <span style={{ color: "#FF5733", fontWeight: "600" }}>
                 Please check your email (including your spam folder)
               </span>{" "}

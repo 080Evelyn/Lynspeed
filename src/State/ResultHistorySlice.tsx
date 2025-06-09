@@ -25,7 +25,7 @@ export const fetchResultHstory = createAsyncThunk(
     }
     try {
       const response = await axios.get(
-        `https://lynspeed.pythonanywhere.com/api/v1/records/`,
+        `${import.meta.env.VITE_BASE_URL}records/`,
         {
           headers: {
             "Content-Type": "application/json",

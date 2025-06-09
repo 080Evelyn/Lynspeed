@@ -47,7 +47,7 @@ const Subscription: React.FC = () => {
       try {
         setLoading(true);
         const statusResponse = await axios.get(
-          "https://lynspeed.pythonanywhere.com/api/v1/subscription-status/",
+          `${import.meta.env.VITE_BASE_URL}subscription-status/`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -56,7 +56,7 @@ const Subscription: React.FC = () => {
         );
         if (statusResponse.statusText === "OK") {
           const planResponse = await axios.get(
-            "https://lynspeed.pythonanywhere.com/api/v1/plans/",
+            `${import.meta.env.VITE_BASE_URL}plans/`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -88,7 +88,7 @@ const Subscription: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `https://lynspeed.pythonanywhere.com/api/v1/payment/verify/`,
+        `${import.meta.env.VITE_BASE_URL}payment/verify/`,
         {
           reference: referenceId,
         },

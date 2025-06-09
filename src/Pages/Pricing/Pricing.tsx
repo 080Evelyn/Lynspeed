@@ -19,7 +19,7 @@ const Pricing: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/subscription/",
+        `${import.meta.env.VITE_BASE_URL}subscription/`,
         {
           plan: plan,
         }
@@ -75,8 +75,10 @@ const Pricing: React.FC = () => {
               <li>Result History</li>
               <li>Email support</li>
             </ul>
-            <button >
-              <Link style={{ color: "white" }} to="/login">Get Started</Link>
+            <button>
+              <Link style={{ color: "white" }} to="/login">
+                Get Started
+              </Link>
             </button>
           </div>
         </div>
@@ -97,10 +99,11 @@ const Pricing: React.FC = () => {
               <li>Performance analysis</li>
               <li>Result History</li>
               <li>Priority customer support</li>
-
             </ul>
-            <button >
-              <Link style={{ color: "white" }} to="/login">Get Started</Link>
+            <button>
+              <Link style={{ color: "white" }} to="/login">
+                Get Started
+              </Link>
             </button>
           </div>
         </div>
@@ -121,10 +124,11 @@ const Pricing: React.FC = () => {
               <li>Advanced Performance analysis</li>
               <li>Result History</li>
               <li>Priority customer support</li>
-
             </ul>
-            <button >
-              <Link style={{ color: "white" }} to="/login">Get Started</Link>
+            <button>
+              <Link style={{ color: "white" }} to="/login">
+                Get Started
+              </Link>
             </button>
           </div>
         </div>

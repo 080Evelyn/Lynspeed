@@ -19,7 +19,7 @@ const BtnNotify = ({ id }: NotificationItem) => {
     try {
       // Ensure you use template literals properly for Authorization header
       await axios.put(
-        `https://lynspeed.pythonanywhere.com/api/v1/notifications/${id}/`,
+        `${import.meta.env.VITE_BASE_URL}notifications/${id}/`,
         {
           body: null,
         },
