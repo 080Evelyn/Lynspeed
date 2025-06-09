@@ -10,7 +10,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchTestQuestions } from "../../../../State/TestQuestionSlice";
 import FloatingCalculator from "../../../../Components/FloatingCalculator";
 
-
 const Test: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -68,7 +67,7 @@ const Test: React.FC = () => {
     setSubmitting(true);
     try {
       await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/test-session/submit/",
+        `${import.meta.env.VITE_BASE_URL}test-session/submit/`,
         {
           test_session_id: testSectionId,
           responses: response,
@@ -117,7 +116,6 @@ const Test: React.FC = () => {
 
     setResponse((prevAnswers: any) => {
       const existingAnswerIndex = prevAnswers.findIndex(
-
         (answer: any) => answer.question_id === question_id
       );
 
@@ -193,7 +191,11 @@ const Test: React.FC = () => {
         error === "Request failed with status code 403" ? (
         <div className="sub-opt">
           <h2>You have exhausted your trials. Please subscribe to continue.</h2>
-          <button><Link to="/subscription" style={{ color: "white" }} >Subscription</Link></button>
+          <button>
+            <Link to="/subscription" style={{ color: "white" }}>
+              Subscription
+            </Link>
+          </button>
         </div>
       ) : !loading &&
         error &&
@@ -245,8 +247,9 @@ const Test: React.FC = () => {
                         )
                       }
                     />
-                    {`${key.split("_")[1].toUpperCase()}. ${currentOptions?.[key]
-                      }`}
+                    {`${key.split("_")[1].toUpperCase()}. ${
+                      currentOptions?.[key]
+                    }`}
                   </label>
                 ))}
               </div>
@@ -272,15 +275,15 @@ const Test: React.FC = () => {
             {currentQuestions.map((question: any, index: number) => (
               <button
                 key={index}
-                className={`${currentQuestion === index ? "active" : ""} ${selectedAnswers[currentSubject]?.[index] ? "answered" : ""
-                  }`}
+                className={`${currentQuestion === index ? "active" : ""} ${
+                  selectedAnswers[currentSubject]?.[index] ? "answered" : ""
+                }`}
                 onClick={() => setCurrentQuestion(index)}>
                 {question.displayNumber}
               </button>
             ))}
           </div>
           <div>
-
             <div>
               <button onClick={toggleCalculator} className="calculator-toggle">
                 {showCalculator ? "Hide Calculator" : "Show Calculator"}
@@ -299,7 +302,6 @@ const Test: React.FC = () => {
           </div>
         </>
       )}
-
     </div>
   );
 };

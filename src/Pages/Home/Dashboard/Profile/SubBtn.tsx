@@ -18,7 +18,7 @@ const SubBtn = ({ name, id, url }: Payload) => {
     try {
       setSubLoader(true);
       const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/payment/initialize/",
+        `${import.meta.env.VITE_BASE_URL}payment/initialize/`,
 
         {
           plan_id: id,

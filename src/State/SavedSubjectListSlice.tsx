@@ -21,7 +21,7 @@ export const fetchSavedSubjectList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "https://lynspeed.pythonanywhere.com/api/v1/user/subjects/",
+        `${import.meta.env.VITE_BASE_URL}user/subjects/`,
         {
           headers: {
             "Content-Type": "application/json",

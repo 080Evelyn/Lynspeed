@@ -21,7 +21,7 @@ export const fetchTestQuestions = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://lynspeed.pythonanywhere.com/api/v1/test-session/start/",
+        `${import.meta.env.VITE_BASE_URL}test-session/start/`,
         null,
         {
           headers: {

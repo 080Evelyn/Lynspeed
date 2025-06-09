@@ -18,7 +18,7 @@ interface UserProfile {
 }
 
 // Base API URL
-const baseUrl = "https://lynspeed.pythonanywhere.com/api/v1/";
+// const BASE_URL = "https://lynspeed.pythonanywhere.com/api/v1/";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -38,19 +38,25 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${baseUrl}login/`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}login/`,
+        {
+          email,
+          password,
+        }
+      );
 
       console.log(response);
       if (response.statusText === "OK") {
         const { access: token, refresh } = response.data;
 
         // Fetch user profile
-        const profileResponse = await axios.get(`${baseUrl}profile/`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const profileResponse = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}profile/`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         const user: UserProfile = profileResponse.data;
 

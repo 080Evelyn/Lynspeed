@@ -28,6 +28,7 @@ import Lynogpanel from "./Pages/AdminPanel/Lynogpanel";
 // Import InstallPWA component
 import InstallPWA from "./Components/InstallPWA";
 import ChatButton from "./Components/ChatBtn";
+import CareerQuiz from "./Pages/CareerQuiz/CareerQuiz";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/careerQuiz" element={<CareerQuiz />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/privacy" element={<Privacy />} />

@@ -17,7 +17,7 @@ const ResetPassword: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `https://lynspeed.pythonanywhere.com/api/v1/password-reset/`,
+        `${import.meta.env.VITE_BASE_URL}password-reset/`,
         {
           email: email,
         }
