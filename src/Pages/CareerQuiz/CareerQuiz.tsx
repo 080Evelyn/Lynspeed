@@ -49,7 +49,7 @@ export default function CareerQuiz() {
   };
 
   return (
-    <div className="flex justify-center items-center  md:min-h-screen w-full bg-gray-100 p-4">
+    <div className="flex justify-center items-center h-screen  md:min-h-screen w-full bg-gray-100 p-4">
       <Link
         className="absolute top-[50px] flex items-center md:left-[200px]"
         to={"/"}>
@@ -69,7 +69,7 @@ export default function CareerQuiz() {
               <button
                 key={opt.id}
                 onClick={() => handleSelect(opt.id, opt.next)}
-                className={`border !p-4 rounded-lg text-left transition-all duration-200 cursor-pointer ${
+                className={`border text-[13px] md:text-lg !p-2 rounded-lg text-left transition-all duration-200 cursor-pointer ${
                   answers[current.id] === opt.id
                     ? "bg-blue-100 border-blue-500 hover:!text-white"
                     : "hover:!bg-blue-50"
