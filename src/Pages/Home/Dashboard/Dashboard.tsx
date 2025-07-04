@@ -13,7 +13,7 @@ import { resetTestQuestions } from "../../../State/TestQuestionSlice";
 import { resetTestResult } from "../../../State/TestResultSlice";
 import { resetAnalysis } from "../../../State/AnalysisSlice";
 import { fetchNotification } from "../../../State/NotificationSlice";
-
+import { PiCertificateThin } from "react-icons/pi";
 import sub from "../../../assets/subselect.svg";
 import res from "../../../assets/history.svg";
 import notify from "../../../assets/notify.svg";
@@ -35,8 +35,11 @@ interface UserProfile {
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(null);
+  const [selectedSubjects, setSelectedSubjects] = useState<string[] | null>(
+    null
+  );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [careerDropdown, setCareerDropdown] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [subjectSelectionMessage, setSubjectSelectionMessage] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
@@ -64,7 +67,9 @@ const Dashboard = () => {
   }, []);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
-  const toggleSettingsDropdown = () => setIsSettingsDropdownOpen((prev) => !prev);
+  const toggleCareerDropdown = () => setCareerDropdown((prev) => !prev);
+  const toggleSettingsDropdown = () =>
+    setIsSettingsDropdownOpen((prev) => !prev);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Toggle function
 
   const handleSignOut = () => {
@@ -80,7 +85,9 @@ const Dashboard = () => {
     navigate("/login");
   };
 
-  const notifications = useSelector((state: RootState) => state.notification.data);
+  const notifications = useSelector(
+    (state: RootState) => state.notification.data
+  );
   const loading = useSelector((state: RootState) => state.notification.loading);
 
   useEffect(() => {
@@ -135,6 +142,25 @@ const Dashboard = () => {
                   : "Select Subjects"}
               </Link>
             </li>
+            {/* career */}
+            <li className="">
+              <PiCertificateThin size={24} className="text-white" />
+              <div
+                onClick={toggleCareerDropdown}
+                className="menu-item font-normal !text-[14px] !text-white !px-2 cursor-pointer">
+                Career
+              </div>
+            </li>
+            {careerDropdown && (
+              <div className=" !text-white flex flex-col text-[14px] !pl-[30px] ">
+                <Link className="hover:bg-[#FFFFFF1A] !p-2" to="/quiz">
+                  Career quiz
+                </Link>
+                <Link className="hover:bg-[#FFFFFF1A] !p-2" to="/mentorship">
+                  Career Guidance and Counselor
+                </Link>
+              </div>
+            )}
 
             {/* Result History */}
             <li>
@@ -172,8 +198,8 @@ const Dashboard = () => {
               {loading
                 ? null
                 : notifications.message
-                  ? null
-                  : notificationCount > 0 && (
+                ? null
+                : notificationCount > 0 && (
                     <span className="notify">
                       <p className="count">{notificationCount}</p>
                     </span>
@@ -215,9 +241,13 @@ const Dashboard = () => {
             </div>
             <div className="welcome-banner">
               <img src={dash1} alt="Banner" />
-              <h1 className="welcome-text">Hi {user?.full_name?.toUpperCase() || "USER"}! 👋</h1>
+              <h1 className="welcome-text">
+                Hi {user?.full_name?.toUpperCase() || "USER"}! 👋
+              </h1>
               {subjectSelectionMessage && (
-                <p className="subject-selection-message">{subjectSelectionMessage}</p>
+                <p className="subject-selection-message">
+                  {subjectSelectionMessage}
+                </p>
               )}
             </div>
             <section className="right-pics">

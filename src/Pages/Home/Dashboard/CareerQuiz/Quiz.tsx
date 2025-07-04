@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { questions } from "../../utils/questions"; // Ensure this is a constant, not changing at runtime
-import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-export default function CareerQuiz() {
+import { Link } from "react-router-dom";
+import { questionsQuiz } from "../../../../utils/questions";
+import { useState } from "react";
+
+const Quiz = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState("q1");
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [history, setHistory] = useState<string[]>([]); // Keeps a stack of visited questions
 
-  const current = questions[currentQuestionId];
+  const current = questionsQuiz[currentQuestionId];
 
   const handleSelect = (optionId: string, nextId: string) => {
     // Store the selected answer
@@ -47,12 +48,11 @@ export default function CareerQuiz() {
       setCurrentQuestionId(nextId);
     }
   };
-
   return (
     <div className="flex justify-center items-center h-screen  md:min-h-screen w-full bg-gray-100 p-4">
       <Link
         className="absolute top-[50px] flex items-center md:left-[100px]"
-        to={"/"}>
+        to={"/dashboard"}>
         <IoArrowBack />
         Back to homepage
       </Link>
@@ -100,28 +100,26 @@ export default function CareerQuiz() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-sm !p-6 text-center space-y-4">
             <h2 className="text-xl font-semibold text-gray-800">
-              Curious where this leads?
+              You’ve reached the end… for now.
             </h2>
             <p className="text-gray-600 !py-3">
-              We’ve got the perfect career match waiting for you.{" "}
-              <span className="font-bold">Sign up</span> to see your results and
-              next steps!
+              More exciting questions are coming soon to enhance your
+              experience. Keep an eye out — we’ll let you know when it’s ready!
             </p>
-            <div className="flex justify-center gap-3">
-              <Link to={"/register"}>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white !px-4 !py-2 rounded-lg transition">
-                  Let’s Go →
-                </button>
-              </Link>
-              <Link to={"/"}>
-                <button className="border border-gray-300 text-gray-700 hove:bg-transparent !px-4 !py-2 rounded-lg hover:!bg-gray-100 transition">
-                  Maybe Later
-                </button>
-              </Link>
+
+            <div className="flex justify-between !mt-3">
+              <button
+                onClick={handlePrevious}
+                disabled={history.length === 0}
+                className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                Previous Step
+              </button>
             </div>
           </div>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default Quiz;
