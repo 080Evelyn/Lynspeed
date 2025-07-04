@@ -29,6 +29,8 @@ import Lynogpanel from "./Pages/AdminPanel/Lynogpanel";
 import InstallPWA from "./Components/InstallPWA";
 import ChatButton from "./Components/ChatBtn";
 import CareerQuiz from "./Pages/CareerQuiz/CareerQuiz";
+import Quiz from "./Pages/Home/Dashboard/CareerQuiz/Quiz";
+import Mentorship from "./Pages/Home/Dashboard/Mentorship/Mentorship";
 
 const App = () => {
   return (
@@ -57,6 +59,8 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/subjectselection" element={<SubjectSelection />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/mentorship" element={<Mentorship />} />
           <Route path="/resulthistory" element={<ResultHistory />} />
           <Route path="/performance" element={<Performance />} />
           <Route path="/achievement" element={<Achievement />} />
