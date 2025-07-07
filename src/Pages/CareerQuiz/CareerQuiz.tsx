@@ -49,9 +49,9 @@ export default function CareerQuiz() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen  md:min-h-screen w-full bg-gray-100 p-4">
+    <div className="flex justify-center items-center h-screen w-full bg-gray-100 !p-4">
       <Link
-        className="absolute top-[50px] flex items-center md:left-[100px]"
+        className="absolute top-[50px] flex items-center md:left-[50px]"
         to={"/"}>
         <IoArrowBack />
         Back to homepage
@@ -62,8 +62,8 @@ export default function CareerQuiz() {
           <h2 className="text-md text-[#0659a6] font-semibold mb-2">
             {current?.title}
           </h2>
-          <h1 className=" text-xl font-bold mb-6">{current?.subtitle}</h1>
-          <div className=" grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+          <h1 className=" text-xl font-bold ">{current?.subtitle}</h1>
+          <div className=" grid grid-cols-2 md:grid-cols-3 gap-4">
             {/* NEVER mutate questions or options array */}
             {current?.options.map((opt) => (
               <button

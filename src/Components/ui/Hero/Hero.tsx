@@ -28,10 +28,8 @@ const Hero: React.FC = () => {
               <span className="!pl-1">Big</span> Moves
             </h1>
             <p className="write2 animate-subtext !mt-5">
-              Grow With Purpose: From Exam Prep to Lifelong Success At Lynspeed,
-              we’re more than a JAMB simulator — we’re your growth partner.
-              Discover your path, develop your skills, and connect with people
-              who believe in your future.
+              Grow With Purpose: Nigeria's Top Platform for JAMB Preparation,
+              Skills & Career Growth.
             </p>
           </div>
           <div className="flex w-[300px] md:gap-2.5 !ml-[5%] justify-between ">
