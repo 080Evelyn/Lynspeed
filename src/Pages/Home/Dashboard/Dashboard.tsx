@@ -147,7 +147,7 @@ const Dashboard = () => {
               <PiCertificateThin size={24} className="text-white" />
               <div
                 onClick={toggleCareerDropdown}
-                className="menu-item font-normal !text-[14px] !text-white !px-2 cursor-pointer">
+                className="menu-item font-normal !text-[14px] !text-white !px-4 cursor-pointer">
                 Career
               </div>
             </li>

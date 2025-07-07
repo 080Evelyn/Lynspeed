@@ -113,7 +113,7 @@ const SkillsCarousel = () => {
         </style>
       </div>
       <div className="!w-[300px] md:!w-[500px] !m-auto !mt-5">
-        <Link to="/">
+        <Link to="/skills">
           <button className="!px-4 !py-2 bg-[#0659a6] w-full  rounded-full  text-white cursor-pointer">
             Discover Skills to Learn
           </button>

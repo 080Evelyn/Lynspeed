@@ -31,6 +31,7 @@ import ChatButton from "./Components/ChatBtn";
 import CareerQuiz from "./Pages/CareerQuiz/CareerQuiz";
 import Quiz from "./Pages/Home/Dashboard/CareerQuiz/Quiz";
 import Mentorship from "./Pages/Home/Dashboard/Mentorship/Mentorship";
+import Skills from "./Pages/Skills/Skills";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/careerQuiz" element={<CareerQuiz />} />
+        <Route path="/skills" element={<Skills />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/privacy" element={<Privacy />} />
