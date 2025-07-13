@@ -20,7 +20,7 @@ export const fetchAnalysis = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}analysis/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/analysis/`,
         {
           headers: {
             "Content-Type": "application/json",

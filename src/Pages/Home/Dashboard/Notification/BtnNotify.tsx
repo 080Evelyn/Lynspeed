@@ -19,7 +19,7 @@ const BtnNotify = ({ id }: NotificationItem) => {
     try {
       // Ensure you use template literals properly for Authorization header
       await axios.put(
-        `${import.meta.env.VITE_BASE_URL}notifications/${id}/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/notifications/${id}/`,
         {
           body: null,
         },

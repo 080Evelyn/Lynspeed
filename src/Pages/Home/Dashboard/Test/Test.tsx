@@ -67,7 +67,7 @@ const Test: React.FC = () => {
     setSubmitting(true);
     try {
       await axios.post(
-        `${import.meta.env.VITE_BASE_URL}test-session/submit/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/test-session/submit/`,
         {
           test_session_id: testSectionId,
           responses: response,

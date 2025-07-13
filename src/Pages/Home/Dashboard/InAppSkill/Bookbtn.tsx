@@ -1,28 +1,29 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { AppDispatch } from "../../../../State/Store";
-import { useDispatch } from "react-redux";
-import { setValidate } from "../../../../State/PaymentValidationSlice";
+import { setSkillId } from "../../../../State/SkillsSlice";
 interface Payload {
   id: number;
-  name: string;
 }
-const SubBtn = ({ name, id }: Payload) => {
+const Bookbtn = ({ id }: Payload) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [subLoader, setSubLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const token = localStorage.getItem("authToken");
+  // const skillId = useSelector((state: RootState) => state.skills.skillId);
+  // console.log(skillId);
 
-  const handleActivateSubscription = async () => {
+  const handleBooking = async () => {
+    dispatch(setSkillId(id));
     try {
-      setSubLoader(true);
+      setLoader(true);
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}api/v1/payment/initialize/`,
+        `${import.meta.env.VITE_BASE_URL}api/v2/skills/pay/initialize/`,
 
         {
-          plan_id: id,
-          plan: name,
-          callback_url: "http://localhost:5173/validate",
+          skill_id: id,
+          callback_url: "http://localhost:5173/verify",
         },
         {
           headers: {
@@ -33,8 +34,8 @@ const SubBtn = ({ name, id }: Payload) => {
       const { payment_url, reference } = response.data;
       // Store referenceId for validation later
       localStorage.setItem("referenceId", reference);
+
       window.location.href = payment_url;
-      dispatch(setValidate(true));
     } catch (error) {
       console.error("Error activating subscription:", error);
 
@@ -42,18 +43,18 @@ const SubBtn = ({ name, id }: Payload) => {
         "There was an issue activating the subscription. Please try again."
       );
     } finally {
-      setSubLoader(false);
+      setLoader(false);
     }
   };
 
   return (
     <button
-      disabled={subLoader}
-      className="subscribe-button"
-      onClick={() => handleActivateSubscription()}>
-      {subLoader ? "loading..." : "Subscribe"}
+      className="border border-blue-600 hover:!text-white rounded-3xl text-blue-600 !px-4 !py-2 text-sm"
+      disabled={loader}
+      onClick={handleBooking}>
+      {loader ? "loading..." : "Book a session"}
     </button>
   );
 };
 
-export default SubBtn;
+export default Bookbtn;

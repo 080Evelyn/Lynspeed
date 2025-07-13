@@ -32,6 +32,9 @@ import CareerQuiz from "./Pages/CareerQuiz/CareerQuiz";
 import Quiz from "./Pages/Home/Dashboard/CareerQuiz/Quiz";
 import Mentorship from "./Pages/Home/Dashboard/Mentorship/Mentorship";
 import Skills from "./Pages/Skills/Skills";
+import InAppSkill from "./Pages/Home/Dashboard/InAppSkill/InAppSkill";
+import Verify from "./Pages/Home/Dashboard/veriffy/Verify";
+import PaymentValidation from "./Pages/Home/Dashboard/Profile/PaymentValidation";
 
 const App = () => {
   return (
@@ -63,6 +66,7 @@ const App = () => {
           <Route path="/subjectselection" element={<SubjectSelection />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/mentorship" element={<Mentorship />} />
+          <Route path="/inappskill" element={<InAppSkill />} />
           <Route path="/resulthistory" element={<ResultHistory />} />
           <Route path="/performance" element={<Performance />} />
           <Route path="/achievement" element={<Achievement />} />
@@ -70,6 +74,8 @@ const App = () => {
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/testresult" element={<TestResult />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/validate" element={<PaymentValidation />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/lynogpanel" element={<Lynogpanel />} />

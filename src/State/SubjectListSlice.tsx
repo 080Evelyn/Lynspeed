@@ -23,7 +23,7 @@ export const fetchSubjectList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}subjects/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/subjects/`,
         {
           headers: {
             "Content-Type": "application/json",

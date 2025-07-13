@@ -215,7 +215,7 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
   q1: {
     id: "q1",
     step: "STEP 1/2",
-    title: "What Excites You",
+    title: "What Excites You?",
     subtitle:
       "If money wasn’t a problem, what would you wake up excited to do every day?",
     options: [
@@ -397,5 +397,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
       },
     ],
   },
+
   // Add q2b, q2c, etc. here...
 };
+
+// What do I enjoy doing even when I’m tired?
+
+// What kind of environment makes me feel alive — calm, loud, technical, creative?
+
+// What kind of success matters to me: money, impact, freedom, stability, or recognition?

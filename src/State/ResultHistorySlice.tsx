@@ -25,7 +25,7 @@ export const fetchResultHstory = createAsyncThunk(
     }
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}records/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/records/`,
         {
           headers: {
             "Content-Type": "application/json",

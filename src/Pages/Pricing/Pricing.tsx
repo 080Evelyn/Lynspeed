@@ -19,7 +19,7 @@ const Pricing: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}subscription/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/subscription/`,
         {
           plan: plan,
         }
@@ -66,7 +66,7 @@ const Pricing: React.FC = () => {
           </div>
           <div className="card-body">
             <h2>WEEKLY</h2>
-            <h3>₦600</h3>
+            <h3>₦650</h3>
             <ul>
               <li>7 days validity</li>
               <li>Unlimited access to questions</li>
@@ -91,7 +91,7 @@ const Pricing: React.FC = () => {
           </div>
           <div className="card-body">
             <h2>MONTHLY</h2>
-            <h3>₦2000</h3>
+            <h3>₦2050</h3>
             <ul>
               <li>30 days validity</li>
               <li>Unlimited access to questions</li>
@@ -116,7 +116,7 @@ const Pricing: React.FC = () => {
           </div>
           <div className="card-body">
             <h2>QUARTERLY</h2>
-            <h3>₦6000</h3>
+            <h3>₦6100</h3>
             <ul>
               <li>90 days validity</li>
               <li>Unlimited access to questions</li>

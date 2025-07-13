@@ -47,7 +47,7 @@ const Subscription: React.FC = () => {
       try {
         setLoading(true);
         const statusResponse = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}subscription-status/`,
+          `${import.meta.env.VITE_BASE_URL}api/v1/subscription-status/`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -56,7 +56,7 @@ const Subscription: React.FC = () => {
         );
         if (statusResponse.statusText === "OK") {
           const planResponse = await axios.get(
-            `${import.meta.env.VITE_BASE_URL}plans/`,
+            `${import.meta.env.VITE_BASE_URL}api/v1/plans/`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -88,7 +88,7 @@ const Subscription: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}payment/verify/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/payment/verify/`,
         {
           reference: referenceId,
         },
@@ -179,11 +179,7 @@ const Subscription: React.FC = () => {
                   )}
                   <h3>{plan.price}</h3>
 
-                  <SubBtn
-                    name={plan.name}
-                    id={plan.id}
-                    url={"https://www.lynspeed.com.ng/subscription"}
-                  />
+                  <SubBtn name={plan.name} id={plan.id} />
                 </div>
               ))}
           </div>
