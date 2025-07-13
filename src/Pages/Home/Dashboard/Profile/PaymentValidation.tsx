@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { AppDispatch, RootState } from "../../../../State/Store";
-import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../../State/Store";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setValidate } from "../../../../State/PaymentValidationSlice";
 import PaymentValidationText from "./PaymentValidationText";
