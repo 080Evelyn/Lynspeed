@@ -9,8 +9,8 @@ import Navbar from "../../Components/ui/Navbar/Navbar";
 import img from "../../assets/ImgL.png";
 // import img1 from "../../assets/ImgL1.png";
 import img2 from "../../assets/ImgL2.png";
-import img3 from "../../assets/ImgL3.png";
-import img4 from "../../assets/ImgL4.png";
+// import img3 from "../../assets/ImgL3.png";
+// import img4 from "../../assets/ImgL4.png";
 import Footer from "../../Components/ui/Footer/Footer";
 import { Link } from "react-router-dom";
 export default function About() {
@@ -62,12 +62,12 @@ export default function About() {
       description: "",
     },
     {
-      icon: img3,
+      icon: img2,
       title: "Sign up for live skill classes and join the chat",
       description: "",
     },
     {
-      icon: img4,
+      icon: img2,
       title:
         "Grow academically, professionally, and personally—with people who get you",
       description: "",
