@@ -17,7 +17,7 @@ const ResetPassword: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}password-reset/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/password-reset/`,
         {
           email: email,
         }

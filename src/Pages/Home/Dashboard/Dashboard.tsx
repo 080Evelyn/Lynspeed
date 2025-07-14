@@ -14,6 +14,7 @@ import { resetTestResult } from "../../../State/TestResultSlice";
 import { resetAnalysis } from "../../../State/AnalysisSlice";
 import { fetchNotification } from "../../../State/NotificationSlice";
 import { PiCertificateThin } from "react-icons/pi";
+import { GiSkills } from "react-icons/gi";
 import sub from "../../../assets/subselect.svg";
 import res from "../../../assets/history.svg";
 import notify from "../../../assets/notify.svg";
@@ -144,7 +145,7 @@ const Dashboard = () => {
             </li>
             {/* career */}
             <li className="">
-              <PiCertificateThin size={24} className="text-white" />
+              <PiCertificateThin size={24} className="text-white font-bold" />
               <div
                 onClick={toggleCareerDropdown}
                 className="menu-item font-normal !text-[14px] !text-white !px-4 cursor-pointer">
@@ -161,6 +162,14 @@ const Dashboard = () => {
                 </Link>
               </div>
             )}
+
+            {/* career */}
+            <li className="">
+              <GiSkills size={24} className="text-white" />
+              <Link to={"/inappskill"} className="">
+                Skill
+              </Link>
+            </li>
 
             {/* Result History */}
             <li>

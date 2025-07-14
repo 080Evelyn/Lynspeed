@@ -12,13 +12,20 @@ import resultHistoryReducer from "./ResultHistorySlice";
 import analysisReducer from "./AnalysisSlice";
 import validateReducer from "./PaymentValidationSlice";
 import notifactionReducer from "./NotificationSlice";
+import skillsReducer from "./SkillsSlice";
 // import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
 const persistConfig = {
   key: "root", // Key for the persisted state
   storage, // Which storage to use (localStorage)
-  whitelist: ["auth", "subjectList", "paymentValidate", "savedSubjectList"],
+  whitelist: [
+    "auth",
+    "subjectList",
+    "paymentValidate",
+    "savedSubjectList",
+    "skills",
+  ],
 };
 
 const rootReducer = combineReducers({
@@ -32,6 +39,7 @@ const rootReducer = combineReducers({
   analysis: analysisReducer,
   paymentValidate: validateReducer,
   notification: notifactionReducer,
+  skills: skillsReducer,
 });
 
 // Wrap rootReducer with persistReducer

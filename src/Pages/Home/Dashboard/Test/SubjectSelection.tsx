@@ -80,7 +80,7 @@ const SubjectSelection = () => {
       if (subjectSaved) {
         try {
           await axios.post(
-            `${import.meta.env.VITE_BASE_URL}user/subjects/`,
+            `${import.meta.env.VITE_BASE_URL}api/v1/user/subjects/`,
             { subjects: selectedSubjects },
             {
               headers: { Authorization: `Bearer ${token}` },

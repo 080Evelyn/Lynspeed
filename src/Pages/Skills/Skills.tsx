@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Navbar from "../../Components/ui/Navbar/Navbar";
+import { Link } from "react-router-dom";
 
 const skillsData = [
   {
@@ -14,7 +15,7 @@ const skillsData = [
       "Start freelancing or building your personal brand",
     ],
     duration: "1 Month",
-    price: "₦5,000",
+    price: "₦6,000",
   },
   {
     title: "Basic Computer Literacy",
@@ -29,7 +30,7 @@ const skillsData = [
       "Great for complete beginners and students of all ages",
     ],
     duration: "6 weeks",
-    price: "₦5,000",
+    price: "₦6,000",
   },
   {
     title: "No-Code Web Design",
@@ -44,7 +45,7 @@ const skillsData = [
       "A great way to enter tech without coding",
     ],
     duration: "1 Month",
-    price: "₦5,000",
+    price: "₦6,000",
   },
   {
     title: "Frontend Development",
@@ -58,7 +59,7 @@ const skillsData = [
       "A solid foundation for careers in tech and software development",
     ],
     duration: "3 Months",
-    price: "₦5,000",
+    price: "₦30,000",
   },
   {
     title: "Writing (Content, Promotion & Blog)",
@@ -72,7 +73,7 @@ const skillsData = [
       "Start a blog, work as a content writer or promote your hustle",
     ],
     duration: "1 Month",
-    price: "₦5,000",
+    price: "₦6,000",
   },
   {
     title: "UI/UX Design",
@@ -85,8 +86,8 @@ const skillsData = [
       "Highly in-demand skill in tech and product teams",
       "No coding needed, just a love for creativity and solving problems",
     ],
-    duration: "1 Month",
-    price: "₦5,000",
+    duration: "2 Months",
+    price: "₦12,000",
   },
 ];
 
@@ -101,9 +102,12 @@ const Skills = () => {
     <>
       <Navbar />
       <section className="!py-12 !px-4 md:px-12 bg-white text-gray-800">
-        <h2 className="text-3xl md:text-4xl font-bold text-center !mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center !mb-3">
           Skills we Offer
         </h2>
+        <p className="text-xl md:text-2xl font-light text-center !mb-12">
+          Paid internship available
+        </p>
         <div className="grid md:grid-cols-3 gap-6">
           {skillsData.map((skill, index) => (
             <div
@@ -145,9 +149,11 @@ const Skills = () => {
                 </p>
               </div>
               <div className="!mt-6 flex justify-between items-center">
-                <button className=" border border-blue-600 hover:!text-white rounded-3xl text-blue-600 !px-4 !py-2 text-sm">
-                  Book a Session
-                </button>
+                <Link to={"/login"}>
+                  <button className=" border border-blue-600 hover:!text-white rounded-3xl text-blue-600 !px-4 !py-2 text-sm">
+                    Book a Session
+                  </button>
+                </Link>
                 <p className="text-lg font-bold text-gray-900">{skill.price}</p>
               </div>
             </div>

@@ -39,7 +39,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}login/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/login/`,
         {
           email,
           password,
@@ -52,7 +52,7 @@ const Login: React.FC = () => {
 
         // Fetch user profile
         const profileResponse = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}profile/`,
+          `${import.meta.env.VITE_BASE_URL}api/v1/profile/`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

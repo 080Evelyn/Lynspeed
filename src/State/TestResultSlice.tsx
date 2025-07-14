@@ -22,7 +22,9 @@ export const fetchTestResults = createAsyncThunk<any, number>(
   async (testID) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}test-session/${testID}/results/`,
+        `${
+          import.meta.env.VITE_BASE_URL
+        }api/v1/test-session/${testID}/results/`,
         {
           headers: {
             "Content-Type": "application/json",

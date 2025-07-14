@@ -55,7 +55,7 @@ const Register: React.FC = () => {
       dispatch({ type: REGISTER_REQUEST });
 
       const response = await axios.post<RegisterResponse>(
-        `${import.meta.env.VITE_BASE_URL}register/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/register/`,
         {
           full_name,
           email,
