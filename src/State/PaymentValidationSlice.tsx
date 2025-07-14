@@ -15,8 +15,11 @@ const paymentValidationSlice = createSlice({
     setValidate: (state, action) => {
       state.validate = action.payload;
     },
+    resetValidate: (state) => {
+      state.validate = false;
+    },
   },
 });
 
-export const { setValidate } = paymentValidationSlice.actions;
+export const { setValidate, resetValidate } = paymentValidationSlice.actions;
 export default paymentValidationSlice.reducer;

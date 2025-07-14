@@ -48,6 +48,7 @@ const SkillsSlice = createSlice({
       state.error = false;
       state.success = false;
       state.loading = false;
+      state.skillId = "";
     },
     setSkillId: (state, action) => {
       state.skillId = action.payload;

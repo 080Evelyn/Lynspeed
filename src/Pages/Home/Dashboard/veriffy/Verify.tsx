@@ -37,12 +37,22 @@ const Verify = () => {
       [name]: name === "skill_id" ? parseInt(value, 10) : value,
     }));
   };
+  const isValidPhoneNumber = (phone: string) => {
+    // Accepts +234XXXXXXXXXX or 080XXXXXXXX formats
+    const regex = /^(?:\+234|0)[789][01]\d{8}$/;
+    return regex.test(phone);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setResponseMessage("");
-    console.log(formData);
+
+    if (!isValidPhoneNumber(formData.phone_number)) {
+      setResponseMessage("Please enter a valid Nigerian phone number.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const res = await fetch(
@@ -53,12 +63,12 @@ const Verify = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-
           body: JSON.stringify(formData),
         }
       );
 
       const data = await res.json();
+      console.log(data);
 
       if (res.ok) {
         setLink(data.whatsapp_group_link);
@@ -79,6 +89,7 @@ const Verify = () => {
       setIsSubmitting(false);
     }
   };
+
   const validatePayment = async () => {
     const referenceId = localStorage.getItem("referenceId");
 
