@@ -1,8 +1,52 @@
+import axios from "axios";
+import { useState } from "react";
 import { FaRegClock, FaTv } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
 import { TbMoneybag } from "react-icons/tb";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { setSkillId } from "../../../../State/SkillsSlice";
+import { AppDispatch } from "../../../../State/Store";
 const Mentorship = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [loader, setLoader] = useState(false);
+  const token = localStorage.getItem("authToken");
+  // const skillId = useSelector((state: RootState) => state.skills.skillId);
+  // console.log(skillId);
+
+  const handleBooking = async () => {
+    dispatch(setSkillId(7));
+    try {
+      setLoader(true);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}api/v2/skills/pay/initialize/`,
+
+        {
+          skill_id: 7,
+          callback_url: " https://www.lynspeed.com.ng/verify",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        }
+      );
+      const { payment_url, reference } = response.data;
+      // Store referenceId for validation later
+      localStorage.setItem("referenceId", reference);
+
+      window.location.href = payment_url;
+    } catch (error) {
+      console.error("Error activating subscription:", error);
+
+      toast.error(
+        "There was an issue activating the subscription. Please try again."
+      );
+    } finally {
+      setLoader(false);
+    }
+  };
   const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
   return (
     <section className="bg-white !py-16 !px-4 md:!px-10">
@@ -25,8 +69,10 @@ const Mentorship = () => {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-[#003E9C] text-white !px-6 !py-2 rounded-full text-sm font-medium">
-            Book 1-on-1 Counseling
+          <button
+            onClick={handleBooking}
+            className="bg-[#003E9C] text-white !px-6 !py-2 rounded-full text-sm font-medium">
+            {loader ? "loading..." : "Book 1-on-1 Counseling"}
           </button>
           <button className="border border-[#003E9C] hover:!bg-transparent text-[#003E9C] !px-6 !py-2 rounded-full text-sm font-medium">
             <a href={whatsappGroupLink} target="_blank">
@@ -68,8 +114,10 @@ const Mentorship = () => {
               </ul>
             </p>
 
-            <button className="bg-[#003E9C] float-start text-white !px-6 !py-2 rounded-full text-sm font-medium">
-              Book a Session
+            <button
+              onClick={handleBooking}
+              className="bg-[#003E9C] float-start text-white !px-6 !py-2 rounded-full text-sm font-medium">
+              {loader ? "loading..." : "Book a Session"}
             </button>
           </div>
         </div>

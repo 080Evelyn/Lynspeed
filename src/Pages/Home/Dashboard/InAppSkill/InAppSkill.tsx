@@ -13,6 +13,9 @@ const InAppSkill = () => {
   const loading = useSelector((state: RootState) => state.skills?.loading);
   const error = useSelector((state: RootState) => state.skills?.error);
   const success = useSelector((state: RootState) => state.skills?.success);
+  const filteredSkills = skills?.filter(
+    (skill: any) => skill.name.toLowerCase() !== "career guidance"
+  );
 
   useEffect(() => {
     if (success) {
@@ -40,7 +43,7 @@ const InAppSkill = () => {
             Skills we Offer
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {skills.map((skill: any, index: any) => (
+            {filteredSkills?.map((skill: any, index: any) => (
               <div
                 key={index}
                 className=" bg-gray-50  rounded-xl !p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">
