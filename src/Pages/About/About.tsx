@@ -8,9 +8,10 @@ import {
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import img from "../../assets/ImgL.png";
 // import img1 from "../../assets/ImgL1.png";
-import img2 from "../../assets/ImgL2.png";
+// import img2 from "../../assets/ImgL2.png";
 // import img3 from "../../assets/ImgL3.png";
 // import img4 from "../../assets/ImgL4.png";
+import img2 from "../../assets/Img1.png";
 import Footer from "../../Components/ui/Footer/Footer";
 import { Link } from "react-router-dom";
 export default function About() {
