@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setValidate } from "../../../../State/PaymentValidationSlice";
 import PaymentValidationText from "./PaymentValidationText";
+import { IoArrowBack } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const PaymentValidation = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -92,6 +94,26 @@ const PaymentValidation = () => {
                 className="modal"></div>
             </>
           )}
+          <Link
+            className="absolute top-[20px] flex items-center md:left-[100px]"
+            to={"/dashboard"}>
+            <IoArrowBack />
+            Back to homepage
+          </Link>
+          <div className=" !mt-[100px] md:!mt-[200px] w-[80%] md:max-w-[500px] shadow-md bg-gray-50 !p-4 !m-auto">
+            <p className="text-sm">
+              🎉 Subscription Successful! Thank you for subscribing — you’re
+              officially in! We're excited to have you on board. Your access to
+              premium features is now active, and you can start exploring all
+              the benefits right away. If you ever need support or have
+              questions, we’re just a message away.
+            </p>
+            <Link to={"/dashboard"}>
+              <button className="w-full border border-blue-600 hover:!text-white rounded-3xl text-blue-600 !mt-4 !py-2  transition">
+                Let’s get started!
+              </button>
+            </Link>
+          </div>
         </>
       )}
     </div>
