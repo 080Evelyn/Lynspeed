@@ -59,7 +59,6 @@ const Verify = () => {
       );
 
       const data = await res.json();
-      console.log(data);
 
       if (res.ok) {
         setLink(data.whatsapp_group_link);
@@ -102,7 +101,6 @@ const Verify = () => {
           },
         }
       );
-      console.log(response.data.message);
       if (response.statusText === "OK") {
         setPaymentVerify(true);
 
