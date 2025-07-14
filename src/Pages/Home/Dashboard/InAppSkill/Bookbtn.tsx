@@ -23,7 +23,7 @@ const Bookbtn = ({ id }: Payload) => {
 
         {
           skill_id: id,
-          callback_url: "http://localhost:5173/verify",
+          callback_url: " https://www.lynspeed.com.ng/verify",
         },
         {
           headers: {

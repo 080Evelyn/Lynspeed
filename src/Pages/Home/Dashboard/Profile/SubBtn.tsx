@@ -22,7 +22,7 @@ const SubBtn = ({ name, id }: Payload) => {
         {
           plan_id: id,
           plan: name,
-          callback_url: "http://localhost:5173/validate",
+          callback_url: "https://www.lynspeed.com.ng/validate",
         },
         {
           headers: {
