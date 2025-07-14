@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import img from "../../assets/ImgL.png";
-import img1 from "../../assets/ImgL1.png";
+// import img1 from "../../assets/ImgL1.png";
 import img2 from "../../assets/ImgL2.png";
 import img3 from "../../assets/ImgL3.png";
 import img4 from "../../assets/ImgL4.png";
@@ -52,7 +52,7 @@ export default function About() {
 
   const workSteps = [
     {
-      icon: img1,
+      icon: img2,
       title: "Practice JAMB with us",
       description: "",
     },
