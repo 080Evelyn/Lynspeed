@@ -8,9 +8,7 @@ import PaymentValidationText from "./PaymentValidationText";
 const PaymentValidation = () => {
   const dispatch = useDispatch<AppDispatch>();
   const token = localStorage.getItem("authToken");
-  //   const validate = useSelector(
-  //     (state: RootState) => state.paymentValidate.validate
-  //   );
+
   const [paymentVerify, setPaymentVerify] = useState(false);
   const [paymentNotVerify, setPaymentNotVerify] = useState(false);
   const [error, setError] = useState("");
