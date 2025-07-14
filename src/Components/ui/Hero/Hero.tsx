@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
             <h1 className="write1 text-[#0659a6] text-6xl  animate-text">
               From <span className="text-amber-700">Books</span>
               <br className="md:hidden" /> to
-              <span className="!pl-1">Big</span> Moves
+              <span className="!pl-3">Big</span> Moves
             </h1>
             <p className="write2 animate-subtext !mt-5">
               Grow With Purpose: Nigeria's Top Platform for JAMB Preparation,

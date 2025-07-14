@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { FaRegClock, FaTv } from "react-icons/fa";
+import { FaRegClock, FaTv, FaUser } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
 import { TbMoneybag } from "react-icons/tb";
 import { useDispatch } from "react-redux";
@@ -88,7 +88,9 @@ const Mentorship = () => {
       </h2>
       <div className="max-w-lg !mx-auto !mb-16">
         <div className="bg-white flex flex-col md:flex-row md:gap-4 justify-between rounded-lg shadow-md border !p-6 text-center">
-          <div className="w-24 h-24 mx-auto bg-gray-200 rounded-full !mb-4"></div>
+          <div className="w-24 h-24 flex justify-center items-center mx-auto bg-gray-200 rounded-full !mb-4">
+            <FaUser size={50} className="item-center" />
+          </div>
           <div className="">
             <div className="text-start">
               <h3 className="text-xl !text-start font-semibold">Evelyn</h3>
