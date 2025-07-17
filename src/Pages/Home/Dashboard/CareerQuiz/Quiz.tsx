@@ -1,12 +1,14 @@
 import { IoArrowBack } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { questionsQuiz } from "../../../../utils/questions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Quiz = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState("q1");
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [history, setHistory] = useState<string[]>([]); // Keeps a stack of visited questions
+  const [no, setNo] = useState<Boolean>(false);
+  const [yes, setYes] = useState<Boolean>(false);
 
   const current = questionsQuiz[currentQuestionId];
 
@@ -20,7 +22,19 @@ const Quiz = () => {
     // Move to next question
     setCurrentQuestionId(nextId);
   };
-
+  // Store final answers in localStorage when the quiz ends
+  useEffect(() => {
+    const entries = Object.entries(answers);
+    if (entries.length > 0) {
+      const lastEntry = entries[entries.length - 1];
+      const [_, lastValue] = lastEntry;
+      if (currentQuestionId === "") {
+        localStorage.setItem("selectedCareer", lastValue);
+      }
+    } else {
+      console.log("No answers yet.");
+    }
+  }, [currentQuestionId, answers]);
   const handlePrevious = () => {
     // Avoid going back if history is empty
     if (history.length === 0) return;
@@ -100,21 +114,56 @@ const Quiz = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-sm !p-6 text-center space-y-4">
             <h2 className="text-xl font-semibold text-gray-800">
-              You’ve reached the end… for now.
+              ARE YOU SURE OF YOUR ANSWERS?
             </h2>
-            <p className="text-gray-600 !py-3">
-              More exciting questions are coming soon to enhance your
-              experience. Keep an eye out — we’ll let you know when it’s ready!
-            </p>
 
             <div className="flex justify-between !mt-3">
               <button
-                onClick={handlePrevious}
+                onClick={() => {
+                  setNo(!no);
+                  setYes(false);
+                }}
                 disabled={history.length === 0}
                 className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
-                Previous Step
+                No
+              </button>
+              <button
+                onClick={() => {
+                  setYes(!yes);
+                  setNo(false);
+                }}
+                className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                Yes
               </button>
             </div>
+            {no && (
+              <div className="flex justify-between gap-3 !mt-3">
+                <button
+                  onClick={handlePrevious}
+                  className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                  Retake The Quiz
+                </button>
+                <Link to="/mentorship">
+                  <button className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                    Consult a Career Councelor
+                  </button>
+                </Link>
+              </div>
+            )}
+            {yes && (
+              <div className="flex justify-between gap-3 !mt-3">
+                <Link to="/inappskill">
+                  <button className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                    🎓 Enroll in a course tailored to your path you have chosen
+                  </button>
+                </Link>
+                <Link to="/mentorship">
+                  <button className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                    Consult a Career Councelor
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

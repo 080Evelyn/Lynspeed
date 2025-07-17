@@ -5,7 +5,7 @@ import tiktok from "../../../assets/tiktok.png";
 import insta from "../../../assets/Instagram.jpg";
 import facebook from "../../../assets/facebook.png";
 import twiter from "../../../assets/twitter.jpeg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaTelegram } from "react-icons/fa";
 // import { useState } from "react";
 
@@ -13,10 +13,11 @@ const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
 const telegramGroupLink = "https://t.me/+ECkwP9Us1CE5Yjhk";
 
 const Footer = () => {
-  // const [clicked, setClicked] = useState<boolean>(true);
-  // const handleDropdown = () => {
-  //   setClicked(!clicked);
-  // };
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/");
+  };
   return (
     <footer>
       <div className="footer-container">
@@ -85,23 +86,23 @@ const Footer = () => {
                 </svg>
               </span> */}
               <li>
-                <a href="#career-guidance" className="">
+                <a onClick={handleClick} href="#career-guidance" className="">
                   Career Guidance and Counseling
                 </a>
               </li>
               <li>
-                <a href="#jamb-simulation" className=" ">
+                <a onClick={handleClick} href="#jamb-simulation" className=" ">
                   JAMB Simulation
                 </a>
               </li>
 
               <li>
-                <a href="#skill-discovery" className="">
+                <a onClick={handleClick} href="#skill-discovery" className="">
                   Skill Discovery
                 </a>
               </li>
               <li>
-                <a href="#our-tribe" className="">
+                <a onClick={handleClick} href="#our-tribe" className="">
                   Our Tribe
                 </a>
               </li>

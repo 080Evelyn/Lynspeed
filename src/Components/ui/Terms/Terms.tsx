@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
-import './Terms.css'
+import "./Terms.css";
 
 const Terms = () => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <>
       <Navbar />
@@ -15,10 +22,10 @@ const Terms = () => {
               Welcome to Lynspeed, a JAMB simulation platform designed to help
               students in Nigeria prepare for their Joint Admissions and
               Matriculation Board (JAMB) exams. These Terms and Conditions
-              govern your use of our website and services. By
-              accessing or using the platform, you agree to comply with these
-              Terms. If you do not agree to any part of these Terms, you must
-              discontinue your use of the platform.
+              govern your use of our website and services. By accessing or using
+              the platform, you agree to comply with these Terms. If you do not
+              agree to any part of these Terms, you must discontinue your use of
+              the platform.
             </p>
           </div>
           <div className="start">
@@ -65,8 +72,8 @@ const Terms = () => {
           <div className="start">
             <li>Fees and Payments</li>
             <p>
-              Lynspeed may offer both free and paid services. Any
-              fees associated with premium features or services will be clearly
+              Lynspeed may offer both free and paid services. Any fees
+              associated with premium features or services will be clearly
               displayed on our website. Payments for these services are
               non-refundable unless otherwise specified. We reserve the right to
               change the pricing of any premium services. If you have purchased
@@ -80,13 +87,13 @@ const Terms = () => {
             <p>
               All content available on the platform, including but not limited
               to text, graphics, logos, images, and software, is the exclusive
-              property of Lynspeed. This content is protected by
-              intellectual property laws, and you may not copy, reproduce,
-              distribute, or create derivative works from any part of the
-              platform without our express permission. Users are granted a
-              limited license to access and use the platform solely for personal
-              and non-commercial purposes. Any unauthorized use of the
-              platform's content will result in the termination of this license.
+              property of Lynspeed. This content is protected by intellectual
+              property laws, and you may not copy, reproduce, distribute, or
+              create derivative works from any part of the platform without our
+              express permission. Users are granted a limited license to access
+              and use the platform solely for personal and non-commercial
+              purposes. Any unauthorized use of the platform's content will
+              result in the termination of this license.
             </p>
           </div>
           <div className="start">
@@ -105,15 +112,15 @@ const Terms = () => {
           <div className="start">
             <li>Performance and Results</li>
             <p>
-            The platform offers simulated exams that aim to reflect real-life
-            JAMB scenarios. While we make every effort to provide accurate
-            simulations, we do not guarantee that the results you achieve on the
-            platform will match your actual performance in the official JAMB
-            exams. We are not liable for any consequences that arise from the
-            use of our simulations, including any negative outcomes on the
-            actual JAMB exam. The simulation is a tool to help you practice and
-            prepare, but it should not be relied upon as the sole means of exam
-            preparation.
+              The platform offers simulated exams that aim to reflect real-life
+              JAMB scenarios. While we make every effort to provide accurate
+              simulations, we do not guarantee that the results you achieve on
+              the platform will match your actual performance in the official
+              JAMB exams. We are not liable for any consequences that arise from
+              the use of our simulations, including any negative outcomes on the
+              actual JAMB exam. The simulation is a tool to help you practice
+              and prepare, but it should not be relied upon as the sole means of
+              exam preparation.
             </p>
           </div>
           <div className="start">
@@ -165,12 +172,11 @@ const Terms = () => {
             <li>Third-Party Services</li>
             <p>
               Our platform may contain links to third-party websites or services
-              that are not owned or controlled by Lynspeed. We are
-              not responsible for the content, privacy policies, or practices of
-              any third-party sites or services. By using the platform, you
-              acknowledge that Lynspeed is not responsible or liable
-              for any damages or losses caused by your use of third-party
-              services.
+              that are not owned or controlled by Lynspeed. We are not
+              responsible for the content, privacy policies, or practices of any
+              third-party sites or services. By using the platform, you
+              acknowledge that Lynspeed is not responsible or liable for any
+              damages or losses caused by your use of third-party services.
             </p>
           </div>
           <div className="start">
@@ -185,7 +191,7 @@ const Terms = () => {
           </div>
         </ul>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Privacy.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
 const Privacy: React.FC = () => {
-  return ( 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+  return (
     <>
       <Navbar />
       <div className="privacy">
@@ -18,7 +24,7 @@ const Privacy: React.FC = () => {
           </p>
         </div>
 
-        <div className="set"> 
+        <div className="set">
           <h2>1. Information We Collect</h2>
           <p>
             We collect various types of information to provide and improve our
@@ -134,12 +140,13 @@ const Privacy: React.FC = () => {
           </ul>
         </div>
         <div className="set">
-        <h2>6. Children's Privacy</h2>
-        <p>
-          Our website is not directed to individuals under the age of 13. We do
-          not knowingly collect personal information from children under 13. If
-          we become aware of such information, we will take steps to delete it.
-        </p>
+          <h2>6. Children's Privacy</h2>
+          <p>
+            Our website is not directed to individuals under the age of 13. We
+            do not knowingly collect personal information from children under
+            13. If we become aware of such information, we will take steps to
+            delete it.
+          </p>
         </div>
         <div className="set">
           <h2>7. Third-Party Links</h2>

@@ -15,6 +15,8 @@ import { resetAnalysis } from "../../../State/AnalysisSlice";
 import { fetchNotification } from "../../../State/NotificationSlice";
 import { PiCertificateThin } from "react-icons/pi";
 import { GiSkills } from "react-icons/gi";
+import { MdQuiz } from "react-icons/md";
+import { SiCodementor } from "react-icons/si";
 import sub from "../../../assets/subselect.svg";
 import res from "../../../assets/history.svg";
 import notify from "../../../assets/notify.svg";
@@ -44,6 +46,7 @@ const Dashboard = () => {
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [subjectSelectionMessage, setSubjectSelectionMessage] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
+  const careerPath = localStorage.getItem("selectedCareer");
 
   const storedUser = localStorage.getItem("user");
   const user: UserProfile = storedUser !== null ? JSON.parse(storedUser) : null;
@@ -74,7 +77,9 @@ const Dashboard = () => {
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev); // Toggle function
 
   const handleSignOut = () => {
-    localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("refreshToken");
     dispatch(resetAuth());
     dispatch(resetResultHistory());
     dispatch(resetSavedSubject());
@@ -125,7 +130,7 @@ const Dashboard = () => {
                     <strong>{user?.full_name || "User"}</strong>
                   </p>
                   <p>{user?.email || "user@example.com"}</p>
-
+                  {careerPath && <p>Career: {careerPath}</p>}
                   <Link to="/subscription">Subscription</Link>
                   <Link to="/login" onClick={handleSignOut}>
                     Log out
@@ -153,11 +158,16 @@ const Dashboard = () => {
               </div>
             </li>
             {careerDropdown && (
-              <div className=" !text-white flex flex-col text-[14px] !pl-[30px] ">
-                <Link className="hover:bg-[#FFFFFF1A] !p-2" to="/quiz">
-                  Career quiz
+              <div className=" !text-white flex flex-col text-[14px] !pl-[px] ">
+                <Link
+                  className="hover:bg-[#FFFFFF1A] gap-1.5 flex !p-2"
+                  to="/quiz">
+                  <MdQuiz size={24} className="text-white" /> Career quiz
                 </Link>
-                <Link className="hover:bg-[#FFFFFF1A] !p-2" to="/mentorship">
+                <Link
+                  className="hover:bg-[#FFFFFF1A] flex gap-1.5 !p-2"
+                  to="/mentorship">
+                  <SiCodementor size={24} className="text-white" />
                   Career Guidance and Counselor
                 </Link>
               </div>
