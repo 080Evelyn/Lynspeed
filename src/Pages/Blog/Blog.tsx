@@ -5,11 +5,15 @@ import blogpic1 from "../../assets/blogpic1.png";
 import blogpic2 from "../../assets/logpic2.png";
 import blogpic3 from "../../assets/blogpic3.png";
 import blogpic4 from "../../assets/logpic4.png";
-
-
-
+import { useEffect } from "react";
 
 const Blog = () => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <>
       <Navbar />
@@ -30,7 +34,6 @@ const Blog = () => {
       <div className="blog-content">
         <div className="header">
           <h2> Blog</h2>
-
         </div>
 
         {/* Blog sections */}
@@ -51,7 +54,6 @@ const Blog = () => {
               confidence while identifying areas of weakness. Stay calm, rest,
               and pray for a smooth exam day.
             </p>
-
           </div>
         </div>
 
@@ -59,9 +61,9 @@ const Blog = () => {
           <div className="top">
             <h2>Is it Important to Study JAMB Past Questions?</h2>
             <p>
-              Absolutely! Studying past questions is crucial for exam success
-              as it highlights frequently asked topics, familiarizes you with
-              the exam format, and provides insights into how questions are
+              Absolutely! Studying past questions is crucial for exam success as
+              it highlights frequently asked topics, familiarizes you with the
+              exam format, and provides insights into how questions are
               structured.
             </p>
           </div>

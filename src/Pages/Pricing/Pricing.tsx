@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import Footer from "../../Components/ui/Footer/Footer";
 import Navbar from "../../Components/ui/Navbar/Navbar";
@@ -35,10 +35,18 @@ const Pricing: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <>
       <Navbar />
-      <h2 className="pricing-title">Pricing</h2>
+      <h2 className="pricing-title">
+        Pricing <span className="text-sm">(JAMB)</span>
+      </h2>
       <div className="pricing-cards">
         {/* Free Plan Card */}
         <div className="card">

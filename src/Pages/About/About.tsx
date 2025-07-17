@@ -14,6 +14,7 @@ import img from "../../assets/ImgL.png";
 import img2 from "../../assets/Img1.png";
 import Footer from "../../Components/ui/Footer/Footer";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 export default function About() {
   const benefits = [
     {
@@ -82,6 +83,12 @@ export default function About() {
     "Homegrown trust — We understand your journey and are here to walk it with you.",
   ];
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <div className="min-h-screen ">
       {/* Header */}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import "./Contact.css";
@@ -15,7 +15,7 @@ const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-   phone: "",
+    phone: "",
     message: "",
   });
   const [statusMessage, setStatusMessage] = useState<string>("");
@@ -59,6 +59,12 @@ const Contact = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   return (
     <>
       <Navbar />
