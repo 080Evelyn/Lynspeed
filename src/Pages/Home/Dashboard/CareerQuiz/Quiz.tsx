@@ -9,7 +9,6 @@ const Quiz = () => {
   const [history, setHistory] = useState<string[]>([]); // Keeps a stack of visited questions
   const [no, setNo] = useState<Boolean>(false);
   const [yes, setYes] = useState<Boolean>(false);
-
   const current = questionsQuiz[currentQuestionId];
 
   const handleSelect = (optionId: string, nextId: string) => {
@@ -113,33 +112,39 @@ const Quiz = () => {
       {currentQuestionId === "" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-lg w-[90%] max-w-sm !p-6 text-center space-y-4">
-            <h2 className="text-xl font-semibold text-gray-800">
-              ARE YOU SURE OF YOUR ANSWERS?
-            </h2>
+            {!yes && !no && (
+              <>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  ARE YOU SURE OF YOUR ANSWERS?
+                </h2>
 
-            <div className="flex justify-between !mt-3">
-              <button
-                onClick={() => {
-                  setNo(!no);
-                  setYes(false);
-                }}
-                disabled={history.length === 0}
-                className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
-                No
-              </button>
-              <button
-                onClick={() => {
-                  setYes(!yes);
-                  setNo(false);
-                }}
-                className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
-                Yes
-              </button>
-            </div>
+                <div className="flex justify-between !mt-3">
+                  <button
+                    onClick={() => {
+                      setNo(!no);
+                      setYes(false);
+                    }}
+                    disabled={history.length === 0}
+                    className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                    No
+                  </button>
+                  <button
+                    onClick={() => {
+                      setYes(!yes);
+                      setNo(false);
+                    }}
+                    className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
+                    Yes
+                  </button>
+                </div>
+              </>
+            )}
             {no && (
               <div className="flex justify-between gap-3 !mt-3">
                 <button
-                  onClick={handlePrevious}
+                  onClick={() => {
+                    setCurrentQuestionId("q1"), setNo(false);
+                  }}
                   className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
                   Retake The Quiz
                 </button>
