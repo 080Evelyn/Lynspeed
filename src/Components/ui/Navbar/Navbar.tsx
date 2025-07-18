@@ -46,6 +46,9 @@ const Navbar: React.FC = () => {
           <li>
             <Link to="/about">About</Link>
           </li>
+          <li>
+            <Link to="/skills">Skill</Link>
+          </li>
           <li className="relative group ">
             <span
               onClick={handleDropdown}
