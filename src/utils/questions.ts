@@ -467,27 +467,27 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Writer",
-        label: "Writer → ",
+        label: "Writer",
         next: "",
       },
       {
         id: "Illustrator",
-        label: "Illustrator → ",
+        label: "Illustrator",
         next: "",
       },
       {
         id: "UI/UX Designer",
-        label: "UI/UX Designer → ",
+        label: "UI/UX Designer",
         next: "",
       },
       {
         id: "Photographer",
-        label: "Photographer → ",
+        label: "Photographer",
         next: "",
       },
       {
         id: "  Indie Game Developer",
-        label: "  Indie Game Developer → ",
+        label: "  Indie Game Developer",
         next: "",
       },
     ],
@@ -501,22 +501,22 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Animator",
-        label: "Animator → ",
+        label: "Animator",
         next: "",
       },
       {
         id: "Brand Designer",
-        label: "Brand Designer → ",
+        label: "Brand Designer",
         next: "",
       },
       {
         id: "Fashion Director",
-        label: "Fashion Director → ",
+        label: "Fashion Director",
         next: "",
       },
       {
         id: "Game Designer",
-        label: "Game Designer → ",
+        label: "Game Designer",
         next: "",
       },
     ],
@@ -530,22 +530,22 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Engineer",
-        label: "Engineer → ",
+        label: "Engineer",
         next: "",
       },
       {
         id: "Technician",
-        label: "Technician → ",
+        label: "Technician",
         next: "",
       },
       {
         id: "Electrician",
-        label: "Electrician → ",
+        label: "Electrician",
         next: "",
       },
       {
         id: "Mechanic",
-        label: "Mechanic → ",
+        label: "Mechanic",
         next: "",
       },
     ],
@@ -558,22 +558,22 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Data Analyst",
-        label: "Data Analyst → ",
+        label: "Data Analyst",
         next: "",
       },
       {
         id: "Software Developer",
-        label: "Software Developer → ",
+        label: "Software Developer",
         next: "",
       },
       {
         id: "Scientist",
-        label: "Scientist → ",
+        label: "Scientist",
         next: "",
       },
       {
         id: "Mathematician",
-        label: "Mathematician → ",
+        label: "Mathematician",
         next: "",
       },
     ],
@@ -586,17 +586,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Civil Engineer",
-        label: "Civil Engineer → ",
+        label: "Civil Engineer",
         next: "",
       },
       {
         id: "AgriTech Specialist",
-        label: "AgriTech Specialist → ",
+        label: "AgriTech Specialist",
         next: "",
       },
       {
         id: "Medical Technologist",
-        label: "Medical Technologist → ",
+        label: "Medical Technologist",
         next: "",
       },
     ],
@@ -604,27 +604,27 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
   q3f: {
     id: "q3f",
     step: "STEP 3/3",
-    title: "Physical Healthcare ",
+    title: "Physical Healthcare",
     subtitle: "Careers",
     options: [
       {
         id: "Doctor",
-        label: "Doctor → ",
+        label: "Doctor",
         next: "",
       },
       {
         id: "Nurse",
-        label: "Nurse → ",
+        label: "Nurse",
         next: "",
       },
       {
         id: "Radiographer",
-        label: "Radiographer → ",
+        label: "Radiographer",
         next: "",
       },
       {
         id: "Physiotherapist",
-        label: "Physiotherapist → ",
+        label: "Physiotherapist",
         next: "",
       },
     ],
@@ -637,17 +637,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Counselor",
-        label: "Counselor → ",
+        label: "Counselor",
         next: "",
       },
       {
         id: "Therapist",
-        label: "Therapist → ",
+        label: "Therapist",
         next: "",
       },
       {
         id: "Life Coach",
-        label: "Life Coach → ",
+        label: "Life Coach",
         next: "",
       },
     ],
@@ -660,17 +660,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "NGO Worker",
-        label: "NGO Worker → ",
+        label: "NGO Worker",
         next: "",
       },
       {
         id: "Health Educator",
-        label: "Health Educator → ",
+        label: "Health Educator",
         next: "",
       },
       {
         id: "Public Health Campaigner",
-        label: "Public Health Campaigner → ",
+        label: "Public Health Campaigner",
         next: "",
       },
     ],
@@ -683,17 +683,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Accountant",
-        label: "Accountant → ",
+        label: "Accountant",
         next: "",
       },
       {
         id: "Auditor",
-        label: "Auditor → ",
+        label: "Auditor",
         next: "",
       },
       {
         id: "Banker",
-        label: "Banker → ",
+        label: "Banker",
         next: "",
       },
     ],
@@ -706,17 +706,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Data Analysts",
-        label: "Data Analyst → ",
+        label: "Data Analyst",
         next: "",
       },
       {
         id: "M&E Officer",
-        label: "M&E Officer → ",
+        label: "M&E Officer",
         next: "",
       },
       {
         id: "Statistician",
-        label: "Statistician → ",
+        label: "Statistician ",
         next: "",
       },
     ],
@@ -729,12 +729,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Supply Chain Analyst",
-        label: "Supply Chain Analyst → ",
+        label: "Supply Chain Analyst ",
         next: "",
       },
       {
         id: "Procurement Officer",
-        label: "Procurement Officer → ",
+        label: "Procurement Officer ",
         next: "",
       },
     ],
@@ -747,17 +747,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Teacher",
-        label: "Teacher → ",
+        label: "Teacher ",
         next: "",
       },
       {
         id: "Speaker",
-        label: "Speaker → ",
+        label: "Speaker ",
         next: "",
       },
       {
         id: "Lawyer",
-        label: "Lawyer → ",
+        label: "Lawyer ",
         next: "",
       },
     ],
@@ -770,17 +770,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Journalist",
-        label: "Journalist → ",
+        label: "Journalist ",
         next: "",
       },
       {
         id: "Author",
-        label: "Author → ",
+        label: "Author ",
         next: "",
       },
       {
         id: "Copywriter",
-        label: "Copywriter → ",
+        label: "Copywriter ",
         next: "",
       },
     ],
@@ -793,17 +793,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Entrepreneur",
-        label: "Entrepreneur → ",
+        label: "Entrepreneur ",
         next: "",
       },
       {
         id: "Campaign Manager",
-        label: "Campaign Manager → ",
+        label: "Campaign Manager ",
         next: "",
       },
       {
         id: "NGO Founder",
-        label: "NGO Founder → ",
+        label: "NGO Founder ",
         next: "",
       },
     ],
@@ -816,12 +816,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Consultant",
-        label: "Consultant → ",
+        label: "Consultant ",
         next: "",
       },
       {
         id: "Product Developer",
-        label: "Product Developer → ",
+        label: "Product Developer ",
         next: "",
       },
     ],
@@ -834,17 +834,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Carpenter",
-        label: "Carpenter → ",
+        label: "Carpenter ",
         next: "",
       },
       {
         id: "Artisan",
-        label: "Artisan → ",
+        label: "Artisan ",
         next: "",
       },
       {
         id: "Shoemaker",
-        label: "Shoemaker → ",
+        label: "Shoemaker ",
         next: "",
       },
     ],
@@ -857,17 +857,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Chef",
-        label: "Chef → ",
+        label: "Chef ",
         next: "",
       },
       {
         id: "Baker",
-        label: "Baker → ",
+        label: "Baker ",
         next: "",
       },
       {
         id: "Caterer",
-        label: "Caterer → ",
+        label: "Caterer ",
         next: "",
       },
     ],
@@ -880,12 +880,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Farmer",
-        label: "Farmer → ",
+        label: "Farmer ",
         next: "",
       },
       {
         id: "Landscape Planner ",
-        label: "Landscape Planner → ",
+        label: "Landscape Planner ",
         next: "",
       },
     ],
@@ -898,17 +898,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Producer",
-        label: "Producer → ",
+        label: "Producer ",
         next: "",
       },
       {
         id: "Gospel Artist ",
-        label: "Gospel Artist → ",
+        label: "Gospel Artist ",
         next: "",
       },
       {
         id: "DJ",
-        label: "DJ → ",
+        label: "DJ ",
         next: "",
       },
     ],
@@ -921,17 +921,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "YouTuber",
-        label: "YouTuber → ",
+        label: "YouTuber ",
         next: "",
       },
       {
         id: "Skit Maker",
-        label: "Skit Maker → ",
+        label: "Skit Maker ",
         next: "",
       },
       {
         id: "Influencer",
-        label: "Influencer → ",
+        label: "Influencer ",
         next: "",
       },
     ],
@@ -944,17 +944,17 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Actor",
-        label: "Actor → ",
+        label: "Actor ",
         next: "",
       },
       {
         id: "MC",
-        label: "MC → ",
+        label: "MC ",
         next: "",
       },
       {
         id: "Comedian",
-        label: "Comedian → ",
+        label: "Comedian ",
         next: "",
       },
     ],
@@ -967,12 +967,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Tour Host",
-        label: "Tour Host → ",
+        label: "Tour Host ",
         next: "",
       },
       {
         id: "Cultural Educator",
-        label: "Cultural Educator → ",
+        label: "Cultural Educator ",
         next: "",
       },
     ],
@@ -985,12 +985,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Historian",
-        label: "Historian → ",
+        label: "Historian ",
         next: "",
       },
       {
         id: "Linguist",
-        label: "Linguist → ",
+        label: "Linguist ",
         next: "",
       },
     ],
@@ -1003,12 +1003,12 @@ export const questionsQuiz: Record<string, QuestionQuiz> = {
     options: [
       {
         id: "Travel Blogger",
-        label: "Travel Blogger → ",
+        label: "Travel Blogger ",
         next: "",
       },
       {
         id: "Doc Maker",
-        label: "Doc Maker → ",
+        label: "Doc Maker ",
         next: "",
       },
     ],
