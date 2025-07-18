@@ -54,6 +54,7 @@ const Subscription: React.FC = () => {
             },
           }
         );
+        // console.log(statusResponse)
         if (statusResponse.statusText === "OK") {
           const planResponse = await axios.get(
             `${import.meta.env.VITE_BASE_URL}api/v1/plans/`,
