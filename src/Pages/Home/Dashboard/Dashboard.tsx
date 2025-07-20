@@ -29,6 +29,7 @@ import anal from "../../../assets/perform.svg";
 import pro from "../../../assets/profile.svg";
 
 import "./Dashboard.css";
+import { resetSkill } from "../../../State/SkillsSlice";
 
 interface UserProfile {
   id: string;
@@ -87,6 +88,7 @@ const Dashboard = () => {
     dispatch(resetTestQuestions());
     dispatch(resetTestResult());
     dispatch(resetAnalysis());
+    dispatch(resetSkill());
     persistor.purge();
     navigate("/login");
   };
@@ -256,7 +258,7 @@ const Dashboard = () => {
         <main className="right1">
           <section className="welcome-section">
             <div className="welcome-first">
-              <h4>Welcome back to Lynspeed</h4>
+              <h4>Welcome </h4>
             </div>
             <div className="welcome-banner">
               <img src={dash1} alt="Banner" />
