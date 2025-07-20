@@ -14,6 +14,7 @@ const skillsData = [
       "Learn to create visuals that grab attention and sell",
       "Start freelancing or building your personal brand",
     ],
+    discount: "₦12,000",
     duration: "1 Month",
     price: "₦6,000",
   },
@@ -29,6 +30,7 @@ const skillsData = [
       "Learn typing, internet research, file management",
       "Great for complete beginners and students of all ages",
     ],
+    discount: "₦12,000",
     duration: "6 weeks",
     price: "₦6,000",
   },
@@ -44,6 +46,7 @@ const skillsData = [
       "Ideal for freelancers, business owners and marketers",
       "A great way to enter tech without coding",
     ],
+    discount: "₦12,000",
     duration: "1 Month",
     price: "₦6,000",
   },
@@ -58,6 +61,7 @@ const skillsData = [
       "Build interactive, mobile-friendly websites",
       "A solid foundation for careers in tech and software development",
     ],
+    discount: "₦50,000",
     duration: "3 Months",
     price: "₦30,000",
   },
@@ -72,6 +76,7 @@ const skillsData = [
       "Learn how to write for the internet (SEO, storytelling, engagement)",
       "Start a blog, work as a content writer or promote your hustle",
     ],
+    discount: "₦12,000",
     duration: "1 Month",
     price: "₦6,000",
   },
@@ -86,6 +91,7 @@ const skillsData = [
       "Highly in-demand skill in tech and product teams",
       "No coding needed, just a love for creativity and solving problems",
     ],
+    discount: "₦20,000",
     duration: "2 Months",
     price: "₦12,000",
   },
@@ -154,7 +160,14 @@ const Skills = () => {
                     Book a Session
                   </button>
                 </Link>
-                <p className="text-lg font-bold text-gray-900">{skill.price}</p>
+                <div>
+                  <p className="text-lg font-normal text-gray-400 !line-through">
+                    {skill.discount}
+                  </p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {skill.price}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
