@@ -25,6 +25,7 @@ const persistConfig = {
     "paymentValidate",
     "savedSubjectList",
     "skills",
+    "testQuestions",
   ],
 };
 

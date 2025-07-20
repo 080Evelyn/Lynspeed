@@ -84,7 +84,7 @@ const Mentorship = () => {
 
       {/* Counselor Card */}
       <h2 className="text-center font-semibold text-gray-700 text-lg md:text-2xl !mb-5">
-        Meet your Career Councelor
+        Meet your Career counsellor
       </h2>
       <div className="max-w-lg !mx-auto !mb-16">
         <div className="bg-white flex flex-col md:flex-row md:gap-4 justify-between rounded-lg shadow-md border !p-6 text-center">

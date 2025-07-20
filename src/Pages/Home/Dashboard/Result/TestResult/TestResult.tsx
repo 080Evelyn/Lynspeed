@@ -26,6 +26,7 @@ const TestResult = () => {
 
   //getting the testresults data from redux store
   const testResult = useSelector((state: RootState) => state.testResult.data);
+  console.log(testResult);
   const loading = useSelector((state: RootState) => state.testResult.loading);
   const error = useSelector((state: RootState) => state.testResult.error);
 
