@@ -10,7 +10,6 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    navigate("/");
   };
 
   const handleDropdown = () => {
@@ -47,7 +46,7 @@ const Navbar: React.FC = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/skills">Skill</Link>
+            <Link to="/skills">Skills</Link>
           </li>
           <li className="relative group ">
             <span
@@ -73,7 +72,9 @@ const Navbar: React.FC = () => {
               } group-hover:block bg-[#0659a6] !px-2 border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[200px] md:!w-[250px]  z-50`}>
               <li>
                 <a
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    toggleMenu(), navigate("/");
+                  }}
                   href="#career-guidance"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
                   Career Guidance and Counseling
@@ -81,7 +82,9 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <a
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    toggleMenu(), navigate("/");
+                  }}
                   href="#jamb-simulation"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100 ">
                   JAMB Simulation
@@ -90,7 +93,9 @@ const Navbar: React.FC = () => {
 
               <li>
                 <a
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    toggleMenu(), navigate("/");
+                  }}
                   href="#skill-discovery"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
                   Skill Discovery
@@ -98,7 +103,9 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <a
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    toggleMenu(), navigate("/");
+                  }}
                   href="#our-tribe"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
                   Our Tribe
