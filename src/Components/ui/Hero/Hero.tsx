@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
       <Bubbles />
       <section className="hero">
         <div className="left">
-          <div className="max-w-[800px] !mt-[50px] md:!mt-[100px] !px-5">
+          <div className="max-w-[800px] !mt-[50px] b md:!mt-[-100px] !px-5">
             <h1 className="write1 text-[#0659a6] text-6xl  animate-text">
               From <span className="text-amber-700">Books</span>
               <br className="md:hidden" /> to

@@ -5,7 +5,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { TbMoneybag } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { setSkillId } from "../../../../State/SkillsSlice";
 import { AppDispatch } from "../../../../State/Store";
 const Mentorship = () => {
@@ -37,12 +37,16 @@ const Mentorship = () => {
       localStorage.setItem("referenceId", reference);
 
       window.location.href = payment_url;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error activating subscription:", error);
 
-      toast.error(
-        "There was an issue activating the subscription. Please try again."
-      );
+      if (error.status === 409) {
+        toast.error(`${error.response.data.detail}`);
+      } else {
+        toast.error(
+          "There was an issue activating the subscription. Please try again."
+        );
+      }
     } finally {
       setLoader(false);
     }
@@ -165,6 +169,7 @@ const Mentorship = () => {
           </a>
         </button>
       </div>
+      <ToastContainer />
     </section>
   );
 };

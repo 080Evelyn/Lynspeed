@@ -27,13 +27,12 @@ const Notification = () => {
   useEffect(() => {
     dispatch(fetchNotification());
   }, []);
-  // console.log(notification);
-
+  const sortedNotifications = [...notification].reverse();
   return (
     <div className="notification-page">
       {/* <Navbar2/> */}
       {loading ? (
-        <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
+        <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
       ) : !loading && error ? (
         <h2>Something went wrong, check internet connection</h2>
       ) : (
@@ -45,10 +44,10 @@ const Notification = () => {
             {/* <h2>Notification</h2> */}
           </div>
 
-          <div className="notifications">
+          <div className="notifications ">
             {notification.message && <h2>{notification.message}</h2>}
             {notification.length > 0 &&
-              notification.map((notification: any, index: any) => (
+              sortedNotifications.map((notification: any, index: any) => (
                 <div key={index} className="notification-item">
                   <div className="notification-time">
                     <i className="clock-icon">⏲️</i>
