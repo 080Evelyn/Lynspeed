@@ -105,7 +105,7 @@
 
   .notification-item {
     flex-direction: column;
-    padding: 10px;
+    padding: 20px;
   }
 
   .notification-time,
@@ -133,7 +133,7 @@
   }
 
   .notification-item {
-    padding: 10px;
+    padding: 20px;
   }
 
   .notification-time,

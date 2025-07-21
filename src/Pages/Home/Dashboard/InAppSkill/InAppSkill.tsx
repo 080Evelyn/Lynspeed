@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { fetchSkills } from "../../../../State/SkillsSlice";
 import { useSelector } from "react-redux";
 import Bookbtn from "./Bookbtn";
+import { ToastContainer } from "react-toastify";
 
 const InAppSkill = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -67,6 +68,7 @@ const InAppSkill = () => {
           </div>
         </>
       )}
+      <ToastContainer />
     </section>
   );
 };

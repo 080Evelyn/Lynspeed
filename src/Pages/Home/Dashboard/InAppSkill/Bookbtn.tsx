@@ -36,12 +36,16 @@ const Bookbtn = ({ id }: Payload) => {
       localStorage.setItem("referenceId", reference);
 
       window.location.href = payment_url;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error activating subscription:", error);
 
-      toast.error(
-        "There was an issue activating the subscription. Please try again."
-      );
+      if (error.status === 409) {
+        toast.error(`${error.response.data.detail}`);
+      } else {
+        toast.error(
+          "There was an issue activating the subscription. Please try again."
+        );
+      }
     } finally {
       setLoader(false);
     }
