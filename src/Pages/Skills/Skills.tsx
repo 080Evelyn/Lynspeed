@@ -111,7 +111,7 @@ const Skills = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center !mb-3">
           Skills we Offer
         </h2>
-        <p className="text-xl md:text-2xl font-light text-center !mb-12">
+        <p className="text-md md:text-xl font-light text-center !mb-12 text-[#ffcc00]">
           Paid internship available
         </p>
         <div className="grid md:grid-cols-3 gap-6">
