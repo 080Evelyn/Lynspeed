@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 const Quiz = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState("q1");
+  const [showLinks, setShowLinks] = useState<Boolean>(false);
+
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [history, setHistory] = useState<string[]>([]); // Keeps a stack of visited questions
   const [no, setNo] = useState<Boolean>(false);
@@ -156,17 +158,42 @@ const Quiz = () => {
               </div>
             )}
             {yes && (
-              <div className="flex justify-between gap-3 !mt-3">
-                <Link to="/inappskill">
-                  <button className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
-                    🎓 Enroll in a course tailored to your path you have chosen
+              <div className="flex flex-col gap-4 !mt-3">
+                {/* Retrieve the saved career */}
+                <p className="text-lg font-semibold text-gray-700">
+                  🎉 Congratulations! You have successfully completed the quiz.
+                </p>
+                <p className="text-md text-gray-600">
+                  Based on your answers, your suggested career path is:
+                  <span className="text-blue-600 font-bold ml-1">
+                    {localStorage.getItem("selectedCareer") || "Not Found"}
+                  </span>
+                </p>
+
+                {/* Show Next button to proceed */}
+                {!showLinks && (
+                  <button
+                    onClick={() => setShowLinks(true)}
+                    className="!px-4 !py-2 bg-[#0659a6] text-white rounded hover:bg-blue-700">
+                    Next
                   </button>
-                </Link>
-                <Link to="/mentorship">
-                  <button className="!px-4 !py-2 border hover:!bg-gray-100  rounded disabled:opacity-50">
-                    Consult a Career Councelor
-                  </button>
-                </Link>
+                )}
+
+                {/* Show the links after clicking Next */}
+                {showLinks && (
+                  <div className="flex flex-col gap-3">
+                    <Link to="/inappskill">
+                      <button className="!px-4 !py-2 border hover:!bg-gray-100 rounded disabled:opacity-50">
+                        🎓 Enroll in a course tailored to your chosen path
+                      </button>
+                    </Link>
+                    <Link to="/mentorship">
+                      <button className="!px-4 !py-2 border hover:!bg-gray-100 rounded disabled:opacity-50">
+                        👨‍🏫 Consult a Career Counselor
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
           </div>
