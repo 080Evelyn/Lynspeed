@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/Analpic.png";
+import logo from "../../../assets/LynspeedName.jpg";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
