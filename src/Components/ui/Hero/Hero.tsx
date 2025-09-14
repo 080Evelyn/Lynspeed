@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
             </h1>
             <p className="write2 animate-subtext !mt-5">
               Grow With Purpose: Nigeria's Top Platform for JAMB Preparation,
-              Skills & Career Growth.
+              Skills & Career Growth.
             </p>
           </div>
           <div className="flex w-[300px] md:gap-2.5 !ml-[5%] justify-between ">
