@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../../assets/LynspeedName.jpg";
+import logo from "../../../assets/Analpic.png";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
       </button>
       <div
         className={`nav-menu-container ${isMenuOpen ? "active" : ""}`}
-        role="menu">
+        role="navigation">
         <ul className="nav-menu">
           <li>
             <Link to="/" aria-current="page">
@@ -67,13 +67,13 @@ const Navbar: React.FC = () => {
               </svg>
             </span>
             <ul
-              className={`absolute  ${
-                clicked ? "block" : "hidden"
-              } group-hover:block bg-[#0659a6] !px-2 border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[200px] md:!w-[250px]  z-50`}>
+              className={`absolute  ${clicked ? "block" : "hidden"
+                } group-hover:block bg-[#0659a6] !px-2 border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[200px] md:!w-[250px]  z-50`}>
               <li>
                 <a
                   onClick={() => {
-                    toggleMenu(), navigate("/");
+                    toggleMenu();
+                    navigate("/");
                   }}
                   href="#career-guidance"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
@@ -83,7 +83,8 @@ const Navbar: React.FC = () => {
               <li>
                 <a
                   onClick={() => {
-                    toggleMenu(), navigate("/");
+                    toggleMenu();
+                    navigate("/");
                   }}
                   href="#jamb-simulation"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100 ">
@@ -94,7 +95,8 @@ const Navbar: React.FC = () => {
               <li>
                 <a
                   onClick={() => {
-                    toggleMenu(), navigate("/");
+                    toggleMenu();
+                    navigate("/");
                   }}
                   href="#skill-discovery"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
@@ -104,7 +106,8 @@ const Navbar: React.FC = () => {
               <li>
                 <a
                   onClick={() => {
-                    toggleMenu(), navigate("/");
+                    toggleMenu();
+                    navigate("/");
                   }}
                   href="#our-tribe"
                   className="block !px-4 !py-2 !text-white hover:!text-black hover:bg-gray-100">
