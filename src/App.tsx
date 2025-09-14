@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Blog from "./Pages/Blog/Blog";
@@ -35,7 +35,17 @@ import Skills from "./Pages/Skills/Skills";
 import InAppSkill from "./Pages/Home/Dashboard/InAppSkill/InAppSkill";
 import Verify from "./Pages/Home/Dashboard/veriffy/Verify";
 import PaymentValidation from "./Pages/Home/Dashboard/Profile/PaymentValidation";
+import Adsense from "./Components/Adsense";
 
+
+const PublicLayout = () => {
+  return (
+    <>
+      <Outlet />
+      <Adsense slot="2346071390" /> {/* Replace with your Ad Slot ID */}
+    </>
+  );
+};
 const App = () => {
   return (
     <Router>
@@ -43,6 +53,8 @@ const App = () => {
       {/* Add Chat Button Globally */}
       <ChatButton />
       <Routes>
+        {/* ✅ Public Routes with Adsense */}
+        <Route element={<PublicLayout />}></Route>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
