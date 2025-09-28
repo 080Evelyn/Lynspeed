@@ -21,7 +21,7 @@ const Subs = () => {
   const [oldSubId, setOldSubId] = useState<number | null>(null);
   const [newSubId, setNewSubId] = useState<number | null>(null);
   const [loader, setLoader] = useState(false);
-  const [err, setErr] = useState("");
+  const [_, setErr] = useState("");
 
   useEffect(() => {
     dispatch(fetchSub(token));
