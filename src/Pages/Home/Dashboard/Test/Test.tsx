@@ -39,6 +39,7 @@ const Test: React.FC = () => {
   //response to be sent to the backend
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number>(120 * 60); // 2 hours
+
   // Timer effect
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,6 +54,45 @@ const Test: React.FC = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (timeRemaining <= 0) {
+      handleTimeUp(); // call your function when time elapses
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer); // cleanup
+  }, [timeRemaining]);
+  const handleTimeUp = async () => {
+    setSubmitting(true);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URL}api/v1/test-session/submit/`,
+        {
+          test_session_id: testSectionId,
+          responses: response,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to Authorization header
+          },
+        }
+      );
+      setSubmitting(false);
+      navigate("/testresult");
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      toast.error(
+        "Something went wrong, check internet connection and try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
   useEffect(() => {
     dispatch(fetchTestQuestions());
   }, [dispatch]);
@@ -181,7 +221,7 @@ const Test: React.FC = () => {
       window.removeEventListener("popstate", onPopState);
     };
   }, [navigate]);
-
+  // console.log(timeRemaining);
   return (
     <div className="test-container">
       {loading ? (
@@ -200,7 +240,7 @@ const Test: React.FC = () => {
       ) : !loading &&
         error &&
         error !== "Request failed with status code 403" ? (
-        <h2>Something went wrong, check internet connection</h2>
+        <h2>{error}</h2>
       ) : (
         <>
           <div className="subject-tabs">

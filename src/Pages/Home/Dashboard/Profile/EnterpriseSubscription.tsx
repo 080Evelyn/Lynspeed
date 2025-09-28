@@ -9,14 +9,6 @@ import { useDispatch } from "react-redux";
 import { setValidate } from "../../../../State/PaymentValidationSlice";
 import PaymentValidationText from "./PaymentValidationText";
 
-interface SubscriptionStatus {
-  status: string;
-  end_date: string | number | Date;
-  subscription_end_date: string | number | Date;
-  subscribed: SubscriptionStatus | null;
-  plan: any;
-}
-
 interface planStatus {
   map(
     arg0: (plan: any) => import("react/jsx-runtime").JSX.Element
@@ -27,10 +19,8 @@ interface planStatus {
   duration: number;
 }
 
-const Subscription: React.FC = () => {
-  const [subscription, setSubscription] = useState<SubscriptionStatus | null>(
-    null
-  );
+const EnterpriseSubscription: React.FC = () => {
+  const [subscription, setSubscription] = useState<[]>([]);
 
   const [plan, setPlan] = useState<planStatus | null>(null);
   const [loading, setLoading] = useState(true);
@@ -47,18 +37,18 @@ const Subscription: React.FC = () => {
       try {
         setLoading(true);
         const statusResponse = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}api/v1/subscription-status/`,
+          `${import.meta.env.VITE_BASE_URL}api/v1/enterprise/subscriptions/`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add token to Authorization header
             },
           }
         );
-        // console.log(statusResponse)
+        // console.log(statusResponse);
 
         if (statusResponse.statusText === "OK") {
           const planResponse = await axios.get(
-            `${import.meta.env.VITE_BASE_URL}api/v1/plans/`,
+            `${import.meta.env.VITE_BASE_URL}api/v1/enterprise/plans/`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Add token to Authorization header
@@ -77,7 +67,7 @@ const Subscription: React.FC = () => {
 
     fetchPlansAndStatus();
   }, []);
-
+  console.log(subscription);
   const validatePayment = async () => {
     const referenceId = localStorage.getItem("referenceId");
 
@@ -100,7 +90,6 @@ const Subscription: React.FC = () => {
           },
         }
       );
-      console.log(response);
       if (response.statusText === "OK") {
         setPaymentVerify(true);
         localStorage.removeItem("referenceId");
@@ -138,48 +127,70 @@ const Subscription: React.FC = () => {
         <p className="error-message">{error}</p>
       ) : (
         <>
-          {subscription && subscription.subscribed ? (
-            <div className="subscription-details">
-              <h3>
-                Current Plan: {subscription.plan && subscription.plan.name}
-              </h3>
-              <p>
-                <strong>Valid Until:</strong>{" "}
-                {new Date(
-                  subscription.subscription_end_date
-                ).toLocaleDateString()}
-              </p>
+          {subscription.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+                <thead className="bg-[#0659a6] text-white">
+                  <tr>
+                    <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                      Total Slots
+                    </th>
+                    <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                      Slots Remaining
+                    </th>
+                    <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                      Slots Remaining
+                    </th>
+                    <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                      Start Date
+                    </th>
+                    <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                      End Date
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {subscription.map((sub: any) => (
+                    <tr
+                      key={sub.id}
+                      className="border-b border-gray-200 hover:bg-gray-50">
+                      <td className="!px-4 !py-3 text-sm font-medium">
+                        {sub.slots_total}
+                      </td>
+                      <td className="!px-4 !py-3 text-sm">{sub.slots_used}</td>
+                      <td className="!px-4 !py-3 text-sm">
+                        {sub.slots_remaining}
+                      </td>
+                      <td className="!px-4 !py-3 text-sm">
+                        {new Date(sub.start_date).toLocaleDateString()}
+                      </td>
+                      <td className="!px-4 !py-3 text-sm">
+                        {new Date(sub.end_date).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           ) : (
             <p>You do not have an active subscription.</p>
           )}
-          <div className="plans-container">
+          <div className="plans-container !mt-10">
             {plan &&
               plan.map((plan) => (
                 <div key={plan.id} className="plan-card">
-                  <h2>{plan.name}</h2>
-                  {plan.duration === 7 && (
+                  <h2>{plan.name} Students</h2>
+
+                  {plan.duration === 32 && (
                     <p>
-                      7 days validity, Unlimited access to questions, Full test
-                      simulations, Performance analysis, Result History Email
-                      support
-                    </p>
-                  )}
-                  {plan.duration === 30 && (
-                    <p>
-                      30 days validity, Unlimited access to questions, Full test
+                      32 days validity, Unlimited access to questions, Full test
                       simulations, Performance analysis, Priority customer
                       support, Test result & History.
                     </p>
                   )}
-                  {plan.duration === 90 && (
-                    <p>
-                      90 days validity, Unlimited access to questions, Full test
-                      simulations, Performance analysis, Priority customer
-                      support, Test result & History.
-                    </p>
-                  )}
-                  <h3>{plan.price}</h3>
+
+                  <h3>₦{plan.price.toLocaleString()}</h3>
 
                   <SubBtn name={plan.name} id={plan.id} />
                 </div>
@@ -221,4 +232,4 @@ const Subscription: React.FC = () => {
   );
 };
 
-export default Subscription;
+export default EnterpriseSubscription;

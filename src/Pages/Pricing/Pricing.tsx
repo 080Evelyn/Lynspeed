@@ -45,7 +45,7 @@ const Pricing: React.FC = () => {
     <>
       <Navbar />
       <h2 className="pricing-title">
-        Pricing <span className="text-sm">(JAMB)</span>
+        Student Pricing <span className="text-sm">(JAMB)</span>
       </h2>
       <div className="pricing-cards">
         {/* Free Plan Card */}
@@ -130,6 +130,63 @@ const Pricing: React.FC = () => {
               <li>Unlimited access to questions</li>
               <li>Full test simulations</li>
               <li>Advanced Performance analysis</li>
+              <li>Result History</li>
+              <li>Priority customer support</li>
+            </ul>
+            <button>
+              <Link style={{ color: "white" }} to="/login">
+                Get Started
+              </Link>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 className="pricing-title">
+        Enterprise Pricing <span className="text-sm">(JAMB)</span>
+      </h2>
+      <div className="pricing-cards">
+        {/* Monthly Plan Card */}
+        <div className="card">
+          <div className="card-header">
+            <div className="corner-icon"></div>
+            <div className="rating">★★★★</div>
+          </div>
+          <div className="card-body">
+            <h2>MONTHLY</h2>
+            <h3>₦30,000</h3>
+            <ul>
+              <li>Maximum of 20 students </li>
+              <li>30 days validity</li>
+              <li>Unlimited access to questions</li>
+              <li>Full test simulations</li>
+              <li>Performance analysis</li>
+              <li>Result History</li>
+              <li>Priority customer support</li>
+            </ul>
+            <button>
+              <Link style={{ color: "white" }} to="/login">
+                Get Started
+              </Link>
+            </button>
+          </div>
+        </div>
+
+        {/* Monthly Plan Card */}
+        <div className="card">
+          <div className="card-header">
+            <div className="corner-icon"></div>
+            <div className="rating">★★★★</div>
+          </div>
+          <div className="card-body">
+            <h2>MONTHLY</h2>
+            <h3>₦70,000</h3>
+            <ul>
+              <li>Maximum of 50 students </li>
+              <li>30 days validity</li>
+              <li>Unlimited access to questions</li>
+              <li>Full test simulations</li>
+              <li>Performance analysis</li>
               <li>Result History</li>
               <li>Priority customer support</li>
             </ul>

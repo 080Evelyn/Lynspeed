@@ -13,7 +13,7 @@ import { resetTestQuestions } from "../../../State/TestQuestionSlice";
 import { resetTestResult } from "../../../State/TestResultSlice";
 import { resetAnalysis } from "../../../State/AnalysisSlice";
 import { fetchNotification } from "../../../State/NotificationSlice";
-import { PiCertificateThin } from "react-icons/pi";
+import { PiCertificateThin, PiStudent } from "react-icons/pi";
 import { GiSkills } from "react-icons/gi";
 import { MdQuiz } from "react-icons/md";
 import { SiCodementor } from "react-icons/si";
@@ -30,11 +30,15 @@ import pro from "../../../assets/profile.svg";
 
 import "./Dashboard.css";
 import { resetSkill } from "../../../State/SkillsSlice";
+import { BookOpenCheck, FileCheck, Link2, Rss } from "lucide-react";
+import { resetStudents } from "../../../State/StudentSlice";
+import { resetValidate } from "../../../State/PaymentValidationSlice";
 
 interface UserProfile {
   id: string;
   full_name: string;
   email: string;
+  role: string;
 }
 
 const Dashboard = () => {
@@ -89,6 +93,8 @@ const Dashboard = () => {
     dispatch(resetTestResult());
     dispatch(resetAnalysis());
     dispatch(resetSkill());
+    dispatch(resetStudents());
+    dispatch(resetValidate());
     persistor.purge();
     navigate("/login");
   };
@@ -120,117 +126,162 @@ const Dashboard = () => {
         <aside className={`dashboard-sidebar ${isSidebarOpen ? "open" : ""}`}>
           <h3>Dashboard</h3>
           <ul className="sidebar-menu">
-            {/* Profile Section */}
-            <li className="profile-item">
-              <img src={pro} alt="Profile" />
-              <div className="menu-item" onClick={toggleDropdown}>
-                Profile
-              </div>
-              {isDropdownOpen && (
-                <div className="profile-dropdown">
-                  <p>
-                    <strong>{user?.full_name || "User"}</strong>
-                  </p>
-                  <p>{user?.email || "user@example.com"}</p>
-                  {careerPath && <p>Career: {careerPath}</p>}
-                  <Link to="/subscription">Subscription</Link>
-                  <Link to="/login" onClick={handleSignOut}>
-                    Log out
-                  </Link>
-                </div>
-              )}
-            </li>
-
-            {/* Subjects */}
-            <li>
-              <img src={sub} alt="Subjects" />
-              <Link className="menu-item" to="/subjectselection">
-                {selectedSubjects && selectedSubjects.length > 0
-                  ? "View Selected Subjects"
-                  : "Select Subjects"}
-              </Link>
-            </li>
-            {/* career */}
-            <li className="">
-              <PiCertificateThin size={24} className="text-white font-bold" />
-              <div
-                onClick={toggleCareerDropdown}
-                className="menu-item font-normal !text-[14px] !text-white !px-4 cursor-pointer">
-                Career
-              </div>
-            </li>
-            {careerDropdown && (
-              <div className=" !text-white flex flex-col text-[14px] !pl-[px] ">
-                <Link
-                  className="hover:bg-[#FFFFFF1A] gap-1.5 flex !p-2"
-                  to="/quiz">
-                  <MdQuiz size={24} className="text-white" /> Career quiz
-                </Link>
-                <Link
-                  className="hover:bg-[#FFFFFF1A] flex gap-1.5 !p-2"
-                  to="/mentorship">
-                  <SiCodementor size={24} className="text-white" />
-                  Career Guidance and Counselor
-                </Link>
-              </div>
-            )}
-
-            {/* career */}
-            <li className="">
-              <GiSkills size={24} className="text-white" />
-              <Link to={"/inappskill"} className="">
-                Skill
-              </Link>
-            </li>
-
-            {/* Result History */}
-            <li>
-              <img loading="lazy" src={res} alt="Results" />
-              <Link className="menu-item" to="/resulthistory">
-                Result History
-              </Link>
-            </li>
-
-            {/* Performance Analysis */}
-            <li>
-              <img
-                src={anal}
-                style={{ maxWidth: "25px", maxHeight: "25px" }}
-                alt="Analysis"
-                className="icon-small"
-              />
-              <Link className="menu-item" to="/performance">
-                Performance Analysis
-              </Link>
-            </li>
-
-            {/* Achievement */}
-            <li>
-              <img src={achieve} alt="Achievement" />
-              <Link className="menu-item" to="/achievement">
-                Achievement
-              </Link>
-            </li>
-
-            {/* Notification */}
-            <li>
-              <img src={notify} alt="Notification" />
-              {notifications.message && null}
-              {loading
-                ? null
-                : notifications.message
-                ? null
-                : notificationCount > 0 && (
-                    <span className="notify">
-                      <p className="count">{notificationCount}</p>
-                    </span>
+            {user.role === "enterprise_admin" ? (
+              <>
+                {/* Profile Section */}
+                <li className="profile-item">
+                  <img src={pro} alt="Profile" />
+                  <div className="menu-item" onClick={toggleDropdown}>
+                    Profile
+                  </div>
+                  {isDropdownOpen && (
+                    <div className="profile-dropdown">
+                      <p>
+                        <strong>{user?.full_name || "User"}</strong>
+                      </p>
+                      <p>{user?.email || "user@example.com"}</p>
+                      {careerPath && <p>Career: {careerPath}</p>}
+                      <Link to="/enterprice-subscription">Subscription</Link>
+                      <Link to="/login" onClick={handleSignOut}>
+                        Log out
+                      </Link>
+                    </div>
                   )}
-              <Link className="menu-item" to="/notification">
-                Notification
-              </Link>
-            </li>
-
-            {/* Settings */}
+                </li>
+                <li>
+                  <PiStudent size={25} className="text-white font-bold" />
+                  <Link className="menu-item" to="/registered-students">
+                    Registered Students
+                  </Link>
+                </li>
+                <li>
+                  <FileCheck size={24} className="text-white font-bold" />
+                  <Link className="menu-item" to="/register-students">
+                    Student Registration
+                  </Link>
+                </li>
+                <li>
+                  <Link2 size={24} className="text-white font-bold" />
+                  <Link className="menu-item" to="/link-existing-student">
+                    Link Existing Student
+                  </Link>
+                </li>
+                <li>
+                  <Rss size={24} className="text-white font-bold" />
+                  <Link className="menu-item" to="/subs">
+                    Subscriptions
+                  </Link>
+                </li>
+                <li>
+                  <BookOpenCheck size={24} className="text-white font-bold" />
+                  <Link className="menu-item" to="/students-result">
+                    Student Results
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                {/* Profile Section */}
+                <li className="profile-item">
+                  <img src={pro} alt="Profile" />
+                  <div className="menu-item" onClick={toggleDropdown}>
+                    Profile
+                  </div>
+                  {isDropdownOpen && (
+                    <div className="profile-dropdown">
+                      <p>
+                        <strong>{user?.full_name || "User"}</strong>
+                      </p>
+                      <p>{user?.email || "user@example.com"}</p>
+                      {careerPath && <p>Career: {careerPath}</p>}
+                      <Link to="/subscription">Subscription</Link>
+                      <Link to="/login" onClick={handleSignOut}>
+                        Log out
+                      </Link>
+                    </div>
+                  )}
+                </li>
+                <li>
+                  <img src={sub} alt="Subjects" />
+                  <Link className="menu-item" to="/subjectselection">
+                    {selectedSubjects && selectedSubjects.length > 0
+                      ? "View Selected Subjects"
+                      : "Select Subjects"}
+                  </Link>
+                </li>
+                <li className="">
+                  <PiCertificateThin
+                    size={24}
+                    className="text-white font-bold"
+                  />
+                  <div
+                    onClick={toggleCareerDropdown}
+                    className="menu-item font-normal !text-[14px] !text-white !px-4 cursor-pointer">
+                    Career
+                  </div>
+                </li>
+                {careerDropdown && (
+                  <div className=" !text-white flex flex-col text-[14px] !pl-[px] ">
+                    <Link
+                      className="hover:bg-[#FFFFFF1A] gap-1.5 flex !p-2"
+                      to="/quiz">
+                      <MdQuiz size={24} className="text-white" /> Career quiz
+                    </Link>
+                    <Link
+                      className="hover:bg-[#FFFFFF1A] flex gap-1.5 !p-2"
+                      to="/mentorship">
+                      <SiCodementor size={24} className="text-white" />
+                      Career Guidance and Counselor
+                    </Link>
+                  </div>
+                )}
+                <li className="">
+                  <GiSkills size={24} className="text-white" />
+                  <Link to={"/inappskill"} className="">
+                    Skill
+                  </Link>
+                </li>
+                <li>
+                  <img loading="lazy" src={res} alt="Results" />
+                  <Link className="menu-item" to="/resulthistory">
+                    Result History
+                  </Link>
+                </li>
+                <li>
+                  <img
+                    src={anal}
+                    style={{ maxWidth: "25px", maxHeight: "25px" }}
+                    alt="Analysis"
+                    className="icon-small"
+                  />
+                  <Link className="menu-item" to="/performance">
+                    Performance Analysis
+                  </Link>
+                </li>
+                <li>
+                  <img src={achieve} alt="Achievement" />
+                  <Link className="menu-item" to="/achievement">
+                    Achievement
+                  </Link>
+                </li>
+                <li>
+                  <img src={notify} alt="Notification" />
+                  {notifications.message && null}
+                  {loading
+                    ? null
+                    : notifications.message
+                    ? null
+                    : notificationCount > 0 && (
+                        <span className="notify">
+                          <p className="count">{notificationCount}</p>
+                        </span>
+                      )}
+                  <Link className="menu-item" to="/notification">
+                    Notification
+                  </Link>
+                </li>
+              </>
+            )}
             <li className="profile-item">
               <img src={set} alt="Setting" />
               <div className="menu-item" onClick={toggleSettingsDropdown}>
@@ -245,9 +296,9 @@ const Dashboard = () => {
                     <p>Change password</p>
                   </Link>
                   {/* <div className="dropdown-item">
-                    Notification
-                    <input type="checkbox" className="notification-toggle" />
-                  </div> */}
+              Notification
+              <input type="checkbox" className="notification-toggle" />
+            </div> */}
                 </div>
               )}
             </li>

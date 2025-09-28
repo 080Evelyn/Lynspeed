@@ -21,7 +21,7 @@ interface RegisterResponse {
   confirmed: boolean;
 }
 
-const Register: React.FC = () => {
+const RegisterEnterprise: React.FC = () => {
   const dispatch = useDispatch();
   const [full_name, setFull_name] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -61,10 +61,10 @@ const Register: React.FC = () => {
           email,
           password: password.trim(),
           confirm_password: confirm_password.trim(),
-          role: "student",
+          role: "enterprise_admin",
         }
       );
-
+      console.log(response);
       if (response.status === 200) {
         if (response.data.confirmed) {
           setSuccessMessage(
@@ -122,7 +122,7 @@ const Register: React.FC = () => {
           <img src={note2} alt="signup" />
         </div>
         <div className="right">
-          <h3>Create an account as student</h3>
+          <h3>Create an account as Enterprise</h3>
 
           {loading ? (
             <div className="loader-container">
@@ -132,7 +132,7 @@ const Register: React.FC = () => {
             <form onSubmit={handleRegister} className="fillup">
               <input
                 type="text"
-                placeholder="Full Name"
+                placeholder="Enterprise Name"
                 name="full_name"
                 value={full_name}
                 onChange={(e) => setFull_name(e.target.value)}
@@ -205,4 +205,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default RegisterEnterprise;
