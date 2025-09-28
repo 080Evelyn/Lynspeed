@@ -159,7 +159,7 @@ const StudentResults = () => {
             ) : error ? (
               <tr>
                 <td colSpan={3} className="text-center py-5 text-red-500">
-                  Failed to load data.
+                  {error || "-"}
                 </td>
               </tr>
             ) : filteredResults?.length > 0 ? (
