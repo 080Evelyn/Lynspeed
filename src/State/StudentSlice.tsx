@@ -37,7 +37,7 @@ export const fetchRegisteredStudents = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -116,9 +116,9 @@ const StudentSlice = createSlice({
         state.data = action.payload;
         state.success = true;
       })
-      .addCase(fetchRegisteredStudents.rejected, (state) => {
+      .addCase(fetchRegisteredStudents.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error = action.payload;
         state.data = [];
         state.success = false;
       })

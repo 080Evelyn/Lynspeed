@@ -155,7 +155,7 @@ const Students = () => {
             ) : error ? (
               <tr>
                 <td colSpan={8} className="text-center py-5 text-red-500">
-                  Failed to load data.
+                  {error || "Failed to load data."}
                 </td>
               </tr>
             ) : (
