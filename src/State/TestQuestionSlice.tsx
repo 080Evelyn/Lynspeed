@@ -32,7 +32,9 @@ export const fetchTestQuestions = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       // console.log(error);
-      return rejectWithValue(error.message);
+      return rejectWithValue(
+        error?.response?.data?.message || "something went wrong"
+      );
     }
   }
 );

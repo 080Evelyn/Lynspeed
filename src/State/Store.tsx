@@ -13,6 +13,11 @@ import analysisReducer from "./AnalysisSlice";
 import validateReducer from "./PaymentValidationSlice";
 import notifactionReducer from "./NotificationSlice";
 import skillsReducer from "./SkillsSlice";
+import usersReducer from "./UserSlice";
+import paymentReducer from "./PaymentHistorySlice";
+import studentReducer from "./StudentSlice";
+import studentResultsReducer from "./RegisteredStudentResultSlice";
+
 // import authMiddleware from "./Auth/Authmiddleware";
 
 // Create persist config
@@ -26,6 +31,7 @@ const persistConfig = {
     "savedSubjectList",
     "skills",
     "testQuestions",
+    "registeredStudents",
   ],
 };
 
@@ -41,6 +47,10 @@ const rootReducer = combineReducers({
   paymentValidate: validateReducer,
   notification: notifactionReducer,
   skills: skillsReducer,
+  users: usersReducer,
+  paymentHistory: paymentReducer,
+  registeredStudents: studentReducer,
+  studentsResult: studentResultsReducer,
 });
 
 // Wrap rootReducer with persistReducer

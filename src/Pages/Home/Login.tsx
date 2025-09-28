@@ -46,7 +46,6 @@ const Login: React.FC = () => {
         }
       );
 
-      console.log(response);
       if (response.statusText === "OK") {
         const { access: token, refresh } = response.data;
 
@@ -131,7 +130,7 @@ const Login: React.FC = () => {
             <div className="down1">
               <p>Yet to sign up?</p>
               <div className="log">
-                <Link to="/register">Register</Link>
+                <Link to="/onboarding">Register</Link>
               </div>
             </div>
           </form>

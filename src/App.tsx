@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Blog from "./Pages/Blog/Blog";
@@ -36,7 +41,16 @@ import InAppSkill from "./Pages/Home/Dashboard/InAppSkill/InAppSkill";
 import Verify from "./Pages/Home/Dashboard/veriffy/Verify";
 import PaymentValidation from "./Pages/Home/Dashboard/Profile/PaymentValidation";
 import Adsense from "./Components/Adsense";
-
+import OnboardingPage from "./Pages/Onboarding/OnboardingPage";
+import RegisterEnterprise from "./Pages/Register/RegisterEnterprise";
+import EnterpriseSubscription from "./Pages/Home/Dashboard/Profile/EnterpriseSubscription";
+import Students from "./Pages/Home/Dashboard/Students/Students";
+import StudentSignUp from "./Pages/Home/Dashboard/StudentSignup/StudentSignUp";
+import StudentLink from "./Pages/Home/Dashboard/StudentSignup/StudentLink";
+import StudentResults from "./Pages/Home/Dashboard/Result/StudentResults";
+import Subs from "./Pages/Home/Dashboard/Subs/Subs";
+import StudentsBySub from "./Pages/Home/Dashboard/Students/StudentsBySub";
+import ViewResult from "./Pages/Home/Dashboard/Result/ViewResult";
 
 const PublicLayout = () => {
   return (
@@ -62,7 +76,8 @@ const App = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register/student" element={<Register />} />
+        <Route path="/register/enterprise" element={<RegisterEnterprise />} />
         <Route path="/careerQuiz" element={<CareerQuiz />} />
         <Route path="/skills" element={<Skills />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
@@ -70,6 +85,7 @@ const App = () => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="*" element={<ErrorPage />} />
 
         {/* Protected User Routes */}
@@ -90,6 +106,17 @@ const App = () => {
           <Route path="/validate" element={<PaymentValidation />} />
           <Route path="/correctionPage" element={<CorrectionPage />} />
           <Route path="/subscription" element={<Subscription />} />
+          <Route path="/subs" element={<Subs />} />
+          <Route path="/students-by-id" element={<StudentsBySub />} />
+          <Route path="/view-result" element={<ViewResult />} />
+          <Route
+            path="/enterprice-subscription"
+            element={<EnterpriseSubscription />}
+          />
+          <Route path="/registered-students" element={<Students />} />
+          <Route path="/register-students" element={<StudentSignUp />} />
+          <Route path="/link-existing-student" element={<StudentLink />} />
+          <Route path="/students-result" element={<StudentResults />} />
           <Route path="/lynogpanel" element={<Lynogpanel />} />
           <Route path="/notAuthorized" element={<NotAuthorized />} />
         </Route>

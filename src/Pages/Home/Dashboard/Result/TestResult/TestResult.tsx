@@ -26,7 +26,7 @@ const TestResult = () => {
 
   //getting the testresults data from redux store
   const testResult = useSelector((state: RootState) => state.testResult.data);
-  console.log(testResult);
+
   const loading = useSelector((state: RootState) => state.testResult.loading);
   const error = useSelector((state: RootState) => state.testResult.error);
 
@@ -36,15 +36,14 @@ const TestResult = () => {
   const endTime = testResult?.end_time;
   //subjects from test result
   const subjects = testResult?.subjects;
-
   const testScores = testResult?.scores_by_subject;
-
+  // console.log(testScores);
   //function to get totalScore
   const getTotalScore = () => {
-    const score1 = testScores && testScores[subjects[0]].score;
-    const score2 = testScores && testScores[subjects[1]].score;
-    const score3 = testScores && testScores[subjects[2]].score;
-    const score4 = testScores && testScores[subjects[3]].score;
+    const score1 = testScores?.[subjects[0]]?.score ?? 0;
+    const score2 = testScores?.[subjects[1]]?.score ?? 0;
+    const score3 = testScores?.[subjects[2]]?.score ?? 0;
+    const score4 = testScores?.[subjects[3]]?.score ?? 0;
     return score1 + score2 + score3 + score4;
   };
   const totalScore = getTotalScore();
@@ -71,8 +70,6 @@ const TestResult = () => {
 
   // // Calculate the duration
   const duration = calculateDuration(startTime, endTime);
-  // console.log(duration, startTime, endTime);
-  // console.log(testResult);
 
   const formatTime = (isoString: string): string => {
     const date = new Date(isoString);
@@ -161,8 +158,7 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[0]].score * 100) /
-                              100}
+                            Math.ceil(testScores?.[subjects[0]]?.score ?? 0)}
                         </td>
                       </tr>
                       <tr></tr>
@@ -175,8 +171,7 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[1]].score * 100) /
-                              100}
+                            Math.ceil(testScores?.[subjects[1]]?.score ?? 0)}
                         </td>
                       </tr>
                       <tr>
@@ -187,8 +182,7 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[2]].score * 100) /
-                              100}
+                            Math.ceil(testScores?.[subjects[2]]?.score ?? 0)}
                         </td>
                       </tr>
                       <tr>
@@ -199,15 +193,14 @@ const TestResult = () => {
                         <td></td>
                         <td style={{ paddingLeft: "20px" }}>
                           {testScores &&
-                            Math.ceil(testScores[subjects[3]].score * 100) /
-                              100}
+                            Math.ceil(testScores?.[subjects[3]]?.score ?? 0)}
                         </td>
                       </tr>
                       <tr className="total-score">
                         <td>Total</td>
                         <td>{duration}</td>
                         <td style={{ paddingLeft: "20px" }}>
-                          {Math.ceil(totalScore * 100) / 100}
+                          {Math.ceil(totalScore)}
                         </td>
                       </tr>
                     </tbody>

@@ -27,7 +27,8 @@ const Notification = () => {
   useEffect(() => {
     dispatch(fetchNotification());
   }, []);
-  const sortedNotifications = [...notification].reverse();
+  const notificationsArray = Array.isArray(notification) ? notification : [];
+  const sortedNotifications = [...notificationsArray].reverse();
   return (
     <div className="notification-page">
       {/* <Navbar2/> */}

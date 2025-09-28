@@ -172,13 +172,10 @@ const Privacy: React.FC = () => {
           </p>
           <ul>
             <li>
-              <strong>Email:</strong> support@yourwebsitedomain.com
+              <strong>Email:</strong> support@lynspeed.com.ng
             </li>
             <li>
-              <strong>Phone:</strong> +123 456 7890
-            </li>
-            <li>
-              <strong>Address:</strong> Your Office Address
+              <strong>Phone:</strong> 0906 536 6858
             </li>
           </ul>
         </div>

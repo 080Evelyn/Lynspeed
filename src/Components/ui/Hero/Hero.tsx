@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
                 Start Free Trial
               </button>
             </Link> */}
-            <Link to="/register" aria-label="Register for Lynspeed">
+            <Link to="/onboarding" aria-label="Register for Lynspeed">
               <button className="bg-[#0659a6]   text-[#fff] w-[150px] md:w-[200px]  animate-button cursor-pointer rounded-3xl !px-4 !py-2">
                 Get Started
               </button>

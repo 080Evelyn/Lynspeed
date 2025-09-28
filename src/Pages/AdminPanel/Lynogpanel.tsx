@@ -2,6 +2,10 @@ import axios from "axios";
 import "./Lynogpanel.css";
 import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../State/Store";
+import { fetchUsers } from "../../State/UserSlice";
+import { fetchPayhistory } from "../../State/PaymentHistorySlice";
 
 interface UserProfile {
   id: number;
@@ -23,31 +27,30 @@ const Lynogpanel = () => {
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
   const [subject, setSubject] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [users, setUsers] = useState<UserProfile[]>([]);
-  const [payments, setPayments] = useState<PaymentProfile[]>([]);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch<AppDispatch>();
   const token = localStorage.getItem("authToken");
 
+  const allUsers = useSelector((state: RootState) => state.users?.data);
+  const usersLoading = useSelector((state: RootState) => state.users?.loading);
+  const error = useSelector((state: RootState) => state.users?.error);
+  // const success = useSelector((state: RootState) => state.users?.success);
+
+  const paymentsHistory = useSelector(
+    (state: RootState) => state.paymentHistory?.data
+  );
+  const payLoading = useSelector((state: RootState) => state.users?.loading);
+  const payError = useSelector((state: RootState) => state.users?.error);
+  // const paySuccess = useSelector((state: RootState) => state.users?.success);
+
   useEffect(() => {
-    // Fetch users from API using Axios
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(
-          "https://lynspeed.pythonanywhere.com/api/v1/users/",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUsers(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    fetchUsers();
-  }, [token]);
+    if (selectedMenu === "users") {
+      dispatch(fetchUsers(token));
+    }
+    if (selectedMenu === "payments") {
+      dispatch(fetchPayhistory(token));
+    }
+  }, [selectedMenu]);
 
   const handleDelete = async (userId: number) => {
     const confirmDelete = window.confirm(
@@ -57,7 +60,7 @@ const Lynogpanel = () => {
 
     try {
       const response = await axios.delete(
-        `https://lynspeed.pythonanywhere.com/api/v1/users/${userId}/`,
+        `${import.meta.env.VITE_BASE_URL}api/v1/users/${userId}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,7 +69,8 @@ const Lynogpanel = () => {
       );
       if (response.status === 204) {
         alert("User deleted successfully!");
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+        // setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+        dispatch(fetchUsers(token));
       } else {
         alert("Failed to delete user. Please try again.");
       }
@@ -75,29 +79,6 @@ const Lynogpanel = () => {
       alert("An error occurred while deleting the user.");
     }
   };
-
-  useEffect(() => {
-    // Fetch payment data from the API
-    const fetchPayments = async () => {
-      try {
-        const response = await axios.get(
-          "https://lynspeed.pythonanywhere.com/api/v1/payments/",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setPayments(response.data); // Assuming the API returns an array of payments
-      } catch (error) {
-        console.error("Error fetching payments:", error);
-      }
-    };
-
-    fetchPayments();
-
-    // Fetch payments for a specific user
-  }, [token]);
 
   const handleMenuClick = (menu: SetStateAction<string>) => {
     setSelectedMenu(menu);
@@ -150,8 +131,12 @@ const Lynogpanel = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.length > 0 ? (
-                    users.map((user) => (
+                  {usersLoading ? (
+                    <p className="!text-center font-bold">Loading...</p>
+                  ) : !usersLoading && error ? (
+                    <p className="!text-center">Failed to load users.</p>
+                  ) : allUsers.length > 0 ? (
+                    [...allUsers].reverse().map((user: UserProfile) => (
                       <tr key={user.id}>
                         <td>{user.id}</td>
                         <td>{user.full_name}</td>
@@ -205,7 +190,7 @@ const Lynogpanel = () => {
           <section className="dashboard-cards">
             <div className="card">
               <h3>Total Users</h3>
-              <p>{users.length}</p>{" "}
+              <p>{allUsers.length}</p>{" "}
               {/* Dynamically displaying total number of users */}
             </div>
             <div className="card">
@@ -287,20 +272,28 @@ const Lynogpanel = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {payments.length > 0 ? (
-                    payments.map((payment) => (
-                      <tr key={payment.id}>
-                        <td>{payment.id}</td>
-                        <td>{payment.user_email}</td>
-                        <td>
-                          <i>&#8358;</i> {payment.amount}
-                        </td>
-                        <td>{payment.transaction_id}</td>
-                        <td>
-                          {new Date(payment.payment_date).toLocaleDateString()}
-                        </td>
-                      </tr>
-                    ))
+                  {payLoading ? (
+                    <p className="!text-center">Loading...</p>
+                  ) : !payLoading && payError ? (
+                    <p className="!text-center">Failed to load payments</p>
+                  ) : paymentsHistory.length > 0 ? (
+                    [...paymentsHistory]
+                      .reverse()
+                      .map((payment: PaymentProfile) => (
+                        <tr key={payment.id}>
+                          <td>{payment.id}</td>
+                          <td>{payment.user_email}</td>
+                          <td>
+                            <i>&#8358;</i> {payment.amount}
+                          </td>
+                          <td>{payment.transaction_id}</td>
+                          <td>
+                            {new Date(
+                              payment.payment_date
+                            ).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))
                   ) : (
                     <tr>
                       <td colSpan={5}>No payment records found.</td>
