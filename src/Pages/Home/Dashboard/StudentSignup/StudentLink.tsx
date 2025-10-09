@@ -174,7 +174,7 @@ const StudentLink = () => {
                 errors.subscriptionId ? "border-red-500" : "border-gray-300"
               }`}>
               <option value="">-- Select Subscription --</option>
-              {sub.lenght > 0 ? (
+              {sub.length > 0 ? (
                 sub?.map((item: any) => (
                   <option key={item.id} value={item.id}>
                     {`Plan: ${item.plan_name} | Total Slots: ${item.slots_total} | Used: ${item.slots_used} | Remaining: ${item.slots_remaining}`}
