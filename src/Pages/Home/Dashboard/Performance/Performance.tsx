@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { fetchAnalysis } from "../../../../State/AnalysisSlice";
 import { fetchResultHstory } from "../../../../State/ResultHistorySlice";
+import Sidebar from "../../../../Components/Sidebar";
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 
 // Register chart components for Bar and Line charts
@@ -131,9 +132,9 @@ const Performance: React.FC = () => {
     );
   }
   return (
-    <>
-      {/* <Navbar2 /> */}
-      <div className="performance-analysis">
+    <div className="flex">
+      <Sidebar />
+      <div className="performance-analysis w-full max-h-screen overflow-y-scroll">
         {loading && analysisLoading ? (
           <h2>Loading...</h2>
         ) : !loading && !analysisLoading && error && analysisError ? (
@@ -232,7 +233,7 @@ const Performance: React.FC = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

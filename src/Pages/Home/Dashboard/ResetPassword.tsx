@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Sidebar from "../../../Components/Sidebar";
 // import { useNavigate } from "react-router-dom";
 
 // import Navbar2 from "../../../Components/ui/Navbar/Navbar2";
@@ -37,8 +38,8 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    <>
-      {/* <Navbar2 /> */}
+    <div className="flex">
+      <Sidebar />
       <form
         onSubmit={handleSubmit}
         style={{
@@ -90,7 +91,7 @@ const ResetPassword: React.FC = () => {
           </p>
         )}
       </form>
-    </>
+    </div>
   );
 };
 

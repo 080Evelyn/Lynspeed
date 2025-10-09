@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchAnalysis } from "../../../../State/AnalysisSlice";
+import Sidebar from "../../../../Components/Sidebar";
 // import Navbar2 from "../../../../Components/ui/Navbar/Navbar2";
 // import Footer from "../../../../Components/ui/Footer/Footer";
 
@@ -95,11 +96,11 @@ const Achievement = () => {
   ];
 
   return (
-    <>
-      {/* <Navbar2/> */}
-      <div className="leaderboard-page">
+    <div className="flex">
+      <Sidebar />
+      <div className="leaderboard-page w-full max-h-screen overflow-y-scroll">
         {analysisLoading ? (
-          <h2 style={{textAlign:"center", paddingTop:"5px"}}>Loading...</h2>
+          <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
         ) : !analysisLoading && analysisError ? (
           <h2>Something went wrong, check intenet connection</h2>
         ) : (
@@ -108,7 +109,7 @@ const Achievement = () => {
               <div className="performance-">
                 <h2>No Ranking for you yet, try taking a test session</h2>
               </div>
-            )} 
+            )}
             <div className="leaderboard-header">
               <span
                 className="back-arrow"
@@ -145,7 +146,7 @@ const Achievement = () => {
         )}
         {/* <Footer/> */}
       </div>
-    </>
+    </div>
   );
 };
 

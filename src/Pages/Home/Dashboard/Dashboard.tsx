@@ -50,6 +50,7 @@ const Dashboard = () => {
   const [careerDropdown, setCareerDropdown] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
   const [subjectSelectionMessage, setSubjectSelectionMessage] = useState("");
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar toggle state
   const careerPath = localStorage.getItem("selectedCareer");
 
@@ -306,7 +307,7 @@ const Dashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="right1">
+        <main className="right1 ">
           <section className="welcome-section">
             <div className="welcome-first">
               <h4>Welcome </h4>
