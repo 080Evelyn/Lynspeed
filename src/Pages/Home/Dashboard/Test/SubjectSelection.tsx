@@ -115,8 +115,8 @@ const SubjectSelection = () => {
   }, []);
 
   return (
-    <>
-      <div>
+    <div className="flex">
+      <div className="">
         <div className="spa">
           <span
             className="back-arrow"
@@ -301,7 +301,7 @@ const SubjectSelection = () => {
         )}
         <ToastContainer />
       </div>
-    </>
+    </div>
   );
 };
 

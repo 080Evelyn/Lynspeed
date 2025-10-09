@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from "../../../../State/Store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRegisteredStudentsById } from "../../../../State/StudentSlice";
 import axios from "axios";
+import Sidebar from "../../../../Components/Sidebar";
 
 const StudentsBySub = () => {
   const token = localStorage.getItem("authToken");
@@ -134,167 +135,170 @@ const StudentsBySub = () => {
   );
 
   return (
-    <>
-      <div className="flex justify-center !mt-4">
-        <input
-          type="text"
-          placeholder="Search by name or email..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="!w-[90%] md:w-1/2 !h-[40px] !px-2 !py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0659a6]"
-        />
-      </div>
-      <div className="overflow-x-auto">
-        <span
-          className="back-arrow cursor-pointer"
-          onClick={() => window.history.back()}>
-          ←
-        </span>
-        <h1 className="text-center !py-4 md:text-2xl">
-          All registered students under subscription id: {id}
-        </h1>
+    <div className="flex">
+      <Sidebar />
+      <div className="w-full">
+        <div className="flex justify-center !mt-4">
+          <input
+            type="text"
+            placeholder="Search by name or email..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="!w-[90%] md:w-1/2 !h-[40px] !px-2 !py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0659a6]"
+          />
+        </div>
+        <div className="overflow-x-auto">
+          <span
+            className="back-arrow cursor-pointer"
+            onClick={() => window.history.back()}>
+            ←
+          </span>
+          <h1 className="text-center !py-4 md:text-2xl">
+            All registered students under subscription id: {id}
+          </h1>
 
-        {selectedStudents.length > 0 && (
-          <div className="flex justify-end !mb-2">
-            <button
-              onClick={handleBulkRemove}
-              className="!px-4 !py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition">
-              Remove Selected ({selectedStudents.length})
-            </button>
-          </div>
-        )}
-
-        <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
-          <thead className="bg-[#0659a6] text-white">
-            <tr>
-              <th className="!px-4 !py-3 text-left text-sm font-semibold">
-                <input
-                  type="checkbox"
-                  checked={
-                    selectedStudents.length === filteredStudents?.length &&
-                    filteredStudents?.length > 0
-                  }
-                  onChange={toggleSelectAll}
-                  className="md:!h-[20px]"
-                />
-              </th>
-              <th className="!px-4 !py-3 text-left text-sm font-semibold">
-                ID
-              </th>
-              <th className="!px-4 !py-3 text-left text-sm font-semibold">
-                Name
-              </th>
-              <th className="!px-4 !py-3 text-left text-sm font-semibold">
-                Email
-              </th>
-              <th className="!px-4 !py-3 text-left text-sm font-semibold">
-                Created At
-              </th>
-              <th className="!px-4 !py-3 text-left text-sm font-semibold">
-                Subscribed
-              </th>
-              <th className="!px-4 !py-3 text-center text-sm font-semibold">
-                Action
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan={8} className="text-center py-5">
-                  Loading...
-                </td>
-              </tr>
-            ) : error ? (
-              <tr>
-                <td colSpan={8} className="text-center py-5 text-red-500">
-                  {error || "Failed to load data."}
-                </td>
-              </tr>
-            ) : (
-              filteredStudents?.map((student: any) => (
-                <tr
-                  key={student.enterprise_student_id}
-                  className="border-b border-gray-200 hover:bg-gray-50">
-                  <td className="!px-4 !py-3 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={selectedStudents.includes(
-                        student.enterprise_student_id
-                      )}
-                      onChange={() =>
-                        toggleSelect(student.enterprise_student_id)
-                      }
-                      className="md:!h-[20px]"
-                    />
-                  </td>
-                  <td className="!px-4 !py-3 text-sm">
-                    {student.enterprise_student_id}
-                  </td>
-                  <td className="!px-4 !py-3 text-sm font-medium">
-                    {student.name}
-                  </td>
-                  <td className="!px-4 !py-3 text-sm">{student.email}</td>
-                  <td className="!px-4 !py-3 text-sm">
-                    {new Date(student.created_at).toLocaleDateString()}
-                  </td>
-                  <td className="!px-4 !py-3 text-sm">
-                    {student.subscribed ? "True" : "False"}
-                  </td>
-                  <td className="!px-4 !py-3 text-center">
-                    <button
-                      onClick={() =>
-                        handleRemove(student.enterprise_student_id)
-                      }
-                      className="!px-3 !py-1 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition">
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-
-        {filteredStudents?.length === 0 && !loading && !error && (
-          <p className="text-center mt-6 text-gray-500">No students found.</p>
-        )}
-      </div>
-
-      {/* Confirmation Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-lg !p-6 w-[90%] !max-w-md">
-            <h2 className="text-lg font-semibold !mb-4">Confirm Removal</h2>
-            <p className="!mb-6 text-gray-700">
-              {removeType === "single"
-                ? "Are you sure you want to remove this student?"
-                : `Are you sure you want to remove ${selectedStudents.length} students?`}
-            </p>
-            <div className="flex justify-end gap-3">
+          {selectedStudents.length > 0 && (
+            <div className="flex justify-end !mb-2">
               <button
-                onClick={() => {
-                  setShowModal(false);
-                  dispatch(fetchRegisteredStudentsById({ token, id }));
-                }}
-                className="!px-4 !py-2 bg-gray-300 text-gray-800 rounded-lg text-sm hover:bg-gray-400 transition">
-                Cancel
-              </button>
-              <button
-                onClick={confirmRemove}
+                onClick={handleBulkRemove}
                 className="!px-4 !py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition">
-                {loader ? "Processing..." : "Confirm"}
+                Remove Selected ({selectedStudents.length})
               </button>
             </div>
-            {err && <p className="text-red-500 text-center !mt-2">{err}</p>}
-            {success && (
-              <p className="text-green-500 text-center !mt-2">{success}</p>
-            )}
+          )}
+          <div className="max-h-[500px] overflow-y-auto border border-gray-200 rounded-lg">
+            <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+              <thead className="bg-[#0659a6] text-white">
+                <tr>
+                  <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                    <input
+                      type="checkbox"
+                      checked={
+                        selectedStudents.length === filteredStudents?.length &&
+                        filteredStudents?.length > 0
+                      }
+                      onChange={toggleSelectAll}
+                      className="md:!h-[20px]"
+                    />
+                  </th>
+                  <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                    ID
+                  </th>
+                  <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                    Name
+                  </th>
+                  <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                    Email
+                  </th>
+                  <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                    Created At
+                  </th>
+                  <th className="!px-4 !py-3 text-left text-sm font-semibold">
+                    Subscribed
+                  </th>
+                  <th className="!px-4 !py-3 text-center text-sm font-semibold">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={8} className="text-center py-5">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : error ? (
+                  <tr>
+                    <td colSpan={8} className="text-center py-5 text-red-500">
+                      {error || "Failed to load data."}
+                    </td>
+                  </tr>
+                ) : (
+                  filteredStudents?.map((student: any) => (
+                    <tr
+                      key={student.enterprise_student_id}
+                      className="border-b border-gray-200 hover:bg-gray-50">
+                      <td className="!px-4 !py-3 text-sm">
+                        <input
+                          type="checkbox"
+                          checked={selectedStudents.includes(
+                            student.enterprise_student_id
+                          )}
+                          onChange={() =>
+                            toggleSelect(student.enterprise_student_id)
+                          }
+                          className="md:!h-[20px]"
+                        />
+                      </td>
+                      <td className="!px-4 !py-3 text-sm">
+                        {student.enterprise_student_id}
+                      </td>
+                      <td className="!px-4 !py-3 text-sm font-medium">
+                        {student.name}
+                      </td>
+                      <td className="!px-4 !py-3 text-sm">{student.email}</td>
+                      <td className="!px-4 !py-3 text-sm">
+                        {new Date(student.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="!px-4 !py-3 text-sm">
+                        {student.subscribed ? "True" : "False"}
+                      </td>
+                      <td className="!px-4 !py-3 text-center">
+                        <button
+                          onClick={() =>
+                            handleRemove(student.enterprise_student_id)
+                          }
+                          className="!px-3 !py-1 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition">
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
+          {filteredStudents?.length === 0 && !loading && !error && (
+            <p className="text-center mt-6 text-gray-500">No students found.</p>
+          )}
         </div>
-      )}
-    </>
+
+        {/* Confirmation Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50">
+            <div className="bg-white rounded-lg shadow-lg !p-6 w-[90%] !max-w-md">
+              <h2 className="text-lg font-semibold !mb-4">Confirm Removal</h2>
+              <p className="!mb-6 text-gray-700">
+                {removeType === "single"
+                  ? "Are you sure you want to remove this student?"
+                  : `Are you sure you want to remove ${selectedStudents.length} students?`}
+              </p>
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={() => {
+                    setShowModal(false);
+                    dispatch(fetchRegisteredStudentsById({ token, id }));
+                  }}
+                  className="!px-4 !py-2 bg-gray-300 text-gray-800 rounded-lg text-sm hover:bg-gray-400 transition">
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmRemove}
+                  className="!px-4 !py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition">
+                  {loader ? "Processing..." : "Confirm"}
+                </button>
+              </div>
+              {err && <p className="text-red-500 text-center !mt-2">{err}</p>}
+              {success && (
+                <p className="text-green-500 text-center !mt-2">{success}</p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

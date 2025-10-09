@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AppDispatch } from "../../../../State/Store";
 import { useDispatch } from "react-redux";
 import { fetchRegisteredStudents } from "../../../../State/StudentSlice";
+import Sidebar from "../../../../Components/Sidebar";
 interface FormData {
   full_name: string;
   email: string;
@@ -85,11 +86,10 @@ const StudentSignUp = () => {
     }
   };
   return (
-    <>
-      <span className="back-arrow" onClick={() => window.history.back()}>
-        ←
-      </span>
-      <div className="flex justify-center items-center min-h-screen bg-gray-100 !px-4">
+    <div className="flex">
+      <Sidebar />
+
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 w-full !px-4">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md bg-white !p-8 rounded-2xl shadow-lg">
@@ -160,7 +160,7 @@ const StudentSignUp = () => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -92,7 +92,7 @@ const ResultItem: React.FC<ResultItemProps> = ({ timestamp, results }) => {
   // console.log("Time:", formattedTime);
   return (
     <>
-      <div className="result-item" ref={resultRef}>
+      <div className="result-item " ref={resultRef}>
         <div className="left-section">
           <div className="date-time-box">
             <div className="calen">

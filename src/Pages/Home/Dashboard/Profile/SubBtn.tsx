@@ -27,9 +27,9 @@ const SubBtn = ({ name, id }: Payload) => {
         ? {
             plan_id: id,
             plan_type: name,
-            // callback_url: "https://www.lynspeed.com.ng/validate",
+            callback_url: "https://www.lynspeed.com.ng/validate",
             is_enterprise: true,
-            callback_url: "http://localhost:5173/validate",
+            // callback_url: "http://localhost:5173/validate",
           }
         : {
             plan_id: id,
