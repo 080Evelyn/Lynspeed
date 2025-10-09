@@ -127,7 +127,7 @@ const Subs = () => {
                   ) : !loading && error ? (
                     <p className="text-center text-red-500">Failed to load</p>
                   ) : (
-                    sub.map((s: any) => (
+                    sub.map((s: any, i: any) => (
                       <tr
                         key={s.id}
                         className={`border-b border-gray-200 hover:bg-gray-50 transition`}>
@@ -144,7 +144,7 @@ const Subs = () => {
                           />
                         </td>
                         <td className="!px-4 !py-3 text-sm font-medium">
-                          {s.id}
+                          {i + 1}
                         </td>
                         <td className="!px-4 !py-3 text-sm font-medium">
                           {s.slots_total}
