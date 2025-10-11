@@ -6,7 +6,7 @@ import {
   fetchSub,
 } from "../../../../State/StudentSlice";
 import Sidebar from "../../../../Components/Sidebar";
-// import axios from "axios";
+import axios from "axios";
 
 const Students = () => {
   const token = localStorage.getItem("authToken");
@@ -26,11 +26,7 @@ const Students = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
   const [selectedSubId, setSelectedSubId] = useState<number | null>(null);
-  const [
-    submitting,
-    _,
-    // setSubmitting
-  ] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -56,7 +52,9 @@ const Students = () => {
     if (selectedStudents.length === filteredStudents.length) {
       setSelectedStudents([]);
     } else {
-      setSelectedStudents(filteredStudents.map((s: any) => s.student_id));
+      setSelectedStudents(
+        filteredStudents.map((s: any) => s.enterprise_student_id)
+      );
     }
   };
 
@@ -71,43 +69,43 @@ const Students = () => {
       return;
     }
 
-    alert(`coming soon...`);
-    // try {
-    //   setSubmitting(true);
-    //   setMessage("");
+    try {
+      setSubmitting(true);
+      setMessage("");
 
-    //   const payload = {
-    //     subscriptionId: selectedSubId,
-    //     studentIds: selectedStudents,
-    //   };
+      const payload = {
+        subscription_id: selectedSubId,
+        student_ids: selectedStudents,
+      };
 
-    //   const res = await axios.post(
-    //     `${
-    //       import.meta.env.VITE_BASE_URL
-    //     }api/v1/enterprise/subscription/add-students`,
-    //     payload,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
+      const res = await axios.post(
+        `${
+          import.meta.env.VITE_BASE_URL
+        }api/v1/enterprise/students/assign-students-to-subscription/`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    //   if (res.status === 200) {
-    //     setMessage("✅ Students added successfully!");
-    //     setSelectedStudents([]);
-    //     setSelectedSubId(null);
-    //     dispatch(fetchRegisteredStudents(token)); // Refresh
-    //   }
-    // } catch (err: any) {
-    //   setMessage(
-    //     err.response?.data?.message ||
-    //       "❌ Failed to add students to subscription."
-    //   );
-    // } finally {
-    //   setSubmitting(false);
-    // }
+      if (res.status === 200) {
+        setMessage("✅ Students added successfully!");
+        setSelectedStudents([]);
+        setSelectedSubId(null);
+        dispatch(fetchRegisteredStudents(token)); // Refresh
+        dispatch(fetchSub(token));
+      }
+    } catch (err: any) {
+      setMessage(
+        err.response?.data?.message ||
+          "❌ Failed to add students to subscription."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
