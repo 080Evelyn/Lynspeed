@@ -47,7 +47,6 @@ const StudentsBySub = () => {
   // Confirm delete after modal approval
   const confirmRemove = async () => {
     if (removeType === "single" && targetId) {
-      //   console.log("Removing single student:", targetId);
       setLoader(true);
       setErr("");
       setSuccess("");
@@ -75,7 +74,6 @@ const StudentsBySub = () => {
         setLoader(false);
       }
     } else if (removeType === "bulk") {
-      console.log("Removing multiple students:", selectedStudents);
       setLoader(true);
       setErr("");
       setSuccess("");
@@ -168,7 +166,7 @@ const StudentsBySub = () => {
           )}
           <div className="max-h-[500px] overflow-y-auto border border-gray-200 rounded-lg">
             <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
-              <thead className="bg-[#0659a6] text-white">
+              <thead className="bg-[#0659a6] text-white sticky top-0 z-10">
                 <tr>
                   <th className="!px-4 !py-3 text-left text-sm font-semibold">
                     <input
