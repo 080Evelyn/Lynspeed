@@ -108,7 +108,7 @@ export default function CareerQuiz() {
               next steps!
             </p>
             <div className="flex justify-center gap-3">
-              <Link to={"/register"}>
+              <Link to={"/onboarding"}>
                 <button className="bg-blue-600 hover:bg-blue-700 text-white !px-4 !py-2 rounded-lg transition">
                   Let’s Go →
                 </button>
