@@ -7,6 +7,7 @@ import facebook from "../../../assets/facebook.png";
 import twiter from "../../../assets/twitter.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 import { FaTelegram } from "react-icons/fa";
+import { MapPin } from "lucide-react";
 // import { useState } from "react";
 
 const whatsappGroupLink = "https://chat.whatsapp.com/KYaD5WJWx6b1jyYgHAiwXt";
@@ -28,6 +29,11 @@ const Footer = () => {
             grow with like-minded people. We combine exam prep, career guidance,
             and skill discovery — all in one place. Your growth starts here.
           </p>
+
+          <span className="flex !pt-4">
+            <MapPin />1 Alhaji Adenekan Street, opposite Access bank, College
+            Bustop Okota, Lagos
+          </span>
         </div>
 
         <div className="footer-links">
