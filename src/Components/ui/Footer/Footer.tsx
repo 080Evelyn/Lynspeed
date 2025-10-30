@@ -30,10 +30,10 @@ const Footer = () => {
             and skill discovery — all in one place. Your growth starts here.
           </p>
 
-          <span className="flex !pt-4">
+          <p className="flex !pt-4">
             <MapPin />1 Alhaji Adenekan Street, opposite Access bank, College
             Bustop Okota, Lagos
-          </span>
+          </p>
         </div>
 
         <div className="footer-links">
@@ -141,7 +141,7 @@ const Footer = () => {
               <img src={facebook} alt="Facebook" />
             </a>
             <a
-              href="https://www.instagram.com/lynspeed.com.ng/"
+              href="https://www.instagram.com/lynspeed_/"
               target="_blank"
               rel="noopener noreferrer">
               <img src={insta} alt="Instagram" />
