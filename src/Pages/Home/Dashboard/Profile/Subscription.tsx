@@ -100,7 +100,6 @@ const Subscription: React.FC = () => {
           },
         }
       );
-      console.log(response);
       if (response.statusText === "OK") {
         setPaymentVerify(true);
         localStorage.removeItem("referenceId");

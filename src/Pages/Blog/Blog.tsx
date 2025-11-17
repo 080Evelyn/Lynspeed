@@ -28,7 +28,7 @@ const Blog = () => {
           name="keywords"
           content="JAMB simulation, JAMB success tips, passing JAMB, JAMB time management, JAMB mistakes, JAMB past questions"
         />
-        <meta name="author" content="LYNOG TECH NIG" />
+        <meta name="author" content="LYNOG TECH NIG. LTD" />
       </head>
 
       <div className="blog-content">
