@@ -51,6 +51,8 @@ import StudentResults from "./Pages/Home/Dashboard/Result/StudentResults";
 import Subs from "./Pages/Home/Dashboard/Subs/Subs";
 import StudentsBySub from "./Pages/Home/Dashboard/Students/StudentsBySub";
 import ViewResult from "./Pages/Home/Dashboard/Result/ViewResult";
+import QuickAccess from "./Pages/QuickAccess/QuickAccess";
+import PaymentSuccess from "./Pages/SuccessfulPayment/SuccessPayment";
 
 const PublicLayout = () => {
   return (
@@ -80,6 +82,8 @@ const App = () => {
         <Route path="/register/enterprise" element={<RegisterEnterprise />} />
         <Route path="/careerQuiz" element={<CareerQuiz />} />
         <Route path="/skills" element={<Skills />} />
+        <Route path="/live" element={<QuickAccess />} />
+        <Route path="/sale" element={<PaymentSuccess />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/privacy" element={<Privacy />} />

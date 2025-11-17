@@ -67,8 +67,9 @@ const Navbar: React.FC = () => {
               </svg>
             </span>
             <ul
-              className={`absolute  ${clicked ? "block" : "hidden"
-                } group-hover:block bg-[#0659a6] !px-2 border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[200px] md:!w-[250px]  z-50`}>
+              className={`absolute  ${
+                clicked ? "block" : "hidden"
+              } group-hover:block bg-[#0659a6] !px-2 border rounded shadow-md mt-2 !py-2 !ml-[-50%] !w-[200px] md:!w-[250px]  z-50`}>
               <li>
                 <a
                   onClick={() => {
@@ -119,6 +120,9 @@ const Navbar: React.FC = () => {
 
           <li>
             <Link to="/pricing">Pricing</Link>
+          </li>
+          <li>
+            <Link to="/live">Quick Access</Link>
           </li>
           <li>
             <Link to="/contact">Contact</Link>
