@@ -29,11 +29,6 @@ const Footer = () => {
             grow with like-minded people. We combine exam prep, career guidance,
             and skill discovery — all in one place. Your growth starts here.
           </p>
-
-          <p className="flex !pt-4">
-            <MapPin />1 Alhaji Adenekan Street, opposite Access bank, College
-            Bustop Okota, Lagos
-          </p>
         </div>
 
         <div className="footer-links">
@@ -125,6 +120,10 @@ const Footer = () => {
               rel="noopener noreferrer">
               Join Our WhatsApp Group
             </a>
+            <p className="flex !pt-4">
+              <MapPin />1 Alhaji Adenekan Street, opposite Access bank, College
+              Bustop Okota, Lagos
+            </p>
           </div>
 
           <div className="footer-social">

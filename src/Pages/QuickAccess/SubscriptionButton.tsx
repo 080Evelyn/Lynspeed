@@ -6,28 +6,26 @@ interface SubscriptionButtonProps {
   price: number;
   highlight?: boolean;
   loading?: boolean;
+  id: number;
+  onSelectPlan?: (plan: string, id: number) => void; // NEW
 }
 
 const SubscriptionButton: React.FC<SubscriptionButtonProps> = ({
   label,
   plan,
-  price,
   highlight,
+  id,
+  onSelectPlan,
 }) => {
-  const onSubscribe = (plan: string, price: number) => {
-    console.log(plan, price);
-  };
   return (
     <button
-      // disabled={loading}
-      onClick={() => onSubscribe(plan, price)}
+      onClick={() => onSelectPlan?.(plan, id)}
       className={`!mt-6 w-full text-white !py-3 rounded-lg font-semibold transition
       ${
         highlight
           ? "bg-amber-300 hover:!bg-amber-500"
           : "bg-[#0659a6] hover:bg-blue-900"
       }
-     
       `}>
       {label}
     </button>

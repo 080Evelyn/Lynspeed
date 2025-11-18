@@ -1,33 +1,182 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import Footer from "../../Components/ui/Footer/Footer";
 import { Link } from "react-router-dom";
 import SubscriptionButton from "./SubscriptionButton";
+import axios from "axios";
 
 // ------------------ COMPONENT TYPES ------------------
 interface FeatureProps {
   text: string;
 }
 
-interface ReasonProps {
-  emoji: string;
-  title: string;
-  text: string;
-}
+// interface ReasonProps {
+//   emoji: string;
+//   title: string;
+//   text: string;
+// }
 
 interface PricingCardProps {
   name: string;
   price: string;
+  id: number;
   features: string[];
   button: string;
   highlight?: boolean;
+  setShowModal: any;
+  setSelectedPlan: any;
+  planType: string;
+}
+
+interface Testimonial {
+  name: string;
+  photo?: string;
+  before?: string;
+  after: string;
+  note?: string;
 }
 
 // ------------------ PAGE COMPONENT ------------------
 const QuickAccess: React.FC = () => {
+  const [selectedPlan, setSelectedPlan] = useState<{
+    id: number;
+    planType: string;
+  } | null>(null);
+
+  const [email, setEmail] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Countdown timer (example: early-access ends in X days from now)
+  const [timeLeft, setTimeLeft] = useState<number>(() => {
+    // default to 3 days in seconds
+    return 3 * 24 * 60 * 60;
+  });
+  const [slotsLeft, _] = useState<number>(() => 87); // sample initial slots
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((t) => (t > 0 ? t - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // helper to format time
+  const formatCountdown = (t: number) => {
+    const days = Math.floor(t / (24 * 3600));
+    const hrs = Math.floor((t % (24 * 3600)) / 3600);
+    const mins = Math.floor((t % 3600) / 60);
+    const secs = Math.floor(t % 60);
+    return `${days}d ${String(hrs).padStart(2, "0")}h ${String(mins).padStart(
+      2,
+      "0"
+    )}m ${String(secs).padStart(2, "0")}s`;
+  };
+
+  // sample testimonials (replace with real data)
+  const testimonials: Testimonial[] = [
+    {
+      name: "Chinonso I.",
+      photo: "https://i.pravatar.cc/80?img=12",
+      before: "189",
+      after: "312",
+      note: "From panic to confidence — Lynspeed changed the game.",
+    },
+    {
+      name: "Aisha M.",
+      photo: "https://i.pravatar.cc/80?img=8",
+      before: "205",
+      after: "327",
+      note: "Mock exams and tracking made all the difference.",
+    },
+    {
+      name: "Tunde O.",
+      photo: "https://i.pravatar.cc/80?img=5",
+      before: "220",
+      after: "338",
+      note: "I practiced daily and the results spoke for themselves.",
+    },
+  ];
+
+  const handleSubscribe = async () => {
+    if (!email) return alert("Please enter a valid email.");
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}api/v1/public/initialize/`,
+        {
+          email,
+          plan_id: selectedPlan?.id,
+          plan_type: selectedPlan?.planType,
+          callback_url: "https://www.lynspeed.com.ng/sale",
+          is_enterprise: false,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.data) {
+        localStorage.setItem("payment_email", email);
+
+        // if there's a payment url returned
+        if (response.data.payment_url) {
+          window.location.href = response.data.payment_url;
+        }
+      }
+
+      setShowModal(false);
+      setEmail("");
+    } catch (error: any) {
+      console.error(error);
+
+      const msg =
+        error?.response?.data?.email?.[0] || "Something went wrong. Try again.";
+
+      alert(msg);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <>
       <Navbar />
+      {showModal && (
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/20 flex items-center justify-center px-4 z-50">
+          <div className="bg-white !w-80 !p-6 rounded-xl shadow-lg">
+            <h2 className="text-xl font-bold !mb-3">
+              Subscribe to {selectedPlan?.planType}
+            </h2>
+
+            <label className="text-sm font-medium !mb-1 block">
+              Enter your email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border rounded-lg !p-2 !mb-4"
+              placeholder="you@example.com"
+            />
+
+            <button
+              onClick={handleSubscribe}
+              disabled={loading}
+              className="w-full bg-[#0659a6] text-white !py-2 rounded-lg font-semibold hover:bg-blue-900 transition">
+              {loading ? "Processing..." : "Continue"}
+            </button>
+
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full !mt-3 text-gray-500 hover:!bg-gray-300 !py-2 text-sm">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* HERO SECTION */}
       <section className="bg-[#0659a6] text-white !py-16 !px-6">
@@ -76,6 +225,46 @@ const QuickAccess: React.FC = () => {
         </div>
       </section>
 
+      {/* URGENCY / SCARCITY SECTION */}
+      <section className="!py-6 !px-6 bg-amber-50">
+        <div className="max-w-5xl !mx-auto text-center">
+          <div className="inline-block bg-white rounded-xl !px-4 !py-3 shadow-md border">
+            <p className="text-sm font-semibold text-gray-700">
+              EARLY ACCESS BONUS
+            </p>
+            <p className="text-lg font-bold text-[#0659a6] !mt-1">
+              Secure your 2026 advantage — limited early slots
+            </p>
+
+            <div className="!mt-3 flex items-center justify-center gap-6">
+              <div className="text-center">
+                <p className="text-sm text-gray-500">Seats left</p>
+                <p className="text-2xl font-bold text-red-600">{slotsLeft}</p>
+              </div>
+              <div className="h-12 border-l"></div>
+              <div className="text-center">
+                <p className="text-sm text-gray-500">Offer ends in</p>
+                <p className="text-2xl font-bold">
+                  {formatCountdown(timeLeft)}
+                </p>
+              </div>
+            </div>
+
+            <div className="!mt-4">
+              <button
+                onClick={() => {
+                  // scroll to pricing
+                  const section = document.getElementById("pricing");
+                  section?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-[#0659a6] text-white !px-6 !py-2 rounded-xl font-semibold shadow">
+                Reserve Your Seat Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FEATURES SECTION */}
       <section className="!py-14 !px-6 bg-gray-50">
         <div className="max-w-5xl !mx-auto">
@@ -92,29 +281,125 @@ const QuickAccess: React.FC = () => {
         </div>
       </section>
 
-      {/* WHY JOIN SECTION */}
-      <section className="!py-14 !px-6">
+      {/* VALUE PROPOSITION (ENHANCED) */}
+      <section className="!py-10 !px-6">
         <div className="max-w-5xl !mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-center">
-            Why 2026 JAMB Students Are Joining Lynspeed Now
+            Why Lynspeed Works
           </h2>
 
-          <div className="!mt-10 grid md:grid-cols-3 gap-6">
-            <Reason
-              emoji="🎯"
-              title="Beat Competition Early"
-              text="JAMB starts in May 2026. Champions are training in 2025."
-            />
-            <Reason
-              emoji="💡"
-              title="Learn Faster"
-              text="Smart CBT patterns that repeat real JAMB questions."
-            />
-            <Reason
-              emoji="📈"
-              title="Track Performance"
-              text="Know weak topics, fix them, and increase your score daily."
-            />
+          <div className="!mt-8 grid md:grid-cols-4 gap-4">
+            <div className="!p-4 bg-white rounded-lg shadow flex items-start gap-3">
+              <div className="text-2xl text-[#0659a6]">🧠</div>
+              <div>
+                <h4 className="font-semibold">Train Like The Real Exam</h4>
+                <p className="text-sm text-gray-600">
+                  Timed CBT practice that mirrors JAMB.
+                </p>
+              </div>
+            </div>
+
+            <div className="!p-4 bg-white rounded-lg shadow flex items-start gap-3">
+              <div className="text-2xl text-[#0659a6]">📚</div>
+              <div>
+                <h4 className="font-semibold">Repeated Exam Patterns</h4>
+                <p className="text-sm text-gray-600">
+                  Past questions, shortcuts & pro tips.
+                </p>
+              </div>
+            </div>
+
+            <div className="!p-4 bg-white rounded-lg shadow flex items-start gap-3">
+              <div className="text-2xl text-[#0659a6]">📈</div>
+              <div>
+                <h4 className="font-semibold">Progress Tracking</h4>
+                <p className="text-sm text-gray-600">
+                  Daily analytics to fix weak topics fast.
+                </p>
+              </div>
+            </div>
+
+            <div className="!p-4 bg-white rounded-lg shadow flex items-start gap-3">
+              <div className="text-2xl text-[#0659a6]">⏱</div>
+              <div>
+                <h4 className="font-semibold">Micro Practice</h4>
+                <p className="text-sm text-gray-600">
+                  Short drills that fit busy student lives.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SOCIAL PROOF / TESTIMONIALS */}
+      <section className="!py-12 !px-6 bg-white">
+        <div className="max-w-5xl !mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center">
+            Success Stories
+          </h2>
+          <p className="text-center text-gray-600 mt-2">
+            Real students, real score improvements
+          </p>
+
+          <div className="!mt-8 grid md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <div key={i} className="bg-gray-50 !p-4 rounded-lg shadow">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={t.photo}
+                    alt={t.name}
+                    className="w-14 h-14 rounded-full object-cover border"
+                  />
+                  <div>
+                    <p className="font-bold">{t.name}</p>
+                    <p className="text-sm text-gray-500">
+                      {t.before ? `From ${t.before}` : ""} →{" "}
+                      <span className="text-[#0659a6] font-bold">
+                        {t.after}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <p className="!mt-3 text-gray-700 text-sm">{t.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DEMO / HOW IT WORKS */}
+      <section className="!py-12 !px-6 bg-gray-50">
+        <div className="max-w-5xl !mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            How Lynspeed Works (3 Steps)
+          </h2>
+          <p className="text-gray-600 !mt-2">
+            Simple, repeatable, results-driven
+          </p>
+
+          <div className="!mt-8 grid md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-lg !p-6 shadow">
+              <div className="text-4xl">1️⃣</div>
+              <h4 className="font-bold !mt-3">Subscribe & Get Access</h4>
+              <p className="text-sm text-gray-600 !mt-2">
+                Choose Weekly, Monthly or Quarterly and start immediately.
+              </p>
+            </div>
+            <div className="bg-white rounded-lg !p-6 shadow">
+              <div className="text-4xl">2️⃣</div>
+              <h4 className="font-bold !mt-3">Train Daily</h4>
+              <p className="text-sm text-gray-600 !mt-2">
+                Timed CBT tests, topic drills and weekly challenges.
+              </p>
+            </div>
+            <div className="bg-white rounded-lg !p-6 shadow">
+              <div className="text-4xl">3️⃣</div>
+              <h4 className="font-bold !mt-3">Track & Improve</h4>
+              <p className="text-sm text-gray-600 !mt-2">
+                Instant feedback and targeted practice until you reach 300+.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -135,6 +420,10 @@ const QuickAccess: React.FC = () => {
                 "24/7 Mobile Access",
               ]}
               button="Start 7 Days"
+              id={1}
+              setShowModal={setShowModal}
+              setSelectedPlan={setSelectedPlan}
+              planType="Weekly"
             />
 
             <PricingCard
@@ -148,6 +437,10 @@ const QuickAccess: React.FC = () => {
                 "Higher Score Guarantee",
               ]}
               button="Start 1 Month"
+              id={2}
+              setShowModal={setShowModal}
+              setSelectedPlan={setSelectedPlan}
+              planType="Monthly"
             />
 
             <PricingCard
@@ -160,25 +453,76 @@ const QuickAccess: React.FC = () => {
                 "Best success rate",
               ]}
               button="Start 3 Months"
+              id={3}
+              setShowModal={setShowModal}
+              setSelectedPlan={setSelectedPlan}
+              planType="Quarterly"
             />
           </div>
         </div>
       </section>
 
-      {/* CTA WARNING SECTION */}
+      {/* GUARANTEE */}
+      <section className="!py-10 !px-6 bg-white">
+        <div className="max-w-5xl !mx-auto text-center">
+          <h3 className="text-xl font-bold">Our Promise</h3>
+          <p className="text-gray-600 mt-2">
+            Try Lynspeed risk-free — cancel anytime. We’re confident our 300+
+            system will help you improve your score or get actionable guidance
+            to keep improving.
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="!py-12 !px-6 bg-gray-50">
+        <div className="max-w-5xl !mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center">
+            Frequently Asked Questions
+          </h2>
+
+          <div className="!mt-8 space-y-4">
+            <FaqItem
+              q="How do I start practicing immediately?"
+              a="Choose a plan and complete payment — you'll get instant access to the dashboard and CBT practice."
+            />
+            <FaqItem
+              q="Can I cancel anytime?"
+              a="Yes. You can cancel your subscription at any time from your account settings."
+            />
+            <FaqItem
+              q="Do I need a laptop?"
+              a="No. Lynspeed is optimized for mobile — you can practice on any smartphone or tablet."
+            />
+            <FaqItem
+              q="What payment methods are accepted?"
+              a="Paystack and Flutterwave (cards, bank transfers, and mobile payments)."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
       <section className="!py-16 !px-6 text-center bg-white">
-        <h2 className="text-2xl md:text-3xl font-bold text-red-600">
-          ⚠ 92% of Students Who Start Late Score Under 200
+        <h2 className="text-3xl md:text-4xl font-extrabold">
+          Start Your 300+ Journey Now
         </h2>
-        <p className="!mt-3 text-gray-600 max-w-xl !mx-auto">
-          Starting now can be the difference between celebrating admission or
-          rewriting JAMB.
+        <p className="!mt-4 text-gray-600 max-w-xl !mx-auto">
+          Join thousands of students who chose early preparation and won. Your
+          2026 success starts today.
         </p>
-        <Link to={"/login"}>
-          <button className="!mt-6 bg-[#0659a6] text-white !px-10 !py-3 rounded-xl text-lg font-semibold hover:bg-blue-900 transition">
-            Start Your 300+ Journey Now
-          </button>
-        </Link>
+        <div className="!mt-6 flex items-center justify-center gap-4">
+          <a
+            href="#pricing"
+            className="bg-[#0659a6] text-white !px-8 !py-3 rounded-xl text-lg font-semibold hover:bg-blue-900 transition">
+            Subscribe Now
+          </a>
+          <Link to={"/login"}>
+            <button className="!mt-0 border border-gray-300 text-gray-700 !px-6 !py-3 rounded-xl text-lg font-semibold hover:!bg-gray-100 transition">
+              Login
+            </button>
+          </Link>
+        </div>
       </section>
 
       <Footer />
@@ -197,20 +541,23 @@ const Feature: React.FC<FeatureProps> = ({ text }) => (
   </div>
 );
 
-const Reason: React.FC<ReasonProps> = ({ emoji, title, text }) => (
-  <div className="!p-6 bg-white shadow rounded-xl">
-    <div className="text-4xl !mb-3">{emoji}</div>
-    <h3 className="font-bold text-lg !mb-1">{title}</h3>
-    <p className="text-gray-600 text-sm">{text}</p>
-  </div>
-);
-
+// const Reason: React.FC<ReasonProps> = ({ emoji, title, text }) => (
+//   <div className="!p-6 bg-white shadow rounded-xl">
+//     <div className="text-4xl !mb-3">{emoji}</div>
+//     <h3 className="font-bold text-lg !mb-1">{title}</h3>
+//     <p className="text-gray-600 text-sm">{text}</p>
+//   </div>
+// );
 const PricingCard: React.FC<PricingCardProps> = ({
   name,
   price,
+  id,
   features,
   button,
   highlight,
+  setSelectedPlan,
+  setShowModal,
+  planType,
 }) => (
   <div
     className={`!p-6 rounded-xl shadow-lg border ${
@@ -233,9 +580,31 @@ const PricingCard: React.FC<PricingCardProps> = ({
 
     <SubscriptionButton
       label={button}
-      plan={name}
-      price={Number(price.replace(/\D/g, ""))} // extract "2050" from "₦2,050"
+      plan={planType}
+      price={Number(price.replace(/\D/g, ""))}
       highlight={highlight}
+      id={id}
+      onSelectPlan={(planName, planId) => {
+        setSelectedPlan({ id: planId, planType: planName });
+        setShowModal(true);
+      }}
     />
   </div>
 );
+
+// FAQ item component
+const FaqItem: React.FC<{ q: string; a: string }> = ({ q, a }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-gray-200 rounded-lg !p-4 bg-white">
+      <button
+        onClick={() => setOpen((s) => !s)}
+        className="flex justify-between items-center w-full hover:!bg-transparent"
+        aria-expanded={open}>
+        <span className="font-semibold">{q}</span>
+        <span className="text-xl">{open ? "−" : "+"}</span>
+      </button>
+      {open && <p className="!mt-3 text-gray-600">{a}</p>}
+    </div>
+  );
+};

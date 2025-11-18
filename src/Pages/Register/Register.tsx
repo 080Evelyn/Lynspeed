@@ -22,9 +22,11 @@ interface RegisterResponse {
 }
 
 const Register: React.FC = () => {
+  // Retrieve email stored earlier during subscription initialization
+  const storedEmail = localStorage.getItem("payment_email");
   const dispatch = useDispatch();
   const [full_name, setFull_name] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>(storedEmail || "");
   const [password, setPassword] = useState<string>("");
   const [confirm_password, setConfirm_password] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -34,7 +36,6 @@ const Register: React.FC = () => {
   const [formVisible, setFormVisible] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -50,7 +51,7 @@ const Register: React.FC = () => {
     setError("");
     setSuccessMessage("");
     setLoading(true);
-
+    console.log(email, full_name);
     try {
       dispatch({ type: REGISTER_REQUEST });
 
@@ -76,7 +77,7 @@ const Register: React.FC = () => {
               Registration successful!{" "}
               <span style={{ color: "#FF5733", fontWeight: "600" }}>
                 Please check your email (including your spam folder)
-              </span>{" "}
+              </span>
               to confirm your account.
             </span>
           );
@@ -90,6 +91,7 @@ const Register: React.FC = () => {
         setEmail("");
         setPassword("");
         setConfirm_password("");
+        localStorage.removeItem("payment_email");
       } else {
         const errorMessage =
           response.data.message || "Registration failed. Please try again.";
