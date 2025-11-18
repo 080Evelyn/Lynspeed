@@ -15,7 +15,7 @@ import anal from "../assets/perform.svg";
 import pro from "../assets/profile.svg";
 
 import "../Pages/Home/Dashboard/Dashboard.css";
-import { BookOpenCheck, FileCheck, Link2, Rss } from "lucide-react";
+import { BookOpenCheck, CreditCard, FileCheck, Link2, Rss } from "lucide-react";
 import { resetAnalysis } from "../State/AnalysisSlice";
 import { fetchNotification } from "../State/NotificationSlice";
 import { resetValidate } from "../State/PaymentValidationSlice";
@@ -201,7 +201,6 @@ const Sidebar = () => {
                     </p>
                     <p>{user?.email || "user@example.com"}</p>
                     {careerPath && <p>Career: {careerPath}</p>}
-                    <Link to="/subscription">Subscription</Link>
                     <Link to="/login" onClick={handleSignOut}>
                       Log out
                     </Link>
@@ -216,6 +215,15 @@ const Sidebar = () => {
                     : "Select Subjects"}
                 </Link>
               </li>
+              <li>
+                <CreditCard size={24} className="text-white font-bold" />
+                <Link
+                  className={`menu-item ${isActive("/subscription")}`}
+                  to="/subscription">
+                  Subscription
+                </Link>
+              </li>
+
               <li className="">
                 <PiCertificateThin size={24} className="text-white font-bold" />
                 <div

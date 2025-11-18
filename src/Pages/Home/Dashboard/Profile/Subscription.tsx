@@ -8,6 +8,7 @@ import { AppDispatch } from "../../../../State/Store";
 import { useDispatch } from "react-redux";
 import { setValidate } from "../../../../State/PaymentValidationSlice";
 import PaymentValidationText from "./PaymentValidationText";
+import Sidebar from "../../../../Components/Sidebar";
 
 interface SubscriptionStatus {
   status: string;
@@ -123,99 +124,102 @@ const Subscription: React.FC = () => {
   }, []);
 
   return (
-    <div className="subscription-container">
-      {/* Backward Arrow */}
-      <div className="header-container">
-        <span className="back-arrow" onClick={() => window.history.back()}>
-          ←
-        </span>
-        <h2 className="subscription-title">My Subscription</h2>
-      </div>
-      {loading || verifiactionLoading ? (
-        <p>Loading subscription details...</p>
-      ) : error ? (
-        <p className="error-message">{error}</p>
-      ) : (
-        <>
-          {subscription && subscription.subscribed ? (
-            <div className="subscription-details">
-              <h3>
-                Current Plan: {subscription.plan && subscription.plan.name}
-              </h3>
-              <p>
-                <strong>Valid Until:</strong>{" "}
-                {new Date(
-                  subscription.subscription_end_date
-                ).toLocaleDateString()}
-              </p>
-            </div>
-          ) : (
-            <p>You do not have an active subscription.</p>
-          )}
-          <div className="plans-container">
-            {plan &&
-              plan.map((plan) => (
-                <div key={plan.id} className="plan-card">
-                  <h2>{plan.name}</h2>
-                  {plan.duration === 7 && (
-                    <p>
-                      7 days validity, Unlimited access to questions, Full test
-                      simulations, Performance analysis, Result History Email
-                      support
-                    </p>
-                  )}
-                  {plan.duration === 30 && (
-                    <p>
-                      30 days validity, Unlimited access to questions, Full test
-                      simulations, Performance analysis, Priority customer
-                      support, Test result & History.
-                    </p>
-                  )}
-                  {plan.duration === 90 && (
-                    <p>
-                      90 days validity, Unlimited access to questions, Full test
-                      simulations, Performance analysis, Priority customer
-                      support, Test result & History.
-                    </p>
-                  )}
-                  <h3>{plan.price}</h3>
-
-                  <SubBtn name={plan.name} id={plan.id} />
-                </div>
-              ))}
-          </div>
+    <div className="flex">
+      <Sidebar />
+      <div className="subscription-container">
+        {/* Backward Arrow */}
+        <div className="header-container">
+          <span className="back-arrow" onClick={() => window.history.back()}>
+            ←
+          </span>
+          <h2 className="subscription-title">My Subscription</h2>
+        </div>
+        {loading || verifiactionLoading ? (
+          <p>Loading subscription details...</p>
+        ) : error ? (
+          <p className="error-message">{error}</p>
+        ) : (
           <>
-            {paymentVerify && (
-              <>
-                <PaymentValidationText
-                  text={"your payment has been successfuly verified"}
-                />
-                <div
-                  onClick={() => {
-                    setPaymentVerify(false);
-                  }}
-                  className="modal "></div>
-              </>
+            {subscription && subscription.subscribed ? (
+              <div className="subscription-details">
+                <h3>
+                  Current Plan: {subscription.plan && subscription.plan.name}
+                </h3>
+                <p>
+                  <strong>Valid Until:</strong>{" "}
+                  {new Date(
+                    subscription.subscription_end_date
+                  ).toLocaleDateString()}
+                </p>
+              </div>
+            ) : (
+              <p>You do not have an active subscription.</p>
             )}
-            {paymentNotVerify && (
-              <>
-                <PaymentValidationText
-                  text={
-                    "Payment status: abandoned. Please contact support if you need assistance."
-                  }
-                />
+            <div className="plans-container">
+              {plan &&
+                plan.map((plan) => (
+                  <div key={plan.id} className="plan-card">
+                    <h2>{plan.name}</h2>
+                    {plan.duration === 7 && (
+                      <p>
+                        7 days validity, Unlimited access to questions, Full
+                        test simulations, Performance analysis, Result History
+                        Email support
+                      </p>
+                    )}
+                    {plan.duration === 30 && (
+                      <p>
+                        30 days validity, Unlimited access to questions, Full
+                        test simulations, Performance analysis, Priority
+                        customer support, Test result & History.
+                      </p>
+                    )}
+                    {plan.duration === 90 && (
+                      <p>
+                        90 days validity, Unlimited access to questions, Full
+                        test simulations, Performance analysis, Priority
+                        customer support, Test result & History.
+                      </p>
+                    )}
+                    <h3>{plan.price}</h3>
 
-                <div
-                  onClick={() => {
-                    setPaymentNotVerify(false);
-                  }}
-                  className="modal"></div>
-              </>
-            )}
+                    <SubBtn name={plan.name} id={plan.id} />
+                  </div>
+                ))}
+            </div>
+            <>
+              {paymentVerify && (
+                <>
+                  <PaymentValidationText
+                    text={"your payment has been successfuly verified"}
+                  />
+                  <div
+                    onClick={() => {
+                      setPaymentVerify(false);
+                    }}
+                    className="modal "></div>
+                </>
+              )}
+              {paymentNotVerify && (
+                <>
+                  <PaymentValidationText
+                    text={
+                      "Payment status: abandoned. Please contact support if you need assistance."
+                    }
+                  />
+
+                  <div
+                    onClick={() => {
+                      setPaymentNotVerify(false);
+                    }}
+                    className="modal"></div>
+                </>
+              )}
+            </>
           </>
-        </>
-      )}
-      <ToastContainer />
+        )}
+        <ToastContainer />
+      </div>
     </div>
   );
 };

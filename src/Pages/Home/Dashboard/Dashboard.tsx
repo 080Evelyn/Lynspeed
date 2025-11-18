@@ -30,7 +30,7 @@ import pro from "../../../assets/profile.svg";
 
 import "./Dashboard.css";
 import { resetSkill } from "../../../State/SkillsSlice";
-import { BookOpenCheck, FileCheck, Link2, Rss } from "lucide-react";
+import { BookOpenCheck, CreditCard, FileCheck, Link2, Rss } from "lucide-react";
 import { resetStudents } from "../../../State/StudentSlice";
 import { resetValidate } from "../../../State/PaymentValidationSlice";
 
@@ -195,7 +195,7 @@ const Dashboard = () => {
                       </p>
                       <p>{user?.email || "user@example.com"}</p>
                       {careerPath && <p>Career: {careerPath}</p>}
-                      <Link to="/subscription">Subscription</Link>
+
                       <Link to="/login" onClick={handleSignOut}>
                         Log out
                       </Link>
@@ -220,6 +220,10 @@ const Dashboard = () => {
                     className="menu-item font-normal !text-[14px] !text-white !px-4 cursor-pointer">
                     Career
                   </div>
+                </li>
+                <li className="">
+                  <CreditCard size={24} className="text-white font-bold" />
+                  <Link to="/subscription">Subscription</Link>
                 </li>
                 {careerDropdown && (
                   <div className=" !text-white flex flex-col text-[14px] !pl-[px] ">
