@@ -4,6 +4,9 @@ import Footer from "../../Components/ui/Footer/Footer";
 import { Link } from "react-router-dom";
 import SubscriptionButton from "./SubscriptionButton";
 import axios from "axios";
+import img1 from "../../assets/ad1.png";
+import img2 from "../../assets/ad2.png";
+import img3 from "../../assets/ad3.png";
 
 // ------------------ COMPONENT TYPES ------------------
 interface FeatureProps {
@@ -77,21 +80,21 @@ const QuickAccess: React.FC = () => {
   const testimonials: Testimonial[] = [
     {
       name: "Chinonso I.",
-      photo: "https://i.pravatar.cc/80?img=12",
+      photo: img2,
       before: "189",
       after: "312",
       note: "From panic to confidence — Lynspeed changed the game.",
     },
     {
       name: "Aisha M.",
-      photo: "https://i.pravatar.cc/80?img=8",
+      photo: img1,
       before: "205",
       after: "327",
       note: "Mock exams and tracking made all the difference.",
     },
     {
       name: "Tunde O.",
-      photo: "https://i.pravatar.cc/80?img=5",
+      photo: img3,
       before: "220",
       after: "338",
       note: "I practiced daily and the results spoke for themselves.",
@@ -210,15 +213,15 @@ const QuickAccess: React.FC = () => {
           {/* HERO STATS */}
           <div className="!mt-10 grid grid-cols-3 gap-8 text-center">
             <div>
-              <p className="text-3xl font-bold">98%</p>
+              <p className=" md:text-3xl font-bold">98%</p>
               <p className="text-sm opacity-80">Pass Rate</p>
             </div>
             <div>
-              <p className="text-3xl font-bold">20,000+</p>
+              <p className="md:text-3xl font-bold">20,000+</p>
               <p className="text-sm opacity-80">Active Students</p>
             </div>
             <div>
-              <p className="text-3xl font-bold">300+</p>
+              <p className="md:text-3xl font-bold">300+</p>
               <p className="text-sm opacity-80">Avg Score Jump</p>
             </div>
           </div>
@@ -349,8 +352,9 @@ const QuickAccess: React.FC = () => {
                   <img
                     src={t.photo}
                     alt={t.name}
-                    className="w-14 h-14 rounded-full object-cover border"
+                    className="w-14 h-14 rounded-full object-cover border border-gray-300"
                   />
+
                   <div>
                     <p className="font-bold">{t.name}</p>
                     <p className="text-sm text-gray-500">

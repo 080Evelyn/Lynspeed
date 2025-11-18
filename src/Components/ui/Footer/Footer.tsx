@@ -122,7 +122,7 @@ const Footer = () => {
             </a>
             <p className="flex !pt-4">
               <MapPin />1 Alhaji Adenekan Street, opposite Access bank, College
-              Bustop Okota, Lagos
+              Bus stop Okota, Lagos
             </p>
           </div>
 
