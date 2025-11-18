@@ -68,7 +68,9 @@ const Notification = () => {
                           <BtnNotify id={notification.id} />
                         </>
                       )}
-                      {notification.is_read && <p>{notification.message}</p>}
+                      {notification.is_read && (
+                        <p className="break-words">{notification.message}</p>
+                      )}
                     </div>
                     <div className="notification-date">
                       <span>{notification.date}</span>
