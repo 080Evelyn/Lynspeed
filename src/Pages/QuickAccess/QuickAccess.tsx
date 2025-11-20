@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/ui/Navbar/Navbar";
 import Footer from "../../Components/ui/Footer/Footer";
-import { Link } from "react-router-dom";
 import SubscriptionButton from "./SubscriptionButton";
 import axios from "axios";
 import img1 from "../../assets/ad1.png";
@@ -53,9 +52,9 @@ const QuickAccess: React.FC = () => {
   // Countdown timer (example: early-access ends in X days from now)
   const [timeLeft, setTimeLeft] = useState<number>(() => {
     // default to 3 days in seconds
-    return 3 * 24 * 60 * 60;
+    return 4500;
   });
-  const [slotsLeft, _] = useState<number>(() => 87); // sample initial slots
+  const [slotsLeft, _] = useState<number>(() => 30); // sample initial slots
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -463,6 +462,10 @@ const QuickAccess: React.FC = () => {
               planType="Quarterly"
             />
           </div>
+
+          <p className="text-red-600 text-center font-bold !mt-6">
+            Prices will go up soon!
+          </p>
         </div>
       </section>
 
@@ -508,24 +511,19 @@ const QuickAccess: React.FC = () => {
 
       {/* FINAL CTA */}
       <section className="!py-16 !px-6 text-center bg-white">
-        <h2 className="text-3xl md:text-4xl font-extrabold">
-          Start Your 300+ Journey Now
+        <h2 className="text-3xl md:text-4xl text-red-600 font-extrabold">
+          ⚠ 92% of Students Who Start Late Score Under 200
         </h2>
         <p className="!mt-4 text-gray-600 max-w-xl !mx-auto">
-          Join thousands of students who chose early preparation and won. Your
-          2026 success starts today.
+          Starting now can be the difference between Celebrating Admission or
+          Rewriting JAMB.
         </p>
         <div className="!mt-6 flex items-center justify-center gap-4">
           <a
             href="#pricing"
             className="bg-[#0659a6] text-white !px-8 !py-3 rounded-xl text-lg font-semibold hover:bg-blue-900 transition">
-            Subscribe Now
+            Start Your 300+ Journey Now
           </a>
-          <Link to={"/login"}>
-            <button className="!mt-0 border border-gray-300 text-gray-700 !px-6 !py-3 rounded-xl text-lg font-semibold hover:!bg-gray-100 transition">
-              Login
-            </button>
-          </Link>
         </div>
       </section>
 
