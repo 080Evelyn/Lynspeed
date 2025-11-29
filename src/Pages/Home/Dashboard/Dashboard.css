@@ -261,7 +261,7 @@
   .dashboard-sidebar {
     position: fixed;
     left: -250px;
-    width: 300px !important ;
+    width: 250px !important ;
     height: 100vh;
     transition: left 0.3s ease-in-out;
     z-index: 1000;
