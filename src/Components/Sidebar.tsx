@@ -15,7 +15,14 @@ import anal from "../assets/perform.svg";
 import pro from "../assets/profile.svg";
 
 import "../Pages/Home/Dashboard/Dashboard.css";
-import { BookOpenCheck, CreditCard, FileCheck, Link2, Rss } from "lucide-react";
+import {
+  BookOpenCheck,
+  CreditCard,
+  FileCheck,
+  Link2,
+  LogOut,
+  Rss,
+} from "lucide-react";
 import { resetAnalysis } from "../State/AnalysisSlice";
 import { fetchNotification } from "../State/NotificationSlice";
 import { resetValidate } from "../State/PaymentValidationSlice";
@@ -115,14 +122,15 @@ const Sidebar = () => {
     notifications?.filter((notice: any) => !notice.is_read);
   const notificationCount = unreadNotification.length;
   return (
-    <div className="dashboard-container ">
+    <div className="flex overflow-y-scroll h-screen ">
       {/* Sidebar Toggle Button for Smaller Screens */}
       <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
         {isSidebarOpen ? "✖" : "☰"}
       </button>
 
       {/* Sidebar */}
-      <aside className={`dashboard-sidebar ${isSidebarOpen ? "open" : ""}`}>
+      <aside
+        className={`dashboard-sidebar !pb-10 ${isSidebarOpen ? "open" : ""}`}>
         <h3>Dashboard</h3>
         <ul className="sidebar-menu">
           {user.role === "enterprise_admin" ? (
@@ -201,9 +209,6 @@ const Sidebar = () => {
                     </p>
                     <p>{user?.email || "user@example.com"}</p>
                     {careerPath && <p>Career: {careerPath}</p>}
-                    <Link to="/login" onClick={handleSignOut}>
-                      Log out
-                    </Link>
                   </div>
                 )}
               </li>
@@ -323,6 +328,12 @@ const Sidebar = () => {
             </div> */}
               </div>
             )}
+          </li>
+          <li>
+            <LogOut size={24} className="text-white" />
+            <Link to="/login" onClick={handleSignOut}>
+              Log out
+            </Link>
           </li>
         </ul>
       </aside>

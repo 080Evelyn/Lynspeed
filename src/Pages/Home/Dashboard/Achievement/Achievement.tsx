@@ -96,9 +96,9 @@ const Achievement = () => {
   ];
 
   return (
-    <div className="flex">
+    <div className="flex max-h-screen">
       <Sidebar />
-      <div className="leaderboard-page w-full max-h-screen overflow-y-scroll">
+      <div className="leaderboard-page w-full  overflow-y-scroll">
         {analysisLoading ? (
           <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
         ) : !analysisLoading && analysisError ? (

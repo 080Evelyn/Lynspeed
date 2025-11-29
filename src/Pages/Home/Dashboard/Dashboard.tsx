@@ -30,7 +30,14 @@ import pro from "../../../assets/profile.svg";
 
 import "./Dashboard.css";
 import { resetSkill } from "../../../State/SkillsSlice";
-import { BookOpenCheck, CreditCard, FileCheck, Link2, Rss } from "lucide-react";
+import {
+  BookOpenCheck,
+  CreditCard,
+  FileCheck,
+  Link2,
+  LogOut,
+  Rss,
+} from "lucide-react";
 import { resetStudents } from "../../../State/StudentSlice";
 import { resetValidate } from "../../../State/PaymentValidationSlice";
 
@@ -86,6 +93,8 @@ const Dashboard = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     localStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("seen-subject-warning");
+
     dispatch(resetAuth());
     dispatch(resetResultHistory());
     dispatch(resetSavedSubject());
@@ -195,10 +204,6 @@ const Dashboard = () => {
                       </p>
                       <p>{user?.email || "user@example.com"}</p>
                       {careerPath && <p>Career: {careerPath}</p>}
-
-                      <Link to="/login" onClick={handleSignOut}>
-                        Log out
-                      </Link>
                     </div>
                   )}
                 </li>
@@ -211,6 +216,10 @@ const Dashboard = () => {
                   </Link>
                 </li>
                 <li className="">
+                  <CreditCard size={24} className="text-white font-bold" />
+                  <Link to="/subscription">Subscription</Link>
+                </li>
+                <li className="">
                   <PiCertificateThin
                     size={24}
                     className="text-white font-bold"
@@ -221,10 +230,7 @@ const Dashboard = () => {
                     Career
                   </div>
                 </li>
-                <li className="">
-                  <CreditCard size={24} className="text-white font-bold" />
-                  <Link to="/subscription">Subscription</Link>
-                </li>
+
                 {careerDropdown && (
                   <div className=" !text-white flex flex-col text-[14px] !pl-[px] ">
                     <Link
@@ -306,6 +312,12 @@ const Dashboard = () => {
             </div> */}
                 </div>
               )}
+            </li>
+            <li>
+              <LogOut size={24} className="text-white" />
+              <Link to="/login" onClick={handleSignOut}>
+                Log out
+              </Link>
             </li>
           </ul>
         </aside>
