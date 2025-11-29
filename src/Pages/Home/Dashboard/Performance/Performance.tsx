@@ -132,7 +132,7 @@ const Performance: React.FC = () => {
     );
   }
   return (
-    <div className="flex">
+    <div className="flex max-h-screen">
       <Sidebar />
       <div className="performance-analysis w-full max-h-screen overflow-y-scroll">
         {loading && analysisLoading ? (

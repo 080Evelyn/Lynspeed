@@ -40,6 +40,22 @@ const SubjectSelection = () => {
   const error = useSelector((state: RootState) => state.savedSubjectList.error);
 
   const userSubject = error === "Request failed with status code 404";
+  useEffect(() => {
+    const hasSeenMessage = sessionStorage.getItem("seen-subject-warning");
+    // console.log(hasSeenMessage);
+    // Only show message if user already has saved subjects (meaning they cannot unselect)
+    if (!hasSeenMessage && !userSubject) {
+      toast.info(
+        "If you made a mistake selecting your subjects, please contact the management.",
+        { autoClose: 10000 }
+      );
+
+      // delay writing to sessionStorage so second render doesn't block toast
+      setTimeout(() => {
+        sessionStorage.setItem("seen-subject-warning", "true");
+      }, 100); // small delay is enough
+    }
+  }, [userSubject]);
 
   const handleSubjectChange = (subject: string) => {
     const extraSelectedSubjects = selectedSubjects.filter(

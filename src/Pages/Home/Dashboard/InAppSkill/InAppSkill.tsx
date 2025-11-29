@@ -24,7 +24,7 @@ const InAppSkill = () => {
     dispatch(fetchSkills());
   }, []);
   return (
-    <div className="flex">
+    <div className="flex max-h-screen">
       <Sidebar />
       <section className="!py-12 !px-4 md:px-12 w-full bg-white text-gray-800">
         {loading ? (

@@ -27,7 +27,9 @@ const ResultHistory: React.FC = () => {
     <div className="flex">
       <Sidebar />
       {loading ? (
-        <h2 className="!text-center !p-5">Loading...</h2>
+        <div className="w-full flex justify-center">
+          <h2 className="!text-center !p-5 ">Loading...</h2>
+        </div>
       ) : !loading && error ? (
         <h2>Something went wrong, check internet connection</h2>
       ) : (

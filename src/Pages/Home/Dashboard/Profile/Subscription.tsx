@@ -124,7 +124,7 @@ const Subscription: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex">
+    <div className="flex max-h-screen">
       <Sidebar />
       <div className="subscription-container">
         {/* Backward Arrow */}
