@@ -93,6 +93,7 @@ const Sidebar = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     localStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("seen-subject-warning");
     dispatch(resetAuth());
     dispatch(resetResultHistory());
     dispatch(resetSavedSubject());
@@ -122,7 +123,10 @@ const Sidebar = () => {
     notifications?.filter((notice: any) => !notice.is_read);
   const notificationCount = unreadNotification.length;
   return (
-    <div className="flex overflow-y-scroll h-screen ">
+    <div
+      className={`flex overflow-y-scroll ${
+        user.role === "enterprise_admin" ? "h-screen" : "h-full"
+      }  `}>
       {/* Sidebar Toggle Button for Smaller Screens */}
       <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
         {isSidebarOpen ? "✖" : "☰"}
