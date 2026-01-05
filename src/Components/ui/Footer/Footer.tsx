@@ -163,7 +163,7 @@ const Footer = () => {
 
       <div className="footer-copyright">
         <div className="space"></div>
-        <p>&copy; 2025 Lynspeed. All Rights Reserved.</p>
+        <p>&copy; 2026 Lynspeed. All Rights Reserved.</p>
         <p>
           Powered by <strong>LYNOG TECH NIG. LTD</strong>
         </p>
