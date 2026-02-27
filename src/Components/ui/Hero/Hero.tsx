@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Bubbles from "../Bubbles/Bubbles";
 import Footer from "../Footer/Footer";
 import mage from "../../../assets/homeImage.png";
-// import heroVideo from "../../../assets/siteTour.mp4";
+import heroVideo from "../../../assets/siteTour.mp4";
 import "./Hero.css";
 import image1 from "../../../assets/Img3.png";
 import image2 from "../../../assets/Img2.png";
