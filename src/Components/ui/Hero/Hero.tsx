@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
           </div>
 
           {Video Section}
-          {<div className="video-container">
+          <div className="video-container">
             <video className="hero-video" controls>
               <source src={heroVideo} type="video/mp4" />
               Your browser does not support the video tag.
@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
             <p className="video-description">
               How to register, log in, and take a test on Lynspeed.
             </p>
-          </div>}
+          </div>
         </div>
         <div
           className="animate-image relative md:left-[5%] h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full"
