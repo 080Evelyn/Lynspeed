@@ -61,12 +61,13 @@
 .video-container {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  height: 300px;
 }
 
 .hero-video {
