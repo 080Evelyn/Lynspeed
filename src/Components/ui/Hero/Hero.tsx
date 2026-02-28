@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
       <Bubbles />
       <section className="hero">
         <div className="left">
-          <div className="max-w-[800px] !mt-[50px] b md:!mt-[-100px] !px-5">
+          <div className="max-w-[800px] !mt-[50px] b md:!mt-[50px] !px-5">
             <h1 className="write1 text-[#0659a6] text-6xl  animate-text">
               From <span className="text-amber-700">Books</span>
               <br className="md:hidden" /> to
@@ -45,16 +45,16 @@ const Hero: React.FC = () => {
             </Link>
           </div>
 
-         {/* Video Section */}
-<div className="video-container">
-  <video className="hero-video" controls>
-    <source src={heroVideo} type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  <p className="video-description">
-    How to register, log in, and take a test on Lynspeed.
-  </p>
-</div>
+          {/* Video Section */}
+          <div className="video-container">
+            <video className="hero-video" controls>
+              <source src={heroVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p className="video-description">
+              How to register, log in, and take a test on Lynspeed.
+            </p>
+          </div>
         </div>
         <div
           className="animate-image relative md:left-[5%] h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full"
