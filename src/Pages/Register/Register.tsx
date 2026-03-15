@@ -74,11 +74,11 @@ const Register: React.FC = () => {
         } else {
           setSuccessMessage(
             <span>
-              Registration successful!{" "}
+              Registration in progress!{" "}
               <span style={{ color: "#FF5733", fontWeight: "600" }}>
                 Please check your email (including your spam folder)
               </span>
-              to confirm your account.
+              to verify your account.
             </span>
           );
         }
