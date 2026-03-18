@@ -232,7 +232,7 @@ const Test: React.FC = () => {
         <div className="sub-opt">
           <h2>You have exhausted your trials. Please subscribe to continue.</h2>
           <button>
-            <Link to="/subscription" style={{ color: "white" }}>
+            <Link to="/subscription" style={{ color: "red" }}>
               Subscription
             </Link>
           </button>
