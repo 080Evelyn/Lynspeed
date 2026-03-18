@@ -230,7 +230,7 @@ const Test: React.FC = () => {
         error &&
         error === "Request failed with status code 403" ? (
         <div className="sub-opt">
-          <h2>You have exhausted your trials. Please subscribe to continue.</h2>
+          <h2>You have exhausted your trials. Kindly subscribe to continue.</h2>
           <button>
             <Link to="/subscription" style={{ color: "red" }}>
               Subscription
