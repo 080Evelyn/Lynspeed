@@ -22,14 +22,14 @@ import "./ChatBtn.css";
 
 const ChatButton: React.FC = () => {
     return (
-        <div className="chat-wrapper">
-            <span className="chat-label">HELP!</span>
+        <div className="chat-button">
             <a
                 href="https://wa.me/2349065366858"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="chat-button"
+                className="chat-link"
             >
+                <span className="chat-label">Need Help?</span>
                 <img src={chatIcon} alt="Chat with Us" />
             </a>
         </div>
