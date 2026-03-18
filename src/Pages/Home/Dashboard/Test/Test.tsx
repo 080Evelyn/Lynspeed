@@ -223,6 +223,8 @@ const Test: React.FC = () => {
   }, [navigate]);
   // console.log(timeRemaining);
   return (
+
+    {/*
     <div className="test-container">
       {loading ? (
         <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
@@ -241,6 +243,38 @@ const Test: React.FC = () => {
         error &&
         error !== "Request failed with status code 403" ? (
         <h2>{error}</h2>
+
+          */}
+
+<div className="test-container">
+  {loading ? (
+    <h2 style={{ textAlign: "center", paddingTop: "5px" }}>Loading...</h2>
+  ) : !loading &&
+    (
+      (typeof error === "string" && error.includes("403")) ||
+      (typeof error === "object" && error?.response?.status === 403) ||
+      (typeof error === "string" && error.toLowerCase().includes("exhausted"))
+    ) ? (
+    <div className="sub-opt">
+      <h2>
+        {typeof error === "string"
+          ? error
+          : "You have exhausted your trials. Kindly subscribe to continue."}
+      </h2>
+
+      <Link to="/subscription">
+        <button style={{ color: "white", background: "red" }}>
+          Subscription
+        </button>
+      </Link>
+    </div>
+  ) : !loading && error ? (
+    <h2>{typeof error === "string" ? error : error?.message}</h2>
+
+      {/*
+      */}
+
+    
       ) : (
         <>
           <div className="subject-tabs">
