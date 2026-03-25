@@ -96,6 +96,22 @@ const Terms = () => {
               result in the termination of this license.
             </p>
           </div>
+
+          <div className="start">
+            <li>Educational Content Disclaimer</li>
+            <p>
+              Lynspeed is an independent educational platform and is not affiliated with, 
+              endorsed by, or officially connected to the Joint Admissions and Matriculation
+              Board (JAMB) or any other examination body.
+              All questions, materials, and simulations provided on this platform are 
+              either original, adapted, or inspired by standard examination formats 
+              for learning purposes only. Lynspeed does not claim that any content on the 
+              platform consists of official or previously administered JAMB examination questions.
+              Any resemblance to actual exam questions is purely coincidental or based on 
+              general exam patterns and public knowledge.
+            </p>
+          </div>
+          
           <div className="start">
             <li>Privacy</li>
             <p>
